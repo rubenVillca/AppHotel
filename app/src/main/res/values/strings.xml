@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hotel</string>
+    <string name="hint_user_name">Nombre de usuario</string>
+    <string name="description_logo">Logo del hotel</string>
+</resources>

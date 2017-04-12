@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imageService"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_card_service"
             android:background="@drawable/lago"
@@ -66,8 +67,7 @@
                     android:id="@+id/likeCheckCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:button="@drawable/checkbox_selector"
-                    />
+                    android:button="@drawable/checkbox_selector" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

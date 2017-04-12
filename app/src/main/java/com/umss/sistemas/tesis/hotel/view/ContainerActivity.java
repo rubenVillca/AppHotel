@@ -18,7 +18,6 @@ public class ContainerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-
         BottomBar bottomBar=(BottomBar)findViewById(R.id.bottombar);
         bottomBar.setDefaultTab(R.id.tabHome);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -55,6 +54,5 @@ public class ContainerActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

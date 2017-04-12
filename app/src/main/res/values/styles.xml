@@ -8,9 +8,9 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverLay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverLay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="RaisedButtonDark" parent="Theme.AppCompat.Light">
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>

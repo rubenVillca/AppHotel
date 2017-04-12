@@ -15,4 +15,11 @@
     <string name="label_sex_woman">Mujer</string>
     <string name="label_sex_man">Hombre</string>
     <string name="toolbar_tittle_create_account">Crear Cuenta</string>
+    <string name="name_card">Ramirez</string>
+    <string name="date_cardview_service">2017-12-12</string>
+    <string name="tab_search">Buscar</string>
+    <string name="tab_home">Inicio</string>
+    <string name="tab_profile">Yo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -3,4 +3,14 @@
     <dimen name="paddin_horizontal_login">32sp</dimen>
     <dimen name="text_size_dont_account">16sp</dimen>
     <dimen name="margin_create_accout">10dp</dimen>
+    <dimen name="edit_text_size_login">22sp</dimen>
+    <dimen name="height_card_service">200dp</dimen>
+    <dimen name="corner_radius_cardview">4dp</dimen>
+    <dimen name="activity_vertical_margin">20dp</dimen>
+    <dimen name="text_size_name_card">15sp</dimen>
+    <dimen name="margin_cardview_service">5dp</dimen>
+    <dimen name="like_margin_top_cardview">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_horizontal_fragment">5dp</dimen>
+    <dimen name="padding_bottombar">80dp</dimen>
 </resources>

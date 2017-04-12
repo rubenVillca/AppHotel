@@ -10,4 +10,5 @@
     <color name="divider">#BDBDBD</color>
     <color name="edit_text_color_white">#FFF</color>
     <color name="edit_text_color_black">#000</color>
+    <color name="background_card_service">#53292929</color>
 </resources>

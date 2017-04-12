@@ -27,8 +27,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
-
         </activity>
+        <activity android:name=".view.ContainerActivity"></activity>
     </application>
 
 </manifest>

@@ -3,16 +3,16 @@
     <tab
         id="@+id/tabSearch"
         title="@string/tab_search"
-        barColorWhenSelected="@color/primary"
-        icon="@drawable/home" />
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@drawable/search" />
     <tab
         id="@+id/tabHome"
         title="@string/tab_home"
-        barColorWhenSelected="@color/primary"
-        icon="@drawable/profile" />
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@drawable/home" />
     <tab
         id="@+id/tabProfile"
         title="@string/tab_profile"
-        barColorWhenSelected="@color/primary"
-        icon="@drawable/search" />
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@drawable/profile"/>
 </tabs>

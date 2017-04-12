@@ -1,6 +1,7 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.model.Picture;
+import com.umss.sistemas.tesis.hotel.view.DetailServiceActivity;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,15 @@ public class HomeAdapterRecycler extends RecyclerView.Adapter<HomeAdapterRecycle
         holder.likeNumberCard.setText(picture.getLikeNumber());
 
         Picasso.with(activity).load(picture.getPicture()).into(holder.pictureCard);
+
+        holder.pictureCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, DetailServiceActivity.class);
+                activity.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

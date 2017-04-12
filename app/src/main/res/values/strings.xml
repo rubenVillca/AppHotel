@@ -19,7 +19,11 @@
     <string name="date_cardview_service">2017-12-12</string>
     <string name="tab_search">Buscar</string>
     <string name="tab_home">Inicio</string>
-    <string name="tab_profile">Yo</string>
+    <string name="tab_profile">Perfil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_detail">10</string>
+    <string name="secondwod_detail">Me gusta</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, dignissimos facere inventore neque omnis optio placeat quisquam similique? Eum explicabo facere illum minima, nihil perspiciatis voluptatem. Aspernatur porro possimus suscipit?</string>
+    <string name="titledetail">\"Paseando en la playa\"</string>
 </resources>

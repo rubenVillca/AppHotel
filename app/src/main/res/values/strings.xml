@@ -2,4 +2,17 @@
     <string name="app_name">Hotel</string>
     <string name="hint_user_name">Nombre de usuario</string>
     <string name="description_logo">Logo del hotel</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="dontAccount">¿No tienes cuenta?, </string>
+    <string name="create_here">¿Crea una aqui?</string>
+    <string name="hint_email">Correo Electronico</string>
+    <string name="hint_person_name">Nombre</string>
+    <string name="hint_person_last_name">Apellidos</string>
+    <string name="hint_repeat_password">Repetir Contraseña</string>
+    <string name="hint_number_phone">Número de teléfono</string>
+    <string name="label_sex">Sexo:</string>
+    <string name="label_sex_woman">Mujer</string>
+    <string name="label_sex_man">Hombre</string>
+    <string name="toolbar_tittle_create_account">Crear Cuenta</string>
 </resources>

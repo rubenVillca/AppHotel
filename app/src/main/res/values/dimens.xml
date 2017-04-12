@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="paddin_horizontal_login">32sp</dimen>
+    <dimen name="text_size_dont_account">16sp</dimen>
+    <dimen name="margin_create_accout">10dp</dimen>
+</resources>

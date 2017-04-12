@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     android:fitsSystemWindows="true"
-    tools:context="com.umss.sistemas.tesis.hotel.LoginActivity"
-    android:background="@color/primary">
+    tools:context="com.umss.sistemas.tesis.hotel.LoginActivity">
 
 
     <LinearLayout
@@ -21,32 +22,86 @@
             android:layout_weight="0.6"
             android:padding="16dp">
 
-
             <ImageView
                 android:id="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/logo"
-                android:contentDescription="@string/description_logo" />
+                android:contentDescription="@string/description_logo"
+                app:srcCompat="@drawable/logo" />
+
         </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-            android:orientation="vertical">
+            android:fillViewport="true">
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/userName"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/paddin_horizontal_login">
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_user_name"/>
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+                    android:theme="@style/EditTextWhite">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_user_name" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    android:layout_marginTop="@dimen/paddin_horizontal_login"
+                    android:theme="@style/RaisedButtonDark" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/labelDontAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dontAccount"
+                        android:textColor="@color/edit_text_color_white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_dont_account" />
+                    <TextView
+                        android:id="@+id/createAccountHere"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create_here"
+                        android:textColor="@color/edit_text_color_white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_dont_account"
+                        android:layout_toRightOf="@+id/labelDontAccount"
+                        android:onClick="goCreateAccount"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

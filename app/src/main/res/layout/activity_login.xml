@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    tools:context="com.umss.sistemas.tesis.hotel.LoginActivity">
+    tools:context="com.umss.sistemas.tesis.hotel.activity.LoginActivity">
 
 
     <LinearLayout

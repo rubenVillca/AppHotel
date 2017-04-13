@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.view;
+package com.umss.sistemas.tesis.hotel.activity;
 
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
-import android.view.View;
 
 import com.umss.sistemas.tesis.hotel.R;
 

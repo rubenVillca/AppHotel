@@ -1,12 +1,13 @@
-package com.umss.sistemas.tesis.hotel;
+package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.umss.sistemas.tesis.hotel.view.ContainerActivity;
-import com.umss.sistemas.tesis.hotel.view.CreateAccountActivity;
+import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
+import com.umss.sistemas.tesis.hotel.activity.CreateAccountActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

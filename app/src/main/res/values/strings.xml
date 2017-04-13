@@ -27,4 +27,5 @@
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, dignissimos facere inventore neque omnis optio placeat quisquam similique? Eum explicabo facere illum minima, nihil perspiciatis voluptatem. Aspernatur porro possimus suscipit?</string>
     <string name="titledetail">\"Paseando en la playa\"</string>
     <string name="transicionname_picture">transicionnamepicture</string>
+    <string name="btn_message">Mensajes</string>
 </resources>

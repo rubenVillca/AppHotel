@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.model.Picture;
-import com.umss.sistemas.tesis.hotel.view.DetailServiceActivity;
+import com.umss.sistemas.tesis.hotel.activity.DetailServiceActivity;
 
 import java.util.ArrayList;
 

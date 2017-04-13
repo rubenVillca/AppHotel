@@ -3,13 +3,13 @@ package com.umss.sistemas.tesis.hotel.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragments {
 
 
     public ProfileFragment() {
@@ -33,8 +33,17 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
-        showToolBar("",false,view);
+        super.showToolBar("",false,view);
 
+        view=setRecyclerView(view);
+
+        ImageView btnCamera = (ImageView) view.findViewById(R.id.btnCamera);
+        btnCamera.setOnClickListener(this);
+
+        return view;
+    }
+
+    private View setRecyclerView(View view) {
         RecyclerView pictureRecycler=(RecyclerView)view.findViewById(R.id.circleimageProfileRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
@@ -46,13 +55,8 @@ public class ProfileFragment extends Fragment {
         pictureRecycler.setAdapter(homeAdapter);
         return view;
     }
-    public void showToolBar(String tittle,boolean upButton,View view){
-        Toolbar toolbar =(Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(tittle);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
-    }
-    public ArrayList<Picture> buidPicture(){
+
+    private ArrayList<Picture> buidPicture(){
         ArrayList<Picture> pictures= new ArrayList<>();
 
         pictures.add(new Picture("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Mario","4 dias","3  me gusta"));
@@ -63,5 +67,4 @@ public class ProfileFragment extends Fragment {
 
         return pictures;
     }
-
 }

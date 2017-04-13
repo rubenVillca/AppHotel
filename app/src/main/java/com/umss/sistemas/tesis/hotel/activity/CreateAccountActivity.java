@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.view;
+package com.umss.sistemas.tesis.hotel.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

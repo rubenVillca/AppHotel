@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.view;
+package com.umss.sistemas.tesis.hotel.activity;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;

@@ -76,6 +76,24 @@
         app:targetWidth="@dimen/width_circleimageprofile"
         app:targetHeight="@dimen/width_circleimageprofile"/>
 
+    <ImageView
+        android:id="@+id/btnCamera"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="80dp"
+        android:elevation="@dimen/elevation_circleimageprofile"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:dependsOn="@+id/appBarProfile"
+        app:dependType="y"
+        app:dependTargetY="-160dp"
+        app:targetX="0dp"
+        app:targetY="0dp"
+        app:targetWidth="0dp"
+        app:targetHeight="0dp"/>
+
     <TextView
         android:id="@+id/userNameToolbarProfile"
         android:layout_width="wrap_content"

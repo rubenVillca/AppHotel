@@ -26,6 +26,7 @@
         <item name="colorControlNormal">@color/editTextColorWhite</item>
         <item name="colorControlActivated">@color/editTextColorWhite</item>
     </style>
+
     <style name="EditTextBlack">
         <item name="android:textColorHint">@color/editTextColorBlack</item>
         <item name="android:textSize">@dimen/edit_text_size_login</item>
@@ -34,4 +35,6 @@
         <item name="colorControlNormal">@color/editTextColorBlack</item>
         <item name="colorControlActivated">@color/editTextColorBlack</item>
     </style>
+
+
 </resources>

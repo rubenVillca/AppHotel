@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/name_card"
                     android:textColor="@android:color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:textSize="@dimen/textsize_usernameprofile"/>
             </LinearLayout>
 
@@ -92,7 +93,7 @@
         app:dependType="y"
         app:dependTargetY="@dimen/limitY_usernametoolbarprofile"
         app:targetY="@dimen/margintoptargety_usernametoolbarprofile"
-        app:targetAlpha="1" />
+        app:targetAlpha="0" />
 
     <include layout="@layout/floating_button_message"/>
 

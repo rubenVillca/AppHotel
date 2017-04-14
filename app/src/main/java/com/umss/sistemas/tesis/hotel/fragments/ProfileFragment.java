@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,37 +10,39 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.model.Picture;
+import com.umss.sistemas.tesis.hotel.util.Fragments;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragments {
-
+    private CircleImageView imgProfile;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
         super.showToolBar("",false,view);
 
         view=setRecyclerView(view);
-
-        ImageView btnCamera = (ImageView) view.findViewById(R.id.btnCamera);
-        btnCamera.setOnClickListener(this);
+        imgProfile=(CircleImageView)view.findViewById(R.id.imgCircleProfile);
+        ImageView imgCamera = (ImageView) view.findViewById(R.id.imgProfileCamera);
+        imgCamera.setOnClickListener(this);
 
         return view;
     }
@@ -67,4 +71,17 @@ public class ProfileFragment extends Fragments {
 
         return pictures;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==Fragments.REQUEST_IMAGE_CAPTURE && resultCode==getActivity().RESULT_OK){
+
+            Picasso.with(getActivity()).load(mCurrentPhotoPath).into(imgProfile);
+            addPictureToGalery();
+            Toast.makeText(getActivity(),"Guradado en: "+mCurrentPhotoPath,Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getContext(),"La camara no esta funcionando",Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

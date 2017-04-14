@@ -3,6 +3,7 @@
     package="com.umss.sistemas.tesis.hotel">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera2" android:required="false"/>
 
     <application
@@ -12,6 +13,18 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.umss.sistemas.tesis.hotel"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+
+            </meta-data>
+        </provider>
         <activity
             android:name=".activity.LoginActivity"
             android:windowSoftInputMode="stateHidden">

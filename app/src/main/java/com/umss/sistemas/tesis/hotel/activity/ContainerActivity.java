@@ -11,8 +11,9 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
+import com.umss.sistemas.tesis.hotel.util.Activities;
 
-public class ContainerActivity extends AppCompatActivity {
+public class ContainerActivity extends Activities {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

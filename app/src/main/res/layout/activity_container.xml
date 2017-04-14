@@ -11,6 +11,6 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/padding_bottombar"/>
 
-    <include layout="@layout/bottombar"/>
+    <include layout="@layout/actionbar_bottombar"/>
 
 </RelativeLayout>

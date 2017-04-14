@@ -8,24 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.util.Activities;
 
-public class DetailServiceActivity extends AppCompatActivity {
+public class DetailServiceActivity extends Activities {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_service);
-        showToolBar("",true);
+        super.showToolBar("",true);
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             getWindow().setEnterTransition(new Fade());
         }
     }
-    public void showToolBar(String tittle, boolean upButton){
-        Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(tittle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
 
-        CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsingToolbar);
-    }
 }

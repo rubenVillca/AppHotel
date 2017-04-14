@@ -34,4 +34,5 @@
     <dimen name="margintop_usernametoolbarprofile">-100dp</dimen>
     <dimen name="limitY_usernametoolbarprofile">-160dp</dimen>
     <dimen name="margintoptargety_usernametoolbarprofile">15dp</dimen>
+    <dimen name="sizeButtomLikeService">25dp</dimen>
 </resources>

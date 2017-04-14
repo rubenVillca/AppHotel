@@ -20,6 +20,19 @@
     <string name="tab_search">Buscar</string>
     <string name="tab_home">Inicio</string>
     <string name="tab_profile">Perfil</string>
+
+    <string name="error_invalid_email">Email invalido</string>
+    <string name="error_invalid_password">Contraseña muy corta</string>
+    <string name="error_incorrect_password">Este password es incorrecto</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="error_field_phone">Telefono invalido</string>
+    <string name="error_field_nameApp">Apellido de person invalido</string>
+    <string name="error_field_name">Nombre de persona invalido</string>
+    <string name="error_field_pass2">Password no es el mismo</string>
+    <string name="error_field_email">Correo no valido</string>
+    <string name="error_field_email_repeat">el email ya se encuentra registrado</string>
+    <string name="permission_rationale">"Los permisos de contacto son necesarios"</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_detail">10</string>

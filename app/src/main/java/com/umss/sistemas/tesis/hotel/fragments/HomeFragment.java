@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.model.Picture;
+import com.umss.sistemas.tesis.hotel.util.Fragments;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragments{
+public class HomeFragment extends Fragments {
 
     public HomeFragment() {
         // Required empty public constructor

@@ -120,9 +120,9 @@ public class LoginActivity extends Activities {
                             break;
                     }
                 } else {
-                    showProgress(false);
                     showMesaje("Servidor no disponible");
                 }
+                showProgress(false);
             }
 
             @Override

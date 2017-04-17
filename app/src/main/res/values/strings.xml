@@ -53,4 +53,19 @@
     <string name="label_home_icon_location">Ubicación</string>
     <string name="label_home_icon_activity">Actividades</string>
     <string name="label_home_icon_food">Menú</string>
+    <string name="tab_offers">Ofertas</string>
+    <string name="tab_sites_tour">Lugares turisticos</string>
+    <string name="tab_activity">Calendario de actividades</string>
+    <string name="tab_menu_food">Menu</string>
+    <string name="tab_about">Acerca de nosotros</string>
+    <string name="tab_frequently">Dudas</string>
+    <string name="tab_message_new">Enviar Mensaje</string>
+    <string name="toolbar_tittle_about">Acerca de nosotros</string>
+    <string name="toolbar_tittle_calendar">Calendario de actividades</string>
+    <string name="toolbar_tittle_menu_food">Menu de comidas</string>
+    <string name="toolbar_tittle_messages">Bandeja de mensajes</string>
+    <string name="toolbar_tittle_offer">Lista de ofertas</string>
+    <string name="toolbar_tittle_reserve">Historial de reservas</string>
+    <string name="toolbar_tittle_services">Lista de servicios</string>
+    <string name="toolbar_tittle_sites_tour">Sitios turisticos</string>
 </resources>

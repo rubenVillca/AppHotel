@@ -10,11 +10,11 @@ import android.view.View;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
+import com.umss.sistemas.tesis.hotel.fragments.FrequentlyFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
-import com.umss.sistemas.tesis.hotel.fragments.ReserveFragment;
+import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
+import com.umss.sistemas.tesis.hotel.fragments.MessageSendFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
-import com.umss.sistemas.tesis.hotel.fragments.ServicesFragment;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
@@ -40,11 +40,11 @@ public class ContainerActivity extends Activities {
                     case R.id.tabSearch:
                         fragment=new SearchFragment();
                         break;
-                    case R.id.tabReserve:
-                        fragment=new ReserveFragment();
+                    case R.id.tabMessajeSend:
+                        fragment=new MessageSendFragment();
                         break;
-                    case R.id.tabService:
-                        fragment=new ServicesFragment();
+                    case R.id.tabFrequently:
+                        fragment=new FrequentlyFragment();
                         break;
                 }
                 if (fragment!=null) {

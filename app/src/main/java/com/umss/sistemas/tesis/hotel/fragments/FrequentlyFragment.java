@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
@@ -15,11 +13,10 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessagesFragment extends Fragments {
+public class FrequentlyFragment extends Fragments {
 
-    ImageView imageMessage;
-    Button buttonMessage;
-    public MessagesFragment() {
+
+    public FrequentlyFragment() {
         // Required empty public constructor
     }
 
@@ -28,13 +25,10 @@ public class MessagesFragment extends Fragments {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_messages, container, false);
-        super.showToolBar(getActivity().getString(R.string.btn_message),false,view);
-
-        imageMessage=(ImageView)view.findViewById(R.id.idPictureMessage);
-        buttonMessage=(Button)view.findViewById(R.id.btnMessage);
-        buttonMessage.setOnClickListener(this);
-
+        View view= inflater.inflate(R.layout.fragment_frequently, container, false);
+        super.showToolBar(getResources().getString(R.string.tab_frequently),false,view);
+        super.showFloatingButtonMessage(view);
         return view;
     }
+
 }

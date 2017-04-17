@@ -13,7 +13,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.fragments.MessagesFragment;
+import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
+import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
+import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
+import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
+import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
+import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
+import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
+import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,110 +41,42 @@ public class Fragments extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent =null;
         switch (v.getId()) {
-            case R.id.fab:
-                showFragmentMessages(); break;
-            case R.id.btnMessage:
-                showFragmentMessage();  break;
             case R.id.imgProfileCamera:
-                showActivityCamera();   break;
+                showActivityCamera();
+                break;
+            case R.id.fab:
+                intent = new Intent(getActivity(), MessagesActivity.class);
+                break;
             case R.id.imageOffer:
-                showFragmentOffer();    break;
+                intent = new Intent(getActivity(), OffersActivity.class);
+                break;
             case R.id.imageSiteTour:
-                showFragmentSiteTour();    break;
+                intent = new Intent(getActivity(), SitesTourActivity.class);
+                break;
             case R.id.imageService:
-                showFragmentService();    break;
+                intent = new Intent(getActivity(), ServicesActivity.class);
+                break;
             case R.id.imageAboutHotel:
-                showFragmentAboutHotel();    break;
+                intent = new Intent(getActivity(), AboutActivity.class);
+                break;
             case R.id.imageReserve:
-                showFragmentReserve();    break;
+                intent = new Intent(getActivity(), ReserveActivity.class);
+                break;
             case R.id.imageLocationMap:
-                showFragmentLocationMap();    break;
+                Toast.makeText(getContext(), "Localizanos", Toast.LENGTH_LONG).show();
+                break;
             case R.id.imageActivity:
-                showFragmentActivity();    break;
+                intent = new Intent(getActivity(), CalendarActivity.class);
+                break;
             case R.id.imageServiceFood:
-                showFragmentServiceFood();    break;
+                intent = new Intent(getActivity(), MenuFoodActivity.class);
+                break;
         }
-    }
-
-    /**
-     * mostrar lista de reservas realizadas
-     */
-    private void showFragmentReserve() {
-        Toast.makeText(getContext(), "reervas", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * mostrar en mapa googlemaps la ubicacion del establcimiento
-     */
-    private void showFragmentLocationMap() {
-        Toast.makeText(getContext(), "ubiquemos", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * mostrar losta de actividades publicas del hotel
-     */
-    private void showFragmentActivity() {
-        Toast.makeText(getContext(), "Actividades", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * informacion basica del hotel
-     */
-    private void showFragmentAboutHotel() {
-        MessagesFragment messagesFragment = new MessagesFragment();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, messagesFragment)
-                .addToBackStack(null).commit();
-
-    }
-
-    /**
-     * menu de comidas del bar
-     */
-    private void showFragmentServiceFood() {
-        Toast.makeText(getContext(), "comidas", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * lista de servicios ofrecidos por el hotel
-     */
-    private void showFragmentService() {
-        Toast.makeText(getContext(), "servicios", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * lista d sitios turisticos ceranos al hotel
-     */
-    private void showFragmentSiteTour() {
-        Toast.makeText(getContext(), "sitios turisticos", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * lista de ofertas disponibles del hotel
-     */
-    private void showFragmentOffer() {
-        Toast.makeText(getContext(), "acerca de nosotros", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * mostrar mensaje seleccionado
-     */
-    private void showFragmentMessage() {
-        Toast.makeText(getContext(), "Mensajes", Toast.LENGTH_LONG).show();
-    }
-
-
-    /**
-     * mostrar fragmento con lista de mensajes recibidos
-     */
-    private void showFragmentMessages() {
-        MessagesFragment messagesFragment = new MessagesFragment();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, messagesFragment)
-                .addToBackStack(null).commit();
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 
 
@@ -175,21 +114,21 @@ public class Fragments extends Fragment implements View.OnClickListener {
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(imageFilename, ".jpg", storageDir);
-        mCurrentPhotoPath="file:"+image.getAbsolutePath();
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
     protected void addPictureToGalery() {
-        Intent intent=new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File newFile=new File(mCurrentPhotoPath);
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File newFile = new File(mCurrentPhotoPath);
 
-        Uri contentUri=Uri.fromFile(newFile);
+        Uri contentUri = Uri.fromFile(newFile);
         intent.setData(contentUri);
         getActivity().sendBroadcast(intent);
     }
 
-    protected void showFloatingButtonMessage(View view){
-        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
+    protected void showFloatingButtonMessage(View view) {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(this);
     }
 }

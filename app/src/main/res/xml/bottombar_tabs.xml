@@ -16,13 +16,13 @@
         title="@string/tab_home"
         barColorWhenSelected="@color/colorPrimary" />
     <tab
-        id="@+id/tabService"
+        id="@+id/tabFrequently"
         icon="@drawable/ic_restaurant"
-        title="@string/tab_service"
+        title="@string/tab_frequently"
         barColorWhenSelected="@color/colorPrimary" />
     <tab
-        id="@+id/tabReserve"
-        icon="@drawable/ic_reservation"
-        title="@string/tab_reserve"
+        id="@+id/tabMessajeSend"
+        icon="@drawable/ic_new_message"
+        title="@string/tab_message_new"
         barColorWhenSelected="@color/colorPrimary" />
 </tabs>

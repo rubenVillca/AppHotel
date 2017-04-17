@@ -6,21 +6,20 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import cz.msebera.android.httpclient.Header;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Pattern;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activities {
 
@@ -28,7 +27,8 @@ public class LoginActivity extends Activities {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        container=findViewById(R.id.containerLogin);
+        progressView=findViewById(R.id.progress_bar);
     }
 
     public void goCreateAccount(View view){
@@ -74,7 +74,9 @@ public class LoginActivity extends Activities {
         if (cancel) {
             focusView.requestFocus();
         } else {
+            showProgress(true);
             iniciarSession();
+            showProgress(false);
         }
     }
 
@@ -118,12 +120,14 @@ public class LoginActivity extends Activities {
                             break;
                     }
                 } else {
+                    showProgress(false);
                     showMesaje("Servidor no disponible");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                showProgress(false);
                 showMesaje("Servidor no esta disponible");
             }
         });
@@ -131,6 +135,8 @@ public class LoginActivity extends Activities {
 
     private void changeToHome(int idPerson, String nameUser) {
         Intent intent = new Intent(this, ContainerActivity.class);
+        intent.putExtra("idPerson",idPerson);
+        intent.putExtra("nameUser",nameUser);
         startActivity(intent);
     }
 
@@ -140,9 +146,5 @@ public class LoginActivity extends Activities {
     }
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
-    }
-
-    private void showMesaje(String m) {
-        Toast.makeText(getApplicationContext(), m, Toast.LENGTH_LONG).show();
     }
 }

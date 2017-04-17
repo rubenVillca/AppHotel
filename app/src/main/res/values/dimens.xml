@@ -12,7 +12,7 @@
     <dimen name="like_margin_top_cardview">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="padding_horizontal_fragment">5dp</dimen>
-    <dimen name="padding_bottombar">70dp</dimen>
+    <dimen name="padding_bottombar">60dp</dimen>
     <dimen name="appbarlayout_height">256dp</dimen>
     <dimen name="textsize_usernamedetail">25sp</dimen>
     <dimen name="activity_horizontal_margin">25dp</dimen>
@@ -35,4 +35,6 @@
     <dimen name="limitY_usernametoolbarprofile">-160dp</dimen>
     <dimen name="margintoptargety_usernametoolbarprofile">15dp</dimen>
     <dimen name="sizeButtomLikeService">25dp</dimen>
+    <dimen name="padding_homefragment_icon">5dp</dimen>
+    <dimen name="dimen_home_icon_heigth">150dp</dimen>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -40,13 +41,97 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 showFragmentMessage();  break;
             case R.id.imgProfileCamera:
                 showActivityCamera();   break;
+            case R.id.imageOffer:
+                showFragmentOffer();    break;
+            case R.id.imageSiteTour:
+                showFragmentSiteTour();    break;
+            case R.id.imageService:
+                showFragmentService();    break;
+            case R.id.imageAboutHotel:
+                showFragmentAboutHotel();    break;
+            case R.id.imageReserve:
+                showFragmentReserve();    break;
+            case R.id.imageLocationMap:
+                showFragmentLocationMap();    break;
+            case R.id.imageActivity:
+                showFragmentActivity();    break;
+            case R.id.imageServiceFood:
+                showFragmentServiceFood();    break;
         }
     }
 
+    /**
+     * mostrar lista de reservas realizadas
+     */
+    private void showFragmentReserve() {
+        Toast.makeText(getContext(), "reervas", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * mostrar en mapa googlemaps la ubicacion del establcimiento
+     */
+    private void showFragmentLocationMap() {
+        Toast.makeText(getContext(), "ubiquemos", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * mostrar losta de actividades publicas del hotel
+     */
+    private void showFragmentActivity() {
+        Toast.makeText(getContext(), "Actividades", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * informacion basica del hotel
+     */
+    private void showFragmentAboutHotel() {
+        MessagesFragment messagesFragment = new MessagesFragment();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, messagesFragment)
+                .addToBackStack(null).commit();
+
+    }
+
+    /**
+     * menu de comidas del bar
+     */
+    private void showFragmentServiceFood() {
+        Toast.makeText(getContext(), "comidas", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * lista de servicios ofrecidos por el hotel
+     */
+    private void showFragmentService() {
+        Toast.makeText(getContext(), "servicios", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * lista d sitios turisticos ceranos al hotel
+     */
+    private void showFragmentSiteTour() {
+        Toast.makeText(getContext(), "sitios turisticos", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * lista de ofertas disponibles del hotel
+     */
+    private void showFragmentOffer() {
+        Toast.makeText(getContext(), "acerca de nosotros", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * mostrar mensaje seleccionado
+     */
     private void showFragmentMessage() {
         Toast.makeText(getContext(), "Mensajes", Toast.LENGTH_LONG).show();
     }
 
+
+    /**
+     * mostrar fragmento con lista de mensajes recibidos
+     */
     private void showFragmentMessages() {
         MessagesFragment messagesFragment = new MessagesFragment();
         getActivity().getSupportFragmentManager()
@@ -55,6 +140,10 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 .addToBackStack(null).commit();
     }
 
+
+    /**
+     * permite cambiar imagen de perfil
+     */
     private void showActivityCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -75,6 +164,10 @@ public class Fragments extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @return File: imagen guardada en el smarthphone
+     * @throws IOException:control de errores
+     */
     //guardar las imagenes de perfil capturadas[ error]
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -93,5 +186,10 @@ public class Fragments extends Fragment implements View.OnClickListener {
         Uri contentUri=Uri.fromFile(newFile);
         intent.setData(contentUri);
         getActivity().sendBroadcast(intent);
+    }
+
+    protected void showFloatingButtonMessage(View view){
+        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
+        fab.setOnClickListener(this);
     }
 }

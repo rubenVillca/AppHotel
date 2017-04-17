@@ -1,0 +1,14 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.umss.sistemas.tesis.hotel.fragments.ReserveFragment">
+
+    <include layout="@layout/actionbar_toolbar"/>
+
+
+
+    <include layout="@layout/actionbar_floating_button_message"/>
+</android.support.design.widget.CoordinatorLayout>

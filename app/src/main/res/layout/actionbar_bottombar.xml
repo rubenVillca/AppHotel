@@ -7,6 +7,8 @@
     android:layout_height="@dimen/padding_bottombar"
     android:layout_alignParentBottom="true"
     android:layout_gravity="bottom|end"
-    app:bb_inActiveTabColor="@android:color/white"
     app:bb_activeTabColor="@android:color/white"
-    app:bb_tabXmlResource="@xml/bottombar_tabs" />
+    app:bb_inActiveTabColor="@android:color/white"
+    app:bb_tabXmlResource="@xml/bottombar_tabs"
+    app:bb_behavior="underNavbar"
+    />

@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.util.Fragments;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragments {
 
 
     public SearchFragment() {
@@ -24,7 +25,11 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view= inflater.inflate(R.layout.fragment_search, container, false);
+        super.showToolBar(getResources().getString(R.string.tab_search),false,view);
+        super.showFloatingButtonMessage(view);
+
+        return view;
     }
 
 }

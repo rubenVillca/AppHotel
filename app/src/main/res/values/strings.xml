@@ -20,6 +20,10 @@
     <string name="tab_search">Buscar</string>
     <string name="tab_home">Inicio</string>
     <string name="tab_profile">Perfil</string>
+    <string name="tab_reserve">Reservas</string>
+    <string name="tab_service">Servicios</string>
+    <string name="tab_site_tour">Túrismo</string>
+
 
     <string name="error_invalid_email">Email invalido</string>
     <string name="error_invalid_password">Contraseña muy corta</string>
@@ -41,4 +45,12 @@
     <string name="titledetail">\"Paseando en la playa\"</string>
     <string name="transicionname_picture">transicionnamepicture</string>
     <string name="btn_message">Mensajes</string>
+    <string name="label_home_icon_offer">Ofertas</string>
+    <string name="label_home_icon_site_tour">Sitios Turísticos</string>
+    <string name="label_home_icon_service">Servicios</string>
+    <string name="label_home_icon_about">Acerca de nosotros</string>
+    <string name="label_home_icon_reserve">Reservas</string>
+    <string name="label_home_icon_location">Ubicación</string>
+    <string name="label_home_icon_activity">Actividades</string>
+    <string name="label_home_icon_food">Menú</string>
 </resources>

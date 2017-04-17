@@ -54,17 +54,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/circleimageProfileRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgCircleProfile"
         android:layout_width="@dimen/dimen_circleimage_profile"
         android:layout_height="@dimen/dimen_circleimage_profile"
-        android:src="@drawable/lago"
+        android:src="@drawable/img_lago"
         android:layout_gravity="center|top"
         android:layout_marginTop="@dimen/margin_top_circleprofile"
         android:elevation="@dimen/elevation_circleimageprofile"
@@ -93,7 +87,9 @@
         app:targetX="0dp"
         app:targetY="0dp"
         app:targetWidth="0dp"
-        app:targetHeight="0dp"/>
+        app:targetHeight="0dp"
+        android:contentDescription="@string/description_logo"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/userNameToolbarProfile"
@@ -114,6 +110,6 @@
         app:targetY="@dimen/margintoptargety_usernametoolbarprofile"
         app:targetAlpha="0" />
 
-    <include layout="@layout/floating_button_message"/>
+    <include layout="@layout/actionbar_floating_button_message"/>
 
 </android.support.design.widget.CoordinatorLayout>

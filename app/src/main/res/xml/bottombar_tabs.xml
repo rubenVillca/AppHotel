@@ -2,17 +2,27 @@
 <tabs>
     <tab
         id="@+id/tabSearch"
+        icon="@drawable/ic_search"
         title="@string/tab_search"
-        barColorWhenSelected="@color/colorPrimary"
-        icon="@drawable/search" />
-    <tab
-        id="@+id/tabHome"
-        title="@string/tab_home"
-        barColorWhenSelected="@color/colorPrimary"
-        icon="@drawable/home" />
+        barColorWhenSelected="@color/colorPrimary" />
     <tab
         id="@+id/tabProfile"
+        icon="@drawable/ic_edit_user_male"
         title="@string/tab_profile"
-        barColorWhenSelected="@color/colorPrimary"
-        icon="@drawable/profile"/>
+        barColorWhenSelected="@color/colorPrimary" />
+    <tab
+        id="@+id/tabHome"
+        icon="@drawable/ic_home"
+        title="@string/tab_home"
+        barColorWhenSelected="@color/colorPrimary" />
+    <tab
+        id="@+id/tabService"
+        icon="@drawable/ic_restaurant"
+        title="@string/tab_service"
+        barColorWhenSelected="@color/colorPrimary" />
+    <tab
+        id="@+id/tabReserve"
+        icon="@drawable/ic_reservation"
+        title="@string/tab_reserve"
+        barColorWhenSelected="@color/colorPrimary" />
 </tabs>

@@ -9,8 +9,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/padding_bottombar"/>
+        android:paddingBottom="@dimen/padding_bottombar" />
 
-    <include layout="@layout/actionbar_bottombar"/>
+        <include layout="@layout/actionbar_bottombar" />
 
 </RelativeLayout>

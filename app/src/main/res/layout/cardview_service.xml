@@ -15,7 +15,7 @@
             android:id="@+id/imageService"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_card_service"
-            android:background="@drawable/lago"
+            android:background="@drawable/img_lago"
             android:scaleType="centerCrop"
             android:contentDescription="@string/description_logo"
             android:layout_marginTop="5dp"

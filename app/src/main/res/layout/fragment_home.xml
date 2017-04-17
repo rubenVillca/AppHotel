@@ -1,4 +1,5 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,24 +7,259 @@
     android:fitsSystemWindows="true"
     tools:context="com.umss.sistemas.tesis.hotel.fragments.HomeFragment">
 
-    <include layout="@layout/actionbar_toolbar"/>
+    <include layout="@layout/actionbar_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingLeft="@dimen/padding_horizontal_fragment"
-        android:paddingRight="@dimen/padding_horizontal_fragment"
-        android:paddingTop="@dimen/padding_horizontal_fragment">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/homeRecyclerView"
+        <ScrollView
+            android:id="@+id/scrollHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageOffer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_offer_3"
+                            android:contentDescription="@string/description_logo" />
+
+
+                        <TextView
+                            android:id="@+id/textOffer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_offer"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageSiteTour"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_tour"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textSiteTour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_site_tour"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/imageService"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_home_icon_heigth"
+                                android:background="@drawable/img_service"
+                                android:contentDescription="@string/description_logo" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textService"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_service"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageAboutHotel"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_about"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textAboutHotel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/label_home_icon_about"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageReserve"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_reserve"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textReserve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_reserve"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageLocationMap"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_maps"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textLocationMap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/label_home_icon_location"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_calendar"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_activity"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageServiceFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_food_3"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textServiceFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_food"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
-    <include layout="@layout/floating_button_message"/>
+    <include layout="@layout/actionbar_floating_button_message" />
 
 </android.support.design.widget.CoordinatorLayout>

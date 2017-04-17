@@ -14,18 +14,18 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.model.Picture;
+import com.umss.sistemas.tesis.hotel.model.PictureModel;
 import com.umss.sistemas.tesis.hotel.activity.DetailServiceActivity;
 
 import java.util.ArrayList;
 
 public class HomeAdapterRecycler extends RecyclerView.Adapter<HomeAdapterRecycler.PictureViewHolder>{
 
-    private ArrayList<Picture> pictures;
+    private ArrayList<PictureModel> pictures;
     private int resource;
     private Activity activity;
 
-    public HomeAdapterRecycler(ArrayList<Picture> pictures, int resource, Activity activity) {
+    public HomeAdapterRecycler(ArrayList<PictureModel> pictures, int resource, Activity activity) {
         this.pictures = pictures;
         this.resource = resource;
         this.activity = activity;
@@ -39,7 +39,7 @@ public class HomeAdapterRecycler extends RecyclerView.Adapter<HomeAdapterRecycle
 
     @Override
     public void onBindViewHolder(PictureViewHolder holder, int position) {
-        Picture picture=pictures.get(position);
+        PictureModel picture=pictures.get(position);
 
         holder.userNameCard.setText(picture.getUserName());
         holder.timeCard.setText(picture.getLikeNumber());

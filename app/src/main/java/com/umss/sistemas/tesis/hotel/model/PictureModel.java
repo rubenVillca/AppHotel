@@ -1,16 +1,12 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-/**
- * Created by ruben on 12/04/2017.
- */
-
-public class Picture {
+public class PictureModel {
     private String picture;
     private String userName;
     private String time;
     private String likeNumber="0";
 
-    public Picture(String picture, String userName, String time, String likeNumber) {
+    public PictureModel(String picture, String userName, String time, String likeNumber) {
         this.picture = picture;
         this.userName = userName;
         this.time = time;

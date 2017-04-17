@@ -2,20 +2,13 @@ package com.umss.sistemas.tesis.hotel.fragments;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.model.Picture;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.

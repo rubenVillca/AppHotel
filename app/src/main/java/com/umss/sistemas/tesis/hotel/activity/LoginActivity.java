@@ -94,11 +94,10 @@ public class LoginActivity extends Activities {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode==200) {
-                    String idUser="",nameUser="";
+                    String idUser="";
                     try {
                         JSONObject obj=new JSONObject(new String(responseBody));
                         idUser=obj.getString("idPerson");
-                        nameUser=obj.getString("nameUser");
                     } catch (JSONException e) {
                         showMesaje("Error de conexion");
                     }
@@ -114,9 +113,7 @@ public class LoginActivity extends Activities {
                         case -2:showMesaje("Cuenta no disponible");break;
                         default:
                             showMesaje("Ha iniciado Sesion");
-                            //Sync sync=new Sync(LoginActivity.this);
-                            //if(sync.sincronizar(emailText,passText))
-                            changeToHome(idPerson,nameUser);
+                            changeToHome(idPerson);
                             break;
                     }
                 } else {
@@ -133,10 +130,9 @@ public class LoginActivity extends Activities {
         });
     }
 
-    private void changeToHome(int idPerson, String nameUser) {
+    private void changeToHome(int idPerson) {
         Intent intent = new Intent(this, ContainerActivity.class);
         intent.putExtra("idPerson",idPerson);
-        intent.putExtra("nameUser",nameUser);
         startActivity(intent);
     }
 

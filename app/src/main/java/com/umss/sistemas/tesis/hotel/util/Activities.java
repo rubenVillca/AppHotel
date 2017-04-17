@@ -48,6 +48,6 @@ public class Activities extends AppCompatActivity {
         });
     }
     protected void showMesaje(String m) {
-        Toast.makeText(getApplicationContext(), m, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), m, Toast.LENGTH_SHORT).show();
     }
 }

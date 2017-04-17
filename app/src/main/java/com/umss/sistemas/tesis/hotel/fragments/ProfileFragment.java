@@ -31,10 +31,11 @@ public class ProfileFragment extends Fragments {
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
         super.showToolBar("",false,view);
 
-
         imgProfile=(CircleImageView)view.findViewById(R.id.imgCircleProfile);
         ImageView imgCamera = (ImageView) view.findViewById(R.id.imgProfileCamera);
         imgCamera.setOnClickListener(this);
+
+        getContent();
 
         return view;
     }
@@ -47,5 +48,9 @@ public class ProfileFragment extends Fragments {
             addPictureToGalery();
             Toast.makeText(getActivity(),"Guradado en: "+mCurrentPhotoPath,Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void getContent() {
+
     }
 }

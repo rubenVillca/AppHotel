@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragments {
 
     private void showImageProfile(View view,String nameImage) {
         imgProfile=(CircleImageView)view.findViewById(R.id.imgCircleProfile);
-        imgProfile.setImageURI(Uri.parse(Conexion.urlServer+nameImage));
+        Picasso.with(getActivity()).load(Conexion.urlServer+nameImage).into(imgProfile);
     }
 
 

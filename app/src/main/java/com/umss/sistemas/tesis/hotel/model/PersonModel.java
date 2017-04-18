@@ -30,13 +30,9 @@ public class PersonModel {
         this.imgPerson = "";
         this.dateBornPerson = "";
         this.dateRegisterPerson = "";
-        this.typeDocument="";
-        this.numberDocument=0;
-        this.numberPhone=0;
-    }
-
-    public byte getSexPerson() {
-        return sexPerson;
+        this.typeDocument = "";
+        this.numberDocument = 0;
+        this.numberPhone = 0;
     }
 
     public String getTypeDocument() {
@@ -111,7 +107,7 @@ public class PersonModel {
         this.pointPerson = pointPerson;
     }
 
-    public byte isSexPerson() {
+    public byte getSexPerson() {
         return sexPerson;
     }
 

@@ -39,5 +39,7 @@
     <dimen name="dimen_home_icon_heigth">150dp</dimen>
     <dimen name="paddingtop_profile">200dp</dimen>
     <dimen name="marginTop_profile">20dp</dimen>
-    <dimen name="freament_profile_paddingwidth">15dp</dimen>
+    <dimen name="fragment_profile_paddingwidth">3dp</dimen>
+    <dimen name="padding_textview_horizontal_profile">8dp</dimen>
+    <dimen name="content_profile_textView_size">16sp</dimen>
 </resources>

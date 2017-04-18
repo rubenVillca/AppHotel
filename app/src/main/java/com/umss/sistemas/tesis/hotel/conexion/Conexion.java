@@ -20,7 +20,7 @@ public class Conexion {
             "sites",
             "frequently"
     };
-    private static String urlServer=ip+dirUser;
+    public static String urlServer=ip+dirUser;
 
     public static String getUrlServer(int i) {
         String res="";

@@ -68,4 +68,17 @@
     <string name="toolbar_tittle_reserve">Historial de reservas</string>
     <string name="toolbar_tittle_services">Lista de servicios</string>
     <string name="toolbar_tittle_sites_tour">Sitios turisticos</string>
+    <string name="content_profile_textView_name">Nombre(s):</string>
+    <string name="content_profile_textView_lastname">Apellido(s):</string>
+    <string name="content_profile_textView_email">Email:</string>
+    <string name="content_profile_textView_point">Puntos de fidelizacion</string>
+    <string name="content_profile_textView_address">Dirección</string>
+    <string name="content_profile_textView_city">Ciudad</string>
+    <string name="content_profile_textView_country">País</string>
+    <string name="content_profile_textView_sex">Genero</string>
+    <string name="content_profile_textView_dateborn">Fecha de nacimiento</string>
+    <string name="content_profile_textView_dateregister">Fecha de registro</string>
+    <string name="content_profile_textView_numberphone">Teléfono</string>
+    <string name="content_profile_textView_typedocument">Documento de identificación</string>
+    <string name="content_profile_textView_numberdocument">Número de documento</string>
 </resources>

@@ -13,9 +13,12 @@ public class PersonModel {
     private String imgPerson;
     private String dateBornPerson;
     private String dateRegisterPerson;
+    private String typeDocument;
+    private int numberDocument;
+    private int numberPhone;
 
-    public PersonModel(){
-        this.idPerson=0;
+    public PersonModel() {
+        this.idPerson = 0;
         this.emailPerson = "";
         this.namePerson = "";
         this.nameLastPerson = "";
@@ -27,6 +30,37 @@ public class PersonModel {
         this.imgPerson = "";
         this.dateBornPerson = "";
         this.dateRegisterPerson = "";
+        this.typeDocument="";
+        this.numberDocument=0;
+        this.numberPhone=0;
+    }
+
+    public byte getSexPerson() {
+        return sexPerson;
+    }
+
+    public String getTypeDocument() {
+        return typeDocument;
+    }
+
+    public void setTypeDocument(String typeDocument) {
+        this.typeDocument = typeDocument;
+    }
+
+    public int getNumberDocument() {
+        return numberDocument;
+    }
+
+    public void setNumberDocument(int numberDocument) {
+        this.numberDocument = numberDocument;
+    }
+
+    public int getNumberPhone() {
+        return numberPhone;
+    }
+
+    public void setNumberPhone(int numberPhone) {
+        this.numberPhone = numberPhone;
     }
 
     public String getEmailPerson() {
@@ -113,10 +147,16 @@ public class PersonModel {
         return dateRegisterPerson;
     }
 
-    public void setDateRegisterPerson(String dateRegisterPerson) {this.dateRegisterPerson = dateRegisterPerson;}
+    public void setDateRegisterPerson(String dateRegisterPerson) {
+        this.dateRegisterPerson = dateRegisterPerson;
+    }
 
-    public int getIdPerson() {  return idPerson;}
+    public int getIdPerson() {
+        return idPerson;
+    }
 
-    public void setIdPerson(int idPerson) {this.idPerson = idPerson;}
+    public void setIdPerson(int idPerson) {
+        this.idPerson = idPerson;
+    }
 }
 

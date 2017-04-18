@@ -7,26 +7,35 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.fragments.FrequentlyFragment;
 import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
 import com.umss.sistemas.tesis.hotel.fragments.MessageSendFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
-import com.umss.sistemas.tesis.hotel.helper.PersonSqliteHelper;
+import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ContainerActivity extends Activities {
 
     private int idPerson;
-    private PersonSqliteHelper sync;
+    private DataBaseSQLiteHelper sync;
     private SQLiteDatabase db;
 
     @Override
@@ -82,30 +91,79 @@ public class ContainerActivity extends Activities {
     }
 
     private void syncronizeDataBase() {
-        sync=new PersonSqliteHelper(this,PersonSqliteHelper.DATABASE_NAME,null,PersonSqliteHelper.DATABASE_VERSION);
+        sync=new DataBaseSQLiteHelper(this, DataBaseSQLiteHelper.DATABASE_NAME,null, DataBaseSQLiteHelper.DATABASE_VERSION);
         db=sync.getWritableDatabase();
         if (db!=null){
-            ContentValues newRegister=new ContentValues();
-            newRegister.put(PersonSqliteHelper.KEY_ID,1);
-            newRegister.put(PersonSqliteHelper.KEY_NAME,"juan");
-            newRegister.put(PersonSqliteHelper.KEY_NAME_LAST,"Perez");
-            newRegister.put(PersonSqliteHelper.KEY_CITY,"cbba");
-            newRegister.put(PersonSqliteHelper.KEY_COUNTRY,"Bolivia");
-            newRegister.put(PersonSqliteHelper.KEY_ADDRESS,"Av. siempre viva");
-            newRegister.put(PersonSqliteHelper.KEY_DATE_BORN,"2000-01-01");
-            newRegister.put(PersonSqliteHelper.KEY_DATE_REGISTER,"2015-01-01");
-            newRegister.put(PersonSqliteHelper.KEY_EMAIL,"juan@gmail.com");
-            newRegister.put(PersonSqliteHelper.KEY_POINT,100);
-            newRegister.put(PersonSqliteHelper.KEY_NAME,"juan");
-            newRegister.put(PersonSqliteHelper.KEY_NAME,"juan");
-            newRegister.put(PersonSqliteHelper.KEY_NAME,"juan");
-            newRegister.put(PersonSqliteHelper.KEY_NAME,"juan");
-            newRegister.put(PersonSqliteHelper.KEY_SEX,0);
-            newRegister.put(PersonSqliteHelper.KEY_STATE,1);
-            newRegister.put(PersonSqliteHelper.KEY_IMG_PERSON,"droide/imagen.jpg");
-
-            db.insert(PersonSqliteHelper.TABLE_PERSON,null,newRegister);
+            insertPersonSQLite();
         }
+    }
+
+    private void insertPersonSQLite() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("idPerson", idPerson);
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(2), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode==200) {
+                    try {
+                        JSONObject obj=new JSONObject(new String(responseBody));
+
+                        PersonModel personModel=new PersonModel();
+                        personModel.setIdPerson(idPerson);
+                        personModel.setEmailPerson(obj.getString("email"));
+                        personModel.setNamePerson(obj.getString("namePerson"));
+                        personModel.setNameLastPerson(obj.getString("nameLastPerson"));
+                        personModel.setSexPerson((byte) obj.getInt("sex"));
+                        personModel.setCityPerson(obj.getString("city"));
+                        personModel.setCountryPerson(obj.getString("country"));
+                        personModel.setPointPerson(obj.getInt("pointPerson"));
+                        personModel.setDateBornPerson(obj.getString("dateBorn"));
+                        personModel.setDateRegisterPerson(obj.getString("dateRegister"));
+                        personModel.setAddressPerson(obj.getString("address"));
+                        personModel.setNumberPhone(obj.getInt("numberPhone"));
+                        personModel.setNumberDocument(obj.getInt("numberDocument"));
+                        personModel.setTypeDocument(obj.getString("typeDocument"));
+                        personModel.setImgPerson(obj.getString("imageProfile"));
+
+                        ContentValues newRegister=new ContentValues();
+
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ID,personModel.getIdPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_EMAIL,personModel.getEmailPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME,personModel.getNamePerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST,personModel.getNameLastPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_CITY,personModel.getCityPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY,personModel.getCountryPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_POINT,personModel.getPointPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_SEX,personModel.getSexPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS,personModel.getAddressPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON,personModel.getImgPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN,personModel.getDateBornPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER,personModel.getDateRegisterPerson());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT,personModel.getTypeDocument());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT,personModel.getNumberDocument());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_PHONE,personModel.getNumberPhone());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_STATE,1);
+
+                        db.execSQL("DELETE FROM "+DataBaseSQLiteHelper.TABLE_PERSON);
+                        db.insert(DataBaseSQLiteHelper.TABLE_PERSON,null,newRegister);
+                    } catch (JSONException e) {
+                        showMesaje("Error de conexion");
+                    }
+
+                } else {
+                    showMesaje("Servidor no disponible");
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                showMesaje("Servidor no esta disponible");
+            }
+        });
     }
 
 
@@ -119,23 +177,23 @@ public class ContainerActivity extends Activities {
     }
 
     public List<PersonModel> getAllTablePerson(){
-        Cursor cursor=db.rawQuery("select * from "+PersonSqliteHelper.TABLE_PERSON,null);
+        Cursor cursor=db.rawQuery("select * from "+ DataBaseSQLiteHelper.TABLE_PERSON,null);
         List<PersonModel> listPerson=new ArrayList<>();
         if (cursor.moveToFirst()){
             while (!cursor.isAfterLast()){
                 PersonModel personModel=new PersonModel();
-                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(PersonSqliteHelper.KEY_ID)));
-                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_NAME)));
-                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_NAME_LAST)));
-                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_CITY)));
-                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_ADDRESS)));
-                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_DATE_BORN)));
-                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_DATE_REGISTER)));
-                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_EMAIL)));
-                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(PersonSqliteHelper.KEY_POINT)));
-                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_COUNTRY)));
-                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(PersonSqliteHelper.KEY_SEX)));
-                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(PersonSqliteHelper.KEY_IMG_PERSON)));
+                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
+                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
+                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
+                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
+                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
+                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
+                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
+                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
+                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
+                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
+                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
+                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
 
                 listPerson.add(personModel);
 

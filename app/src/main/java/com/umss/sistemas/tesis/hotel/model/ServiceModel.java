@@ -1,12 +1,12 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class PictureModel {
+public class ServiceModel {
     private String picture;
     private String userName;
     private String time;
     private String likeNumber="0";
 
-    public PictureModel(String picture, String userName, String time, String likeNumber) {
+    public ServiceModel(String picture, String userName, String time, String likeNumber) {
         this.picture = picture;
         this.userName = userName;
         this.time = time;

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 public class DataBaseSQLiteHelper extends SQLiteOpenHelper{
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "Hotel";
 
     //table person
@@ -47,6 +47,8 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper{
     public static final String KEY_ABOUT_WATCHWORD="watchWord";
     public static final String KEY_ABOUT_OBJETIVE="objetive";
     public static final String KEY_ABOUT_DESCRIPTION="description";
+    public static final String KEY_ABOUT_TYPEHOTEL="typeHotel";
+    public static final String KEY_ABOUT_SITEWEBHOTEL="siteWebHotel";
 
     public DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -80,7 +82,9 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper{
                 + KEY_ABOUT_HISTORY + " TEXT,"
                 + KEY_ABOUT_WATCHWORD + " TEXT,"
                 + KEY_ABOUT_OBJETIVE +" TEXT,"
-                + KEY_ABOUT_DESCRIPTION + " TEXT"
+                + KEY_ABOUT_DESCRIPTION + " TEXT,"
+                + KEY_ABOUT_TYPEHOTEL + " TEXT,"
+                + KEY_ABOUT_SITEWEBHOTEL + " TEXT"
                 + ")";
     }
 

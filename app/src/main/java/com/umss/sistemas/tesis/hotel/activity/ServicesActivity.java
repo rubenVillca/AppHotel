@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.model.PictureModel;
+import com.umss.sistemas.tesis.hotel.adapter.ServiceAdapterRecycler;
+import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 
 import java.util.ArrayList;
@@ -29,18 +29,18 @@ public class ServicesActivity extends Activities {
 
         pictureRecycler.setLayoutManager(linearLayoutManager);
 
-        HomeAdapterRecycler homeAdapter=new HomeAdapterRecycler(buidPicture(),R.layout.cardview_service,this);
+        ServiceAdapterRecycler homeAdapter=new ServiceAdapterRecycler(buidPicture(),R.layout.cardview_service,this);
         pictureRecycler.setAdapter(homeAdapter);
     }
 
-    public ArrayList<PictureModel> buidPicture(){
-        ArrayList<PictureModel> pictures= new ArrayList<>();
+    public ArrayList<ServiceModel> buidPicture(){
+        ArrayList<ServiceModel> pictures= new ArrayList<>();
 
-        pictures.add(new PictureModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Mario","4 dias","3  me gusta"));
-        pictures.add(new PictureModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","4"));
-        pictures.add(new PictureModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","5 me gusta"));
-        pictures.add(new PictureModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","6  me gusta"));
-        pictures.add(new PictureModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","7  me gusta"));
+        pictures.add(new ServiceModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Mario","4 dias","3  me gusta"));
+        pictures.add(new ServiceModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","4"));
+        pictures.add(new ServiceModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","5 me gusta"));
+        pictures.add(new ServiceModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","6  me gusta"));
+        pictures.add(new ServiceModel("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Sasso_lungo_da_passo_pordoi.jpg/270px-Sasso_lungo_da_passo_pordoi.jpg","Marioas","7 dias","7  me gusta"));
 
         return pictures;
     }

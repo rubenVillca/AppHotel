@@ -1,33 +1,21 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.HomeAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.model.PictureModel;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,8 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ProfileFragment extends Fragments {
     private CircleImageView imgProfile;
-    private DataBaseSQLiteHelper sync;
-    private SQLiteDatabase db;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -55,10 +41,8 @@ public class ProfileFragment extends Fragments {
         return view;
     }
 
-
-
     private void showContentProfile(View view) {
-        List<PersonModel> listProfile=getContent();
+        List<PersonModel> listProfile=getContentPerson();
         if (!listProfile.isEmpty()) {
             PersonModel profile=listProfile.get(0);
             showDataProfile(profile, view);
@@ -77,7 +61,6 @@ public class ProfileFragment extends Fragments {
         imgProfile=(CircleImageView)view.findViewById(R.id.imgCircleProfile);
         Picasso.with(getActivity()).load(Conexion.urlServer+nameImage).into(imgProfile);
     }
-
 
     /**
      * mostrar en la app los datos del perfil de usuario
@@ -128,39 +111,6 @@ public class ProfileFragment extends Fragments {
 
     }
 
-    /**
-     * Lee de la base de datos de sqlite los datos de los perfiles
-     * @return: lista de perfiles
-     */
-    private List<PersonModel> getContent() {
-        List<PersonModel> listPerson=new ArrayList<>();
-        sync=new DataBaseSQLiteHelper(getContext(), DataBaseSQLiteHelper.DATABASE_NAME,null, DataBaseSQLiteHelper.DATABASE_VERSION);
-        db=sync.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select * from "+ DataBaseSQLiteHelper.TABLE_PERSON,null);
-        if (cursor.moveToFirst()){
-            while (!cursor.isAfterLast()){
-                PersonModel personModel=new PersonModel();
-                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
-                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
-                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
-                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
-                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
-                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
-                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
-                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
-                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
-                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
-                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
-                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
-
-                listPerson.add(personModel);
-
-                cursor.moveToNext();
-            }
-        }
-        return listPerson;
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==Fragments.REQUEST_IMAGE_CAPTURE && resultCode==getActivity().RESULT_OK){
@@ -169,5 +119,12 @@ public class ProfileFragment extends Fragments {
             addPictureToGalery();
             Toast.makeText(getActivity(),"Guradado en: "+mCurrentPhotoPath,Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (db!=null)
+            db.close();
+        super.onDestroy();
     }
 }

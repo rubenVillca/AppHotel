@@ -1,9 +1,5 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-/**
- * Created by ruben on 18/04/2017.
- */
-
 public class AboutModel {
     private int id;
     private int phoneHotel;
@@ -22,11 +18,13 @@ public class AboutModel {
     private String addressGPSX;
     private String addressGPSY;
     private String addressImage;
+    private String type;
+    private String siteWeb;
 
     public AboutModel() {
         this.id = 0;
-        this.nameHotel = "";
         this.phoneHotel = 0;
+        this.nameHotel = "";
         this.mision = "";
         this.vision = "";
         this.address = "";
@@ -41,6 +39,25 @@ public class AboutModel {
         this.addressGPSX = "";
         this.addressGPSY = "";
         this.addressImage = "";
+        this.type = "";
+        this.siteWeb="";
+
+    }
+
+    public String getSiteWeb() {
+        return siteWeb;
+    }
+
+    public void setSiteWeb(String siteWeb) {
+        this.siteWeb = siteWeb;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     public int getId() {
         return id;

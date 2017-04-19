@@ -1,6 +1,9 @@
 package com.umss.sistemas.tesis.hotel.util;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -12,6 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
@@ -21,14 +27,27 @@ import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
+import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
+import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
+import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.model.PersonModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class Fragments extends Fragment implements View.OnClickListener {
-
+    protected DataBaseSQLiteHelper sync;
+    protected SQLiteDatabase db;
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -41,7 +60,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent =null;
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.imgProfileCamera:
                 showActivityCamera();
@@ -59,7 +78,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), ServicesActivity.class);
                 break;
             case R.id.imageAboutHotel:
-                intent = new Intent(getActivity(), AboutActivity.class);
+                updateDataBaseAbout();
                 break;
             case R.id.imageReserve:
                 intent = new Intent(getActivity(), ReserveActivity.class);
@@ -78,7 +97,89 @@ public class Fragments extends Fragment implements View.OnClickListener {
             startActivity(intent);
         }
     }
+    private void updateDataBaseAbout() {
+        sync=new DataBaseSQLiteHelper(getContext(), DataBaseSQLiteHelper.DATABASE_NAME,null, DataBaseSQLiteHelper.DATABASE_VERSION);
+        db=sync.getWritableDatabase();
 
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(3), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode==200) {
+                    try {
+                        JSONObject obj=new JSONObject(new String(responseBody));
+                        AboutModel aboutModel=new AboutModel();
+                        aboutModel.setId(1);
+                        aboutModel.setPhoneHotel(obj.getInt("phoneHotel"));
+
+                        aboutModel.setNameHotel(obj.getString("nameHotel"));
+                        aboutModel.setMision(obj.getString("mision"));
+                        aboutModel.setVision(obj.getString("vision"));
+                        aboutModel.setAddress(obj.getString("address"));
+                        aboutModel.setScope(obj.getString("scope"));
+                        aboutModel.setHistory(obj.getString("history"));
+                        aboutModel.setFundation(obj.getString("fundation"));
+                        aboutModel.setWatchWord(obj.getString("watchWord"));
+                        aboutModel.setObjetive(obj.getString("objetive"));
+                        aboutModel.setEmail(obj.getString("email"));
+                        aboutModel.setDescription(obj.getString("description"));
+                        aboutModel.setLogoHotel(obj.getString("logoHotel"));
+                        aboutModel.setAddressGPSX(obj.getString("addressGPSX"));
+                        aboutModel.setAddressGPSY(obj.getString("addressGPSY"));
+                        aboutModel.setAddressImage(obj.getString("addressImage"));
+                        aboutModel.setType(obj.getString("typeHotel"));
+                        aboutModel.setSiteWeb(obj.getString("siteWeb"));
+
+                        ContentValues newRegister=new ContentValues();
+
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID,aboutModel.getId());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL,aboutModel.getPhoneHotel());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL,aboutModel.getNameHotel());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_MISION,aboutModel.getMision());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_VISION,aboutModel.getVision());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS,aboutModel.getAddress());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE,aboutModel.getScope());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY,aboutModel.getHistory());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION,aboutModel.getFundation());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD,aboutModel.getWatchWord());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE,aboutModel.getObjetive());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL,aboutModel.getEmail());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION,aboutModel.getDescription());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL,aboutModel.getLogoHotel());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX,aboutModel.getAddressGPSX());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY,aboutModel.getAddressGPSY());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE,aboutModel.getAddressImage());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL,aboutModel.getType());
+                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL,aboutModel.getSiteWeb());
+
+                        db.execSQL("DELETE FROM "+DataBaseSQLiteHelper.TABLE_ABOUT);
+                        db.insert(DataBaseSQLiteHelper.TABLE_PERSON,null,newRegister);
+
+                    } catch (JSONException e) {
+                        System.out.println("Datos no legibles");
+                    }
+
+                } else {
+                    System.out.println("Servidor no disponible");
+                }
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+    }
 
     /**
      * permite cambiar imagen de perfil
@@ -102,7 +203,6 @@ public class Fragments extends Fragment implements View.OnClickListener {
         }
     }
 
-
     /**
      * @return File: imagen guardada en el smarthphone
      * @throws IOException:control de errores
@@ -116,6 +216,40 @@ public class Fragments extends Fragment implements View.OnClickListener {
         File image = File.createTempFile(imageFilename, ".jpg", storageDir);
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
+    }
+
+    /**
+     * Lee de la base de datos de sqlite los datos de los perfiles
+     *
+     * @return List<PersonModel>: lista de perfiles
+     */
+    protected List<PersonModel> getContentPerson() {
+        List<PersonModel> listPerson = new ArrayList<>();
+        sync = new DataBaseSQLiteHelper(getContext(), DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
+        db = sync.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_PERSON, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                PersonModel personModel = new PersonModel();
+                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
+                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
+                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
+                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
+                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
+                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
+                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
+                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
+                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
+                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
+                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
+                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
+
+                listPerson.add(personModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listPerson;
     }
 
     protected void addPictureToGalery() {

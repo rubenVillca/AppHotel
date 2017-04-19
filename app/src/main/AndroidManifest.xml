@@ -57,54 +57,71 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.AboutActivity"
+        <activity
+            android:name=".activity.AboutActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.CalendarActivity"
+        <activity
+            android:name=".activity.CalendarActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.MenuFoodActivity"
+        <activity
+            android:name=".activity.MenuFoodActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.MessagesActivity"
+        <activity
+            android:name=".activity.MessagesActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.OffersActivity"
+        <activity
+            android:name=".activity.OffersActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.ReserveActivity"
+        <activity
+            android:name=".activity.ReserveActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.ServicesActivity"
+        <activity
+            android:name=".activity.ServicesActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.SitesTourActivity"
+        <activity
+            android:name=".activity.SitesTourActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ContainerActivity" />
         </activity>
+        <activity android:name=".activity.LocationActivity"></activity>
     </application>
 
 </manifest>

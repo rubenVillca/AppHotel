@@ -31,7 +31,7 @@ public class HomeFragment extends Fragments {
     }
 
     /**
-     * asigna una acciona a cada imagen del home
+     * asigna una accion a cada imagen del home
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {

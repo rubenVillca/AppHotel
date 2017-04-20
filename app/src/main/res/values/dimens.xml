@@ -42,4 +42,5 @@
     <dimen name="fragment_profile_paddingwidth">3dp</dimen>
     <dimen name="padding_textview_horizontal_profile">8dp</dimen>
     <dimen name="content_profile_textView_size">16sp</dimen>
+    <dimen name="padding_activityabout">10dp</dimen>
 </resources>

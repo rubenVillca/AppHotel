@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activities extends AppCompatActivity {
-    private DataBaseSQLiteHelper sync;
-    private SQLiteDatabase db;
+    protected DataBaseSQLiteHelper sync;
+    protected SQLiteDatabase db;
     protected View progressView;
     protected View container;
 
@@ -85,5 +85,12 @@ public class Activities extends AppCompatActivity {
             }
         }
         return listPerson;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (db!=null)
+            db.close();
+        super.onDestroy();
     }
 }

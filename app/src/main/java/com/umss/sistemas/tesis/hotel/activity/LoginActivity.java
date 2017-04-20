@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
+import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
+import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 
 import org.json.JSONException;
@@ -22,64 +25,44 @@ import java.util.regex.Pattern;
 import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activities {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        container=findViewById(R.id.containerLogin);
-        progressView=findViewById(R.id.progress_bar);
+        container = findViewById(R.id.containerLogin);
+        progressView = findViewById(R.id.progress_bar);
+
+        sync = new DataBaseSQLiteHelper(this, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
+        db = sync.getWritableDatabase();
     }
 
-    public void goCreateAccount(View view){
-        Intent intent =new Intent(this, CreateAccountActivity.class);
+    /**
+     * ir a activity createAccountActivity para crear usuario
+     *
+     * @param view:vista login
+     */
+    public void goCreateAccountActivity(View view) {
+        Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);
     }
-    public void proccessLogin(View view){
-        EditText login=(EditText)findViewById(R.id.userName);
-        EditText pass=(EditText)findViewById(R.id.password);
-        login.setError(null);
-        pass.setError(null);
 
-        String loginText=login.getText().toString().trim();
-        String passText=pass.getText().toString().trim();
-
-
-        boolean cancel = false;
-        View focusView = null;
-
-        if (!isPasswordValid(passText)) {
-            pass.setError(getString(R.string.error_invalid_password));
-            focusView = pass;
-            cancel = true;
-        }
-        if (TextUtils.isEmpty(passText)) {
-            pass.setError(getString(R.string.error_field_required));
-            focusView = pass;
-            cancel = true;
-        }
-
-        if (!isEmailValid(loginText)&&loginText.length()>0) {
-            login.setError(getString(R.string.error_invalid_email));
-            focusView = login;
-            cancel = true;
-        }
-
-        if (TextUtils.isEmpty(loginText)) {
-            login.setError(getString(R.string.error_field_required));
-            focusView = login;
-            cancel = true;
-        }
-
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
+    /**
+     * cambiar activity a containerActivity->homeFragment
+     *
+     * @param view:activity login
+     */
+    public void goHomeActivity(View view) {
+        boolean cancel = isValidLogin();
+        if (!cancel) {
             showProgress(true);
             iniciarSession();
             showProgress(false);
         }
     }
 
+    /**
+     * conectar con webServer e iniciar session
+     */
     private void iniciarSession() {
         final String emailText = ((EditText) findViewById(R.id.userName)).getText().toString();
         final String passText = ((EditText) findViewById(R.id.password)).getText().toString();
@@ -93,27 +76,33 @@ public class LoginActivity extends Activities {
         client.post(Conexion.getUrlServer(0), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode==200) {
-                    String idUser="";
+                if (statusCode == 200) {
+                    int idPerson = 0;
+                    JSONObject obj = null;
                     try {
-                        JSONObject obj=new JSONObject(new String(responseBody));
-                        idUser=obj.getString("idPerson");
+                        obj = new JSONObject(new String(responseBody));
+                        idPerson = obj.getInt("idPerson");
                     } catch (JSONException e) {
+                        idPerson=0;
                         showMesaje("Error de conexion");
                     }
-                    int idPerson;
-                    try {
-                        idPerson=Integer.parseInt(idUser);
-                    } catch (NumberFormatException n) {
-                        idPerson=0;
-                    }
+
                     switch (idPerson) {
-                        case  0:showMesaje("Nombre de usuario incorrecto");break;
-                        case -1:showMesaje("Contrasenia incorrectos");break;
-                        case -2:showMesaje("Cuenta no disponible");break;
+                        case 0:
+                            showMesaje("Nombre de usuario incorrecto");
+                            break;
+                        case -1:
+                            showMesaje("Contrasenia incorrectos");
+                            break;
+                        case -2:
+                            showMesaje("Cuenta no disponible");
+                            break;
                         default:
+                            PersonModel personModel = getPersonModel(obj);
+                            ContentValues newRegister = new ContentValues();
+                            setPersonModel(personModel, newRegister);
+                            initHome(idPerson);
                             showMesaje("Ha iniciado Sesion");
-                            changeToHome(idPerson);
                             break;
                     }
                 } else {
@@ -130,17 +119,127 @@ public class LoginActivity extends Activities {
         });
     }
 
-    private void changeToHome(int idPerson) {
+    private void setPersonModel(PersonModel personModel, ContentValues newRegister) {
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_CITY, personModel.getCityPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_POINT, personModel.getPointPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_SEX, personModel.getSexPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_STATE, 1);
+
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PERSON);
+        db.insert(DataBaseSQLiteHelper.TABLE_PERSON, null, newRegister);
+    }
+
+    private PersonModel getPersonModel(JSONObject obj) {
+        PersonModel personModel=new PersonModel();
+        try {
+            personModel.setIdPerson(obj.getInt("idPerson"));
+            personModel.setEmailPerson(obj.getString("email"));
+            personModel.setNamePerson(obj.getString("namePerson"));
+            personModel.setNameLastPerson(obj.getString("nameLastPerson"));
+            personModel.setSexPerson((byte) obj.getInt("sex"));
+            personModel.setPointPerson(obj.getInt("point"));
+            personModel.setCityPerson(obj.getString("city"));
+            personModel.setCountryPerson(obj.getString("country"));
+            personModel.setDateBornPerson(obj.getString("dateBorn"));
+            personModel.setDateRegisterPerson(obj.getString("dateRegister"));
+            personModel.setAddressPerson(obj.getString("address"));
+            personModel.setImgPerson(obj.getString("imageProfile"));
+            personModel.setNumberPhone(obj.getInt("numberPhone"));
+            personModel.setNumberDocument(obj.getInt("numberDocument"));
+            personModel.setTypeDocument(obj.getString("typeDocument"));
+        } catch (JSONException e) {
+            System.out.println("Error al leer los datos: " + obj.toString() + " \nError: ");
+            e.printStackTrace();
+        }
+        return personModel;
+    }
+
+    /**
+     * cambiar de activityLogin a activityContainer->fragmentHome
+     *
+     * @param idPerson:identificador de idPerson
+     */
+    private void initHome(int idPerson) {
         Intent intent = new Intent(this, ContainerActivity.class);
-        intent.putExtra("idPerson",idPerson);
+        intent.putExtra("idPerson", idPerson);
         startActivity(intent);
     }
 
+    /**
+     * @return true: si el login es valido
+     */
+    public boolean isValidLogin() {
+        EditText login = (EditText) findViewById(R.id.userName);
+        EditText pass = (EditText) findViewById(R.id.password);
+        login.setError(null);
+        pass.setError(null);
+
+        String loginText = login.getText().toString().trim();
+        String passText = pass.getText().toString().trim();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (!isPasswordValid(passText)) {
+            pass.setError(getString(R.string.error_invalid_password));
+            focusView = pass;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(passText)) {
+            pass.setError(getString(R.string.error_field_required));
+            focusView = pass;
+            cancel = true;
+        }
+
+        if (!isEmailValid(loginText) && loginText.length() > 0) {
+            login.setError(getString(R.string.error_invalid_email));
+            focusView = login;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(loginText)) {
+            login.setError(getString(R.string.error_field_required));
+            focusView = login;
+            cancel = true;
+        }
+        if (cancel) {
+            focusView.requestFocus();
+        }
+        return cancel;
+    }
+
+    /**
+     * @param email:login que ingresa el usuario
+     * @return true: si es email valid
+     */
     private boolean isEmailValid(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
+
+    /**
+     * verifica si la contrasena ingresada es valida
+     *
+     * @param password:contrasena ingresada por el usuario
+     * @return true: si la contrasena es valida
+     */
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

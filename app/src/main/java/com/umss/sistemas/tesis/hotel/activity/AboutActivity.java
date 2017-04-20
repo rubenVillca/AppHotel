@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,25 +33,53 @@ public class AboutActivity extends Activities {
         List<AboutModel> listAbout = getContentAbout();
         if (!listAbout.isEmpty()) {
             AboutModel aboutModel = listAbout.get(0);
-            showDataProfile(aboutModel);
+            showContentAbout(aboutModel);
         }
     }
 
-    private void showDataProfile(AboutModel about) {
-        ((TextView)findViewById(R.id.aboutHotelPhone)).setText(about.getPhoneHotel());
-        ((TextView)findViewById(R.id.aboutHotelName)).setText(about.getNameHotel());
-        ((TextView)findViewById(R.id.aboutHotelMision)).setText(about.getMision());
-        ((TextView)findViewById(R.id.aboutHotelVision)).setText(about.getVision());
-        ((TextView)findViewById(R.id.aboutHotelAddress)).setText(about.getAddress());
-        ((TextView)findViewById(R.id.aboutHotelScope)).setText(about.getScope());
-        ((TextView)findViewById(R.id.aboutHotelHistory)).setText(about.getHistory());
-        ((TextView)findViewById(R.id.aboutHotelDateFoundation)).setText(about.getFundation());
-        ((TextView)findViewById(R.id.aboutHotelWatchword)).setText(about.getWatchWord());
-        ((TextView)findViewById(R.id.aboutHotelObjetives)).setText(about.getObjetive());
-        ((TextView)findViewById(R.id.aboutHotelEmail)).setText(about.getEmail());
-        ((TextView)findViewById(R.id.aboutHotelDescription)).setText(about.getDescription());
-        ((TextView)findViewById(R.id.aboutHotelType)).setText(about.getType());
-        ((TextView)findViewById(R.id.aboutHotelSiteWeb)).setText(about.getSiteWeb());
+    private void showContentAbout(AboutModel about) {
+        TextView phone=((TextView)findViewById(R.id.aboutHotelPhone));
+        phone.setText(String.valueOf(about.getPhoneHotel()));
+
+        TextView name=((TextView)findViewById(R.id.aboutHotelName));
+        name.setText(about.getNameHotel());
+
+        TextView mision=((TextView)findViewById(R.id.aboutHotelMision));
+        mision.setText(about.getMision());
+
+        TextView vision=((TextView)findViewById(R.id.aboutHotelVision));
+        vision.setText(about.getVision());
+
+        TextView address=((TextView)findViewById(R.id.aboutHotelAddress));
+        address.setText(about.getAddress());
+
+        TextView scope=((TextView)findViewById(R.id.aboutHotelScope));
+        scope.setText(about.getScope());
+
+        TextView history=((TextView)findViewById(R.id.aboutHotelHistory));
+        history.setText(about.getHistory());
+
+        TextView dateFoundation=((TextView)findViewById(R.id.aboutHotelDateFoundation));
+        dateFoundation.setText(about.getFundation());
+
+        TextView watchword=((TextView)findViewById(R.id.aboutHotelWatchword));
+        watchword.setText(about.getWatchWord());
+
+        TextView objetives=((TextView)findViewById(R.id.aboutHotelObjetives));
+        objetives.setText(about.getObjetive());
+
+        TextView email=((TextView)findViewById(R.id.aboutHotelEmail));
+        email.setText(about.getEmail());
+
+        TextView description=((TextView)findViewById(R.id.aboutHotelDescription));
+        description.setText(about.getDescription());
+
+        TextView type=((TextView)findViewById(R.id.aboutHotelType));
+        type.setText(about.getType());
+
+        TextView siteWeb=((TextView)findViewById(R.id.aboutHotelSiteWeb));
+        siteWeb.setText(about.getSiteWeb());
+
 
     }
     /**
@@ -59,35 +88,43 @@ public class AboutActivity extends Activities {
      * @return List<PersonModel>: datos del hotel
      */
     protected List<AboutModel> getContentAbout() {
-        List<AboutModel> listAbout = new ArrayList<>();
         sync = new DataBaseSQLiteHelper(this, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
         db = sync.getWritableDatabase();
+        List<AboutModel> listAbout = new ArrayList<>();
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_ABOUT, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                AboutModel aboutModel = new AboutModel();
-                aboutModel.setPhoneHotel(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL)));
-                aboutModel.setNameHotel(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL)));
-                aboutModel.setMision(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_MISION)));
-                aboutModel.setVision(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_VISION)));
-                aboutModel.setAddress(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS)));
-                aboutModel.setScope(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE)));
-                aboutModel.setHistory(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY)));
-                aboutModel.setFundation(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION)));
-                aboutModel.setWatchWord(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD)));
-                aboutModel.setObjetive(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE)));
-                aboutModel.setEmail(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL)));
-                aboutModel.setDescription(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION)));
-                aboutModel.setLogoHotel(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL)));
-                aboutModel.setAddressGPSX(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX)));
-                aboutModel.setAddressGPSY(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY)));
-                aboutModel.setAddressImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE)));
-                aboutModel.setSiteWeb(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL)));
-                listAbout.add(aboutModel);
-
+                listAbout.add(getAboutModel(cursor));
                 cursor.moveToNext();
             }
         }
         return listAbout;
+    }
+
+    @NonNull
+    private AboutModel getAboutModel(Cursor cursor) {
+        AboutModel aboutModel = new AboutModel();
+
+        aboutModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ID)));
+        aboutModel.setLogoHotel(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL)));
+        aboutModel.setAddressGPSX(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX)));
+        aboutModel.setAddressGPSY(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY)));
+        aboutModel.setAddressImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE)));
+        aboutModel.setNameHotel(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL)));
+        aboutModel.setPhoneHotel(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL)));
+        aboutModel.setEmail(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL)));
+        aboutModel.setAddress(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS)));
+        aboutModel.setMision(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_MISION)));
+        aboutModel.setVision(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_VISION)));
+        aboutModel.setFundation(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION)));
+        aboutModel.setScope(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE)));
+        aboutModel.setHistory(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY)));
+        aboutModel.setWatchWord(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD)));
+        aboutModel.setObjetive(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE)));
+        aboutModel.setDescription(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION)));
+        aboutModel.setType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL)));
+        aboutModel.setSiteWeb(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL)));
+
+        return aboutModel;
     }
 }

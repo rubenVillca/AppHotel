@@ -1,8 +1,12 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,10 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,6 +49,42 @@ public class ProfileFragment extends Fragments {
         return view;
     }
 
+    /**
+     * permite cambiar imagen de perfil
+     */
+    public void goCameraActivity(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null) {
+                Uri photoUri = FileProvider.getUriForFile(getActivity(), "com.umss.sistemas.tesis.hotel", photoFile);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+    /**
+     * guardar las imagenes de perfil capturadas
+     * @return File: imagen guardada en el smarthphone
+     * @throws IOException:control de errores
+     */
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFilename = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(imageFilename, ".jpg", storageDir);
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
     private void showContentProfile(View view) {
         List<PersonModel> listProfile=getContentPerson();
         if (!listProfile.isEmpty()) {
@@ -54,7 +98,12 @@ public class ProfileFragment extends Fragments {
 
     private void showImageCamera(View view) {
         ImageView imgCamera = (ImageView) view.findViewById(R.id.imgProfileCamera);
-        imgCamera.setOnClickListener(this);
+        imgCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goCameraActivity(v);
+            }
+        });
     }
 
     private void showImageProfile(View view,String nameImage) {
@@ -119,6 +168,15 @@ public class ProfileFragment extends Fragments {
             addPictureToGalery();
             Toast.makeText(getActivity(),"Guradado en: "+mCurrentPhotoPath,Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void addPictureToGalery() {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File newFile = new File(mCurrentPhotoPath);
+
+        Uri contentUri = Uri.fromFile(newFile);
+        intent.setData(contentUri);
+        getActivity().sendBroadcast(intent);
     }
 
     @Override

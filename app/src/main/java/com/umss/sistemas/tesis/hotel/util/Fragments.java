@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
@@ -28,7 +29,6 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
@@ -62,9 +62,6 @@ public class Fragments extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
-            case R.id.imgProfileCamera:
-                showActivityCamera();
-                break;
             case R.id.fab:
                 intent = new Intent(getActivity(), MessagesActivity.class);
                 break;
@@ -78,7 +75,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), ServicesActivity.class);
                 break;
             case R.id.imageAboutHotel:
-                updateDataBaseAbout();
+                goAbout();
                 break;
             case R.id.imageReserve:
                 intent = new Intent(getActivity(), ReserveActivity.class);
@@ -97,9 +94,10 @@ public class Fragments extends Fragment implements View.OnClickListener {
             startActivity(intent);
         }
     }
-    private void updateDataBaseAbout() {
-        sync=new DataBaseSQLiteHelper(getContext(), DataBaseSQLiteHelper.DATABASE_NAME,null, DataBaseSQLiteHelper.DATABASE_VERSION);
-        db=sync.getWritableDatabase();
+
+    private void goAbout() {
+        sync = new DataBaseSQLiteHelper(getContext(), DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
+        db = sync.getWritableDatabase();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -109,113 +107,86 @@ public class Fragments extends Fragment implements View.OnClickListener {
         client.post(Conexion.getUrlServer(3), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode==200) {
-                    try {
-                        JSONObject obj=new JSONObject(new String(responseBody));
-                        AboutModel aboutModel=new AboutModel();
-                        aboutModel.setId(1);
-                        aboutModel.setPhoneHotel(obj.getInt("phoneHotel"));
+                if (statusCode == 200) {
 
-                        aboutModel.setNameHotel(obj.getString("nameHotel"));
-                        aboutModel.setMision(obj.getString("mision"));
-                        aboutModel.setVision(obj.getString("vision"));
-                        aboutModel.setAddress(obj.getString("address"));
-                        aboutModel.setScope(obj.getString("scope"));
-                        aboutModel.setHistory(obj.getString("history"));
-                        aboutModel.setFundation(obj.getString("fundation"));
-                        aboutModel.setWatchWord(obj.getString("watchWord"));
-                        aboutModel.setObjetive(obj.getString("objetive"));
-                        aboutModel.setEmail(obj.getString("email"));
-                        aboutModel.setDescription(obj.getString("description"));
-                        aboutModel.setLogoHotel(obj.getString("logoHotel"));
-                        aboutModel.setAddressGPSX(obj.getString("addressGPSX"));
-                        aboutModel.setAddressGPSY(obj.getString("addressGPSY"));
-                        aboutModel.setAddressImage(obj.getString("addressImage"));
-                        aboutModel.setType(obj.getString("typeHotel"));
-                        aboutModel.setSiteWeb(obj.getString("siteWeb"));
-
-                        ContentValues newRegister=new ContentValues();
-
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID,aboutModel.getId());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL,aboutModel.getPhoneHotel());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL,aboutModel.getNameHotel());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_MISION,aboutModel.getMision());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_VISION,aboutModel.getVision());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS,aboutModel.getAddress());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE,aboutModel.getScope());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY,aboutModel.getHistory());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION,aboutModel.getFundation());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD,aboutModel.getWatchWord());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE,aboutModel.getObjetive());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL,aboutModel.getEmail());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION,aboutModel.getDescription());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL,aboutModel.getLogoHotel());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX,aboutModel.getAddressGPSX());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY,aboutModel.getAddressGPSY());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE,aboutModel.getAddressImage());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL,aboutModel.getType());
-                        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL,aboutModel.getSiteWeb());
-
-                        db.execSQL("DELETE FROM "+DataBaseSQLiteHelper.TABLE_ABOUT);
-                        db.insert(DataBaseSQLiteHelper.TABLE_PERSON,null,newRegister);
-
-                    } catch (JSONException e) {
-                        System.out.println("Datos no legibles");
-                    }
+                    AboutModel aboutModel = getAboutModel(responseBody);
+                    setAboutModel(aboutModel);
 
                 } else {
                     System.out.println("Servidor no disponible");
                 }
-                Intent intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
+                goActivityAbout();
                 //showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                Intent intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
+                goActivityAbout();
                 //showProgress(false);
                 System.out.println("Servidor no disponible");
             }
         });
     }
 
-    /**
-     * permite cambiar imagen de perfil
-     */
-    private void showActivityCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (photoFile != null) {
-                Uri photoUri = FileProvider.getUriForFile(getActivity(), "com.umss.sistemas.tesis.hotel", photoFile);
-
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-            }
+    private AboutModel getAboutModel(byte[] responseBody) {
+        AboutModel aboutModel = new AboutModel();
+        try {
+            JSONObject obj = new JSONObject(new String(responseBody));
+            aboutModel.setId(1);
+            aboutModel.setPhoneHotel(obj.getInt("phoneHotel"));
+            aboutModel.setNameHotel(obj.getString("nameHotel"));
+            aboutModel.setMision(obj.getString("mision"));
+            aboutModel.setVision(obj.getString("vision"));
+            aboutModel.setAddress(obj.getString("address"));
+            aboutModel.setScope(obj.getString("scope"));
+            aboutModel.setHistory(obj.getString("history"));
+            aboutModel.setFundation(obj.getString("fundation"));
+            aboutModel.setWatchWord(obj.getString("watchWord"));
+            aboutModel.setObjetive(obj.getString("objetive"));
+            aboutModel.setEmail(obj.getString("email"));
+            aboutModel.setDescription(obj.getString("description"));
+            aboutModel.setLogoHotel(obj.getString("logoHotel"));
+            aboutModel.setAddressGPSX(obj.getString("addressGPSX"));
+            aboutModel.setAddressGPSY(obj.getString("addressGPSY"));
+            aboutModel.setAddressImage(obj.getString("addressImage"));
+            aboutModel.setType(obj.getString("typeHotel"));
+            aboutModel.setSiteWeb(obj.getString("siteWeb"));
+        } catch (JSONException e) {
+            System.out.println("Datos no legibles");
         }
+            return aboutModel;
+        }
+
+    private void setAboutModel(AboutModel aboutModel) {
+        ContentValues newRegister = new ContentValues();
+
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL, aboutModel.getPhoneHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL, aboutModel.getNameHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_MISION, aboutModel.getMision());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_VISION, aboutModel.getVision());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE, aboutModel.getScope());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY, aboutModel.getHistory());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION, aboutModel.getFundation());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD, aboutModel.getWatchWord());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL, aboutModel.getEmail());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL, aboutModel.getLogoHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX, aboutModel.getAddressGPSX());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY, aboutModel.getAddressGPSY());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE, aboutModel.getAddressImage());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
+
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_ABOUT);
+        db.insert(DataBaseSQLiteHelper.TABLE_ABOUT, null, newRegister);
     }
 
-    /**
-     * @return File: imagen guardada en el smarthphone
-     * @throws IOException:control de errores
-     */
-    //guardar las imagenes de perfil capturadas[ error]
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFilename = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(imageFilename, ".jpg", storageDir);
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
+    private void goActivityAbout() {
+        Intent intent = new Intent(getActivity(), AboutActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -230,19 +201,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_PERSON, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                PersonModel personModel = new PersonModel();
-                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
-                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
-                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
-                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
-                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
-                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
-                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
-                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
-                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
-                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
-                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
-                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
+                PersonModel personModel = getPersonModel(cursor);
 
                 listPerson.add(personModel);
 
@@ -252,13 +211,22 @@ public class Fragments extends Fragment implements View.OnClickListener {
         return listPerson;
     }
 
-    protected void addPictureToGalery() {
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File newFile = new File(mCurrentPhotoPath);
-
-        Uri contentUri = Uri.fromFile(newFile);
-        intent.setData(contentUri);
-        getActivity().sendBroadcast(intent);
+    @NonNull
+    private PersonModel getPersonModel(Cursor cursor) {
+        PersonModel personModel = new PersonModel();
+        personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
+        personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
+        personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
+        personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
+        personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
+        personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
+        personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
+        personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
+        personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
+        personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
+        personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
+        personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
+        return personModel;
     }
 
     protected void showFloatingButtonMessage(View view) {

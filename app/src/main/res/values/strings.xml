@@ -81,4 +81,18 @@
     <string name="content_profile_textView_numberphone">Teléfono</string>
     <string name="content_profile_textView_typedocument">Documento de identificación</string>
     <string name="content_profile_textView_numberdocument">Número de documento</string>
+    <string name="activityabout_text_name">Nombre del hotel:</string>
+    <string name="activityabout_text_address">Dirección:</string>
+    <string name="activityabout_text_type">Tipo de hotel:</string>
+    <string name="activityabout_text_domain">Pagina web</string>
+    <string name="activityabout_text_datefoundation">Fecha de fundación</string>
+    <string name="activityabout_text_history">Historia del hotel</string>
+    <string name="activityabout_text_mision">Misión</string>
+    <string name="activityabout_text_vision">Visión</string>
+    <string name="activityabout_text_lema">Lema</string>
+    <string name="activityabout_text_alcance">Alcance</string>
+    <string name="activityabout_text_objetive">Objetivos</string>
+    <string name="activityabout_text_description">Descripción</string>
+    <string name="activityabout_text_email">Correo electrónico</string>
+    <string name="activityabout_text_phone">Teléfono</string>
 </resources>

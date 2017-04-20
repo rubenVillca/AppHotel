@@ -80,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/paddin_horizontal_login"
-                        android:onClick="proccessLogin"
+                        android:onClick="goHomeActivity"
                         android:text="@string/login"
                         android:theme="@style/RaisedButtonDark" />
 
@@ -102,7 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/labelDontAccount"
-                            android:onClick="goCreateAccount"
+                            android:onClick="goCreateAccountActivity"
                             android:text="@string/create_here"
                             android:textColor="@color/editTextColorWhite"
                             android:textSize="@dimen/text_size_dont_account"

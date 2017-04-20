@@ -88,7 +88,7 @@
         app:targetWidth="0dp"
         app:targetX="0dp"
         app:targetY="0dp"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"/>
 
     <TextView
         android:id="@+id/userNameToolbarProfile"

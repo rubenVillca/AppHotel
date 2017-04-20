@@ -29,279 +29,294 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Nombre del hotel:" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_name" />
 
                     <TextView
                         android:id="@+id/aboutHotelName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Dirección:" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_address" />
 
                     <TextView
                         android:id="@+id/aboutHotelAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Tipo de hotel:" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_type" />
 
                     <TextView
                         android:id="@+id/aboutHotelType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Pagina web" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_domain" />
 
                     <TextView
                         android:id="@+id/aboutHotelSiteWeb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Fecha de fundación" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_datefoundation" />
 
                     <TextView
                         android:id="@+id/aboutHotelDateFoundation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Historia del hotel" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_history" />
 
                     <TextView
                         android:id="@+id/aboutHotelHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Misión" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_mision" />
 
                     <TextView
                         android:id="@+id/aboutHotelMision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Visión" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_vision" />
 
                     <TextView
                         android:id="@+id/aboutHotelVision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Lema" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_lema" />
 
                     <TextView
                         android:id="@+id/aboutHotelWatchword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Alcance" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_alcance" />
 
                     <TextView
                         android:id="@+id/aboutHotelScope"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Objetivos" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_objetive" />
 
                     <TextView
                         android:id="@+id/aboutHotelObjetives"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Descripción" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_description" />
 
                     <TextView
                         android:id="@+id/aboutHotelDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Correo electrónico" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_email" />
 
                     <TextView
                         android:id="@+id/aboutHotelEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_activityabout"
+                    android:paddingRight="@dimen/padding_activityabout"
+                    android:paddingTop="@dimen/padding_activityabout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Teléfono" />
+                        android:textStyle="bold"
+                        android:text="@string/activityabout_text_phone" />
 
                     <TextView
                         android:id="@+id/aboutHotelPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="" />
                 </LinearLayout>
 

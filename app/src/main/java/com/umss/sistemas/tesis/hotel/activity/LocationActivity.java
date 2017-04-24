@@ -1,12 +1,23 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
@@ -16,7 +27,8 @@ import com.umss.sistemas.tesis.hotel.model.AboutModel;
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private HelperSQLite helperSQLite;
+    private AboutModel aboutModel;
+    private static int zoomMap=12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +53,73 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        helperSQLite=new HelperSQLite(this);
-        AboutModel aboutModel=helperSQLite.getAboutModel();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY()));
-        mMap.addMarker(new MarkerOptions().position(sydney).title(aboutModel.getNameHotel()).snippet(aboutModel.getAddress()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        addMarker();
+        addLocation();
     }
+
+    private void addLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locListener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            addMyLocation(location);
+        }
+    }
+
+    private void addMarker() {
+        HelperSQLite helperSQLite = new HelperSQLite(this);
+        aboutModel = helperSQLite.getAboutModel();
+        // Add a marker in Sydney and move the camera
+        LatLng hotelMarker = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
+        mMap.addMarker(new MarkerOptions().position(hotelMarker).title(aboutModel.getNameHotel()).snippet(aboutModel.getAddress()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelMarker));
+    }
+
+    private void updateLocation(Location location) {
+        addMarker();
+        addMyLocation(location);
+    }
+
+    private void addMyLocation(Location location) {
+        if (location != null) {
+            LatLng locationActual = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(locationActual).title("Ubicacion actual").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(locationActual));
+
+            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(locationActual, zoomMap);
+            mMap.animateCamera(miUbicacion);
+        }else {
+            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY())), zoomMap);
+            mMap.animateCamera(miUbicacion);
+        }
+
+
+    }
+
+    LocationListener locListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            //updateLocation(location);
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+            Toast.makeText(LocationActivity.this, "GPS Deshabilitado: " + s, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+            Toast.makeText(LocationActivity.this, "GPS Habilitado: " + s, Toast.LENGTH_LONG).show();
+
+        }
+    };
+
 }

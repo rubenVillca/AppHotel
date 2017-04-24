@@ -14,6 +14,7 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
+import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
 import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
 import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
@@ -80,7 +81,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), ReserveActivity.class);
                 break;
             case R.id.imageLocationMap:
-                Toast.makeText(getContext(), "Localizanos", Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(), LocationActivity.class);
                 break;
             case R.id.imageActivity:
                 intent = new Intent(getActivity(), CalendarActivity.class);

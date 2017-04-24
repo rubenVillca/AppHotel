@@ -17,9 +17,7 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 public class MessageSendFragment extends Fragments {
 
 
-    public MessageSendFragment() {
-        helperSQLite=new HelperSQLite(getContext());
-    }
+    public MessageSendFragment() {}
 
 
     @Override
@@ -31,5 +29,4 @@ public class MessageSendFragment extends Fragments {
         super.showFloatingButtonMessage(view);
         return view;
     }
-
 }

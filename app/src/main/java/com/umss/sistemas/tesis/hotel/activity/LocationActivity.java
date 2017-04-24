@@ -10,10 +10,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.model.AboutModel;
 
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private HelperSQLite helperSQLite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +41,12 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        helperSQLite=new HelperSQLite(this);
+        AboutModel aboutModel=helperSQLite.getAboutModel();
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng sydney = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY()));
+        mMap.addMarker(new MarkerOptions().position(sydney).title(aboutModel.getNameHotel()).snippet(aboutModel.getAddress()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

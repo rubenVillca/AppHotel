@@ -6,64 +6,78 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 10;
-    public static final String DATABASE_NAME = "Hotel";
+    static final int DATABASE_VERSION = 13;
+    static final String DATABASE_NAME = "Hotel";
+
+    //table login
+    static final String TABLE_LOGIN = "Login";
+    static final String KEY_LOGIN_ID_PERSON = "idPerson";
+    static final String KEY_LOGIN_STATE = "state";
+    static final String KEY_LOGIN_PASSWORD = "password";
 
     //table person
-    public static final String TABLE_PERSON = "Person";
-    public static final String KEY_PERSON_ID = "id";
-    public static final String KEY_PERSON_NAME = "namePerson";
-    public static final String KEY_PERSON_NAME_LAST = "nameLastPerson";
-    public static final String KEY_PERSON_EMAIL = "emailPerson";
-    public static final String KEY_PERSON_POINT = "pointPerson";
-    public static final String KEY_PERSON_ADDRESS = "addressPerson";
-    public static final String KEY_PERSON_CITY = "cityPerson";
-    public static final String KEY_PERSON_COUNTRY = "countryPerson";
-    public static final String KEY_PERSON_SEX = "sexPerson";
-    public static final String KEY_PERSON_DATE_BORN = "dateBornPerson";
-    public static final String KEY_PERSON_DATE_REGISTER = "dateRegisterBorn";
-    public static final String KEY_PERSON_STATE = "stateAccountPerson";
-    public static final String KEY_PERSON_IMG_PERSON = "imgPerson";
-    public static final String KEY_PERSON_TYPE_DOCUMENT = "typeDocument";
-    public static final String KEY_PERSON_NUMBER_DOCUMENT = "numberDocument";
-    public static final String KEY_PERSON_NUMBER_PHONE = "numberPhone";
+    static final String TABLE_PERSON = "Person";
+    static final String KEY_PERSON_ID = "id";
+    static final String KEY_PERSON_NAME = "namePerson";
+    static final String KEY_PERSON_NAME_LAST = "nameLastPerson";
+    static final String KEY_PERSON_EMAIL = "emailPerson";
+    static final String KEY_PERSON_POINT = "pointPerson";
+    static final String KEY_PERSON_ADDRESS = "addressPerson";
+    static final String KEY_PERSON_CITY = "cityPerson";
+    static final String KEY_PERSON_COUNTRY = "countryPerson";
+    static final String KEY_PERSON_SEX = "sexPerson";
+    static final String KEY_PERSON_DATE_BORN = "dateBornPerson";
+    static final String KEY_PERSON_DATE_REGISTER = "dateRegisterBorn";
+    static final String KEY_PERSON_IMG_PERSON = "imgPerson";
+    static final String KEY_PERSON_TYPE_DOCUMENT = "typeDocument";
+    static final String KEY_PERSON_NUMBER_DOCUMENT = "numberDocument";
+    static final String KEY_PERSON_NUMBER_PHONE = "numberPhone";
 
     //table about
-    public static final String TABLE_ABOUT = "About";
+    static final String TABLE_ABOUT = "About";
+    static final String KEY_ABOUT_ID = "id";
+    static final String KEY_ABOUT_LOGOHOTEL = "logoHotel";
+    static final String KEY_ABOUT_ADDRESSGPSX = "addressGPSX";
+    static final String KEY_ABOUT_ADDRESSGPSY = "addressGPSY";
+    static final String KEY_ABOUT_ADDRESSIMAGE = "addressImage";
+    static final String KEY_ABOUT_NAMEHOTEL = "nameHotel";
+    static final String KEY_ABOUT_PHONEHOTEL = "phoneHotel";
+    static final String KEY_ABOUT_EMAIL = "email";
+    static final String KEY_ABOUT_ADDRESS = "address";
+    static final String KEY_ABOUT_MISION = "mision";
+    static final String KEY_ABOUT_VISION = "vision";
+    static final String KEY_ABOUT_FUNDATION = "fundation";
+    static final String KEY_ABOUT_SCOPE = "scope";
+    static final String KEY_ABOUT_HISTORY = "history";
+    static final String KEY_ABOUT_WATCHWORD = "watchWord";
+    static final String KEY_ABOUT_OBJETIVE = "objetive";
+    static final String KEY_ABOUT_DESCRIPTION = "description";
+    static final String KEY_ABOUT_TYPEHOTEL = "typeHotel";
+    static final String KEY_ABOUT_SITEWEBHOTEL = "siteWebHotel";
 
-    public static final String KEY_ABOUT_ID = "id";
-    public static final String KEY_ABOUT_LOGOHOTEL = "logoHotel";
-    public static final String KEY_ABOUT_ADDRESSGPSX = "addressGPSX";
-    public static final String KEY_ABOUT_ADDRESSGPSY = "addressGPSY";
-    public static final String KEY_ABOUT_ADDRESSIMAGE = "addressImage";
-    public static final String KEY_ABOUT_NAMEHOTEL = "nameHotel";
-    public static final String KEY_ABOUT_PHONEHOTEL = "phoneHotel";
-    public static final String KEY_ABOUT_EMAIL = "email";
-    public static final String KEY_ABOUT_ADDRESS = "address";
-    public static final String KEY_ABOUT_MISION = "mision";
-    public static final String KEY_ABOUT_VISION = "vision";
-    public static final String KEY_ABOUT_FUNDATION = "fundation";
-    public static final String KEY_ABOUT_SCOPE = "scope";
-    public static final String KEY_ABOUT_HISTORY = "history";
-    public static final String KEY_ABOUT_WATCHWORD = "watchWord";
-    public static final String KEY_ABOUT_OBJETIVE = "objetive";
-    public static final String KEY_ABOUT_DESCRIPTION = "description";
-    public static final String KEY_ABOUT_TYPEHOTEL = "typeHotel";
-    public static final String KEY_ABOUT_SITEWEBHOTEL = "siteWebHotel";
-
-    public DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String tableLogin = getTableLogin();
         String tablePerson = getTablePerson();
         String tableAbout = getTableAbout();
 
+        db.execSQL(tableLogin);
         db.execSQL(tablePerson);
         db.execSQL(tableAbout);
     }
-
+    @NonNull
+    private String getTableLogin() {
+        return "CREATE TABLE " + TABLE_LOGIN + " ( "
+                + KEY_LOGIN_ID_PERSON + " INTEGER PRIMARY KEY,"
+                + KEY_LOGIN_STATE + " INTEGER,"
+                + KEY_LOGIN_PASSWORD + " TEXT"
+                + ")";
+    }
+    @NonNull
     private String getTableAbout() {
         return "CREATE TABLE " + TABLE_ABOUT + " ( "
                 + KEY_ABOUT_ID + " INTEGER PRIMARY KEY,"
@@ -87,7 +101,6 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_ABOUT_SITEWEBHOTEL + " TEXT"
                 + ")";
     }
-
     @NonNull
     private String getTablePerson() {
         return "CREATE TABLE " + TABLE_PERSON + " ( "
@@ -102,7 +115,6 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_PERSON_SEX + " INTEGER,"
                 + KEY_PERSON_DATE_BORN + " TEXT,"
                 + KEY_PERSON_DATE_REGISTER + " TEXT,"
-                + KEY_PERSON_STATE + " TEXT,"
                 + KEY_PERSON_IMG_PERSON + " TEXT,"
                 + KEY_PERSON_TYPE_DOCUMENT + " TEXT,"
                 + KEY_PERSON_NUMBER_DOCUMENT + " TEXT,"
@@ -113,6 +125,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //elimina la version anterior
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_PERSON);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_ABOUT);
         //se crea la nueva version de la tabla

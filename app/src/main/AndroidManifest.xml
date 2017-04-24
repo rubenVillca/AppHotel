@@ -27,14 +27,17 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="stateHidden">
+
         </activity>
         <activity
             android:name=".activity.CreateAccountActivity"

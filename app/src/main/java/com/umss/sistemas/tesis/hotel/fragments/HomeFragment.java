@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
 /**
@@ -16,7 +17,6 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 public class HomeFragment extends Fragments {
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
 

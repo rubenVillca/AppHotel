@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
 /**
@@ -17,7 +18,7 @@ public class SearchFragment extends Fragments {
 
 
     public SearchFragment() {
-        // Required empty public constructor
+        helperSQLite=new HelperSQLite(getContext());
     }
 
 

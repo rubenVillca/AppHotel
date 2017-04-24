@@ -1,8 +1,8 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -13,8 +13,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
-import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 
 import org.json.JSONException;
@@ -25,15 +24,15 @@ import java.util.regex.Pattern;
 import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activities {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         container = findViewById(R.id.containerLogin);
         progressView = findViewById(R.id.progress_bar);
-
-        sync = new DataBaseSQLiteHelper(this, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
-        db = sync.getWritableDatabase();
+        helperSQLite=new HelperSQLite(this);
     }
 
     /**
@@ -51,7 +50,7 @@ public class LoginActivity extends Activities {
      *
      * @param view:activity login
      */
-    public void goHomeActivity(View view) {
+    public void goContainerActivity(View view) {
         boolean cancel = isValidLogin();
         if (!cancel) {
             showProgress(true);
@@ -77,13 +76,14 @@ public class LoginActivity extends Activities {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
-                    int idPerson = 0;
+                    int idPerson;
                     JSONObject obj = null;
                     try {
                         obj = new JSONObject(new String(responseBody));
                         idPerson = obj.getInt("idPerson");
                     } catch (JSONException e) {
-                        idPerson=0;
+                        idPerson = 0;
+                        showProgress(false);
                         showMesaje("Error de conexion");
                     }
 
@@ -98,10 +98,8 @@ public class LoginActivity extends Activities {
                             showMesaje("Cuenta no disponible");
                             break;
                         default:
-                            PersonModel personModel = getPersonModel(obj);
-                            ContentValues newRegister = new ContentValues();
-                            setPersonModel(personModel, newRegister);
-                            initHome(idPerson);
+                            helperSQLite.syncLogin(idPerson,passText,1);
+                            goHomeFragment(idPerson);
                             showMesaje("Ha iniciado Sesion");
                             break;
                     }
@@ -119,59 +117,12 @@ public class LoginActivity extends Activities {
         });
     }
 
-    private void setPersonModel(PersonModel personModel, ContentValues newRegister) {
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_CITY, personModel.getCityPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_POINT, personModel.getPointPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_SEX, personModel.getSexPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_STATE, 1);
-
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PERSON);
-        db.insert(DataBaseSQLiteHelper.TABLE_PERSON, null, newRegister);
-    }
-
-    private PersonModel getPersonModel(JSONObject obj) {
-        PersonModel personModel=new PersonModel();
-        try {
-            personModel.setIdPerson(obj.getInt("idPerson"));
-            personModel.setEmailPerson(obj.getString("email"));
-            personModel.setNamePerson(obj.getString("namePerson"));
-            personModel.setNameLastPerson(obj.getString("nameLastPerson"));
-            personModel.setSexPerson((byte) obj.getInt("sex"));
-            personModel.setPointPerson(obj.getInt("point"));
-            personModel.setCityPerson(obj.getString("city"));
-            personModel.setCountryPerson(obj.getString("country"));
-            personModel.setDateBornPerson(obj.getString("dateBorn"));
-            personModel.setDateRegisterPerson(obj.getString("dateRegister"));
-            personModel.setAddressPerson(obj.getString("address"));
-            personModel.setImgPerson(obj.getString("imageProfile"));
-            personModel.setNumberPhone(obj.getInt("numberPhone"));
-            personModel.setNumberDocument(obj.getInt("numberDocument"));
-            personModel.setTypeDocument(obj.getString("typeDocument"));
-        } catch (JSONException e) {
-            System.out.println("Error al leer los datos: " + obj.toString() + " \nError: ");
-            e.printStackTrace();
-        }
-        return personModel;
-    }
-
     /**
      * cambiar de activityLogin a activityContainer->fragmentHome
      *
      * @param idPerson:identificador de idPerson
      */
-    private void initHome(int idPerson) {
+    private void goHomeFragment(int idPerson) {
         Intent intent = new Intent(this, ContainerActivity.class);
         intent.putExtra("idPerson", idPerson);
         startActivity(intent);
@@ -240,6 +191,5 @@ public class LoginActivity extends Activities {
     }
 
     @Override
-    public void onBackPressed() {
-    }
+    public void onBackPressed() {}
 }

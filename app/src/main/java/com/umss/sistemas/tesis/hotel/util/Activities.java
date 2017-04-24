@@ -14,14 +14,15 @@ import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activities extends AppCompatActivity {
-    protected DataBaseSQLiteHelper sync;
-    protected SQLiteDatabase db;
+    protected HelperSQLite helperSQLite;
+
     protected View progressView;
     protected View container;
 
@@ -58,39 +59,10 @@ public class Activities extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), m, Toast.LENGTH_SHORT).show();
     }
 
-    protected List<PersonModel> getContentPerson() {
-        List<PersonModel> listPerson = new ArrayList<>();
-        sync = new DataBaseSQLiteHelper(this, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
-        db = sync.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_PERSON, null);
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                PersonModel personModel = new PersonModel();
-                personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
-                personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
-                personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST)));
-                personModel.setCityPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_CITY)));
-                personModel.setAddressPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS)));
-                personModel.setDateBornPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN)));
-                personModel.setDateRegisterPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
-                personModel.setEmailPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_EMAIL)));
-                personModel.setPointPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_POINT)));
-                personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY)));
-                personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_SEX)));
-                personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
-
-                listPerson.add(personModel);
-
-                cursor.moveToNext();
-            }
-        }
-        return listPerson;
-    }
-
     @Override
     protected void onDestroy() {
-        if (db!=null)
-            db.close();
+        if (helperSQLite!=null)
+            helperSQLite.destroy();
         super.onDestroy();
     }
 }

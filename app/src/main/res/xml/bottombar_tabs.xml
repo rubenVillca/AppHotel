@@ -17,7 +17,7 @@
         barColorWhenSelected="@color/colorPrimary" />
     <tab
         id="@+id/tabFrequently"
-        icon="@drawable/ic_restaurant"
+        icon="@drawable/ic_question"
         title="@string/tab_frequently"
         barColorWhenSelected="@color/colorPrimary" />
     <tab

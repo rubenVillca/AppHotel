@@ -142,7 +142,8 @@ public class Fragments extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        helperSQLite.destroy();
+        if(helperSQLite!=null)
+            helperSQLite.destroy();
         super.onDestroy();
     }
 }

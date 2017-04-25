@@ -17,9 +17,7 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 public class SearchFragment extends Fragments {
 
 
-    public SearchFragment() {
-        helperSQLite=new HelperSQLite(getContext());
-    }
+    public SearchFragment() {}
 
 
     @Override
@@ -29,6 +27,8 @@ public class SearchFragment extends Fragments {
         View view= inflater.inflate(R.layout.fragment_search, container, false);
         super.showToolBar(getResources().getString(R.string.tab_search),false,view);
         super.showFloatingButtonMessage(view);
+
+        helperSQLite=new HelperSQLite(getContext());
 
         return view;
     }

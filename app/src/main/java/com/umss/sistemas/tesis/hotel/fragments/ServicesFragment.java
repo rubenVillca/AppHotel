@@ -17,7 +17,7 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 public class ServicesFragment extends Fragments {
 
     public ServicesFragment() {
-        helperSQLite=new HelperSQLite(getContext());
+
     }
 
 
@@ -29,6 +29,7 @@ public class ServicesFragment extends Fragments {
         super.showToolBar(getResources().getString(R.string.tab_service),false,view);
         super.showFloatingButtonMessage(view);
 
+        helperSQLite=new HelperSQLite(getContext());
 
         return view;
     }

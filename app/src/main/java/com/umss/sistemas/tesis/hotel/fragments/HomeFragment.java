@@ -16,8 +16,7 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
  */
 public class HomeFragment extends Fragments {
 
-    public HomeFragment() {
-    }
+    public HomeFragment() {}
 
 
     @Override

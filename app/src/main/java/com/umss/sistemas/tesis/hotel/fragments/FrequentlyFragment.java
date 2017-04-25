@@ -17,10 +17,7 @@ import com.umss.sistemas.tesis.hotel.util.Fragments;
 public class FrequentlyFragment extends Fragments {
 
 
-    public FrequentlyFragment() {
-        helperSQLite=new HelperSQLite(getContext());
-    }
-
+    public FrequentlyFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +26,9 @@ public class FrequentlyFragment extends Fragments {
         View view= inflater.inflate(R.layout.fragment_frequently, container, false);
         super.showToolBar(getResources().getString(R.string.tab_frequently),false,view);
         super.showFloatingButtonMessage(view);
+
+        helperSQLite=new HelperSQLite(getContext());
+
         return view;
     }
 

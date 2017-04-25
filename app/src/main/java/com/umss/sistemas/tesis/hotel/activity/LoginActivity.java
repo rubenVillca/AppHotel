@@ -72,7 +72,7 @@ public class LoginActivity extends Activities {
         params.put("pass", passText);
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(0), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.getUrlServer(Conexion.LOGIN), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -98,7 +98,7 @@ public class LoginActivity extends Activities {
                             showMesaje("Cuenta no disponible");
                             break;
                         default:
-                            helperSQLite.syncLogin(idPerson,passText,1);
+                            helperSQLite.syncUpLogin(idPerson,passText,1);
                             goHomeFragment(idPerson);
                             showMesaje("Ha iniciado Sesion");
                             break;

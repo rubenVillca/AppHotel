@@ -1,47 +1,67 @@
 package com.umss.sistemas.tesis.hotel.model;
 
 public class ServiceModel {
-    private String picture;
-    private String userName;
-    private String time;
-    private String likeNumber="0";
+    private int serviceId;
+    private int serviceReserved;
+    private String serviceImage;
+    private String serviceName;
+    private String serviceType;
+    private String serviceDescription;
 
-    public ServiceModel(String picture, String userName, String time, String likeNumber) {
-        this.picture = picture;
-        this.userName = userName;
-        this.time = time;
-        this.likeNumber = likeNumber;
+    public ServiceModel() {
+        serviceId = 0;
+        serviceReserved = 0;
+        this.serviceImage = "";
+        this.serviceName = "";
+        this.serviceType = "";
+        serviceDescription = "";
     }
 
-    public String getPicture() {
-        return picture;
+    public String getServiceDescription() {
+        return serviceDescription;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getServiceId() {
+        return serviceId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
-    public String getTime() {
-        return time;
+    public int getServiceReserved() {
+        return serviceReserved;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setServiceReserved(int serviceReserved) {
+        this.serviceReserved = serviceReserved;
     }
 
-    public String getLikeNumber() {
-        return likeNumber;
+    public String getServiceImage() {
+        return serviceImage;
     }
 
-    public void setLikeNumber(String likeNumber) {
-        this.likeNumber = likeNumber;
+    public void setServiceImage(String serviceImage) {
+        this.serviceImage = serviceImage;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 }

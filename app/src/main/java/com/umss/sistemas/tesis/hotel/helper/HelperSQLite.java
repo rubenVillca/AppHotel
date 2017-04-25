@@ -1,6 +1,5 @@
 package com.umss.sistemas.tesis.hotel.helper;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,25 +9,37 @@ import android.support.annotation.NonNull;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class HelperSQLite {
     private SQLiteDatabase db;
-    private Context context;
 
     public HelperSQLite(Context context) {
-        this.context=context;
-        DataBaseSQLiteHelper sync = new DataBaseSQLiteHelper(this.context, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
+        DataBaseSQLiteHelper sync = new DataBaseSQLiteHelper(context, DataBaseSQLiteHelper.DATABASE_NAME, null, DataBaseSQLiteHelper.DATABASE_VERSION);
         db = sync.getWritableDatabase();
     }
-    public void syncLogin(int idPerson, String passText, int state) {
-        LoginModel loginModel=new LoginModel(idPerson,passText,state);
+
+    /**
+     * sincornizar sqlite en la tabla loginModel para poder iniciar session
+     *
+     * @param idPerson: identificador de la cuenta
+     * @param passText: contrasena de la cuenta
+     * @param state:    estado de la cuenta
+     */
+    public void syncUpLogin(int idPerson, String passText, int state) {
+        LoginModel loginModel = new LoginModel(idPerson, passText, state);
         setLoginSQLite(loginModel);
     }
+
     /**
      * sincronizar base de datos SQLite desde webserver a personModel
+     *
      * @param obj:objeto JSON person
      */
     public void syncUpPerson(JSONObject obj) {
@@ -38,11 +49,22 @@ public class HelperSQLite {
 
     /**
      * sincronizar base de datos SQLite desde webserver a aboutModel
+     *
      * @param obj:objeto JSON about
      */
-    public void syncUpAbout(JSONObject obj){
+    public void syncUpAbout(JSONObject obj) {
         AboutModel aboutModel = getAboutModelJSON(obj);
         setAboutSQLite(aboutModel);
+    }
+
+    /**
+     * sincronizar base de datos SQLite desde webserver a serviceModel
+     *
+     * @param obj:objeto JSON person
+     */
+    public void syncUpService(JSONObject obj) {
+        ArrayList<ServiceModel> serviceModel = getServiceModelJSON(obj);
+        setServiceSQLite(serviceModel);
     }
 
     /**
@@ -52,7 +74,7 @@ public class HelperSQLite {
      * @return PersonModel: modelo de la person cnvertido en objeto
      */
     private PersonModel getPersonModelJSON(JSONObject obj) {
-        PersonModel personModel=new PersonModel();
+        PersonModel personModel = new PersonModel();
         try {
             personModel.setIdPerson(obj.getInt("idPerson"));
             personModel.setEmailPerson(obj.getString("email"));
@@ -82,7 +104,7 @@ public class HelperSQLite {
      * @param obj: datos recividos del web server, objeto Acerca de
      * @return AboutModel: modelo de la about convertido en objeto
      */
-    private AboutModel getAboutModelJSON(JSONObject obj){
+    private AboutModel getAboutModelJSON(JSONObject obj) {
         AboutModel aboutModel = new AboutModel();
         try {
             aboutModel.setId(1);
@@ -110,13 +132,43 @@ public class HelperSQLite {
         return aboutModel;
     }
 
+    private ArrayList<ServiceModel> getServiceModelJSON(JSONObject obj) {
+        ArrayList<ServiceModel> servicesModel=new ArrayList<>();
+
+        try {
+            JSONArray servicesArray=obj.getJSONArray("services");
+            int limit=servicesArray.length();
+
+            for (int i=0;i<limit;i++){
+                JSONObject result=servicesArray.getJSONObject(i);
+
+                ServiceModel serviceModel=new ServiceModel();
+
+                serviceModel.setServiceId(result.getInt("id"));
+                serviceModel.setServiceReserved(result.getInt("reservable"));
+                serviceModel.setServiceName(result.getString("name"));
+                serviceModel.setServiceDescription(result.getString("description"));
+                serviceModel.setServiceType(result.getString("type"));
+                serviceModel.setServiceImage(result.getString("image"));
+
+                servicesModel.add(serviceModel);
+            }
+
+        } catch (JSONException e) {
+            System.out.println("Error: Objeto no convertible, "+e.toString());
+
+            e.printStackTrace();
+        }
+
+        return servicesModel;
+    }
     /**
      * Lee de la base de datos de sqlite los datos del login
      *
      * @return LoginModel: estado de la cuenta
      */
-    public LoginModel getLoginModel(){
-        LoginModel loginModel=new LoginModel();
+    public LoginModel getLoginModel() {
+        LoginModel loginModel = new LoginModel();
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_LOGIN, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -133,8 +185,8 @@ public class HelperSQLite {
      *
      * @return List<PersonModel>: lista de perfiles
      */
-    public PersonModel getPersonModel(){
-        PersonModel personModel=new PersonModel();
+    public PersonModel getPersonModel() {
+        PersonModel personModel = new PersonModel();
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_PERSON, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -152,15 +204,34 @@ public class HelperSQLite {
      * @return List<PersonModel>: datos del hotel
      */
     public AboutModel getAboutModel() {
-        AboutModel aboutModel=new AboutModel();
+        AboutModel aboutModel = new AboutModel();
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_ABOUT, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                aboutModel=getAboutModelSQLite(cursor);
+                aboutModel = getAboutModelSQLite(cursor);
                 cursor.moveToNext();
             }
         }
         return aboutModel;
+    }
+
+    /**
+     * Lee de la base de datos de sqlite los datos del hotel
+     *
+     * @return List<PersonModel>: datos del hotel
+     */
+    public ArrayList<ServiceModel> getServiceModel() {
+        ArrayList<ServiceModel> listService = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SERVICE, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ServiceModel serviceModel=getServiceModelSQLite(cursor);
+                listService.add(serviceModel);
+                cursor.moveToNext();
+            }
+        }
+        return listService;
     }
 
     @NonNull
@@ -180,6 +251,7 @@ public class HelperSQLite {
         personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON)));
         return personModel;
     }
+
     @NonNull
     private AboutModel getAboutModelSQLite(Cursor cursor) {
         AboutModel aboutModel = new AboutModel();
@@ -206,9 +278,10 @@ public class HelperSQLite {
 
         return aboutModel;
     }
+
     @NonNull
     private LoginModel getLoginModelSQLite(Cursor cursor) {
-        LoginModel loginModel=new LoginModel();
+        LoginModel loginModel = new LoginModel();
 
         loginModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_LOGIN_ID_PERSON)));
         loginModel.setState(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_LOGIN_STATE)));
@@ -216,6 +289,20 @@ public class HelperSQLite {
 
         return loginModel;
     }
+    @NonNull
+    private ServiceModel getServiceModelSQLite(Cursor cursor) {
+        ServiceModel serviceModel = new ServiceModel();
+
+        serviceModel.setServiceId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_ID)));
+        serviceModel.setServiceReserved(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_RESERVED)));
+        serviceModel.setServiceName(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_NAME)));
+        serviceModel.setServiceDescription(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_DESCRIPTION)));
+        serviceModel.setServiceImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_IMAGE)));
+        serviceModel.setServiceType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_TYPE)));
+
+        return serviceModel;
+    }
+
     /**
      * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
      *
@@ -230,6 +317,7 @@ public class HelperSQLite {
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_LOGIN);
         db.insert(DataBaseSQLiteHelper.TABLE_LOGIN, null, newRegister);
     }
+
     /**
      * ingresar personModel a la base de datos SQLite, si hay reemplazarlos
      *
@@ -256,12 +344,13 @@ public class HelperSQLite {
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PERSON);
         db.insert(DataBaseSQLiteHelper.TABLE_PERSON, null, newRegister);
     }
+
     /**
      * ingresar aboutModel a la base de datos SQLite, si hay reemplazarlos
      *
      * @param aboutModel: objeto a ingresar a la base ded datos sqlite
      */
-    private void setAboutSQLite(AboutModel aboutModel){
+    private void setAboutSQLite(AboutModel aboutModel) {
         ContentValues newRegister = new ContentValues();
 
         newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
@@ -289,19 +378,40 @@ public class HelperSQLite {
     }
 
     /**
+     * ingresar la lista de servicios en la base da datos SQLite
+     * @param servicesModel: lista de servicios
+     */
+    private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
+
+        for (ServiceModel serviceModel: servicesModel) {
+            ContentValues serviceContent = new ContentValues();
+
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_ID, serviceModel.getServiceId());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getServiceName());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_TYPE, serviceModel.getServiceType());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getServiceDescription());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SERVICE, null, serviceContent);
+        }
+    }
+    /**
      * verificar q la cuenta del usuario este activa en la base de datos SQLite
+     *
      * @return true: si la cuenta del usuario esta activa
      */
     public boolean isAccountActive() {
-        LoginModel loginModel=getLoginModel();
+        LoginModel loginModel = getLoginModel();
         return loginModel.getState() > 0;
     }
 
     /**
      * cerrar conexion con  SQLite
      */
-    public void destroy(){
-        if (db!=null)
+    public void destroy() {
+        if (db != null)
             db.close();
     }
 }

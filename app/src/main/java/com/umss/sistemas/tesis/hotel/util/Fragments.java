@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,6 +32,8 @@ public class Fragments extends Fragment implements View.OnClickListener {
     protected HelperSQLite helperSQLite;
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
+    private AsyncHttpClient client;
+    private RequestParams params;
 
     /**
      * barra superior de la activity en la q esta el boton de atras y el nombre de la misma
@@ -60,6 +61,10 @@ public class Fragments extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        helperSQLite=new HelperSQLite(getContext());
+        client = new AsyncHttpClient();
+        params = new RequestParams();
+
         Intent intent = null;
         switch (v.getId()) {
             case R.id.fab:
@@ -72,7 +77,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), SitesTourActivity.class);
                 break;
             case R.id.imageService:
-                intent = new Intent(getActivity(), ServicesActivity.class);
+                goService();
                 break;
             case R.id.imageAboutHotel:
                 goAbout();
@@ -96,16 +101,46 @@ public class Fragments extends Fragment implements View.OnClickListener {
     }
 
     /**
+     * Conectar con el webServer y sincronizar la tabla service
+     */
+    private void goService() {
+        params.put("android","android");
+
+        client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpService(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goServiceActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goServiceActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+    }
+
+    /**
      * Conectar con el webServer y sincronizar la tabla about
      */
     private void goAbout() {
-        helperSQLite=new HelperSQLite(getContext());
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(3), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -120,13 +155,13 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 } else {
                     System.out.println("Modo Offline");
                 }
-                goActivityAbout();
+                goAboutActivity();
                 //showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goActivityAbout();
+                goAboutActivity();
                 //showProgress(false);
                 System.out.println("Servidor no disponible");
             }
@@ -135,8 +170,12 @@ public class Fragments extends Fragment implements View.OnClickListener {
     /**
      * Cambiar de activity a AboutActivity
      */
-    private void goActivityAbout() {
+    private void goAboutActivity() {
         Intent intent = new Intent(getActivity(), AboutActivity.class);
+        startActivity(intent);
+    }
+    private void goServiceActivity(){
+        Intent intent = new Intent(getActivity(), ServicesActivity.class);
         startActivity(intent);
     }
 

@@ -35,6 +35,10 @@ public class Activities extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
     }
 
+    /**
+     * muestra el progress bar mientras carga el activity
+     * @param show:estado del progressBar
+     */
     protected void showProgress(final boolean show) {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -55,6 +59,10 @@ public class Activities extends AppCompatActivity {
         });
     }
 
+    /**
+     * mostrar mensajes en Toast
+     * @param m:mensaje
+     */
     protected void showMesaje(String m) {
         Toast.makeText(getApplicationContext(), m, Toast.LENGTH_SHORT).show();
     }

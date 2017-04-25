@@ -10,7 +10,7 @@ import android.transition.Fade;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 
-public class DetailServiceActivity extends Activities {
+public class ServiceDetailActivity extends Activities {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

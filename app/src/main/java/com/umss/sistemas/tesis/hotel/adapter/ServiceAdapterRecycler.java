@@ -14,43 +14,44 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ServiceDetailActivity;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.activity.DetailServiceActivity;
 
 import java.util.ArrayList;
 
-public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterRecycler.PictureViewHolder>{
+public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterRecycler.ServiceViewHolder>{
 
-    private ArrayList<ServiceModel> pictures;
+    private ArrayList<ServiceModel> servicesImage;
     private int resource;
     private Activity activity;
 
-    public ServiceAdapterRecycler(ArrayList<ServiceModel> pictures, int resource, Activity activity) {
-        this.pictures = pictures;
+    public ServiceAdapterRecycler(ArrayList<ServiceModel> servicesImage, int resource, Activity activity) {
+        this.servicesImage = servicesImage;
         this.resource = resource;
         this.activity = activity;
     }
 
     @Override
-    public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ServiceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(resource,parent,false);
-        return new PictureViewHolder(view);
+        return new ServiceViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PictureViewHolder holder, int position) {
-        ServiceModel picture=pictures.get(position);
+    public void onBindViewHolder(ServiceViewHolder holder, int position) {
+        ServiceModel service=servicesImage.get(position);
 
-        holder.userNameCard.setText(picture.getUserName());
-        holder.timeCard.setText(picture.getLikeNumber());
-        holder.likeNumberCard.setText(picture.getLikeNumber());
+        holder.serviceNameCardView.setText(service.getServiceName());
+        holder.serviceTypeCardView.setText(service.getServiceType());
 
-        Picasso.with(activity).load(picture.getPicture()).into(holder.pictureCard);
+        String urlImage = Conexion.urlServer+servicesImage.get(position).getServiceImage();
+        Picasso.with(activity).load(urlImage).into(holder.servicePictureCardView);
 
-        holder.pictureCard.setOnClickListener(new View.OnClickListener() {
+        holder.servicePictureCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, DetailServiceActivity.class);
+                Intent intent=new Intent(activity, ServiceDetailActivity.class);
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                     Explode explode=new Explode();
                     explode.setDuration(1000);
@@ -65,22 +66,20 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
 
     @Override
     public int getItemCount() {
-        return pictures.size();
+        return servicesImage.size();
     }
 
-    class PictureViewHolder extends RecyclerView.ViewHolder{
-        private ImageView pictureCard;
-        private TextView userNameCard;
-        private TextView timeCard;
-        private TextView likeNumberCard;
+    class ServiceViewHolder extends RecyclerView.ViewHolder{
+        private ImageView servicePictureCardView;
+        private TextView serviceNameCardView;
+        private TextView serviceTypeCardView;
 
-        public PictureViewHolder(View itemView) {
+        private ServiceViewHolder(View itemView) {
             super(itemView);
 
-            pictureCard=(ImageView)itemView.findViewById(R.id.imageService);
-            userNameCard=(TextView)itemView.findViewById(R.id.nameServiceCard);
-            timeCard=(TextView)itemView.findViewById(R.id.timeCardviewService);
-            likeNumberCard=(TextView)itemView.findViewById(R.id.likeCheckCard);
+            servicePictureCardView=(ImageView)itemView.findViewById(R.id.imageServiceCardView);
+            serviceNameCardView=(TextView)itemView.findViewById(R.id.nameServiceCardView);
+            serviceTypeCardView=(TextView)itemView.findViewById(R.id.typeServiceCardView);
         }
     }
 }

@@ -58,7 +58,7 @@
         </activity>
         <activity android:name=".activity.ContainerActivity" />
         <activity
-            android:name=".activity.DetailServiceActivity"
+            android:name=".activity.ServiceDetailActivity"
             android:parentActivityName=".activity.ContainerActivity"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">

@@ -19,7 +19,7 @@
         android:paddingTop="@dimen/padding_horizontal_fragment">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/homeRecyclerView"
+            android:id="@+id/serviceRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

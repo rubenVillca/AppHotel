@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 13;
+    static final int DATABASE_VERSION = 14;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -55,6 +55,16 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_ABOUT_TYPEHOTEL = "typeHotel";
     static final String KEY_ABOUT_SITEWEBHOTEL = "siteWebHotel";
 
+    //services
+    static final String TABLE_SERVICE = "service";
+    static final String KEY_SERVICE_ID = "idService";
+    static final String KEY_SERVICE_NAME = "nameService";
+    static final String KEY_SERVICE_DESCRIPTION = "descriptionService";
+    static final String KEY_SERVICE_TYPE = "typeService";
+    static final String KEY_SERVICE_IMAGE = "imageService";
+    static final String KEY_SERVICE_RESERVED = "reservedService";
+
+
     DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -64,17 +74,40 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         String tableLogin = getTableLogin();
         String tablePerson = getTablePerson();
         String tableAbout = getTableAbout();
+        String tableService = getTableService();
 
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
         db.execSQL(tableAbout);
+        db.execSQL(tableService);
     }
+
     @NonNull
     private String getTableLogin() {
         return "CREATE TABLE " + TABLE_LOGIN + " ( "
                 + KEY_LOGIN_ID_PERSON + " INTEGER PRIMARY KEY,"
                 + KEY_LOGIN_STATE + " INTEGER,"
                 + KEY_LOGIN_PASSWORD + " TEXT"
+                + ")";
+    }
+    @NonNull
+    private String getTablePerson() {
+        return "CREATE TABLE " + TABLE_PERSON + " ( "
+                + KEY_PERSON_ID + " INTEGER PRIMARY KEY,"
+                + KEY_PERSON_NAME + " TEXT,"
+                + KEY_PERSON_NAME_LAST + " TEXT,"
+                + KEY_PERSON_EMAIL + " TEXT,"
+                + KEY_PERSON_POINT + " TEXT,"
+                + KEY_PERSON_ADDRESS + " TEXT,"
+                + KEY_PERSON_CITY + " TEXT,"
+                + KEY_PERSON_COUNTRY + " TEXT,"
+                + KEY_PERSON_SEX + " INTEGER,"
+                + KEY_PERSON_DATE_BORN + " TEXT,"
+                + KEY_PERSON_DATE_REGISTER + " TEXT,"
+                + KEY_PERSON_IMG_PERSON + " TEXT,"
+                + KEY_PERSON_TYPE_DOCUMENT + " TEXT,"
+                + KEY_PERSON_NUMBER_DOCUMENT + " TEXT,"
+                + KEY_PERSON_NUMBER_PHONE + " TEXT"
                 + ")";
     }
     @NonNull
@@ -102,32 +135,23 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + ")";
     }
     @NonNull
-    private String getTablePerson() {
-        return "CREATE TABLE " + TABLE_PERSON + " ( "
-                + KEY_PERSON_ID + " INTEGER PRIMARY KEY,"
-                + KEY_PERSON_NAME + " TEXT,"
-                + KEY_PERSON_NAME_LAST + " TEXT,"
-                + KEY_PERSON_EMAIL + " TEXT,"
-                + KEY_PERSON_POINT + " TEXT,"
-                + KEY_PERSON_ADDRESS + " TEXT,"
-                + KEY_PERSON_CITY + " TEXT,"
-                + KEY_PERSON_COUNTRY + " TEXT,"
-                + KEY_PERSON_SEX + " INTEGER,"
-                + KEY_PERSON_DATE_BORN + " TEXT,"
-                + KEY_PERSON_DATE_REGISTER + " TEXT,"
-                + KEY_PERSON_IMG_PERSON + " TEXT,"
-                + KEY_PERSON_TYPE_DOCUMENT + " TEXT,"
-                + KEY_PERSON_NUMBER_DOCUMENT + " TEXT,"
-                + KEY_PERSON_NUMBER_PHONE + " TEXT"
+    private String getTableService() {
+        return "CREATE TABLE " + TABLE_SERVICE + " ( "
+                + KEY_SERVICE_ID + " INTEGER PRIMARY KEY,"
+                + KEY_SERVICE_NAME + " TEXT,"
+                + KEY_SERVICE_DESCRIPTION + " TEXT,"
+                + KEY_SERVICE_TYPE + " TEXT,"
+                + KEY_SERVICE_IMAGE + " TEXT,"
+                + KEY_SERVICE_RESERVED + " INTEGER"
                 + ")";
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //elimina la version anterior
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_PERSON);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_ABOUT);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SERVICE);
         //se crea la nueva version de la tabla
         onCreate(db);
     }

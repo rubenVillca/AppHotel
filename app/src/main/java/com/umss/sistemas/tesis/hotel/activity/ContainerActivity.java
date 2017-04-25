@@ -18,7 +18,6 @@ import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
-import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.util.Activities;
 import com.umss.sistemas.tesis.hotel.util.Fragments;
 
@@ -90,7 +89,7 @@ public class ContainerActivity extends Activities {
         params.put("idPerson", idPerson);
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(2), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.getUrlServer(Conexion.PROFILE), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

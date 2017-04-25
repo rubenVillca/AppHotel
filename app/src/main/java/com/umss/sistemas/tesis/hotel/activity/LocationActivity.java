@@ -6,9 +6,9 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -16,9 +16,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
@@ -28,7 +28,12 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
 
     private GoogleMap mMap;
     private AboutModel aboutModel;
-    private static int zoomMap=12;
+
+    private Location myLocationGPS;
+    private Marker myMarkerGPS;
+
+    private static final int zoomMap=12;
+    private static final int timeUpdate=50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,55 +60,81 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         addMarker();
-        addLocation();
+        verifyActiveGPS();
+
+
     }
 
-    private void addLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            addMyLocation(location);
-        }
-    }
-
+    /**
+     * insertar en el mapa la ubucacion del hotel
+     */
     private void addMarker() {
         HelperSQLite helperSQLite = new HelperSQLite(this);
         aboutModel = helperSQLite.getAboutModel();
-        // Add a marker in Sydney and move the camera
+
         LatLng hotelMarker = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
-        mMap.addMarker(new MarkerOptions().position(hotelMarker).title(aboutModel.getNameHotel()).snippet(aboutModel.getAddress()));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(hotelMarker)
+                .title(aboutModel.getNameHotel())
+                .snippet(aboutModel.getAddress()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelMarker));
     }
 
-    private void updateLocation(Location location) {
-        addMarker();
-        addMyLocation(location);
+    /**
+     * comprobar que el gps este activo
+     */
+    private void verifyActiveGPS() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
+            myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            addMyLocation();
+        }else{
+            Toast.makeText(this,"GPS desactivado",Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void addMyLocation(Location location) {
-        if (location != null) {
-            LatLng locationActual = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(locationActual).title("Ubicacion actual").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(locationActual));
+    /**
+     * insertar mi ubicacion en el mapa
+     */
+    private void addMyLocation() {
+        LatLng coordenadas;
+        if (myLocationGPS != null) {
+            coordenadas=new LatLng(myLocationGPS.getLatitude(), myLocationGPS.getLongitude());
+            myMarkerGPS = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi Posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(locationActual, zoomMap);
+            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, zoomMap);
             mMap.animateCamera(miUbicacion);
         }else {
-            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY())), zoomMap);
+            coordenadas=new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY()));
+            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, zoomMap);
             mMap.animateCamera(miUbicacion);
         }
 
 
+    }
+
+    /**
+     * actualizar cada 10 segundos la ubicacion del usuario
+     * @param location:nueva ubicacion recibida
+     */
+    private void updateLocation(Location location) {
+        if (myMarkerGPS != null)
+            myMarkerGPS.remove();
+        myLocationGPS=location;
+        if (location!=null) {
+            LatLng locationGPS = new LatLng(myLocationGPS.getLatitude(), myLocationGPS.getLongitude());
+            myMarkerGPS = mMap.addMarker(new MarkerOptions().position(locationGPS).title("Mi Posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        }
     }
 
     LocationListener locListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            //updateLocation(location);
+            updateLocation(location);
         }
 
         @Override

@@ -59,12 +59,12 @@
         <activity android:name=".activity.ContainerActivity" />
         <activity
             android:name=".activity.ServiceDetailActivity"
-            android:parentActivityName=".activity.ContainerActivity"
+            android:parentActivityName=".activity.ServicesActivity"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ContainerActivity" />
+                android:value=".activity.ServicesActivity" />
         </activity>
         <activity
             android:name=".activity.AboutActivity"

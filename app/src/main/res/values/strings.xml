@@ -39,10 +39,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_detail">10</string>
+    <string name="type_detail">Tipo:</string>
     <string name="secondwod_detail">Me gusta</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, dignissimos facere inventore neque omnis optio placeat quisquam similique? Eum explicabo facere illum minima, nihil perspiciatis voluptatem. Aspernatur porro possimus suscipit?</string>
-    <string name="titledetail">\"Paseando en la playa\"</string>
+    <string name="titledetail">\"Descripción\"</string>
     <string name="transicionname_picture">transicionnamepicture</string>
     <string name="btn_message">Mensajes</string>
     <string name="label_home_icon_offer">Ofertas</string>

@@ -21,7 +21,7 @@
             app:contentScrim="@color/colorPrimary">
 
             <ImageView
-                android:id="@+id/imageHeaderCollapsing"
+                android:id="@+id/imageServiceHeaderCollapsing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -52,7 +52,7 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/userNameDetail"
+                android:id="@+id/nameServiceDetailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize_usernamedetail"
@@ -69,18 +69,17 @@
                 android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <TextView
-                    android:id="@+id/likeNumberDetail"
+                    android:id="@+id/typeServiceDetailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textsize_likenumberdetail"
-                    android:text="@string/text_detail"/>
+                    android:text="@string/type_detail"/>
 
                 <TextView
-                    android:id="@+id/secondaryWordDetail"
+                    android:id="@+id/typeNameServiceDetailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textsize_likenumberdetail"
-                    android:text="@string/secondwod_detail"
                     android:layout_marginLeft="@dimen/marginleft_seconleft"
                     android:layout_marginRight="@dimen/marginleft_seconleft"/>
             </LinearLayout>
@@ -91,27 +90,24 @@
                 android:background="@color/icons"/>
 
             <TextView
-                android:id="@+id/titleImage"
+                android:id="@+id/titleDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize_likenumberdetail"
                 android:text="@string/titledetail"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
-                android:paddingTop="@dimen/paddingtop_titleimagedetail"
-                />
+                android:paddingTop="@dimen/paddingtop_titleimagedetail" />
 
             <TextView
-                android:id="@+id/contentTextImage"
+                android:id="@+id/contentServiceDetailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize_likenumberdetail"
-                android:text="@string/lorem"
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:paddingLeft="@dimen/padding_horizontal_textcontent"
-                android:paddingRight="@dimen/padding_horizontal_textcontent"
-                />
+                android:paddingRight="@dimen/padding_horizontal_textcontent" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -86,7 +86,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), ReserveActivity.class);
                 break;
             case R.id.imageLocationMap:
-                intent = new Intent(getActivity(), LocationActivity.class);
+                goLocation();
                 break;
             case R.id.imageActivity:
                 intent = new Intent(getActivity(), CalendarActivity.class);
@@ -98,6 +98,39 @@ public class Fragments extends Fragment implements View.OnClickListener {
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    private void goLocation() {
+        params.put("android","android");
+
+        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpAbout(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goLocationActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goLocationActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+
+
     }
 
     /**
@@ -167,6 +200,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
             }
         });
     }
+
     /**
      * Cambiar de activity a AboutActivity
      */
@@ -174,8 +208,17 @@ public class Fragments extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity(), AboutActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * cambiar de activity a serviceActivity
+     */
     private void goServiceActivity(){
         Intent intent = new Intent(getActivity(), ServicesActivity.class);
+        startActivity(intent);
+    }
+
+    private void goLocationActivity(){
+        Intent intent = new Intent(getActivity(), LocationActivity.class);
         startActivity(intent);
     }
 

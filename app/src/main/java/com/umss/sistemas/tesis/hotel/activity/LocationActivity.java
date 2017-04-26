@@ -3,6 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -30,6 +31,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private AboutModel aboutModel;
 
     private Location myLocationGPS;
+    private CameraUpdate cameraUpdate;
     private Marker myMarkerGPS;
 
     private static final int zoomMap=12;
@@ -61,8 +63,6 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
 
         addMarker();
         verifyActiveGPS();
-
-
     }
 
     /**
@@ -72,13 +72,15 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         HelperSQLite helperSQLite = new HelperSQLite(this);
         aboutModel = helperSQLite.getAboutModel();
 
-        LatLng hotelMarker = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
+        LatLng hotelCoordinator = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
 
         mMap.addMarker(new MarkerOptions()
-                .position(hotelMarker)
+                .position(hotelCoordinator)
                 .title(aboutModel.getNameHotel())
                 .snippet(aboutModel.getAddress()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelMarker));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelCoordinator));
+
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(hotelCoordinator, zoomMap);
     }
 
     /**
@@ -90,11 +92,9 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
             myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            addMyLocation();
-        }else{
-            Toast.makeText(this,"GPS desactivado",Toast.LENGTH_SHORT).show();
         }
+
+        addMyLocation();
     }
 
     /**
@@ -106,15 +106,11 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             coordenadas=new LatLng(myLocationGPS.getLatitude(), myLocationGPS.getLongitude());
             myMarkerGPS = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi Posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, zoomMap);
-            mMap.animateCamera(miUbicacion);
-        }else {
-            coordenadas=new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()),Float.parseFloat(aboutModel.getAddressGPSY()));
-            CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, zoomMap);
-            mMap.animateCamera(miUbicacion);
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordenadas, zoomMap);
+
         }
 
-
+        mMap.animateCamera(cameraUpdate);
     }
 
     /**
@@ -143,12 +139,12 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
 
         @Override
         public void onProviderEnabled(String s) {
-            Toast.makeText(LocationActivity.this, "GPS Deshabilitado: " + s, Toast.LENGTH_LONG).show();
+            Toast.makeText(LocationActivity.this, s+" Habilitado", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onProviderDisabled(String s) {
-            Toast.makeText(LocationActivity.this, "GPS Habilitado: " + s, Toast.LENGTH_LONG).show();
+            Toast.makeText(LocationActivity.this, s+" Deshabilitado", Toast.LENGTH_LONG).show();
 
         }
     };

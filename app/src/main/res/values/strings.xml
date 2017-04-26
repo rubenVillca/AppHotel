@@ -96,4 +96,6 @@
     <string name="activityabout_text_email">Correo electrónico</string>
     <string name="activityabout_text_phone">Teléfono</string>
     <string name="title_activity_location">Ubicacion del hotel</string>
+    <string name="textview_distance_locationmap">0 km</string>
+    <string name="textview_duration_locationmap">0 min</string>
 </resources>

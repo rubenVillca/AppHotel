@@ -1,8 +1,64 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.umss.sistemas.tesis.hotel.activity.LocationActivity" />
+    android:fitsSystemWindows="true"
+    tools:context="com.umss.sistemas.tesis.hotel.activity.LocationActivity">
+
+    <include layout="@layout/actionbar_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/marginleft_icon_locationmap"
+                android:layout_marginTop="@dimen/margintop_icon_locationmap"
+                android:src="@drawable/ic_distance" />
+
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginleft_text_locationmap"
+                android:layout_marginTop="@dimen/margintop_text_locationmap"
+                android:text="@string/textview_distance_locationmap" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/marginleft_icon_locationmap"
+                android:layout_marginTop="@dimen/margintop_icon_locationmap"
+                android:padding="5dp"
+                android:src="@drawable/ic_clock" />
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginleft_text_locationmap"
+                android:layout_marginTop="@dimen/margintop_text_locationmap"
+                android:text="@string/textview_duration_locationmap" />
+        </LinearLayout>
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.umss.sistemas.tesis.hotel.activity.LocationActivity" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

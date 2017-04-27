@@ -8,7 +8,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ServiceAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.util.Activities;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
 
 import java.util.ArrayList;
 

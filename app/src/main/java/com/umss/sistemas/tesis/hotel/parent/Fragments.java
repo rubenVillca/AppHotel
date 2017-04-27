@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.util;
+package com.umss.sistemas.tesis.hotel.parent;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +42,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
      * @param upButton: estado del boton true se se ve
      * @param view:     Activity en la q se muestra el boton
      */
+    @SuppressWarnings("ConstantConditions")
     protected void showToolBar(String tittle, boolean upButton, View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -61,7 +62,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        helperSQLite=new HelperSQLite(getContext());
+        helperSQLite = new HelperSQLite(getContext());
         client = new AsyncHttpClient();
         params = new RequestParams();
 
@@ -74,7 +75,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), OffersActivity.class);
                 break;
             case R.id.imageSiteTour:
-                intent = new Intent(getActivity(), SitesTourActivity.class);
+                goSiteTour();
                 break;
             case R.id.imageService:
                 goService();
@@ -98,73 +99,6 @@ public class Fragments extends Fragment implements View.OnClickListener {
         if (intent != null) {
             startActivity(intent);
         }
-    }
-
-    private void goLocation() {
-        params.put("android","android");
-
-        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpAbout(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goLocationActivity();
-                //showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goLocationActivity();
-                //showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
-
-
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla service
-     */
-    private void goService() {
-        params.put("android","android");
-
-        client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpService(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goServiceActivity();
-                //showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goServiceActivity();
-                //showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
     }
 
     /**
@@ -202,6 +136,111 @@ public class Fragments extends Fragment implements View.OnClickListener {
     }
 
     /**
+     * Conectar con el webServer y sincronizar la tabla service
+     */
+    private void goService() {
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpService(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goServiceActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goServiceActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla location
+     */
+    private void goLocation() {
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpAbout(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goLocationActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goLocationActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+
+
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla siteTour y siteToutImage
+     */
+    private void goSiteTour() {
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.SITES), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpSiteTour(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goSiteTourActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goSiteTourActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
+
+    }
+
+    /**
      * Cambiar de activity a AboutActivity
      */
     private void goAboutActivity() {
@@ -212,19 +251,30 @@ public class Fragments extends Fragment implements View.OnClickListener {
     /**
      * cambiar de activity a serviceActivity
      */
-    private void goServiceActivity(){
+    private void goServiceActivity() {
         Intent intent = new Intent(getActivity(), ServicesActivity.class);
         startActivity(intent);
     }
 
-    private void goLocationActivity(){
+    /**
+     * cambiar de activity a locationActivity
+     */
+    private void goLocationActivity() {
         Intent intent = new Intent(getActivity(), LocationActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * cambiar de activity a siteTourActivity
+     */
+    private void goSiteTourActivity() {
+        Intent intent = new Intent(getActivity(), SitesTourActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onDestroy() {
-        if(helperSQLite!=null)
+        if (helperSQLite != null)
             helperSQLite.destroy();
         super.onDestroy();
     }

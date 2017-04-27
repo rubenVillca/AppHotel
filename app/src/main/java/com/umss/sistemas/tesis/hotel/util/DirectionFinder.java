@@ -1,9 +1,8 @@
-package com.umss.sistemas.tesis.hotel.modules;
+package com.umss.sistemas.tesis.hotel.util;
 
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.umss.sistemas.tesis.hotel.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

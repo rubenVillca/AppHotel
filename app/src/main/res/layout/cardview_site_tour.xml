@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageServiceCardView"
+            android:id="@+id/imageSiteTourCardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_card_service"
             android:layout_marginBottom="5dp"
@@ -32,7 +32,7 @@
             android:background="@color/backgroundCard">
 
             <TextView
-                android:id="@+id/nameServiceCardView"
+                android:id="@+id/nameSiteTourCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_card"
@@ -40,7 +40,7 @@
                 android:textSize="@dimen/text_size_name_card" />
 
             <TextView
-                android:id="@+id/typeServiceCardView"
+                android:id="@+id/addressSiteTourCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/date_cardview_service"

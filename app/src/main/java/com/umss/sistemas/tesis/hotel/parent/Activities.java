@@ -1,11 +1,7 @@
-package com.umss.sistemas.tesis.hotel.util;
+package com.umss.sistemas.tesis.hotel.parent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,12 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.DataBaseSQLiteHelper;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.model.PersonModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Activities extends AppCompatActivity {
     protected HelperSQLite helperSQLite;

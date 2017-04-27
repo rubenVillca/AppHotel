@@ -19,7 +19,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.util.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.Fragments;
 
 import java.io.File;
 import java.io.IOException;

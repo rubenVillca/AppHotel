@@ -2,7 +2,6 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.util.Activities;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
 
 import org.json.JSONException;
 import org.json.JSONObject;

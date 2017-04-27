@@ -3,7 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.os.Bundle;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.util.Activities;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
 
 public class CalendarActivity extends Activities {
 

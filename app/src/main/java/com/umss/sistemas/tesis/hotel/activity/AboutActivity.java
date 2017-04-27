@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
-import com.umss.sistemas.tesis.hotel.util.Activities;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
 
 public class AboutActivity extends Activities {
 

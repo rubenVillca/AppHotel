@@ -10,6 +10,8 @@ import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
+import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
+import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,11 +62,21 @@ public class HelperSQLite {
     /**
      * sincronizar base de datos SQLite desde webserver a serviceModel
      *
-     * @param obj:objeto JSON person
+     * @param obj:objeto JSON service
      */
     public void syncUpService(JSONObject obj) {
         ArrayList<ServiceModel> serviceModel = getServiceModelJSON(obj);
         setServiceSQLite(serviceModel);
+    }
+
+    /**
+     * sincronizar base de datos SQLite desde webserver a siteTourModel y siteTourImage
+     *
+     * @param obj:objeto JSON siteTour y siteTourImage
+     */
+    public void syncUpSiteTour(JSONObject obj) {
+        ArrayList<SiteTourModel> siteTourModel = getSiteTourModelJSON(obj);
+        setSiteTourSQLite(siteTourModel);
     }
 
     /**
@@ -132,17 +144,23 @@ public class HelperSQLite {
         return aboutModel;
     }
 
+    /**
+     * convertir el JSONOBJECT recibido del webserver en un array
+     *
+     * @param obj: JSON recibido del webserver
+     * @return ArrayList<ServiceModel>: JSON convertido en un array
+     */
     private ArrayList<ServiceModel> getServiceModelJSON(JSONObject obj) {
-        ArrayList<ServiceModel> servicesModel=new ArrayList<>();
+        ArrayList<ServiceModel> servicesModel = new ArrayList<>();
 
         try {
-            JSONArray servicesArray=obj.getJSONArray("services");
-            int limit=servicesArray.length();
+            JSONArray servicesArray = obj.getJSONArray("services");
+            int limit = servicesArray.length();
 
-            for (int i=0;i<limit;i++){
-                JSONObject result=servicesArray.getJSONObject(i);
+            for (int i = 0; i < limit; i++) {
+                JSONObject result = servicesArray.getJSONObject(i);
 
-                ServiceModel serviceModel=new ServiceModel();
+                ServiceModel serviceModel = new ServiceModel();
 
                 serviceModel.setServiceId(result.getInt("id"));
                 serviceModel.setServiceReserved(result.getInt("reservable"));
@@ -155,13 +173,81 @@ public class HelperSQLite {
             }
 
         } catch (JSONException e) {
-            System.out.println("Error: Objeto no convertible, "+e.toString());
+            System.out.println("Error: Objeto no convertible, " + e.toString());
 
             e.printStackTrace();
         }
 
         return servicesModel;
     }
+
+    /**
+     * convertir el JSONOBJECT recibido del webserver en un array
+     *
+     * @param obj: JSON recibido del webserver
+     * @return ArrayList<SiteTourModel>: JSON convertido en un array
+     */
+    private ArrayList<SiteTourModel> getSiteTourModelJSON(JSONObject obj) {
+        ArrayList<SiteTourModel> sitesTourModel = new ArrayList<>();
+
+        try {
+            JSONArray sitesTourArray = obj.getJSONArray("sitesTour");
+
+            for (int i = 0; i < sitesTourArray.length(); i++) {
+                JSONObject sitesObject = sitesTourArray.getJSONObject(i);
+
+                SiteTourModel siteTourModel = new SiteTourModel();
+
+                siteTourModel.setIdSite(sitesObject.getInt("id"));
+                siteTourModel.setStateSite(sitesObject.getInt("state"));
+                siteTourModel.setNameSite(sitesObject.getString("name"));
+                siteTourModel.setDescriptionSite(sitesObject.getString("description"));
+                siteTourModel.setAddressSite(sitesObject.getString("address"));
+                siteTourModel.setGpsLatitudeSite(Float.parseFloat(sitesObject.getString("gpsX")));
+                siteTourModel.setGpsLongitudeSite(Float.parseFloat(sitesObject.getString("gpsY")));
+
+                siteTourModel.setImagesSite(getSiteTourImageModel(sitesObject, siteTourModel.getIdSite()));
+
+                sitesTourModel.add(siteTourModel);
+            }
+
+        } catch (JSONException e) {
+            System.out.println("Error: Objeto no convertible, " + e.toString());
+
+            e.printStackTrace();
+        }
+
+        return sitesTourModel;
+    }
+
+    @NonNull
+    private ArrayList<SiteTourImageModel> getSiteTourImageModel(JSONObject sitesObject,int idSiteTourModel) {
+        ArrayList<SiteTourImageModel> sitesTourImageArray = new ArrayList<>();
+
+        try {
+            JSONArray imagesSitesTour = sitesObject.getJSONArray("images");
+
+            for (int j = 0; j < imagesSitesTour.length(); j++) {
+                SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
+
+                JSONObject imgObject = imagesSitesTour.getJSONObject(j);
+
+                siteTourImageModel.setIdSiteTourImage(imgObject.getInt("ID_IMAGE_SITE"));
+                siteTourImageModel.setNameSiteTourImage(imgObject.getString("NAME_IMAGE_SITE"));
+                siteTourImageModel.setDescriptionSiteTourImage(imgObject.getString("DESCRIPTION_IMAGE_SITE"));
+                siteTourImageModel.setAddressSiteTour(imgObject.getString("IMAGE_SITE"));
+                siteTourImageModel.setStateSiteTourImage(imgObject.getInt("STATE_IMAGE_SITE"));
+                siteTourImageModel.setIdSiteTour(idSiteTourModel);
+
+                sitesTourImageArray.add(siteTourImageModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return sitesTourImageArray;
+    }
+
     /**
      * Lee de la base de datos de sqlite los datos del login
      *
@@ -216,9 +302,9 @@ public class HelperSQLite {
     }
 
     /**
-     * Lee de la base de datos de sqlite los datos del hotel
+     * Lee de la base de datos de sqlite los servicios disponibles
      *
-     * @return List<PersonModel>: datos del hotel
+     * @return List<ServiceModel>: lista de servicios
      */
     public ArrayList<ServiceModel> getServiceModel() {
         ArrayList<ServiceModel> listService = new ArrayList<>();
@@ -226,12 +312,64 @@ public class HelperSQLite {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServiceModel serviceModel=getServiceModelSQLite(cursor);
+                ServiceModel serviceModel = getServiceModelSQLite(cursor);
                 listService.add(serviceModel);
                 cursor.moveToNext();
             }
         }
         return listService;
+    }
+
+    /**
+     * Lee de la base de datos en sqlite los sitios turisticos
+     *
+     * @return List<SiteTourModel>: lista de sitios turisticos
+     */
+    public ArrayList<SiteTourModel> getSiteTourModel() {
+        ArrayList<SiteTourModel> listSiteTour = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                SiteTourModel siteTourModel = getSiteTourModelSQLite(cursor);
+
+                siteTourModel.setImagesSite(getSiteTourImageModel(siteTourModel.getIdSite()));
+                listSiteTour.add(siteTourModel);
+                cursor.moveToNext();
+            }
+        }
+        return listSiteTour;
+    }
+
+    @NonNull
+    private ArrayList<SiteTourImageModel> getSiteTourImageModel(int idSiteTour) {
+        Cursor cursorImages = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE + " where " + DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY + "=" + idSiteTour, null);
+
+        ArrayList<SiteTourImageModel> listSiteTourImages = new ArrayList<>();
+        if (cursorImages.moveToFirst()) {
+            while (!cursorImages.isAfterLast()) {
+                SiteTourImageModel siteTourImageModel = getSiteTourImagesModelSQLite(cursorImages);
+                listSiteTourImages.add(siteTourImageModel);
+                cursorImages.moveToNext();
+            }
+
+        }
+        return listSiteTourImages;
+    }
+
+    @NonNull
+    private SiteTourImageModel getSiteTourImagesModelSQLite(Cursor cursor) {
+        SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
+
+        siteTourImageModel.setIdSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID)));
+        siteTourImageModel.setNameSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME)));
+        siteTourImageModel.setDescriptionSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION)));
+        siteTourImageModel.setStateSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE)));
+        siteTourImageModel.setAddressSiteTour(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS)));
+
+        siteTourImageModel.setIdSiteTour(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY)));
+
+        return siteTourImageModel;
     }
 
     @NonNull
@@ -289,6 +427,7 @@ public class HelperSQLite {
 
         return loginModel;
     }
+
     @NonNull
     private ServiceModel getServiceModelSQLite(Cursor cursor) {
         ServiceModel serviceModel = new ServiceModel();
@@ -301,6 +440,21 @@ public class HelperSQLite {
         serviceModel.setServiceType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_TYPE)));
 
         return serviceModel;
+    }
+
+    @NonNull
+    private SiteTourModel getSiteTourModelSQLite(Cursor cursor) {
+        SiteTourModel siteTourModel = new SiteTourModel();
+
+        siteTourModel.setIdSite(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_ID)));
+        siteTourModel.setStateSite(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_STATE)));
+        siteTourModel.setNameSite(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_NAME)));
+        siteTourModel.setDescriptionSite(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_DESCRIPTION)));
+        siteTourModel.setAddressSite(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_ADDRESS)));
+        siteTourModel.setGpsLatitudeSite(Float.parseFloat(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_X))));
+        siteTourModel.setGpsLongitudeSite(Float.parseFloat(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_Y))));
+
+        return siteTourModel;
     }
 
     /**
@@ -379,12 +533,13 @@ public class HelperSQLite {
 
     /**
      * ingresar la lista de servicios en la base da datos SQLite
+     *
      * @param servicesModel: lista de servicios
      */
     private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
 
-        for (ServiceModel serviceModel: servicesModel) {
+        for (ServiceModel serviceModel : servicesModel) {
             ContentValues serviceContent = new ContentValues();
 
             serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_ID, serviceModel.getServiceId());
@@ -397,6 +552,53 @@ public class HelperSQLite {
             db.insert(DataBaseSQLiteHelper.TABLE_SERVICE, null, serviceContent);
         }
     }
+
+    /**
+     * ingresar la lista de sitios turisticos en la base da datos SQLite
+     *
+     * @param sitesTourModel: lista de lugares turisticos
+     */
+    private void setSiteTourSQLite(ArrayList<SiteTourModel> sitesTourModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
+
+        for (SiteTourModel siteTourModel : sitesTourModel) {
+            ContentValues siteTourContent = new ContentValues();
+
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ID, siteTourModel.getIdSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_NAME, siteTourModel.getNameSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_DESCRIPTION, siteTourModel.getDescriptionSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_STATE, siteTourModel.getStateSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ADDRESS, siteTourModel.getAddressSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_X, siteTourModel.getGpsLatitudeSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_Y, siteTourModel.getGpsLongitudeSite());
+
+            setSiteTourImageSQLite(siteTourModel);
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent);
+        }
+    }
+
+    /**
+     * guardar lista de images de los sitios turisticos en sqlite
+     * @param siteTourModel:lista de sitios tiristicos
+     */
+    private void setSiteTourImageSQLite(SiteTourModel siteTourModel) {
+        for (SiteTourImageModel siteImage : siteTourModel.getImagesSite()) {
+            ContentValues siteTourImageContent = new ContentValues();
+
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID, siteImage.getIdSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE, siteImage.getStateSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME, siteImage.getNameSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION, siteImage.getDescriptionSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS, siteImage.getAddressSiteTour());
+
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent);
+        }
+    }
+
     /**
      * verificar q la cuenta del usuario este activa en la base de datos SQLite
      *

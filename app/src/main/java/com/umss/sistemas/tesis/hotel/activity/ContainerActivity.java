@@ -18,8 +18,8 @@ import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
-import com.umss.sistemas.tesis.hotel.util.Activities;
-import com.umss.sistemas.tesis.hotel.util.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.Fragments;
 
 import org.json.JSONException;
 import org.json.JSONObject;

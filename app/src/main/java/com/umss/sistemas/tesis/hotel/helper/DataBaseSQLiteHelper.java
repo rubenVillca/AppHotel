@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 14;
+    static final int DATABASE_VERSION = 16;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -64,6 +64,24 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SERVICE_IMAGE = "imageService";
     static final String KEY_SERVICE_RESERVED = "reservedService";
 
+    //siteTour
+    static final String TABLE_SITE_TOUR = "siteTour";
+    static final String KEY_SITE_TOUR_ID = "idSiteTour";
+    static final String KEY_SITE_TOUR_NAME = "nameSiteTour";
+    static final String KEY_SITE_TOUR_DESCRIPTION = "descriptionSiteTour";
+    static final String KEY_SITE_TOUR_ADDRESS = "addressSiteTour";
+    static final String KEY_SITE_TOUR_GPS_X = "gpsXSiteTour";
+    static final String KEY_SITE_TOUR_GPS_Y = "gpsYSiteTour";
+    static final String KEY_SITE_TOUR_STATE = "stateSiteTour";
+
+    //siteTourImage
+    static final String TABLE_SITE_TOUR_IMAGE = "siteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_ID = "idSiteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_NAME = "nameSiteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_DESCRIPTION = "descriptionSiteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_ADDRESS = "addressSiteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_ID_KEY = "idKeySiteTourImage";
+    static final String KEY_SITE_TOUR_IMAGE_STATE = "stateSiteTourImage";
 
     DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -75,11 +93,15 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         String tablePerson = getTablePerson();
         String tableAbout = getTableAbout();
         String tableService = getTableService();
+        String tableSiteTour = getTableSiteTour();
+        String tableSiteTourImage = getTableSiteTourImage();
 
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
         db.execSQL(tableAbout);
         db.execSQL(tableService);
+        db.execSQL(tableSiteTour);
+        db.execSQL(tableSiteTourImage);
     }
 
     @NonNull
@@ -145,6 +167,29 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_SERVICE_RESERVED + " INTEGER"
                 + ")";
     }
+    @NonNull
+    private String getTableSiteTour() {
+        return "CREATE TABLE " + TABLE_SITE_TOUR + " ( "
+                + KEY_SITE_TOUR_ID + " INTEGER PRIMARY KEY,"
+                + KEY_SITE_TOUR_NAME + " TEXT,"
+                + KEY_SITE_TOUR_DESCRIPTION + " TEXT,"
+                + KEY_SITE_TOUR_ADDRESS + " TEXT,"
+                + KEY_SITE_TOUR_GPS_X + " TEXT,"
+                + KEY_SITE_TOUR_GPS_Y + " TEXT,"
+                + KEY_SITE_TOUR_STATE + " INTEGER"
+                + ")";
+    }
+    @NonNull
+    private String getTableSiteTourImage() {
+        return "CREATE TABLE " + TABLE_SITE_TOUR_IMAGE + " ( "
+                + KEY_SITE_TOUR_IMAGE_ID + " INTEGER PRIMARY KEY,"
+                + KEY_SITE_TOUR_IMAGE_NAME + " TEXT,"
+                + KEY_SITE_TOUR_IMAGE_DESCRIPTION + " TEXT,"
+                + KEY_SITE_TOUR_IMAGE_STATE + " TEXT,"
+                + KEY_SITE_TOUR_IMAGE_ADDRESS + " TEXT,"
+                + KEY_SITE_TOUR_IMAGE_ID_KEY + " INTEGER"
+                + ")";
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //elimina la version anterior
@@ -152,6 +197,8 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_PERSON);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_ABOUT);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SERVICE);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
         //se crea la nueva version de la tabla
         onCreate(db);
     }

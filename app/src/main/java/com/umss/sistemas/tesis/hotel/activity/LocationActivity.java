@@ -27,10 +27,10 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
-import com.umss.sistemas.tesis.hotel.modules.DirectionFinder;
-import com.umss.sistemas.tesis.hotel.modules.DirectionFinderListener;
-import com.umss.sistemas.tesis.hotel.modules.Route;
-import com.umss.sistemas.tesis.hotel.util.Activities;
+import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
+import com.umss.sistemas.tesis.hotel.util.DirectionFinderListener;
+import com.umss.sistemas.tesis.hotel.util.Route;
+import com.umss.sistemas.tesis.hotel.parent.Activities;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

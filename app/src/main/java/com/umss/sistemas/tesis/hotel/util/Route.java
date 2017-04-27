@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.modules;
+package com.umss.sistemas.tesis.hotel.util;
 
 import com.google.android.gms.maps.model.LatLng;
 

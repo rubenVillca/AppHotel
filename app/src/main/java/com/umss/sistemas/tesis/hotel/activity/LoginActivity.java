@@ -31,7 +31,7 @@ public class LoginActivity extends Activities {
 
         container = findViewById(R.id.containerLogin);
         progressView = findViewById(R.id.progress_bar);
-        helperSQLite=new HelperSQLite(this);
+        helperSQLite = new HelperSQLite(this);
     }
 
     /**
@@ -54,7 +54,6 @@ public class LoginActivity extends Activities {
         if (!cancel) {
             showProgress(true);
             iniciarSession();
-            showProgress(false);
         }
     }
 
@@ -76,41 +75,43 @@ public class LoginActivity extends Activities {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
                     int idPerson;
-                    JSONObject obj = null;
                     try {
-                        obj = new JSONObject(new String(responseBody));
+                        JSONObject obj = new JSONObject(new String(responseBody));
                         idPerson = obj.getInt("idPerson");
                     } catch (JSONException e) {
+                        goLoginActivity();
                         idPerson = 0;
-                        showProgress(false);
                         showMesaje("Error de conexion");
                     }
 
                     switch (idPerson) {
                         case 0:
                             showMesaje("Nombre de usuario incorrecto");
+                            goLoginActivity();
                             break;
                         case -1:
                             showMesaje("Contrasenia incorrectos");
+                            goLoginActivity();
                             break;
                         case -2:
                             showMesaje("Cuenta no disponible");
+                            goLoginActivity();
                             break;
                         default:
-                            helperSQLite.syncUpLogin(idPerson,passText,1);
+                            helperSQLite.syncUpLogin(idPerson, passText, 1);
                             goHomeFragment(idPerson);
                             showMesaje("Ha iniciado Sesion");
                             break;
                     }
                 } else {
+                    goLoginActivity();
                     showMesaje("Servidor no disponible");
                 }
-                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                showProgress(false);
+                goLoginActivity();
                 showMesaje("Servidor no esta disponible");
             }
         });
@@ -124,6 +125,11 @@ public class LoginActivity extends Activities {
     private void goHomeFragment(int idPerson) {
         Intent intent = new Intent(this, ContainerActivity.class);
         intent.putExtra("idPerson", idPerson);
+        startActivity(intent);
+    }
+
+    private void goLoginActivity(){
+        Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
 

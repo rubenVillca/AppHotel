@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class Fragments extends Fragment implements View.OnClickListener {
+
     protected HelperSQLite helperSQLite;
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -72,7 +73,7 @@ public class Fragments extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), MessagesActivity.class);
                 break;
             case R.id.imageOffer:
-                intent = new Intent(getActivity(), OffersActivity.class);
+                goOffer();
                 break;
             case R.id.imageSiteTour:
                 goSiteTour();
@@ -99,6 +100,39 @@ public class Fragments extends Fragment implements View.OnClickListener {
         if (intent != null) {
             startActivity(intent);
         }
+    }
+    /**
+     * Conectar con el webServer y sincronizar la tabla offer
+     */
+    private void goOffer() {
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.OFFER), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpOffer(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goOfferActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goOfferActivity();
+                //showProgress(false);
+                System.out.println("Servidor no disponible");
+            }
+        });
     }
 
     /**
@@ -269,6 +303,14 @@ public class Fragments extends Fragment implements View.OnClickListener {
      */
     private void goSiteTourActivity() {
         Intent intent = new Intent(getActivity(), SitesTourActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * cambiar de activity a OffersActivity
+     */
+    private void goOfferActivity() {
+        Intent intent = new Intent(getActivity(), OffersActivity.class);
         startActivity(intent);
     }
 

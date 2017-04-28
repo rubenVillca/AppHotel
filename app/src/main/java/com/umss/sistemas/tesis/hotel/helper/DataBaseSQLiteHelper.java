@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 16;
+class DataBaseSQLiteHelper extends SQLiteOpenHelper {
+    static final int DATABASE_VERSION = 18;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -83,6 +83,21 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SITE_TOUR_IMAGE_ID_KEY = "idKeySiteTourImage";
     static final String KEY_SITE_TOUR_IMAGE_STATE = "stateSiteTourImage";
 
+    //offer
+    static final String TABLE_OFFER = "offer";
+    static final String KEY_OFFER_ID = "idOffer";
+    static final String KEY_OFFER_NAME = "nameOffer";
+    static final String KEY_OFFER_DESCRIPTION = "descriptionOffer";
+    static final String KEY_OFFER_DATE_INI = "dateIniOffer";
+    static final String KEY_OFFER_TIME_INI = "timeIniOffer";
+    static final String KEY_OFFER_DATE_FIN = "dateFinOffer";
+    static final String KEY_OFFER_TIME_FIN = "timeFinOffer";
+    static final String KEY_OFFER_ID_KEY_SERVICE = "idServiceOffer";
+    static final String KEY_OFFER_STATE = "stateOffer";
+    static final String KEY_OFFER_IMAGE = "imageOffer";
+    static final String KEY_OFFER_NAME_TYPE = "nameTypeOffer";
+    static final String KEY_OFFER_DESCRIPTION_TYPE="nameDescriptionOffer";
+
     DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -95,6 +110,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         String tableService = getTableService();
         String tableSiteTour = getTableSiteTour();
         String tableSiteTourImage = getTableSiteTourImage();
+        String tableOffer = getTableOffer();
 
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
@@ -102,6 +118,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(tableService);
         db.execSQL(tableSiteTour);
         db.execSQL(tableSiteTourImage);
+        db.execSQL(tableOffer);
     }
 
     @NonNull
@@ -112,6 +129,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_LOGIN_PASSWORD + " TEXT"
                 + ")";
     }
+
     @NonNull
     private String getTablePerson() {
         return "CREATE TABLE " + TABLE_PERSON + " ( "
@@ -132,6 +150,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_PERSON_NUMBER_PHONE + " TEXT"
                 + ")";
     }
+
     @NonNull
     private String getTableAbout() {
         return "CREATE TABLE " + TABLE_ABOUT + " ( "
@@ -156,6 +175,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_ABOUT_SITEWEBHOTEL + " TEXT"
                 + ")";
     }
+
     @NonNull
     private String getTableService() {
         return "CREATE TABLE " + TABLE_SERVICE + " ( "
@@ -167,6 +187,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_SERVICE_RESERVED + " INTEGER"
                 + ")";
     }
+
     @NonNull
     private String getTableSiteTour() {
         return "CREATE TABLE " + TABLE_SITE_TOUR + " ( "
@@ -179,6 +200,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_SITE_TOUR_STATE + " INTEGER"
                 + ")";
     }
+
     @NonNull
     private String getTableSiteTourImage() {
         return "CREATE TABLE " + TABLE_SITE_TOUR_IMAGE + " ( "
@@ -190,6 +212,25 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_SITE_TOUR_IMAGE_ID_KEY + " INTEGER"
                 + ")";
     }
+
+    @NonNull
+    private String getTableOffer() {
+        return "CREATE TABLE " + TABLE_OFFER + " ( "
+                + KEY_OFFER_ID + " INTEGER PRIMARY KEY,"
+                + KEY_OFFER_NAME + " TEXT,"
+                + KEY_OFFER_DESCRIPTION + " TEXT,"
+                + KEY_OFFER_STATE + " INTEGER,"
+                + KEY_OFFER_DATE_INI + " TEXT,"
+                + KEY_OFFER_TIME_INI + " TEXT,"
+                + KEY_OFFER_DATE_FIN + " TEXT,"
+                + KEY_OFFER_TIME_FIN + " TEXT,"
+                + KEY_OFFER_IMAGE + " TEXT,"
+                + KEY_OFFER_NAME_TYPE + " TEXT,"
+                + KEY_OFFER_DESCRIPTION_TYPE + " TEXT,"
+                + KEY_OFFER_ID_KEY_SERVICE + " INTEGER"
+                + ")";
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //elimina la version anterior
@@ -199,6 +240,7 @@ public class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SERVICE);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_OFFER);
         //se crea la nueva version de la tabla
         onCreate(db);
     }

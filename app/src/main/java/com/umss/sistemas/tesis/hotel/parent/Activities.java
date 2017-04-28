@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.parent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,20 +33,19 @@ public class Activities extends AppCompatActivity {
      */
     protected void showProgress(final boolean show) {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        container.setVisibility(show ? View.VISIBLE : View.GONE);
+        container.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                container.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
 
         progressView.setVisibility(show ? View.GONE : View.VISIBLE);
         progressView.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 progressView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        container.setVisibility(show ? View.VISIBLE : View.GONE);
-        container.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                container.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         });
     }

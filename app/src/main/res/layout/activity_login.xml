@@ -8,110 +8,104 @@
     android:fitsSystemWindows="true"
     tools:context="com.umss.sistemas.tesis.hotel.activity.LoginActivity">
 
+    <include layout="@layout/actionbar_progressbar" />
+
     <LinearLayout
+        android:id="@+id/containerLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
-        <include layout="@layout/actionbar_progressbar"/>
-
-        <LinearLayout
-            android:id="@+id/containerLogin"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:layout_weight="0.6"
+            android:padding="16dp">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/description_logo"
+                app:srcCompat="@drawable/ic_logo" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:fillViewport="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.6"
-                android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/paddin_horizontal_login">
 
-                <ImageView
-                    android:id="@+id/imgLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:contentDescription="@string/description_logo"
-                    app:srcCompat="@drawable/ic_logo" />
-
-            </RelativeLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:fillViewport="true">
-
-                <LinearLayout
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/paddin_horizontal_login">
+                    android:theme="@style/EditTextWhite">
 
-                    <android.support.design.widget.TextInputLayout
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/userName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:theme="@style/EditTextWhite">
+                        android:hint="@string/hint_user_name" />
+                </android.support.design.widget.TextInputLayout>
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/userName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_user_name" />
-                    </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
 
-                    <android.support.design.widget.TextInputLayout
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:theme="@style/EditTextWhite">
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword" />
+                </android.support.design.widget.TextInputLayout>
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_password"
-                            android:inputType="textPassword" />
-                    </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddin_horizontal_login"
+                    android:onClick="goContainerActivity"
+                    android:text="@string/login"
+                    android:theme="@style/RaisedButtonDark" />
 
-                    <Button
-                        android:id="@+id/login"
-                        android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/labelDontAccount"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/paddin_horizontal_login"
-                        android:onClick="goContainerActivity"
-                        android:text="@string/login"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:text="@string/dontAccount"
+                        android:textColor="@color/editTextColorWhite"
+                        android:textSize="@dimen/text_size_dont_account" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
+                    <TextView
+                        android:id="@+id/createAccountHere"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/labelDontAccount"
+                        android:onClick="goCreateAccountActivity"
+                        android:text="@string/create_here"
+                        android:textColor="@color/editTextColorWhite"
+                        android:textSize="@dimen/text_size_dont_account"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
 
-                        <TextView
-                            android:id="@+id/labelDontAccount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dontAccount"
-                            android:textColor="@color/editTextColorWhite"
-                            android:textSize="@dimen/text_size_dont_account" />
-
-                        <TextView
-                            android:id="@+id/createAccountHere"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/labelDontAccount"
-                            android:onClick="goCreateAccountActivity"
-                            android:text="@string/create_here"
-                            android:textColor="@color/editTextColorWhite"
-                            android:textSize="@dimen/text_size_dont_account"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

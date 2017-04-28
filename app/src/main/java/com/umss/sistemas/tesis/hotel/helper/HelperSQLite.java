@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
+import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
@@ -77,6 +78,16 @@ public class HelperSQLite {
     public void syncUpSiteTour(JSONObject obj) {
         ArrayList<SiteTourModel> siteTourModel = getSiteTourModelJSON(obj);
         setSiteTourSQLite(siteTourModel);
+    }
+
+    /**
+     * sincronizar base de datos SQLite desde webserver a offerModel
+     *
+     * @param obj:objeto JSON offer
+     */
+    public void syncUpOffer(JSONObject obj) {
+        ArrayList<OfferModel> offerModel = getOfferModelJSON(obj);
+        setOfferSQLite(offerModel);
     }
 
     /**
@@ -220,8 +231,14 @@ public class HelperSQLite {
         return sitesTourModel;
     }
 
-    @NonNull
-    private ArrayList<SiteTourImageModel> getSiteTourImageModel(JSONObject sitesObject,int idSiteTourModel) {
+    /**
+     * convertir el object en un array
+     *
+     * @param sitesObject:lista     de imagenes del sitio turistico
+     * @param idSiteTourModel:idKey del sitio turistico
+     * @return
+     */
+    private ArrayList<SiteTourImageModel> getSiteTourImageModel(JSONObject sitesObject, int idSiteTourModel) {
         ArrayList<SiteTourImageModel> sitesTourImageArray = new ArrayList<>();
 
         try {
@@ -246,6 +263,50 @@ public class HelperSQLite {
         }
 
         return sitesTourImageArray;
+    }
+
+    /**
+     * convertir el JSONOBJECT recibido del webserver en un array
+     *
+     * @param obj: JSON recibido del webserver
+     * @return ArrayList<OfferModel>: JSON convertido en un array
+     */
+    private ArrayList<OfferModel> getOfferModelJSON(JSONObject obj) {
+        ArrayList<OfferModel> offersModel = new ArrayList<>();
+
+        try {
+            JSONArray offersArray = obj.getJSONArray("offers");
+            int limit = offersArray.length();
+
+            for (int i = 0; i < limit; i++) {
+                JSONObject result = offersArray.getJSONObject(i);
+
+                OfferModel offerModel = new OfferModel();
+
+                offerModel.setId(result.getInt("ID_OFFER"));
+                offerModel.setName(result.getString("NAME_SERVICE"));
+                offerModel.setDescription(result.getString("DESCRIPTION_SERVICE"));
+                offerModel.setDateIni(result.getString("DATE_INI_OFFER"));
+                offerModel.setTimeIni(result.getString("TIME_INI_OFFER"));
+                offerModel.setDateFin(result.getString("DATE_FIN_OFFER"));
+                offerModel.setTimeFin(result.getString("TIME_FIN_OFFER"));
+                offerModel.setImage(result.getString("IMAGE_SERVICE"));
+                offerModel.setState(result.getInt("ACTIVE_OFFER"));
+                offerModel.setIdKeyService(result.getInt("ID_SERVICE"));
+                offerModel.setNameType(result.getString("NAME_TYPE_SERVICE"));
+                offerModel.setDescriptionType(result.getString("DESCRIPTION_TYPE_SERVICE"));
+
+                offersModel.add(offerModel);
+            }
+
+        } catch (JSONException e) {
+            System.out.println("Error: Objeto no convertible, " + e.toString());
+
+            e.printStackTrace();
+        }
+
+        return offersModel;
+
     }
 
     /**
@@ -341,7 +402,11 @@ public class HelperSQLite {
         return listSiteTour;
     }
 
-    @NonNull
+    /**
+     * Lee de la base de datos en sqlite los sitios turisticos
+     * @param idSiteTour:clave foranes del idSiteTour
+     * @return List<SiteTourImageModel>: lista de sitios turisticos
+     */
     private ArrayList<SiteTourImageModel> getSiteTourImageModel(int idSiteTour) {
         Cursor cursorImages = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE + " where " + DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY + "=" + idSiteTour, null);
 
@@ -357,19 +422,23 @@ public class HelperSQLite {
         return listSiteTourImages;
     }
 
-    @NonNull
-    private SiteTourImageModel getSiteTourImagesModelSQLite(Cursor cursor) {
-        SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
+    /**
+     * selecciones las offertas de la base de datos SQLite y los convierte en un array
+     * @return offerModelArrayList: lista de ofertas disponibles
+     */
+    public ArrayList<OfferModel> getOfferModel() {
+        Cursor cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER , null);
 
-        siteTourImageModel.setIdSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID)));
-        siteTourImageModel.setNameSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME)));
-        siteTourImageModel.setDescriptionSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION)));
-        siteTourImageModel.setStateSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE)));
-        siteTourImageModel.setAddressSiteTour(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS)));
+        ArrayList<OfferModel> listOfferModel=new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                OfferModel offerModel = getOfferModelSQLite(cursor);
+                listOfferModel.add(offerModel);
+                cursor.moveToNext();
+            }
 
-        siteTourImageModel.setIdSiteTour(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY)));
-
-        return siteTourImageModel;
+        }
+        return listOfferModel;
     }
 
     @NonNull
@@ -457,6 +526,39 @@ public class HelperSQLite {
         return siteTourModel;
     }
 
+    @NonNull
+    private SiteTourImageModel getSiteTourImagesModelSQLite(Cursor cursor) {
+        SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
+
+        siteTourImageModel.setIdSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID)));
+        siteTourImageModel.setNameSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME)));
+        siteTourImageModel.setDescriptionSiteTourImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION)));
+        siteTourImageModel.setStateSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE)));
+        siteTourImageModel.setAddressSiteTour(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS)));
+
+        siteTourImageModel.setIdSiteTour(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY)));
+
+        return siteTourImageModel;
+    }
+
+    @NonNull
+    private OfferModel getOfferModelSQLite(Cursor cursor) {
+        OfferModel offerModel = new OfferModel();
+
+        offerModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_ID)));
+        offerModel.setName(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_NAME)));
+        offerModel.setDescription(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION)));
+        offerModel.setState(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_STATE)));
+        offerModel.setDateIni(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DATE_INI)));
+        offerModel.setTimeIni(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_TIME_INI)));
+        offerModel.setDateFin(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DATE_FIN)));
+        offerModel.setTimeFin(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_TIME_FIN)));
+        offerModel.setIdKeyService(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_ID_KEY_SERVICE)));
+        offerModel.setImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_IMAGE)));
+        offerModel.setNameType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE)));
+        offerModel.setDescriptionType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE)));
+        return offerModel;
+    }
     /**
      * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
      *
@@ -581,6 +683,7 @@ public class HelperSQLite {
 
     /**
      * guardar lista de images de los sitios turisticos en sqlite
+     *
      * @param siteTourModel:lista de sitios tiristicos
      */
     private void setSiteTourImageSQLite(SiteTourModel siteTourModel) {
@@ -596,6 +699,33 @@ public class HelperSQLite {
             siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
 
             db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent);
+        }
+    }
+
+    /**
+     * guardar lista de images de ofertas en sqlite
+     *
+     * @param offerModel:lista offertas
+     */
+    private void setOfferSQLite(ArrayList<OfferModel> offerModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_OFFER);
+        for (OfferModel offer : offerModel) {
+            ContentValues offerContent = new ContentValues();
+
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID, offer.getId());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_STATE, offer.getState());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME, offer.getName());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION, offer.getDescription());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_INI, offer.getDateIni());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_INI, offer.getTimeIni());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_FIN, offer.getDateFin());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_FIN, offer.getTimeFin());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID_KEY_SERVICE, offer.getIdKeyService());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_IMAGE, offer.getImage());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_OFFER, null, offerContent);
         }
     }
 

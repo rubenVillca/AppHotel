@@ -22,6 +22,7 @@ public class HomeFragment extends Fragments {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
+
         super.showToolBar(getResources().getString(R.string.tab_home),false,view);
         super.showFloatingButtonMessage(view);
         setActionIcon(view);

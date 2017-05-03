@@ -37,6 +37,6 @@ public class SitesTourActivity extends Activities {
     public ArrayList<SiteTourModel> buildSiteTour(){
         helperSQLite=new HelperSQLite(this);
 
-        return helperSQLite.getSiteTourModel();
+        return helperSQLite.getSiteTourModel(0);
     }
 }

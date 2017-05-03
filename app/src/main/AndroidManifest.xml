@@ -146,12 +146,31 @@
 
         <activity
             android:name=".activity.LocationActivity"
-            android:label="@string/title_activity_location">
+            android:label="@string/title_activity_location"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.SiteTourActivity"></activity>
+        <activity
+            android:name=".activity.SiteTourActivity"
+            android:label="@string/tittle_activity_site_tour"
+            android:parentActivityName=".activity.SitesTourActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.SitesTourActivity" />
+        </activity>
+        <activity
+            android:name=".activity.OfferActivity"
+            android:label="@string/tittle_activity_offer"
+            android:parentActivityName=".activity.OffersActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.OffersActivity" />
+        </activity>
     </application>
 
 </manifest>

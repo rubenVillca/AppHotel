@@ -41,8 +41,7 @@ public class SiteTourAdapterRecycler extends RecyclerView.Adapter<SiteTourAdapte
 
     @Override
     public void onBindViewHolder(SiteTourViewHolder holder, int position) {
-        final int idPosition=position;
-        SiteTourModel siteTour=sitesTourModel.get(position);
+        final SiteTourModel siteTour=sitesTourModel.get(position);
 
         holder.siteTourNameCardView.setText(siteTour.getNameSite());
         holder.siteTourAddressCardView.setText(siteTour.getAddressSite());
@@ -55,7 +54,7 @@ public class SiteTourAdapterRecycler extends RecyclerView.Adapter<SiteTourAdapte
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, SiteTourActivity.class);
-                intent.putExtra("idPosition",idPosition);
+                intent.putExtra("idSiteTour",siteTour.getIdSite());
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                     Explode explode=new Explode();

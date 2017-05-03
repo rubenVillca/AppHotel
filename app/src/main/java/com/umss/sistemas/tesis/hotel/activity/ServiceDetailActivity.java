@@ -19,6 +19,7 @@ public class ServiceDetailActivity extends Activities {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_detail);
+
         super.showToolBar("",true);
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             getWindow().setEnterTransition(new Fade());
@@ -39,7 +40,7 @@ public class ServiceDetailActivity extends Activities {
         helperSQLite=new HelperSQLite(this);
         ServiceModel serviceModel=helperSQLite.getServiceModel().get(idService);
 
-        ImageView imageService=(ImageView)findViewById(R.id.imageServiceHeaderCollapsing);
+        ImageView imageService=(ImageView)findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + serviceModel.getServiceImage()).into(imageService);
 
         TextView nameService=(TextView)findViewById(R.id.nameServiceDetailTextView);
@@ -52,5 +53,4 @@ public class ServiceDetailActivity extends Activities {
         descriptionService.setText(serviceModel.getServiceDescription());
 
     }
-
 }

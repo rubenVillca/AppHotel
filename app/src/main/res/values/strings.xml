@@ -98,4 +98,7 @@
     <string name="title_activity_location">Ubicacion del hotel</string>
     <string name="textview_distance_locationmap">0 km</string>
     <string name="textview_duration_locationmap">0 min</string>
+    <string name="tittle_activity_site_tour">Lugar Turístico</string>
+    <string name="address_site">Dirección</string>
+    <string name="tittle_activity_offer">Oferta</string>
 </resources>

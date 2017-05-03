@@ -386,9 +386,14 @@ public class HelperSQLite {
      *
      * @return List<SiteTourModel>: lista de sitios turisticos
      */
-    public ArrayList<SiteTourModel> getSiteTourModel() {
+    public ArrayList<SiteTourModel> getSiteTourModel(int idSiteTour) {
         ArrayList<SiteTourModel> listSiteTour = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR, null);
+
+        Cursor cursor;
+        if (idSiteTour > 0)
+            cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR+" where "+DataBaseSQLiteHelper.KEY_SITE_TOUR_ID+"="+idSiteTour, null);
+        else
+            cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -404,10 +409,11 @@ public class HelperSQLite {
 
     /**
      * Lee de la base de datos en sqlite los sitios turisticos
+     *
      * @param idSiteTour:clave foranes del idSiteTour
      * @return List<SiteTourImageModel>: lista de sitios turisticos
      */
-    private ArrayList<SiteTourImageModel> getSiteTourImageModel(int idSiteTour) {
+    public ArrayList<SiteTourImageModel> getSiteTourImageModel(int idSiteTour) {
         Cursor cursorImages = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE + " where " + DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY + "=" + idSiteTour, null);
 
         ArrayList<SiteTourImageModel> listSiteTourImages = new ArrayList<>();
@@ -424,12 +430,13 @@ public class HelperSQLite {
 
     /**
      * selecciones las offertas de la base de datos SQLite y los convierte en un array
+     *
      * @return offerModelArrayList: lista de ofertas disponibles
      */
     public ArrayList<OfferModel> getOfferModel() {
-        Cursor cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER , null);
+        Cursor cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER, null);
 
-        ArrayList<OfferModel> listOfferModel=new ArrayList<>();
+        ArrayList<OfferModel> listOfferModel = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 OfferModel offerModel = getOfferModelSQLite(cursor);
@@ -559,6 +566,7 @@ public class HelperSQLite {
         offerModel.setDescriptionType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE)));
         return offerModel;
     }
+
     /**
      * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
      *

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.OfferActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
@@ -52,7 +53,7 @@ public class OfferAdapterRecycler extends RecyclerView.Adapter<OfferAdapterRecyc
         holder.offerPictureCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, OffersActivity.class);
+                Intent intent=new Intent(activity, OfferActivity.class);
                 intent.putExtra("idPosition",idPosition);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){

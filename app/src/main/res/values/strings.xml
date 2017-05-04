@@ -101,4 +101,11 @@
     <string name="tittle_activity_site_tour">Lugar Turístico</string>
     <string name="address_site">Dirección</string>
     <string name="tittle_activity_offer">Oferta</string>
+    <string-array name="header_table_price_services">
+        <item>Precio</item>
+        <item>Tiempo</item>
+        <item>Unidades</item>
+        <item>Puntos a ganar</item>
+        <item>Puntos necesarios</item>
+    </string-array>
 </resources>

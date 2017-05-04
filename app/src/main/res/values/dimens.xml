@@ -47,4 +47,5 @@
     <dimen name="margintop_icon_locationmap">5dp</dimen>
     <dimen name="margintop_text_locationmap">15dp</dimen>
     <dimen name="marginleft_text_locationmap">5dp</dimen>
+    <dimen name="paddingtop_table">20dp</dimen>
 </resources>

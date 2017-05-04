@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -13,6 +14,7 @@ import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.table.TablePriceService;
 
 import java.util.ArrayList;
 
@@ -56,7 +58,20 @@ public class ServiceDetailActivity extends Activities {
         TextView descriptionService=(TextView)findViewById(R.id.contentServiceDetailTextView);
         descriptionService.setText(serviceModel.getServiceDescription());
 
-        TextView priceService=(TextView)findViewById(R.id.priceService);
-        priceService.setText(servicePriceModel.get(0).getServicePriceNameMoney());
+        TablePriceService tabla = new TablePriceService(this, (TableLayout)findViewById(R.id.tablePriceService));
+
+        tabla.agregarCabecera(R.array.header_table_price_services);
+
+        for(ServicePriceModel price: servicePriceModel){
+            ArrayList<String> elementos = new ArrayList<>();
+
+            elementos.add("("+price.getServicePriceNameMoney()+") "+price.getServicePricePrice());
+            elementos.add((price.getServicePriceDay()*24+price.getServicePriceHour())+ " Horas");
+            elementos.add(String.valueOf(price.getServicePriceUnit()));
+            elementos.add(String.valueOf(price.getServicePricePointObtain()));
+            elementos.add(String.valueOf(price.getServicePricePointRequired()));
+
+            tabla.agregarFilaTabla(elementos);
+        }
     }
 }

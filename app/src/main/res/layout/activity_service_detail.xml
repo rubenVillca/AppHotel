@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.umss.sistemas.tesis.hotel.activity.ServiceDetailActivity">
 
-    <include layout="@layout/actionbar_toolbar_collapsing"/>
+    <include layout="@layout/actionbar_toolbar_collapsing" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,10 +24,10 @@
                 android:id="@+id/nameServiceDetailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_usernamedetail"
-                android:text="@string/name_card"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" />
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/name_card"
+                android:textSize="@dimen/textsize_usernamedetail" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,57 +41,60 @@
                     android:id="@+id/typeServiceDetailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_likenumberdetail"
-                    android:text="@string/type_detail"/>
+                    android:text="@string/type_detail"
+                    android:textSize="@dimen/textsize_likenumberdetail" />
 
                 <TextView
                     android:id="@+id/typeNameServiceDetailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_likenumberdetail"
                     android:layout_marginLeft="@dimen/marginleft_seconleft"
-                    android:layout_marginRight="@dimen/marginleft_seconleft"/>
+                    android:layout_marginRight="@dimen/marginleft_seconleft"
+                    android:textSize="@dimen/textsize_likenumberdetail" />
             </LinearLayout>
-            
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_divider"
-                android:background="@color/icons"/>
+                android:background="@color/icons" />
 
             <TextView
                 android:id="@+id/titleDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_likenumberdetail"
-                android:text="@string/titledetail"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:paddingTop="@dimen/paddingtop_titleimagedetail" />
+                android:paddingTop="@dimen/paddingtop_titleimagedetail"
+                android:text="@string/titledetail"
+                android:textSize="@dimen/textsize_likenumberdetail"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/contentServiceDetailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_likenumberdetail"
                 android:layout_gravity="center_horizontal"
-                android:paddingTop="@dimen/paddingtop_titleimagedetail"
-                android:paddingLeft="@dimen/padding_horizontal_textcontent"
-                android:paddingRight="@dimen/padding_horizontal_textcontent" />
-
-            <TextView
-                android:id="@+id/priceService"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_likenumberdetail"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:paddingLeft="@dimen/padding_horizontal_textcontent"
                 android:paddingRight="@dimen/padding_horizontal_textcontent"
-                />
-        </LinearLayout>
+                android:paddingTop="@dimen/paddingtop_titleimagedetail"
+                android:textSize="@dimen/textsize_likenumberdetail" />
 
-    </android.support.v4.widget.NestedScrollView>
+            <HorizontalScrollView
+                android:id="@+id/scrollhorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="horizontal">
 
-    <include layout="@layout/actionbar_floating_button_order"/>
+                <TableLayout
+                    android:id="@+id/tablePriceService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/paddingtop_table" />
+        </HorizontalScrollView>
+    </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.NestedScrollView>
+
+<include layout="@layout/actionbar_floating_button_order" />
+
+    </android.support.design.widget.CoordinatorLayout>

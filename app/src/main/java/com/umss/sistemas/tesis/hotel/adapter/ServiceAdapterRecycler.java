@@ -40,9 +40,8 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
 
     @Override
     public void onBindViewHolder(ServiceViewHolder holder, int position) {
-        final int idPosition=position;
         ServiceModel service=servicesImage.get(position);
-
+        final int idService=service.getServiceId();
         holder.serviceNameCardView.setText(service.getServiceName());
         holder.serviceTypeCardView.setText(service.getServiceType());
 
@@ -53,7 +52,7 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, ServiceDetailActivity.class);
-                intent.putExtra("idPosition",idPosition);
+                intent.putExtra("idService",idService);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                     Explode explode=new Explode();

@@ -11,6 +11,7 @@ import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 
@@ -169,17 +170,18 @@ public class HelperSQLite {
             int limit = servicesArray.length();
 
             for (int i = 0; i < limit; i++) {
-                JSONObject result = servicesArray.getJSONObject(i);
+                JSONObject service = servicesArray.getJSONObject(i);
 
                 ServiceModel serviceModel = new ServiceModel();
 
-                serviceModel.setServiceId(result.getInt("id"));
-                serviceModel.setServiceReserved(result.getInt("reservable"));
-                serviceModel.setServiceName(result.getString("name"));
-                serviceModel.setServiceDescription(result.getString("description"));
-                serviceModel.setServiceType(result.getString("type"));
-                serviceModel.setServiceImage(result.getString("image"));
+                serviceModel.setServiceId(service.getInt("id"));
+                serviceModel.setServiceReserved(service.getInt("reservable"));
+                serviceModel.setServiceName(service.getString("name"));
+                serviceModel.setServiceDescription(service.getString("description"));
+                serviceModel.setServiceType(service.getString("type"));
+                serviceModel.setServiceImage(service.getString("image"));
 
+                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId()));
                 servicesModel.add(serviceModel);
             }
 
@@ -190,6 +192,43 @@ public class HelperSQLite {
         }
 
         return servicesModel;
+    }
+
+    /**
+     * convertir el object en un array y huardarlo en SQLite
+     *
+     * @param priceServiceObject:lista de precios de un servicio
+     * @param idService:idKeyService   del servicioPrice
+     * @return ArrayList<SiteTourImageModel>:lista de precios del idService
+     */
+    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService) {
+        ArrayList<ServicePriceModel> priceServiceArray = new ArrayList<>();
+
+        try {
+            JSONArray priceServices = priceServiceObject.getJSONArray("prices");
+
+            for (int j = 0; j < priceServices.length(); j++) {
+                ServicePriceModel servicePriceModel = new ServicePriceModel();
+
+                JSONObject priceObject = priceServices.getJSONObject(j);
+
+                servicePriceModel.setServicePriceId(priceObject.getInt("ID_COST_SERVICE"));
+                servicePriceModel.setServicePriceKey(idService);
+                servicePriceModel.setServicePriceNameMoney(priceObject.getString("NAME_TYPE_MONEY"));
+                servicePriceModel.setServicePriceUnit(priceObject.getInt("UNIT_COST_SERVICE"));
+                servicePriceModel.setServicePriceDay(priceObject.getInt("UNIT_DAY_COST_SERVICE"));
+                servicePriceModel.setServicePriceHour(priceObject.getInt("UNIT_HOUR_COST_SERVICE"));
+                servicePriceModel.setServicePricePrice(Double.parseDouble(priceObject.getString("PRICE_COST_SERVICE")));
+                servicePriceModel.setServicePricePointObtain(priceObject.getInt("POINT_OBTAIN_COST_SERVICE"));
+                servicePriceModel.setServicePricePointRequired(priceObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+
+                priceServiceArray.add(servicePriceModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return priceServiceArray;
     }
 
     /**
@@ -217,7 +256,7 @@ public class HelperSQLite {
                 siteTourModel.setGpsLatitudeSite(Float.parseFloat(sitesObject.getString("gpsX")));
                 siteTourModel.setGpsLongitudeSite(Float.parseFloat(sitesObject.getString("gpsY")));
 
-                siteTourModel.setImagesSite(getSiteTourImageModel(sitesObject, siteTourModel.getIdSite()));
+                siteTourModel.setImagesSite(getSiteTourImageModelJSON(sitesObject, siteTourModel.getIdSite()));
 
                 sitesTourModel.add(siteTourModel);
             }
@@ -236,9 +275,9 @@ public class HelperSQLite {
      *
      * @param sitesObject:lista     de imagenes del sitio turistico
      * @param idSiteTourModel:idKey del sitio turistico
-     * @return
+     * @return sitesTourImageArray: lista de imagenes pertenecientes al sitio turistico con idSiteTour
      */
-    private ArrayList<SiteTourImageModel> getSiteTourImageModel(JSONObject sitesObject, int idSiteTourModel) {
+    private ArrayList<SiteTourImageModel> getSiteTourImageModelJSON(JSONObject sitesObject, int idSiteTourModel) {
         ArrayList<SiteTourImageModel> sitesTourImageArray = new ArrayList<>();
 
         try {
@@ -365,20 +404,47 @@ public class HelperSQLite {
     /**
      * Lee de la base de datos de sqlite los servicios disponibles
      *
+     * @param idService: si el idservice==0 entonces devolver la lista de todos los servicios,
+     *                   y si es mayor a 0 devolver el servicio con el id seleccionado
      * @return List<ServiceModel>: lista de servicios
      */
-    public ArrayList<ServiceModel> getServiceModel() {
+    public ArrayList<ServiceModel> getServiceModel(int idService) {
         ArrayList<ServiceModel> listService = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SERVICE, null);
+        Cursor cursor;
+        if (idService > 0)
+            cursor = db.rawQuery("select *"
+                    + " from " + DataBaseSQLiteHelper.TABLE_SERVICE
+                    + " where " + DataBaseSQLiteHelper.KEY_SERVICE_ID + "=" + idService, null);
+        else
+            cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SERVICE, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 ServiceModel serviceModel = getServiceModelSQLite(cursor);
+                serviceModel.setServicePrice(getServicePriceModel(serviceModel.getServiceId()));
+
                 listService.add(serviceModel);
                 cursor.moveToNext();
             }
         }
         return listService;
+    }
+
+    private ArrayList<ServicePriceModel> getServicePriceModel(int idService) {
+        Cursor cursor = db.rawQuery("select * "
+                + "from " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE
+                + " where " + DataBaseSQLiteHelper.KEY_PRICE_SERVICE_KEY + "=" + idService, null);
+
+        ArrayList<ServicePriceModel> listPrice = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ServicePriceModel servicePriceModel = getServicePriceModelSQLite(cursor);
+                listPrice.add(servicePriceModel);
+                cursor.moveToNext();
+            }
+
+        }
+        return listPrice;
     }
 
     /**
@@ -391,7 +457,9 @@ public class HelperSQLite {
 
         Cursor cursor;
         if (idSiteTour > 0)
-            cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR+" where "+DataBaseSQLiteHelper.KEY_SITE_TOUR_ID+"="+idSiteTour, null);
+            cursor = db.rawQuery("select * "
+                    + "from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR
+                    + " where " + DataBaseSQLiteHelper.KEY_SITE_TOUR_ID + "=" + idSiteTour, null);
         else
             cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_SITE_TOUR, null);
 
@@ -516,6 +584,26 @@ public class HelperSQLite {
         serviceModel.setServiceType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_TYPE)));
 
         return serviceModel;
+    }
+
+    /**
+     * @param cursor:base de datos SQLITE servicePrice
+     * @return servicePriceModel: lista de precios de un servicio
+     */
+    private ServicePriceModel getServicePriceModelSQLite(Cursor cursor) {
+        ServicePriceModel servicePriceModel = new ServicePriceModel();
+
+        servicePriceModel.setServicePriceId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_ID)));
+        servicePriceModel.setServicePriceKey(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_KEY)));
+        servicePriceModel.setServicePriceNameMoney(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY)));
+        servicePriceModel.setServicePriceUnit(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_UNIT)));
+        servicePriceModel.setServicePriceDay(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_DAY)));
+        servicePriceModel.setServicePriceHour(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_HOUR)));
+        servicePriceModel.setServicePricePrice(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE)));
+        servicePriceModel.setServicePricePointObtain(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN)));
+        servicePriceModel.setServicePricePointRequired(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED)));
+
+        return servicePriceModel;
     }
 
     @NonNull
@@ -647,6 +735,7 @@ public class HelperSQLite {
      * @param servicesModel: lista de servicios
      */
     private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE);
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
 
         for (ServiceModel serviceModel : servicesModel) {
@@ -660,6 +749,31 @@ public class HelperSQLite {
             serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
 
             db.insert(DataBaseSQLiteHelper.TABLE_SERVICE, null, serviceContent);
+
+            setServicePriceSQLite(serviceModel.getServicePrice());
+        }
+    }
+
+    /**
+     * ingresar la lista de serviciosPrice en la base da datos SQLite
+     *
+     * @param servicesPriceModel: lista de precios de servicios
+     */
+    private void setServicePriceSQLite(ArrayList<ServicePriceModel> servicesPriceModel) {
+        for (ServicePriceModel servicePriceModel : servicesPriceModel) {
+            ContentValues serviceContent = new ContentValues();
+
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceModel.getServicePriceId());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceModel.getServicePriceKey());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceModel.getServicePriceDay());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceModel.getServicePriceHour());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceModel.getServicePriceNameMoney());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceModel.getServicePricePrice());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceModel.getServicePriceUnit());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent);
         }
     }
 

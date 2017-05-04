@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 18;
+    static final int DATABASE_VERSION = 19;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -64,6 +64,17 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SERVICE_IMAGE = "imageService";
     static final String KEY_SERVICE_RESERVED = "reservedService";
 
+    static String TABLE_PRICE_SERVICE = "price_service";
+    static String KEY_PRICE_SERVICE_ID = "idPriceService";
+    static String KEY_PRICE_SERVICE_KEY = "idKeyPriceService";
+    static String KEY_PRICE_SERVICE_NAME_MONEY = "nameMoneyPriceService";
+    static String KEY_PRICE_SERVICE_UNIT="unitPriceService";
+    static String KEY_PRICE_SERVICE_DAY="unitDayPriceService";
+    static String KEY_PRICE_SERVICE_HOUR="unitHourPriceService";
+    static String KEY_PRICE_SERVICE_PRICE="pricePriceService";
+    static String KEY_PRICE_SERVICE_POINT_OBTAIN="pointObtainPriceService";
+    static String KEY_PRICE_SERVICE_POINT_REQUIRED="pointRequiredPriceService";
+
     //siteTour
     static final String TABLE_SITE_TOUR = "siteTour";
     static final String KEY_SITE_TOUR_ID = "idSiteTour";
@@ -96,7 +107,7 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_OFFER_STATE = "stateOffer";
     static final String KEY_OFFER_IMAGE = "imageOffer";
     static final String KEY_OFFER_NAME_TYPE = "nameTypeOffer";
-    static final String KEY_OFFER_DESCRIPTION_TYPE="nameDescriptionOffer";
+    static final String KEY_OFFER_DESCRIPTION_TYPE = "nameDescriptionOffer";
 
     DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -108,6 +119,7 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         String tablePerson = getTablePerson();
         String tableAbout = getTableAbout();
         String tableService = getTableService();
+        String tableServicePrice = getTableServicePrice();
         String tableSiteTour = getTableSiteTour();
         String tableSiteTourImage = getTableSiteTourImage();
         String tableOffer = getTableOffer();
@@ -115,6 +127,7 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
         db.execSQL(tableAbout);
+        db.execSQL(tableServicePrice);
         db.execSQL(tableService);
         db.execSQL(tableSiteTour);
         db.execSQL(tableSiteTourImage);
@@ -189,6 +202,21 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     }
 
     @NonNull
+    private String getTableServicePrice() {
+        return "CREATE TABLE " + TABLE_PRICE_SERVICE + " ( "
+                + KEY_PRICE_SERVICE_ID + " INTEGER PRIMARY KEY,"
+                + KEY_PRICE_SERVICE_KEY + " INTEGER,"
+                + KEY_PRICE_SERVICE_NAME_MONEY +" TEXT,"
+                + KEY_PRICE_SERVICE_UNIT +" INTEGER,"
+                + KEY_PRICE_SERVICE_DAY +" INTEGER,"
+                + KEY_PRICE_SERVICE_HOUR +" INTEGER,"
+                + KEY_PRICE_SERVICE_PRICE +" TEXT,"
+                + KEY_PRICE_SERVICE_POINT_OBTAIN +" INTEGER,"
+                + KEY_PRICE_SERVICE_POINT_REQUIRED +" INTEGER"
+                + ")";
+    }
+
+    @NonNull
     private String getTableSiteTour() {
         return "CREATE TABLE " + TABLE_SITE_TOUR + " ( "
                 + KEY_SITE_TOUR_ID + " INTEGER PRIMARY KEY,"
@@ -237,6 +265,7 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_PERSON);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_ABOUT);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SERVICE);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);

@@ -11,7 +11,10 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.parent.Activities;
+
+import java.util.ArrayList;
 
 public class ServiceDetailActivity extends Activities {
 
@@ -33,12 +36,13 @@ public class ServiceDetailActivity extends Activities {
 
     private int getIdService() {
         Bundle bundle=getIntent().getExtras();
-        return bundle.getInt("idPosition");
+        return bundle.getInt("idService");
     }
 
     private void chargeContent(int idService) {
         helperSQLite=new HelperSQLite(this);
-        ServiceModel serviceModel=helperSQLite.getServiceModel().get(idService);
+        ServiceModel serviceModel=helperSQLite.getServiceModel(idService).get(0);
+        ArrayList<ServicePriceModel> servicePriceModel=serviceModel.getServicePrice();
 
         ImageView imageService=(ImageView)findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + serviceModel.getServiceImage()).into(imageService);
@@ -52,5 +56,7 @@ public class ServiceDetailActivity extends Activities {
         TextView descriptionService=(TextView)findViewById(R.id.contentServiceDetailTextView);
         descriptionService.setText(serviceModel.getServiceDescription());
 
+        TextView priceService=(TextView)findViewById(R.id.priceService);
+        priceService.setText(servicePriceModel.get(0).getServicePriceNameMoney());
     }
 }

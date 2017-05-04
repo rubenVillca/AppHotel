@@ -39,6 +39,6 @@ public class ServicesActivity extends Activities {
     public ArrayList<ServiceModel> buildService(){
         helperSQLite=new HelperSQLite(this);
 
-        return helperSQLite.getServiceModel();
+        return helperSQLite.getServiceModel(0);
     }
 }

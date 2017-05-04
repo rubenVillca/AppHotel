@@ -1,5 +1,7 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import java.util.ArrayList;
+
 public class ServiceModel {
     private int serviceId;
     private int serviceReserved;
@@ -7,6 +9,7 @@ public class ServiceModel {
     private String serviceName;
     private String serviceType;
     private String serviceDescription;
+    private ArrayList<ServicePriceModel> servicePrice;
 
     public ServiceModel() {
         serviceId = 0;
@@ -15,6 +18,15 @@ public class ServiceModel {
         this.serviceName = "";
         this.serviceType = "";
         serviceDescription = "";
+        servicePrice=new ArrayList<>();
+    }
+
+    public ArrayList<ServicePriceModel> getServicePrice() {
+        return servicePrice;
+    }
+
+    public void setServicePrice(ArrayList<ServicePriceModel> servicePrice) {
+        this.servicePrice = servicePrice;
     }
 
     public String getServiceDescription() {

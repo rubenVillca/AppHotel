@@ -78,6 +78,17 @@
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:paddingLeft="@dimen/padding_horizontal_textcontent"
                 android:paddingRight="@dimen/padding_horizontal_textcontent" />
+
+            <TextView
+                android:id="@+id/priceService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_likenumberdetail"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/paddingtop_titleimagedetail"
+                android:paddingLeft="@dimen/padding_horizontal_textcontent"
+                android:paddingRight="@dimen/padding_horizontal_textcontent"
+                />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

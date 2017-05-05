@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class LoginModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+public class LoginModel  extends ModelParent {
     private int idPerson;
     private String password;
     private int state;

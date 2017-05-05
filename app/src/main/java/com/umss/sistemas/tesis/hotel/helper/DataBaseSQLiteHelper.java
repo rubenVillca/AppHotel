@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 19;
+    static final int DATABASE_VERSION = 20;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -64,16 +64,17 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SERVICE_IMAGE = "imageService";
     static final String KEY_SERVICE_RESERVED = "reservedService";
 
-    static String TABLE_PRICE_SERVICE = "price_service";
-    static String KEY_PRICE_SERVICE_ID = "idPriceService";
-    static String KEY_PRICE_SERVICE_KEY = "idKeyPriceService";
-    static String KEY_PRICE_SERVICE_NAME_MONEY = "nameMoneyPriceService";
-    static String KEY_PRICE_SERVICE_UNIT="unitPriceService";
-    static String KEY_PRICE_SERVICE_DAY="unitDayPriceService";
-    static String KEY_PRICE_SERVICE_HOUR="unitHourPriceService";
-    static String KEY_PRICE_SERVICE_PRICE="pricePriceService";
-    static String KEY_PRICE_SERVICE_POINT_OBTAIN="pointObtainPriceService";
-    static String KEY_PRICE_SERVICE_POINT_REQUIRED="pointRequiredPriceService";
+    static final String TABLE_PRICE_SERVICE = "price_service";
+    static final String KEY_PRICE_SERVICE_ID = "idPriceService";
+    static final String KEY_PRICE_SERVICE_KEY = "idKeyPriceService";
+    static final String KEY_PRICE_SERVICE_NAME_MONEY = "nameMoneyPriceService";
+    static final String KEY_PRICE_SERVICE_UNIT="unitPriceService";
+    static final String KEY_PRICE_SERVICE_DAY="unitDayPriceService";
+    static final String KEY_PRICE_SERVICE_HOUR="unitHourPriceService";
+    static final String KEY_PRICE_SERVICE_PRICE="pricePriceService";
+    static final String KEY_PRICE_SERVICE_POINT_OBTAIN="pointObtainPriceService";
+    static final String KEY_PRICE_SERVICE_POINT_REQUIRED="pointRequiredPriceService";
+    static final String KEY_PRICE_SERVICE_IS_OFFER="isOfferPriceService";
 
     //siteTour
     static final String TABLE_SITE_TOUR = "siteTour";
@@ -212,7 +213,8 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_PRICE_SERVICE_HOUR +" INTEGER,"
                 + KEY_PRICE_SERVICE_PRICE +" TEXT,"
                 + KEY_PRICE_SERVICE_POINT_OBTAIN +" INTEGER,"
-                + KEY_PRICE_SERVICE_POINT_REQUIRED +" INTEGER"
+                + KEY_PRICE_SERVICE_POINT_REQUIRED +" INTEGER,"
+                + KEY_PRICE_SERVICE_IS_OFFER +" INTEGER"
                 + ")";
     }
 

@@ -11,9 +11,10 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
-public class OfferActivity extends Activities {
+public class OfferActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +32,13 @@ public class OfferActivity extends Activities {
     }
     private int getIdOffer() {
         Bundle bundle=getIntent().getExtras();
-        return bundle.getInt("idPosition");
+        return bundle.getInt("idOffer");
     }
 
     private void chargeContent(int idOffer) {
         helperSQLite=new HelperSQLite(this);
-        OfferModel offerModel=helperSQLite.getOfferModel().get(idOffer);
+        OfferModel offerModel=helperSQLite.getOfferModel(idOffer).get(0);
+        ServicePriceModel listPrice =offerModel.getServicePriceModel().get(0);
 
         ImageView imageOffer=(ImageView)findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + offerModel.getImage()).into(imageOffer);
@@ -49,6 +51,16 @@ public class OfferActivity extends Activities {
 
         TextView descriptionOffer=(TextView)findViewById(R.id.descriptionOfferTextView);
         descriptionOffer.setText(offerModel.getDescription());
+
+        TextView typeMoney=(TextView)findViewById(R.id.typeMoneyOfferTextView);
+        typeMoney.setText(listPrice.getServicePriceNameMoney());
+
+        TextView priceOffer=(TextView)findViewById(R.id.priceOfferTextView);
+        priceOffer.setText(String.valueOf(listPrice.getServicePricePrice()));
+
+        TextView timeOffer=(TextView)findViewById(R.id.timeOfferTextView);
+        String hourTotal=String.valueOf(listPrice.getServicePriceHour()+listPrice.getServicePriceDay()*24)+" Horas";
+        timeOffer.setText(hourTotal);
 
     }
 }

@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
-public class MainActivity extends Activities {
+public class MainActivity extends ActivityParent {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

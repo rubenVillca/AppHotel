@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.parent.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragments {
+public class HomeFragment extends FragmentParent {
 
     public HomeFragment() {}
 

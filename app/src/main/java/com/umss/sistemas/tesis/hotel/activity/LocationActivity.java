@@ -30,13 +30,13 @@ import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinderListener;
 import com.umss.sistemas.tesis.hotel.util.Route;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationActivity extends Activities implements OnMapReadyCallback, DirectionFinderListener {
+public class LocationActivity extends ActivityParent implements OnMapReadyCallback, DirectionFinderListener {
 
     private GoogleMap mMap;
     private AboutModel aboutModel;//destino

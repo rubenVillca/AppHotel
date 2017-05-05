@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Fragments extends Fragment implements View.OnClickListener {
+public class FragmentParent extends Fragment implements View.OnClickListener {
 
     protected HelperSQLite helperSQLite;
     protected String mCurrentPhotoPath;

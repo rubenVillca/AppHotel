@@ -8,11 +8,11 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ServiceAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
 
-public class ServicesActivity extends Activities {
+public class ServicesActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

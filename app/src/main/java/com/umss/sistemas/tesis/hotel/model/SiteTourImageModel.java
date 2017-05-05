@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class SiteTourImageModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+public class SiteTourImageModel  extends ModelParent {
     private int idSiteTourImage;
     private String nameSiteTourImage;
     private String descriptionSiteTourImage;

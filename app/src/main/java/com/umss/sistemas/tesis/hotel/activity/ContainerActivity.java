@@ -18,15 +18,15 @@ import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
-import com.umss.sistemas.tesis.hotel.parent.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ContainerActivity extends Activities {
+public class ContainerActivity extends ActivityParent {
 
     private int idPerson;
 
@@ -115,7 +115,7 @@ public class ContainerActivity extends Activities {
         });
     }
 
-    private void goFragment(Fragments fragment) {
+    private void goFragment(FragmentParent fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()

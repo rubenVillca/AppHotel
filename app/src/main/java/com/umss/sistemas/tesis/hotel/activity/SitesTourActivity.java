@@ -8,11 +8,11 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.SiteTourAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
 
-public class SitesTourActivity extends Activities {
+public class SitesTourActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

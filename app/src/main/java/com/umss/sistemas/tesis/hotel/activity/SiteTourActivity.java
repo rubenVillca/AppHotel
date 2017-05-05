@@ -4,21 +4,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.transition.Fade;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.CustomSwip;
 
 import java.util.ArrayList;
 
-public class SiteTourActivity extends Activities {
+public class SiteTourActivity extends ActivityParent {
 
     private ViewPager viewPager;
     private CustomSwip customSwip;

@@ -1,8 +1,10 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
 import java.util.ArrayList;
 
-public class SiteTourModel {
+public class SiteTourModel extends ModelParent {
     private int idSite;
     private String addressSite;
     private Float gpsLatitudeSite;

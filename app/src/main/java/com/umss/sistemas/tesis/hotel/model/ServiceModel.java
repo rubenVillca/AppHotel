@@ -1,8 +1,10 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
 import java.util.ArrayList;
 
-public class ServiceModel {
+public class ServiceModel  extends ModelParent {
     private int serviceId;
     private int serviceReserved;
     private String serviceImage;

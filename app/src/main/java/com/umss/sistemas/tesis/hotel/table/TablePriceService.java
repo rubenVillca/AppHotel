@@ -10,7 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class TablePriceService {
     private Resources resources;
     private int rows; // Filas y columnas de nuestra tabla
 
-    public TablePriceService(Activities activity,TableLayout tableLayout) {
+    public TablePriceService(ActivityParent activity, TableLayout tableLayout) {
         this.table = tableLayout;
         this.activity = activity;
         this.resources = activity.getResources();

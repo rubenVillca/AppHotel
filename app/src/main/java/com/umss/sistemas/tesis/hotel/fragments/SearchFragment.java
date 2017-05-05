@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.parent.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragments {
+public class SearchFragment extends FragmentParent {
 
 
     public SearchFragment() {}

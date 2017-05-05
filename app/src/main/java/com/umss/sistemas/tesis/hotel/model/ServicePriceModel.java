@@ -1,7 +1,9 @@
 package com.umss.sistemas.tesis.hotel.model;
 
 
-public class ServicePriceModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+public class ServicePriceModel  extends ModelParent {
     private int servicePriceId;
     private String servicePriceNameMoney;
     private int servicePriceUnit;
@@ -11,6 +13,7 @@ public class ServicePriceModel {
     private int servicePricePointObtain;
     private int servicePricePointRequired;
     private int servicePriceKey;
+    private boolean servicePriceIsOffer;
 
     public ServicePriceModel() {
         this.servicePriceId = 0;
@@ -22,6 +25,15 @@ public class ServicePriceModel {
         this.servicePricePointObtain = 0;
         this.servicePricePointRequired = 0;
         this.servicePriceKey=0;
+        this.servicePriceIsOffer=false;
+    }
+
+    public boolean isServicePriceIsOffer() {
+        return servicePriceIsOffer;
+    }
+
+    public void setServicePriceIsOffer(boolean servicePriceIsOffer) {
+        this.servicePriceIsOffer = servicePriceIsOffer;
     }
 
     public int getServicePriceId() {

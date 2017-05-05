@@ -13,12 +13,12 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.table.TablePriceService;
 
 import java.util.ArrayList;
 
-public class ServiceDetailActivity extends Activities {
+public class ServiceDetailActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class PersonModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+public class PersonModel  extends ModelParent {
     private int idPerson;
     private String emailPerson;
     private String namePerson;

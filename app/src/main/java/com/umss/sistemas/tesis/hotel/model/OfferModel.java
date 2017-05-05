@@ -1,6 +1,10 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class OfferModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+import java.util.ArrayList;
+
+public class OfferModel  extends ModelParent {
 
     private int id;
     private String name;
@@ -14,6 +18,7 @@ public class OfferModel {
     private String image;
     private String nameType;
     private String descriptionType;
+    private ArrayList<ServicePriceModel> servicePriceModel;
 
     public OfferModel() {
         this.id = 0;
@@ -28,6 +33,15 @@ public class OfferModel {
         this.image="";
         this.nameType="";
         this.descriptionType="";
+        this.servicePriceModel=new ArrayList<>();
+    }
+
+    public ArrayList<ServicePriceModel> getServicePriceModel() {
+        return servicePriceModel;
+    }
+
+    public void setServicePriceModel(ArrayList<ServicePriceModel> servicePriceModel) {
+        this.servicePriceModel = servicePriceModel;
     }
 
     public String getDescriptionType() {

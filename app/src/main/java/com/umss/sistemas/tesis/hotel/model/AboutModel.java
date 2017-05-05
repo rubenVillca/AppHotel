@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-public class AboutModel {
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+public class AboutModel extends ModelParent {
     private int id;
     private int phoneHotel;
     private String nameHotel;

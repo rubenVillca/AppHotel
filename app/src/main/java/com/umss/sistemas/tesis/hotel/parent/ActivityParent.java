@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 
-public class Activities extends AppCompatActivity {
+public class ActivityParent extends AppCompatActivity {
     protected HelperSQLite helperSQLite;
 
     protected View progressView;

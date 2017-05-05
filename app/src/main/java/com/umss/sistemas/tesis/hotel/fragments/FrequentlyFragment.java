@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.parent.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FrequentlyFragment extends Fragments {
+public class FrequentlyFragment extends FragmentParent {
 
 
     public FrequentlyFragment() {}

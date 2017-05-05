@@ -6,15 +6,13 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.OfferAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.adapter.ServiceAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
-import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
 
-public class OffersActivity extends Activities {
+public class OffersActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class OffersActivity extends Activities {
     }
     public ArrayList<OfferModel> buildOffer(){
         helperSQLite=new HelperSQLite(this);
-        ArrayList<OfferModel> offerList=helperSQLite.getOfferModel();
+        ArrayList<OfferModel> offerList=helperSQLite.getOfferModel(0);
         return offerList;
     }
 }

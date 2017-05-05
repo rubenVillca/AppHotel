@@ -181,7 +181,7 @@ public class HelperSQLite {
                 serviceModel.setServiceType(service.getString("type"));
                 serviceModel.setServiceImage(service.getString("image"));
 
-                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId()));
+                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId(),false));
                 servicesModel.add(serviceModel);
             }
 
@@ -201,7 +201,7 @@ public class HelperSQLite {
      * @param idService:idKeyService   del servicioPrice
      * @return ArrayList<SiteTourImageModel>:lista de precios del idService
      */
-    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService) {
+    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService,boolean isOffer) {
         ArrayList<ServicePriceModel> priceServiceArray = new ArrayList<>();
 
         try {
@@ -221,6 +221,7 @@ public class HelperSQLite {
                 servicePriceModel.setServicePricePrice(Double.parseDouble(priceObject.getString("PRICE_COST_SERVICE")));
                 servicePriceModel.setServicePricePointObtain(priceObject.getInt("POINT_OBTAIN_COST_SERVICE"));
                 servicePriceModel.setServicePricePointRequired(priceObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+                servicePriceModel.setServicePriceIsOffer(isOffer);
 
                 priceServiceArray.add(servicePriceModel);
             }
@@ -315,9 +316,8 @@ public class HelperSQLite {
 
         try {
             JSONArray offersArray = obj.getJSONArray("offers");
-            int limit = offersArray.length();
 
-            for (int i = 0; i < limit; i++) {
+            for (int i = 0; i < offersArray.length(); i++) {
                 JSONObject result = offersArray.getJSONObject(i);
 
                 OfferModel offerModel = new OfferModel();
@@ -334,18 +334,219 @@ public class HelperSQLite {
                 offerModel.setIdKeyService(result.getInt("ID_SERVICE"));
                 offerModel.setNameType(result.getString("NAME_TYPE_SERVICE"));
                 offerModel.setDescriptionType(result.getString("DESCRIPTION_TYPE_SERVICE"));
-
+                offerModel.setServicePriceModel(getServicePriceModelJSON(result, offerModel.getIdKeyService(),true));
                 offersModel.add(offerModel);
             }
 
         } catch (JSONException e) {
             System.out.println("Error: Objeto no convertible, " + e.toString());
-
             e.printStackTrace();
         }
 
         return offersModel;
 
+    }
+
+    /**
+     * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
+     *
+     * @param loginModel: objeto a ingresar a la base de datos sqlite
+     */
+    private void setLoginSQLite(LoginModel loginModel) {
+        ContentValues newRegister = new ContentValues();
+        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_ID_PERSON, loginModel.getIdPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_PASSWORD, loginModel.getPassword());
+        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_STATE, loginModel.getState());
+
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_LOGIN);
+        db.insert(DataBaseSQLiteHelper.TABLE_LOGIN, null, newRegister);
+    }
+
+    /**
+     * ingresar personModel a la base de datos SQLite, si hay reemplazarlos
+     *
+     * @param personModel: objeto a ingresar a la base dedd atos sqlite
+     */
+    private void setPersonSQLite(PersonModel personModel) {
+        ContentValues newRegister = new ContentValues();
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_CITY, personModel.getCityPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_POINT, personModel.getPointPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_SEX, personModel.getSexPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
+        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
+
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PERSON);
+        db.insert(DataBaseSQLiteHelper.TABLE_PERSON, null, newRegister);
+    }
+
+    /**
+     * ingresar aboutModel a la base de datos SQLite, si hay reemplazarlos
+     *
+     * @param aboutModel: objeto a ingresar a la base ded datos sqlite
+     */
+    private void setAboutSQLite(AboutModel aboutModel) {
+        ContentValues newRegister = new ContentValues();
+
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL, aboutModel.getPhoneHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL, aboutModel.getNameHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_MISION, aboutModel.getMision());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_VISION, aboutModel.getVision());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE, aboutModel.getScope());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY, aboutModel.getHistory());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION, aboutModel.getFundation());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD, aboutModel.getWatchWord());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL, aboutModel.getEmail());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL, aboutModel.getLogoHotel());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX, aboutModel.getAddressGPSX());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY, aboutModel.getAddressGPSY());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE, aboutModel.getAddressImage());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
+        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
+
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_ABOUT);
+        db.insert(DataBaseSQLiteHelper.TABLE_ABOUT, null, newRegister);
+    }
+
+    /**
+     * ingresar la lista de servicios en la base da datos SQLite
+     *
+     * @param servicesModel: lista de servicios
+     */
+    private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE
+                +" WHERE "+DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER+"=0");
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
+
+        for (ServiceModel serviceModel : servicesModel) {
+            ContentValues serviceContent = new ContentValues();
+
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_ID, serviceModel.getServiceId());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getServiceName());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_TYPE, serviceModel.getServiceType());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getServiceDescription());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SERVICE, null, serviceContent);
+
+            setServicePriceSQLite(serviceModel.getServicePrice());
+        }
+    }
+
+    /**
+     * ingresar la lista de serviciosPrice en la base da datos SQLite
+     *
+     * @param servicesPriceModel: lista de precios de servicios
+     */
+    private void setServicePriceSQLite(ArrayList<ServicePriceModel> servicesPriceModel) {
+        for (ServicePriceModel servicePriceModel : servicesPriceModel) {
+            ContentValues serviceContent = new ContentValues();
+
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceModel.getServicePriceId());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceModel.getServicePriceKey());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceModel.getServicePriceDay());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceModel.getServicePriceHour());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceModel.getServicePriceNameMoney());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceModel.getServicePricePrice());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceModel.getServicePriceUnit());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER,String.valueOf(servicePriceModel.isServicePriceIsOffer()?1:0));
+
+            db.insert(DataBaseSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent);
+        }
+    }
+
+    /**
+     * ingresar la lista de sitios turisticos en la base da datos SQLite
+     *
+     * @param sitesTourModel: lista de lugares turisticos
+     */
+    private void setSiteTourSQLite(ArrayList<SiteTourModel> sitesTourModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
+
+        for (SiteTourModel siteTourModel : sitesTourModel) {
+            ContentValues siteTourContent = new ContentValues();
+
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ID, siteTourModel.getIdSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_NAME, siteTourModel.getNameSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_DESCRIPTION, siteTourModel.getDescriptionSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_STATE, siteTourModel.getStateSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ADDRESS, siteTourModel.getAddressSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_X, siteTourModel.getGpsLatitudeSite());
+            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_Y, siteTourModel.getGpsLongitudeSite());
+
+            setSiteTourImageSQLite(siteTourModel);
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent);
+        }
+    }
+
+    /**
+     * guardar lista de images de los sitios turisticos en sqlite
+     *
+     * @param siteTourModel:lista de sitios tiristicos
+     */
+    private void setSiteTourImageSQLite(SiteTourModel siteTourModel) {
+        for (SiteTourImageModel siteImage : siteTourModel.getImagesSite()) {
+            ContentValues siteTourImageContent = new ContentValues();
+
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID, siteImage.getIdSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE, siteImage.getStateSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME, siteImage.getNameSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION, siteImage.getDescriptionSiteTourImage());
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS, siteImage.getAddressSiteTour());
+
+            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent);
+        }
+    }
+
+    /**
+     * guardar lista de images de ofertas en sqlite
+     *
+     * @param offerModel:lista offertas
+     */
+    private void setOfferSQLite(ArrayList<OfferModel> offerModel) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE
+                +" WHERE "+DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER+"=1");
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_OFFER);
+        for (OfferModel offer : offerModel) {
+            ContentValues offerContent = new ContentValues();
+
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID, offer.getId());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_STATE, offer.getState());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME, offer.getName());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION, offer.getDescription());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_INI, offer.getDateIni());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_INI, offer.getTimeIni());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_FIN, offer.getDateFin());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_FIN, offer.getTimeFin());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID_KEY_SERVICE, offer.getIdKeyService());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_IMAGE, offer.getImage());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
+            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
+
+            db.insert(DataBaseSQLiteHelper.TABLE_OFFER, null, offerContent);
+
+            setServicePriceSQLite(offer.getServicePriceModel());
+        }
     }
 
     /**
@@ -501,13 +702,19 @@ public class HelperSQLite {
      *
      * @return offerModelArrayList: lista de ofertas disponibles
      */
-    public ArrayList<OfferModel> getOfferModel() {
-        Cursor cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER, null);
+    public ArrayList<OfferModel> getOfferModel(int idOffer) {
+        Cursor cursor;
+        if (idOffer==0)
+            cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER, null);
+        else
+            cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER+" where "+DataBaseSQLiteHelper.KEY_OFFER_ID+"="+idOffer, null);
 
         ArrayList<OfferModel> listOfferModel = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 OfferModel offerModel = getOfferModelSQLite(cursor);
+                offerModel.setServicePriceModel(getServicePriceModel(offerModel.getIdKeyService()));
+
                 listOfferModel.add(offerModel);
                 cursor.moveToNext();
             }
@@ -602,6 +809,7 @@ public class HelperSQLite {
         servicePriceModel.setServicePricePrice(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE)));
         servicePriceModel.setServicePricePointObtain(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN)));
         servicePriceModel.setServicePricePointRequired(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED)));
+        servicePriceModel.setServicePriceIsOffer(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER))==1);
 
         return servicePriceModel;
     }
@@ -653,202 +861,6 @@ public class HelperSQLite {
         offerModel.setNameType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE)));
         offerModel.setDescriptionType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE)));
         return offerModel;
-    }
-
-    /**
-     * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
-     *
-     * @param loginModel: objeto a ingresar a la base de datos sqlite
-     */
-    private void setLoginSQLite(LoginModel loginModel) {
-        ContentValues newRegister = new ContentValues();
-        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_ID_PERSON, loginModel.getIdPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_PASSWORD, loginModel.getPassword());
-        newRegister.put(DataBaseSQLiteHelper.KEY_LOGIN_STATE, loginModel.getState());
-
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_LOGIN);
-        db.insert(DataBaseSQLiteHelper.TABLE_LOGIN, null, newRegister);
-    }
-
-    /**
-     * ingresar personModel a la base de datos SQLite, si hay reemplazarlos
-     *
-     * @param personModel: objeto a ingresar a la base dedd atos sqlite
-     */
-    private void setPersonSQLite(PersonModel personModel) {
-        ContentValues newRegister = new ContentValues();
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_CITY, personModel.getCityPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_POINT, personModel.getPointPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_SEX, personModel.getSexPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
-        newRegister.put(DataBaseSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
-
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PERSON);
-        db.insert(DataBaseSQLiteHelper.TABLE_PERSON, null, newRegister);
-    }
-
-    /**
-     * ingresar aboutModel a la base de datos SQLite, si hay reemplazarlos
-     *
-     * @param aboutModel: objeto a ingresar a la base ded datos sqlite
-     */
-    private void setAboutSQLite(AboutModel aboutModel) {
-        ContentValues newRegister = new ContentValues();
-
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_PHONEHOTEL, aboutModel.getPhoneHotel());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_NAMEHOTEL, aboutModel.getNameHotel());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_MISION, aboutModel.getMision());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_VISION, aboutModel.getVision());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SCOPE, aboutModel.getScope());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_HISTORY, aboutModel.getHistory());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_FUNDATION, aboutModel.getFundation());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_WATCHWORD, aboutModel.getWatchWord());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_EMAIL, aboutModel.getEmail());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_LOGOHOTEL, aboutModel.getLogoHotel());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSX, aboutModel.getAddressGPSX());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSGPSY, aboutModel.getAddressGPSY());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE, aboutModel.getAddressImage());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
-        newRegister.put(DataBaseSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
-
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_ABOUT);
-        db.insert(DataBaseSQLiteHelper.TABLE_ABOUT, null, newRegister);
-    }
-
-    /**
-     * ingresar la lista de servicios en la base da datos SQLite
-     *
-     * @param servicesModel: lista de servicios
-     */
-    private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE);
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
-
-        for (ServiceModel serviceModel : servicesModel) {
-            ContentValues serviceContent = new ContentValues();
-
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_ID, serviceModel.getServiceId());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getServiceName());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_TYPE, serviceModel.getServiceType());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getServiceDescription());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
-
-            db.insert(DataBaseSQLiteHelper.TABLE_SERVICE, null, serviceContent);
-
-            setServicePriceSQLite(serviceModel.getServicePrice());
-        }
-    }
-
-    /**
-     * ingresar la lista de serviciosPrice en la base da datos SQLite
-     *
-     * @param servicesPriceModel: lista de precios de servicios
-     */
-    private void setServicePriceSQLite(ArrayList<ServicePriceModel> servicesPriceModel) {
-        for (ServicePriceModel servicePriceModel : servicesPriceModel) {
-            ContentValues serviceContent = new ContentValues();
-
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceModel.getServicePriceId());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceModel.getServicePriceKey());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceModel.getServicePriceDay());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceModel.getServicePriceHour());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceModel.getServicePriceNameMoney());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceModel.getServicePricePrice());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceModel.getServicePriceUnit());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
-
-            db.insert(DataBaseSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent);
-        }
-    }
-
-    /**
-     * ingresar la lista de sitios turisticos en la base da datos SQLite
-     *
-     * @param sitesTourModel: lista de lugares turisticos
-     */
-    private void setSiteTourSQLite(ArrayList<SiteTourModel> sitesTourModel) {
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
-
-        for (SiteTourModel siteTourModel : sitesTourModel) {
-            ContentValues siteTourContent = new ContentValues();
-
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ID, siteTourModel.getIdSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_NAME, siteTourModel.getNameSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_DESCRIPTION, siteTourModel.getDescriptionSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_STATE, siteTourModel.getStateSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_ADDRESS, siteTourModel.getAddressSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_X, siteTourModel.getGpsLatitudeSite());
-            siteTourContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_GPS_Y, siteTourModel.getGpsLongitudeSite());
-
-            setSiteTourImageSQLite(siteTourModel);
-
-            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent);
-        }
-    }
-
-    /**
-     * guardar lista de images de los sitios turisticos en sqlite
-     *
-     * @param siteTourModel:lista de sitios tiristicos
-     */
-    private void setSiteTourImageSQLite(SiteTourModel siteTourModel) {
-        for (SiteTourImageModel siteImage : siteTourModel.getImagesSite()) {
-            ContentValues siteTourImageContent = new ContentValues();
-
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID, siteImage.getIdSiteTourImage());
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE, siteImage.getStateSiteTourImage());
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME, siteImage.getNameSiteTourImage());
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION, siteImage.getDescriptionSiteTourImage());
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS, siteImage.getAddressSiteTour());
-
-            siteTourImageContent.put(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
-
-            db.insert(DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent);
-        }
-    }
-
-    /**
-     * guardar lista de images de ofertas en sqlite
-     *
-     * @param offerModel:lista offertas
-     */
-    private void setOfferSQLite(ArrayList<OfferModel> offerModel) {
-        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_OFFER);
-        for (OfferModel offer : offerModel) {
-            ContentValues offerContent = new ContentValues();
-
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID, offer.getId());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_STATE, offer.getState());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME, offer.getName());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION, offer.getDescription());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_INI, offer.getDateIni());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_INI, offer.getTimeIni());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DATE_FIN, offer.getDateFin());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_TIME_FIN, offer.getTimeFin());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_ID_KEY_SERVICE, offer.getIdKeyService());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_IMAGE, offer.getImage());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
-            offerContent.put(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
-
-            db.insert(DataBaseSQLiteHelper.TABLE_OFFER, null, offerContent);
-        }
     }
 
     /**

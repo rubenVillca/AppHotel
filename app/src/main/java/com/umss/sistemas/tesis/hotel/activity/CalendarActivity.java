@@ -3,9 +3,9 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.os.Bundle;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.parent.Activities;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
-public class CalendarActivity extends Activities {
+public class CalendarActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

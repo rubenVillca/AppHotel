@@ -41,9 +41,8 @@ public class OfferAdapterRecycler extends RecyclerView.Adapter<OfferAdapterRecyc
 
     @Override
     public void onBindViewHolder(OfferViewHolder holder, int position) {
-        final int idPosition=position;
         OfferModel offer=offers.get(position);
-
+        final int idOffer= offer.getId();
         holder.offerNameCardView.setText(offer.getName());
         holder.offernameServiceCardView.setText(offer.getNameType());
 
@@ -54,7 +53,7 @@ public class OfferAdapterRecycler extends RecyclerView.Adapter<OfferAdapterRecyc
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, OfferActivity.class);
-                intent.putExtra("idPosition",idPosition);
+                intent.putExtra("idOffer",idOffer);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                     Explode explode=new Explode();

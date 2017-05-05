@@ -19,7 +19,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.parent.Fragments;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragments {
+public class ProfileFragment extends FragmentParent {
     private CircleImageView imgProfile;
 
     public ProfileFragment() {}
@@ -159,7 +159,7 @@ public class ProfileFragment extends Fragments {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Fragments.REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == FragmentParent.REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
 
             Picasso.with(getActivity()).load(mCurrentPhotoPath).into(imgProfile);
             addPictureToGalery();

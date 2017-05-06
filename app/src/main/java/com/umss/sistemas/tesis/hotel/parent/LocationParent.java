@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.location.Location;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -73,6 +74,10 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
         if (polylinePaths != null) {
             for (Polyline polyline : polylinePaths) {
                 polyline.remove();
+            }
+
+            if (polylinePaths.isEmpty()){
+                Toast.makeText(this, "Ruta no encontrada", Toast.LENGTH_LONG).show();
             }
         }
     }

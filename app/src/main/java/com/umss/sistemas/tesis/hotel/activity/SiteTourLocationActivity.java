@@ -84,15 +84,15 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
      * insertar en el mapa la ubucacion del hotel
      */
     private void addMarker() {
-        LatLng hotelCoordinator = new LatLng(siteTourModel.getGpsLatitudeSite(), siteTourModel.getGpsLongitudeSite());
+        LatLng destinoCoordinator = new LatLng(siteTourModel.getGpsLatitudeSite(), siteTourModel.getGpsLongitudeSite());
 
         markerHotel = mMap.addMarker(new MarkerOptions()
-                .position(hotelCoordinator)
+                .position(destinoCoordinator)
                 .title(siteTourModel.getNameSite())
                 .snippet(siteTourModel.getAddressSite()));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelCoordinator));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(destinoCoordinator));
 
-        cameraUpdate = CameraUpdateFactory.newLatLngZoom(hotelCoordinator, zoomMap);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(destinoCoordinator, zoomMap);
     }
 
     /**
@@ -123,7 +123,6 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         }
     }
 
-
     LocationListener locListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -145,5 +144,13 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
 
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent=new Intent(this,SiteTourActivity.class);
+        intent.putExtra("idSiteTour",siteTourModel.getIdSite());
+        startActivity(intent);
+    }
 
 }

@@ -171,6 +171,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.OffersActivity" />
         </activity>
+        <activity
+            android:name=".activity.SiteTourLocationActivity"
+            android:label="@string/title_activity_location"
+            android:parentActivityName=".activity.SitesTourActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.SitesTourActivity" />
+        </activity>
     </application>
 
 </manifest>

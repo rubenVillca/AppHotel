@@ -1,12 +1,15 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
@@ -19,14 +22,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
-import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
 
 import java.io.UnsupportedEncodingException;
 
-public class LocationActivity extends LocationParent implements OnMapReadyCallback{
-    private AboutModel aboutModel;//destino
+public class SiteTourLocationActivity extends LocationParent implements OnMapReadyCallback{
+    private SiteTourModel siteTourModel;//destino
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        showToolBar("Mapa hotel", true);
+        showToolBar("Mapa Lugar Turistico", true);
     }
 
     /**
@@ -52,6 +55,11 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Bundle bundle=getIntent().getExtras();
+        int idSiteTour=bundle.getInt("idSiteTour");
+        HelperSQLite helperSQLite = new HelperSQLite(this);
+        siteTourModel = helperSQLite.getSiteTourModel(idSiteTour).get(0);
+
 
         addMarker();
         verifyActiveGPS();
@@ -63,7 +71,7 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
     private void trazarRuta() {
         if (myCoordinatorGPS != null && markerHotel != null && myMarkerGPS != null) {
             String origin = myCoordinatorGPS.latitude + "," + myCoordinatorGPS.longitude;
-            String destination = aboutModel.getAddressGPSX() + "," + aboutModel.getAddressGPSY();
+            String destination = siteTourModel.getGpsLatitudeSite() + "," + siteTourModel.getGpsLongitudeSite();
             try {
                 new DirectionFinder(this, origin, destination).execute();
             } catch (UnsupportedEncodingException e) {
@@ -76,15 +84,12 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
      * insertar en el mapa la ubucacion del hotel
      */
     private void addMarker() {
-        HelperSQLite helperSQLite = new HelperSQLite(this);
-        aboutModel = helperSQLite.getAboutModel();
-
-        LatLng hotelCoordinator = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
+        LatLng hotelCoordinator = new LatLng(siteTourModel.getGpsLatitudeSite(), siteTourModel.getGpsLongitudeSite());
 
         markerHotel = mMap.addMarker(new MarkerOptions()
                 .position(hotelCoordinator)
-                .title(aboutModel.getNameHotel())
-                .snippet(aboutModel.getAddress()));
+                .title(siteTourModel.getNameSite())
+                .snippet(siteTourModel.getAddressSite()));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelCoordinator));
 
         cameraUpdate = CameraUpdateFactory.newLatLngZoom(hotelCoordinator, zoomMap);
@@ -131,12 +136,12 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
 
         @Override
         public void onProviderEnabled(String s) {
-            Toast.makeText(LocationActivity.this, s + " Habilitado", Toast.LENGTH_LONG).show();
+            Toast.makeText(SiteTourLocationActivity.this, s + " Habilitado", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onProviderDisabled(String s) {
-            Toast.makeText(LocationActivity.this, s + " Deshabilitado", Toast.LENGTH_LONG).show();
+            Toast.makeText(SiteTourLocationActivity.this, s + " Deshabilitado", Toast.LENGTH_LONG).show();
 
         }
     };

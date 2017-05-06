@@ -1,10 +1,14 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.transition.Fade;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
@@ -15,10 +19,11 @@ import com.umss.sistemas.tesis.hotel.util.CustomSwip;
 
 import java.util.ArrayList;
 
-public class SiteTourActivity extends ActivityParent {
+public class SiteTourActivity extends ActivityParent implements View.OnClickListener{
 
     private ViewPager viewPager;
     private CustomSwip customSwip;
+    private int idSiteTour=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,10 @@ public class SiteTourActivity extends ActivityParent {
             getWindow().setEnterTransition(new Fade());
         }
 
-        int idSiteTour = getIdSiteTour();
+        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(this);
+
+        idSiteTour = getIdSiteTour();
         chargeContent(idSiteTour);
     }
 
@@ -63,4 +71,12 @@ public class SiteTourActivity extends ActivityParent {
         descriptionSiteTour.setText(siteTourModel.getDescriptionSite());
 
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this,SiteTourLocationActivity.class);
+        intent.putExtra("idSiteTour",idSiteTour);
+        startActivity(intent);
+    }
+
 }

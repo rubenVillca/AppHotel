@@ -147,10 +147,10 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        Intent intent=new Intent(this,SiteTourActivity.class);
+        super.onBackPressed();
+        /*Intent intent=new Intent(this,SiteTourActivity.class);
         intent.putExtra("idSiteTour",siteTourModel.getIdSite());
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
 }

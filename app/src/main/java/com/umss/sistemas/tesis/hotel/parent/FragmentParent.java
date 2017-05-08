@@ -1,6 +1,7 @@
 package com.umss.sistemas.tesis.hotel.parent;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -94,13 +95,50 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), CalendarActivity.class);
                 break;
             case R.id.imageServiceFood:
-                intent = new Intent(getActivity(), MenuFoodActivity.class);
+                goServiceFood();
                 break;
         }
         if (intent != null) {
             startActivity(intent);
         }
     }
+
+    private void goServiceFood() {
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.FOOD_MENU), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLite.syncUpFoodMenu(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goServiceFoodActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goServiceFoodActivity();
+                //showProgress(false);
+            }
+        });
+    }
+
+    private void goServiceFoodActivity() {
+        Intent intent=new Intent(getActivity(), MenuFoodActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * Conectar con el webServer y sincronizar la tabla offer
      */
@@ -128,9 +166,9 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
                 goOfferActivity();
                 //showProgress(false);
-                System.out.println("Servidor no disponible");
             }
         });
     }

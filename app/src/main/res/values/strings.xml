@@ -103,6 +103,9 @@
     <string name="tittle_activity_offer">Oferta</string>
     <string name="price_offer_textview">Precio:</string>
     <string name="title_time_offer_textview">Tiempo:</string>
+    <string name="cardview_type_money">$</string>
+    <string name="cardview_food_price">0</string>
+    <string name="categoria">Categoria: </string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

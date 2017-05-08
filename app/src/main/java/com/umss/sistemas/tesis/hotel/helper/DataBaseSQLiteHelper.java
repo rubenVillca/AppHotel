@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 class DataBaseSQLiteHelper extends SQLiteOpenHelper {
-    static final int DATABASE_VERSION = 20;
+    static final int DATABASE_VERSION = 33;
     static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -64,17 +64,18 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SERVICE_IMAGE = "imageService";
     static final String KEY_SERVICE_RESERVED = "reservedService";
 
+    //precio de los servicios
     static final String TABLE_PRICE_SERVICE = "price_service";
     static final String KEY_PRICE_SERVICE_ID = "idPriceService";
     static final String KEY_PRICE_SERVICE_KEY = "idKeyPriceService";
     static final String KEY_PRICE_SERVICE_NAME_MONEY = "nameMoneyPriceService";
-    static final String KEY_PRICE_SERVICE_UNIT="unitPriceService";
-    static final String KEY_PRICE_SERVICE_DAY="unitDayPriceService";
-    static final String KEY_PRICE_SERVICE_HOUR="unitHourPriceService";
-    static final String KEY_PRICE_SERVICE_PRICE="pricePriceService";
-    static final String KEY_PRICE_SERVICE_POINT_OBTAIN="pointObtainPriceService";
-    static final String KEY_PRICE_SERVICE_POINT_REQUIRED="pointRequiredPriceService";
-    static final String KEY_PRICE_SERVICE_IS_OFFER="isOfferPriceService";
+    static final String KEY_PRICE_SERVICE_UNIT = "unitPriceService";
+    static final String KEY_PRICE_SERVICE_DAY = "unitDayPriceService";
+    static final String KEY_PRICE_SERVICE_HOUR = "unitHourPriceService";
+    static final String KEY_PRICE_SERVICE_PRICE = "pricePriceService";
+    static final String KEY_PRICE_SERVICE_POINT_OBTAIN = "pointObtainPriceService";
+    static final String KEY_PRICE_SERVICE_POINT_REQUIRED = "pointRequiredPriceService";
+    static final String KEY_PRICE_SERVICE_IS_OFFER = "isOfferPriceService";
 
     //siteTour
     static final String TABLE_SITE_TOUR = "siteTour";
@@ -110,6 +111,33 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_OFFER_NAME_TYPE = "nameTypeOffer";
     static final String KEY_OFFER_DESCRIPTION_TYPE = "nameDescriptionOffer";
 
+    //food
+    static final String TABLE_FOOD = "food";
+    static final String KEY_FOOD_ID = "idFood";
+    static final String KEY_FOOD_IDKEYMENU = "idKeyMenuFood";
+    static final String KEY_FOOD_NAME = "nameFood";
+    static final String KEY_FOOD_STATE = "stateFood";
+    static final String KEY_FOOD_TYPE = "typeFood";
+    static final String KEY_FOOD_DESCRIPTION = "descriptionFood";
+    static final String KEY_FOOD_IMAGE = "imageFood";
+
+    //menu_food_Menu
+    static final String TABLE_FOOD_MENU = "foodMenu";
+    private static final String KEY_FOOD_MENU_ID_AUTOINCREMENT = "idAutoincrement";
+    static final String KEY_FOOD_MENU_ID = "idFoodMenu";
+    static final String KEY_FOOD_MENU_NAME = "nameFoodMenu";
+    static final String KEY_FOOD_MENU_DATE_START = "dateStartFoodMenu";
+    static final String KEY_FOOD_MENU_DATE_END = "dateEndFoodMenu";
+
+    //price_food
+    static final String TABLE_FOOD_PRICE = "foodPrice";
+    static final String KEY_FOOD_PRICE_ID = "idFoodPrice";
+    static final String KEY_FOOD_PRICE_IDKEYFOOD = "idKeyFoodFoodPrice";
+    static final String KEY_FOOD_PRICE_TYPEMONEY = "typeMoneyFoodPrice";
+    static final String KEY_FOOD_PRICE_PRICE = "priceFoodPrice";
+    static final String KEY_FOOD_PRICE_POINTOBTAIN = "pointObtainFoodPrice";
+    static final String KEY_FOOD_PRICE_POINTREQUIRED = "pointRequiredFoodPrice";
+
     DataBaseSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -124,6 +152,9 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         String tableSiteTour = getTableSiteTour();
         String tableSiteTourImage = getTableSiteTourImage();
         String tableOffer = getTableOffer();
+        String tableFood = getFood();
+        String tableFoodMenu = getFoodMenu();
+        String tableFoodPrice = getFoodPrice();
 
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
@@ -133,6 +164,9 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(tableSiteTour);
         db.execSQL(tableSiteTourImage);
         db.execSQL(tableOffer);
+        db.execSQL(tableFood);
+        db.execSQL(tableFoodMenu);
+        db.execSQL(tableFoodPrice);
     }
 
     @NonNull
@@ -207,14 +241,14 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         return "CREATE TABLE " + TABLE_PRICE_SERVICE + " ( "
                 + KEY_PRICE_SERVICE_ID + " INTEGER PRIMARY KEY,"
                 + KEY_PRICE_SERVICE_KEY + " INTEGER,"
-                + KEY_PRICE_SERVICE_NAME_MONEY +" TEXT,"
-                + KEY_PRICE_SERVICE_UNIT +" INTEGER,"
-                + KEY_PRICE_SERVICE_DAY +" INTEGER,"
-                + KEY_PRICE_SERVICE_HOUR +" INTEGER,"
-                + KEY_PRICE_SERVICE_PRICE +" TEXT,"
-                + KEY_PRICE_SERVICE_POINT_OBTAIN +" INTEGER,"
-                + KEY_PRICE_SERVICE_POINT_REQUIRED +" INTEGER,"
-                + KEY_PRICE_SERVICE_IS_OFFER +" INTEGER"
+                + KEY_PRICE_SERVICE_NAME_MONEY + " TEXT,"
+                + KEY_PRICE_SERVICE_UNIT + " INTEGER,"
+                + KEY_PRICE_SERVICE_DAY + " INTEGER,"
+                + KEY_PRICE_SERVICE_HOUR + " INTEGER,"
+                + KEY_PRICE_SERVICE_PRICE + " TEXT,"
+                + KEY_PRICE_SERVICE_POINT_OBTAIN + " INTEGER,"
+                + KEY_PRICE_SERVICE_POINT_REQUIRED + " INTEGER,"
+                + KEY_PRICE_SERVICE_IS_OFFER + " INTEGER"
                 + ")";
     }
 
@@ -261,6 +295,45 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
                 + ")";
     }
 
+    /**
+     * @return String: tabl SQL de food
+     */
+    private String getFood() {
+        return "CREATE TABLE " + TABLE_FOOD + " ( "
+                + KEY_FOOD_MENU_ID_AUTOINCREMENT + " INTEGER PRIMARY KEY,"
+                + KEY_FOOD_ID + " INTEGER,"
+                + KEY_FOOD_IDKEYMENU + " INTEGER,"
+                + KEY_FOOD_STATE + " INTEGER,"
+                + KEY_FOOD_TYPE + " TEXT,"
+                + KEY_FOOD_NAME + " TEXT,"
+                + KEY_FOOD_DESCRIPTION + " TEXT,"
+                + KEY_FOOD_IMAGE + " TEXT"
+                + ")";
+    }
+
+    /**
+     * @return String: tablaSQL de foodMenu
+     */
+    private String getFoodMenu() {
+        return "CREATE TABLE " + TABLE_FOOD_MENU + " ( "
+                + KEY_FOOD_MENU_ID + " INTEGER PRIMARY KEY,"
+                + KEY_FOOD_MENU_NAME + " TEXT,"
+                + KEY_FOOD_MENU_DATE_START + " TEXT,"
+                + KEY_FOOD_MENU_DATE_END + " TEXT"
+                + ")";
+    }
+
+    private String getFoodPrice() {
+        return "CREATE TABLE " + TABLE_FOOD_PRICE + " ( "
+                + KEY_FOOD_PRICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_FOOD_PRICE_IDKEYFOOD + " INTEGER,"
+                + KEY_FOOD_PRICE_TYPEMONEY + " TEXT,"
+                + KEY_FOOD_PRICE_PRICE + " REAL,"
+                + KEY_FOOD_PRICE_POINTOBTAIN + " INTEGER,"
+                + KEY_FOOD_PRICE_POINTREQUIRED + " INTEGER"
+                + ")";
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //elimina la version anterior
@@ -272,7 +345,12 @@ class DataBaseSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_OFFER);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_FOOD);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_FOOD_MENU);
+        db.execSQL("DROP TABLE IF EXISTS " + DataBaseSQLiteHelper.TABLE_FOOD_PRICE);
         //se crea la nueva version de la tabla
         onCreate(db);
     }
 }
+
+

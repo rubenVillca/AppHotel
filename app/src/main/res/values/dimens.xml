@@ -48,4 +48,5 @@
     <dimen name="margintop_text_locationmap">15dp</dimen>
     <dimen name="marginleft_text_locationmap">5dp</dimen>
     <dimen name="paddingtop_table">20dp</dimen>
+    <dimen name="padding_cardview_money">5dp</dimen>
 </resources>

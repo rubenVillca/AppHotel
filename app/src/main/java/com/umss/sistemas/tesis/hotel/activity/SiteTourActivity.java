@@ -44,7 +44,15 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
 
     private int getIdSiteTour() {
         Bundle bundle = getIntent().getExtras();
-        return bundle.getInt("idSiteTour");
+        int res=0;
+        try {
+            res=bundle.getInt("idSiteTour");
+        }catch (Exception e){
+            Intent intent=new Intent(this,SitesTourActivity.class);
+            startActivity(intent);
+        }
+
+        return res;
     }
 
     /**

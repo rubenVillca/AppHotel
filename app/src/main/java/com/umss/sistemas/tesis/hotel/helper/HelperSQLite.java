@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
+import com.umss.sistemas.tesis.hotel.model.FoodModel;
+import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
@@ -89,6 +92,16 @@ public class HelperSQLite {
     public void syncUpOffer(JSONObject obj) {
         ArrayList<OfferModel> offerModel = getOfferModelJSON(obj);
         setOfferSQLite(offerModel);
+    }
+
+    /**
+     * sincronizar base de datos SQLite desde webserver a offerModel
+     *
+     * @param obj:objeto JSON offer
+     */
+    public void syncUpFoodMenu(JSONObject obj) {
+        ArrayList<FoodMenuModel> foodMenuModels = getFoodMenuModelJSON(obj);
+        setFoodMenuSQLite(foodMenuModels);
     }
 
     /**
@@ -181,7 +194,7 @@ public class HelperSQLite {
                 serviceModel.setServiceType(service.getString("type"));
                 serviceModel.setServiceImage(service.getString("image"));
 
-                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId(),false));
+                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId(), false));
                 servicesModel.add(serviceModel);
             }
 
@@ -201,7 +214,7 @@ public class HelperSQLite {
      * @param idService:idKeyService   del servicioPrice
      * @return ArrayList<SiteTourImageModel>:lista de precios del idService
      */
-    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService,boolean isOffer) {
+    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService, boolean isOffer) {
         ArrayList<ServicePriceModel> priceServiceArray = new ArrayList<>();
 
         try {
@@ -312,7 +325,7 @@ public class HelperSQLite {
      * @return ArrayList<OfferModel>: JSON convertido en un array
      */
     private ArrayList<OfferModel> getOfferModelJSON(JSONObject obj) {
-        ArrayList<OfferModel> offersModel = new ArrayList<>();
+        ArrayList<OfferModel> offerListModel = new ArrayList<>();
 
         try {
             JSONArray offersArray = obj.getJSONArray("offers");
@@ -334,8 +347,11 @@ public class HelperSQLite {
                 offerModel.setIdKeyService(result.getInt("ID_SERVICE"));
                 offerModel.setNameType(result.getString("NAME_TYPE_SERVICE"));
                 offerModel.setDescriptionType(result.getString("DESCRIPTION_TYPE_SERVICE"));
-                offerModel.setServicePriceModel(getServicePriceModelJSON(result, offerModel.getIdKeyService(),true));
-                offersModel.add(offerModel);
+
+                ArrayList<ServicePriceModel> prices = getServicePriceModelJSON(result, offerModel.getIdKeyService(), true);
+                offerModel.setServicePriceModel(prices);
+
+                offerListModel.add(offerModel);
             }
 
         } catch (JSONException e) {
@@ -343,8 +359,108 @@ public class HelperSQLite {
             e.printStackTrace();
         }
 
-        return offersModel;
+        return offerListModel;
 
+    }
+
+    /**
+     * convertir el JSONOBJECT recibido del webserver en un un objeto
+     *
+     * @param obj: JSON recibido del webserver
+     * @return ArrayList<FoodMenuModel>: JSON convertido en un array
+     */
+    private ArrayList<FoodMenuModel> getFoodMenuModelJSON(JSONObject obj) {
+        ArrayList<FoodMenuModel> foodMenuListModel = new ArrayList<>();
+
+        try {
+            JSONArray foodsArray = obj.getJSONArray("foodMenu");
+
+            for (int i = 0; i < foodsArray.length(); i++) {
+                JSONObject foodJSONObject = foodsArray.getJSONObject(i);
+
+                FoodMenuModel foodMenuModel = new FoodMenuModel();
+
+                foodMenuModel.setId(foodJSONObject.getInt("ID_MENU"));
+                foodMenuModel.setName(foodJSONObject.getString("NAME_MENU"));
+                foodMenuModel.setDateStart(foodJSONObject.getString("DATE_START_MENU"));
+                foodMenuModel.setDateEnd(foodJSONObject.getString("DATE_END_MENU"));
+
+                ArrayList<FoodModel> foods = getFoodModelJSON(foodJSONObject, foodMenuModel.getId());
+                foodMenuModel.setFoodModelArrayList(foods);
+
+                foodMenuListModel.add(foodMenuModel);
+            }
+
+        } catch (JSONException e) {
+            System.out.println("Error: Objeto no convertible, " + e.toString());
+            e.printStackTrace();
+        }
+
+        return foodMenuListModel;
+    }
+
+    /**
+     * convertir el objetoJson en objeto JAVA
+     *
+     * @param object:          lista de comidas en formato JSON recibido del webserver
+     * @param idFoodMenuModel: clave primaria para conecta con MenuFood
+     * @return ArrayList<OfferModel>: JSON convertido en un array
+     */
+    private ArrayList<FoodModel> getFoodModelJSON(JSONObject object, int idFoodMenuModel) {
+        ArrayList<FoodModel> foodArray = new ArrayList<>();
+
+        try {
+            JSONArray foodJSONArray = object.getJSONArray("foods");
+
+            for (int j = 0; j < foodJSONArray.length(); j++) {
+                FoodModel foodModel = new FoodModel();
+
+                JSONObject foodObject = foodJSONArray.getJSONObject(j);
+
+                foodModel.setId(foodObject.getInt("ID_FOOD"));
+                foodModel.setIdKeyMenu(idFoodMenuModel);
+                foodModel.setName(foodObject.getString("NAME_FOOD"));
+                foodModel.setType(foodObject.getString("NAME_TYPE_FOOD"));
+                foodModel.setDescription(foodObject.getString("DESCRIPTION_FOOD"));
+                foodModel.setImage(foodObject.getString("IMAGE_FOOD"));
+                foodModel.setState(foodObject.getInt("VALUE_STATE_FOOD") > 0);
+
+                ArrayList<FoodPriceModel> foodPrices= getFoodPriceModelJSON(foodObject);
+                foodModel.setListFoodPriceModel(foodPrices);
+
+                foodArray.add(foodModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return foodArray;
+    }
+
+    private ArrayList<FoodPriceModel> getFoodPriceModelJSON(JSONObject object) {
+        ArrayList<FoodPriceModel> foodPriceArray = new ArrayList<>();
+
+        try {
+            JSONArray foodJSONArray = object.getJSONArray("prices");
+
+            for (int j = 0; j < foodJSONArray.length(); j++) {
+                FoodPriceModel foodPriceModel = new FoodPriceModel();
+
+                JSONObject foodPriceObject = foodJSONArray.getJSONObject(j);
+
+                foodPriceModel.setIdKeyFood(foodPriceObject.getInt("ID_FOOD"));
+                foodPriceModel.setTypeMoney(foodPriceObject.getString("NAME_TYPE_MONEY"));
+                foodPriceModel.setPrice(foodPriceObject.getDouble("PRICE_COST_FOOD"));
+                foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_OBTAIN_COST_FOOD"));
+                foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_REQUIRED_COST_FOOD"));
+
+                foodPriceArray.add(foodPriceModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return foodPriceArray;
     }
 
     /**
@@ -428,7 +544,7 @@ public class HelperSQLite {
      */
     private void setServiceSQLite(ArrayList<ServiceModel> servicesModel) {
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE
-                +" WHERE "+DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER+"=0");
+                + " WHERE " + DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=0");
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_SERVICE);
 
         for (ServiceModel serviceModel : servicesModel) {
@@ -465,7 +581,7 @@ public class HelperSQLite {
             serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceModel.getServicePriceUnit());
             serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
             serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
-            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER,String.valueOf(servicePriceModel.isServicePriceIsOffer()?1:0));
+            serviceContent.put(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceModel.isServicePriceIsOffer() ? 1 : 0));
 
             db.insert(DataBaseSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent);
         }
@@ -525,7 +641,7 @@ public class HelperSQLite {
      */
     private void setOfferSQLite(ArrayList<OfferModel> offerModel) {
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_PRICE_SERVICE
-                +" WHERE "+DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER+"=1");
+                + " WHERE " + DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=1");
         db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_OFFER);
         for (OfferModel offer : offerModel) {
             ContentValues offerContent = new ContentValues();
@@ -550,6 +666,78 @@ public class HelperSQLite {
     }
 
     /**
+     * guardar lista de menus de comida en la base de datos SQLIte
+     *
+     * @param foodMenuModels:lista menus de comida
+     */
+    private void setFoodMenuSQLite(ArrayList<FoodMenuModel> foodMenuModels) {
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_FOOD);
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_FOOD_MENU);
+        db.execSQL("DELETE FROM " + DataBaseSQLiteHelper.TABLE_FOOD_PRICE);
+
+        for (FoodMenuModel foodMenuModel : foodMenuModels) {
+            setFoodSQLite(foodMenuModel.getFoodModelArrayList());
+
+            ContentValues foodMenuContent = new ContentValues();
+
+            foodMenuContent.put(DataBaseSQLiteHelper.KEY_FOOD_MENU_ID, foodMenuModel.getId());
+            foodMenuContent.put(DataBaseSQLiteHelper.KEY_FOOD_MENU_NAME, foodMenuModel.getName());
+            foodMenuContent.put(DataBaseSQLiteHelper.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
+            foodMenuContent.put(DataBaseSQLiteHelper.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
+            long success=db.insert(DataBaseSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent);
+            if (success==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en FoodMenuModel");
+
+        }
+    }
+
+    /**
+     * guardar lista de comidas en la base de datos SQLIte
+     *
+     * @param foodModelArrayList:lista comids en formato JAVa
+     */
+    private void setFoodSQLite(ArrayList<FoodModel> foodModelArrayList) {
+        for (FoodModel foodModel : foodModelArrayList) {
+            setFoodPriceSQLite(foodModel.getListFoodPriceModel());
+
+            ContentValues foodContent = new ContentValues();
+
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_ID, foodModel.getId());
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_IDKEYMENU, foodModel.getIdKeyMenu());
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_STATE, foodModel.isState() ? 1 : 0);
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_TYPE, foodModel.getType());
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_NAME, foodModel.getName());
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_DESCRIPTION, foodModel.getDescription());
+            foodContent.put(DataBaseSQLiteHelper.KEY_FOOD_IMAGE, foodModel.getImage());
+
+            long succes=db.insert(DataBaseSQLiteHelper.TABLE_FOOD, null, foodContent);
+            if (succes==-1)
+                System.out.println("Ocurrio un error al inserar la consulta FoodModel");
+        }
+    }
+
+    /**
+     * guardar lista de precios de comidas en la base de datos SQLIte
+     *
+     * @param foodPriceModelArrayList:lista de precios de las comidas en formato JAVa
+     */
+    private void setFoodPriceSQLite(ArrayList<FoodPriceModel> foodPriceModelArrayList) {
+        for (FoodPriceModel foodPriceModel : foodPriceModelArrayList) {
+            ContentValues foodPriceContent = new ContentValues();
+
+            foodPriceContent.put(DataBaseSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD, foodPriceModel.getIdKeyFood());
+            foodPriceContent.put(DataBaseSQLiteHelper.KEY_FOOD_PRICE_TYPEMONEY, foodPriceModel.getTypeMoney());
+            foodPriceContent.put(DataBaseSQLiteHelper.KEY_FOOD_PRICE_PRICE, foodPriceModel.getPrice());
+            foodPriceContent.put(DataBaseSQLiteHelper.KEY_FOOD_PRICE_POINTOBTAIN, foodPriceModel.getPointObtain());
+            foodPriceContent.put(DataBaseSQLiteHelper.KEY_FOOD_PRICE_POINTREQUIRED, foodPriceModel.getPointRequired());
+
+            long succes=db.insert(DataBaseSQLiteHelper.TABLE_FOOD_PRICE, null, foodPriceContent);
+            if (succes==-1)
+                System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
+        }
+    }
+
+    /**
      * Lee de la base de datos de sqlite los datos del login
      *
      * @return LoginModel: estado de la cuenta
@@ -559,7 +747,7 @@ public class HelperSQLite {
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_LOGIN, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                loginModel = getLoginModelSQLite(cursor);
+                loginModel = getLoginModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -577,7 +765,7 @@ public class HelperSQLite {
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_PERSON, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                personModel = getPersonModelSQLite(cursor);
+                personModel = getPersonModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -595,7 +783,7 @@ public class HelperSQLite {
         Cursor cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_ABOUT, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                aboutModel = getAboutModelSQLite(cursor);
+                aboutModel = getAboutModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -621,7 +809,7 @@ public class HelperSQLite {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServiceModel serviceModel = getServiceModelSQLite(cursor);
+                ServiceModel serviceModel = getServiceModelCursor(cursor);
                 serviceModel.setServicePrice(getServicePriceModel(serviceModel.getServiceId()));
 
                 listService.add(serviceModel);
@@ -639,7 +827,7 @@ public class HelperSQLite {
         ArrayList<ServicePriceModel> listPrice = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServicePriceModel servicePriceModel = getServicePriceModelSQLite(cursor);
+                ServicePriceModel servicePriceModel = getServicePriceModelCursor(cursor);
                 listPrice.add(servicePriceModel);
                 cursor.moveToNext();
             }
@@ -666,7 +854,7 @@ public class HelperSQLite {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                SiteTourModel siteTourModel = getSiteTourModelSQLite(cursor);
+                SiteTourModel siteTourModel = getSiteTourModelCursor(cursor);
 
                 siteTourModel.setImagesSite(getSiteTourImageModel(siteTourModel.getIdSite()));
                 listSiteTour.add(siteTourModel);
@@ -688,7 +876,7 @@ public class HelperSQLite {
         ArrayList<SiteTourImageModel> listSiteTourImages = new ArrayList<>();
         if (cursorImages.moveToFirst()) {
             while (!cursorImages.isAfterLast()) {
-                SiteTourImageModel siteTourImageModel = getSiteTourImagesModelSQLite(cursorImages);
+                SiteTourImageModel siteTourImageModel = getSiteTourImagesModelCursor(cursorImages);
                 listSiteTourImages.add(siteTourImageModel);
                 cursorImages.moveToNext();
             }
@@ -704,15 +892,15 @@ public class HelperSQLite {
      */
     public ArrayList<OfferModel> getOfferModel(int idOffer) {
         Cursor cursor;
-        if (idOffer==0)
+        if (idOffer == 0)
             cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER, null);
         else
-            cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER+" where "+DataBaseSQLiteHelper.KEY_OFFER_ID+"="+idOffer, null);
+            cursor = db.rawQuery("select * " + "from " + DataBaseSQLiteHelper.TABLE_OFFER + " where " + DataBaseSQLiteHelper.KEY_OFFER_ID + "=" + idOffer, null);
 
         ArrayList<OfferModel> listOfferModel = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                OfferModel offerModel = getOfferModelSQLite(cursor);
+                OfferModel offerModel = getOfferModelCursor(cursor);
                 offerModel.setServicePriceModel(getServicePriceModel(offerModel.getIdKeyService()));
 
                 listOfferModel.add(offerModel);
@@ -723,8 +911,65 @@ public class HelperSQLite {
         return listOfferModel;
     }
 
+    public ArrayList<FoodMenuModel> getFoodMenuModel(int idFoodMenu) {
+        ArrayList<FoodMenuModel> listFoodMenu = new ArrayList<>();
+        Cursor cursor;
+        if (idFoodMenu > 0)
+            cursor = db.rawQuery("select *"
+                    + " from " + DataBaseSQLiteHelper.TABLE_FOOD_MENU
+                    + " where " + DataBaseSQLiteHelper.KEY_FOOD_MENU_ID + "=" + idFoodMenu, null);
+        else
+            cursor = db.rawQuery("select * from " + DataBaseSQLiteHelper.TABLE_FOOD_MENU, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                FoodMenuModel foodMenuModel = getFoodMenuModelCursor(cursor);
+                foodMenuModel.setFoodModelArrayList(getFoodModel(foodMenuModel.getId()));
+
+                listFoodMenu.add(foodMenuModel);
+                cursor.moveToNext();
+            }
+        }
+        return listFoodMenu;
+    }
+
+    private ArrayList<FoodModel> getFoodModel(int idMenuFood) {
+        ArrayList<FoodModel> listFood = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select *"
+                + " from " + DataBaseSQLiteHelper.TABLE_FOOD
+                + " where " + DataBaseSQLiteHelper.KEY_FOOD_IDKEYMENU + "=" + idMenuFood, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                FoodModel foodModel = getFoodModelCursor(cursor);
+                foodModel.setListFoodPriceModel(getFoodPriceModel(foodModel.getId()));
+                listFood.add(foodModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listFood;
+    }
+
+    private ArrayList<FoodPriceModel> getFoodPriceModel(int idFood) {
+        ArrayList<FoodPriceModel> listPriceFood = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select *"
+                + " from " + DataBaseSQLiteHelper.TABLE_FOOD_PRICE
+                + " where " + DataBaseSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD + "=" + idFood, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                FoodPriceModel foodPriceModel = getFoodPriceModelCursor(cursor);
+                listPriceFood.add(foodPriceModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listPriceFood;
+    }
+
     @NonNull
-    private PersonModel getPersonModelSQLite(Cursor cursor) {
+    private PersonModel getPersonModelCursor(Cursor cursor) {
         PersonModel personModel = new PersonModel();
         personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_ID)));
         personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PERSON_NAME)));
@@ -742,7 +987,7 @@ public class HelperSQLite {
     }
 
     @NonNull
-    private AboutModel getAboutModelSQLite(Cursor cursor) {
+    private AboutModel getAboutModelCursor(Cursor cursor) {
         AboutModel aboutModel = new AboutModel();
 
         aboutModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_ABOUT_ID)));
@@ -769,7 +1014,7 @@ public class HelperSQLite {
     }
 
     @NonNull
-    private LoginModel getLoginModelSQLite(Cursor cursor) {
+    private LoginModel getLoginModelCursor(Cursor cursor) {
         LoginModel loginModel = new LoginModel();
 
         loginModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_LOGIN_ID_PERSON)));
@@ -780,7 +1025,7 @@ public class HelperSQLite {
     }
 
     @NonNull
-    private ServiceModel getServiceModelSQLite(Cursor cursor) {
+    private ServiceModel getServiceModelCursor(Cursor cursor) {
         ServiceModel serviceModel = new ServiceModel();
 
         serviceModel.setServiceId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SERVICE_ID)));
@@ -797,7 +1042,7 @@ public class HelperSQLite {
      * @param cursor:base de datos SQLITE servicePrice
      * @return servicePriceModel: lista de precios de un servicio
      */
-    private ServicePriceModel getServicePriceModelSQLite(Cursor cursor) {
+    private ServicePriceModel getServicePriceModelCursor(Cursor cursor) {
         ServicePriceModel servicePriceModel = new ServicePriceModel();
 
         servicePriceModel.setServicePriceId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_ID)));
@@ -809,13 +1054,13 @@ public class HelperSQLite {
         servicePriceModel.setServicePricePrice(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_PRICE)));
         servicePriceModel.setServicePricePointObtain(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN)));
         servicePriceModel.setServicePricePointRequired(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED)));
-        servicePriceModel.setServicePriceIsOffer(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER))==1);
+        servicePriceModel.setServicePriceIsOffer(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER)) == 1);
 
         return servicePriceModel;
     }
 
     @NonNull
-    private SiteTourModel getSiteTourModelSQLite(Cursor cursor) {
+    private SiteTourModel getSiteTourModelCursor(Cursor cursor) {
         SiteTourModel siteTourModel = new SiteTourModel();
 
         siteTourModel.setIdSite(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_ID)));
@@ -830,7 +1075,7 @@ public class HelperSQLite {
     }
 
     @NonNull
-    private SiteTourImageModel getSiteTourImagesModelSQLite(Cursor cursor) {
+    private SiteTourImageModel getSiteTourImagesModelCursor(Cursor cursor) {
         SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
 
         siteTourImageModel.setIdSiteTourImage(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID)));
@@ -844,8 +1089,13 @@ public class HelperSQLite {
         return siteTourImageModel;
     }
 
-    @NonNull
-    private OfferModel getOfferModelSQLite(Cursor cursor) {
+    /**
+     * leer los datos desde SQLite y convertirlos en objetos
+     *
+     * @param cursor:lista de offertas en formato RAW
+     * @return offerModel: objeto de ofertas leido desde la base de datos SQLite
+     */
+    private OfferModel getOfferModelCursor(Cursor cursor) {
         OfferModel offerModel = new OfferModel();
 
         offerModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_ID)));
@@ -861,6 +1111,50 @@ public class HelperSQLite {
         offerModel.setNameType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_NAME_TYPE)));
         offerModel.setDescriptionType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE)));
         return offerModel;
+    }
+
+    /**
+     * leer los datos desde SQLite y convertirlos en objetos
+     *
+     * @param cursor:lista de menus de comida en formato RAW
+     * @return foodMenuModel: objeto de menu leido desde la base de datos SQLite
+     */
+    private FoodMenuModel getFoodMenuModelCursor(Cursor cursor) {
+        FoodMenuModel foodMenuModel = new FoodMenuModel();
+
+        foodMenuModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_MENU_ID)));
+        foodMenuModel.setName(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_MENU_NAME)));
+        foodMenuModel.setDateStart(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_MENU_DATE_START)));
+        foodMenuModel.setDateEnd(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_MENU_DATE_END)));
+
+        return foodMenuModel;
+    }
+
+    private FoodModel getFoodModelCursor(Cursor cursor) {
+        FoodModel foodModel = new FoodModel();
+
+        foodModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_ID)));
+        foodModel.setName(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_NAME)));
+        foodModel.setDescription(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_DESCRIPTION)));
+        foodModel.setImage(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_IMAGE)));
+        foodModel.setType(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_TYPE)));
+        foodModel.setState(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_STATE)) > 0);
+        foodModel.setIdKeyMenu(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_IDKEYMENU)));
+
+        return foodModel;
+    }
+
+    private FoodPriceModel getFoodPriceModelCursor(Cursor cursor) {
+        FoodPriceModel foodPriceModel = new FoodPriceModel();
+
+        foodPriceModel.setId(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_ID)));
+        foodPriceModel.setIdKeyFood(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD)));
+        foodPriceModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_TYPEMONEY)));
+        foodPriceModel.setPrice(Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_PRICE))));
+        foodPriceModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_POINTOBTAIN)));
+        foodPriceModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DataBaseSQLiteHelper.KEY_FOOD_PRICE_POINTREQUIRED)));
+
+        return foodPriceModel;
     }
 
     /**

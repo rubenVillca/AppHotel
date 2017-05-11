@@ -2,22 +2,22 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
-public class PersonModel  extends ModelParent {
-    private int idPerson;
-    private String emailPerson;
-    private String namePerson;
-    private String nameLastPerson;
-    private String cityPerson;
-    private String countryPerson;
-    private int pointPerson;
-    private byte sexPerson;
-    private String addressPerson;
-    private String imgPerson;
-    private String dateBornPerson;
-    private String dateRegisterPerson;
-    private String typeDocument;
-    private int numberDocument;
-    private int numberPhone;
+public class PersonModel extends ModelParent {
+    protected int idPerson;
+    protected String emailPerson;
+    protected String namePerson;
+    protected String nameLastPerson;
+    protected String cityPerson;
+    protected String countryPerson;
+    protected int pointPerson;
+    protected byte sexPerson;
+    protected String addressPerson;
+    protected String imgPerson;
+    protected String dateBornPerson;
+    protected String dateRegisterPerson;
+    protected String typeDocument;
+    protected int numberDocument;
+    protected int numberPhone;
 
     public PersonModel() {
         this.idPerson = 0;

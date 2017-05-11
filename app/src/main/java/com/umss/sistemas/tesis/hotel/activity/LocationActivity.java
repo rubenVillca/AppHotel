@@ -18,7 +18,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
@@ -76,8 +77,8 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
      * insertar en el mapa la ubucacion del hotel
      */
     private void addMarker() {
-        HelperSQLite helperSQLite = new HelperSQLite(this);
-        aboutModel = helperSQLite.getAboutModel();
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        aboutModel = helperSQLiteObtain.getAboutModel();
 
         LatLng hotelCoordinator = new LatLng(Float.parseFloat(aboutModel.getAddressGPSX()), Float.parseFloat(aboutModel.getAddressGPSY()));
 

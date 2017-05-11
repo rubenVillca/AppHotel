@@ -8,10 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.transition.Fade;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -59,10 +59,10 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
      * @param idSite:identificador del sitio turistico
      */
     private void chargeContent(int idSite) {
-        helperSQLite = new HelperSQLite(this);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
 
-        SiteTourModel siteTourModel = helperSQLite.getSiteTourModel(idSite).get(0);
-        ArrayList<SiteTourImageModel> siteTourImageModel=helperSQLite.getSiteTourImageModel(idSite);
+        SiteTourModel siteTourModel = helperSQLiteObtain.getSiteTourModel(idSite).get(0);
+        ArrayList<SiteTourImageModel> siteTourImageModel= helperSQLiteObtain.getSiteTourImageModel(idSite);
 
         viewPager=(ViewPager)findViewById(R.id.imageSiteHeaderCollapsing);
 

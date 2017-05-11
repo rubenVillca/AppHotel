@@ -1,15 +1,12 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
@@ -21,7 +18,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
@@ -57,8 +55,8 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         mMap = googleMap;
         Bundle bundle=getIntent().getExtras();
         int idSiteTour=bundle.getInt("idSiteTour");
-        HelperSQLite helperSQLite = new HelperSQLite(this);
-        siteTourModel = helperSQLite.getSiteTourModel(idSiteTour).get(0);
+        helperSQLiteObtain= new HelperSQLiteObtain(this);
+        siteTourModel = helperSQLiteObtain.getSiteTourModel(idSiteTour).get(0);
 
 
         addMarker();

@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -15,9 +16,9 @@ public class AboutActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        helperSQLite=new HelperSQLite(this);
+        helperSQLiteObtain =new HelperSQLiteObtain(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_about), true);
-        showContentAbout(helperSQLite.getAboutModel());
+        showContentAbout(helperSQLiteObtain.getAboutModel());
     }
 
     private void showContentAbout(AboutModel about) {

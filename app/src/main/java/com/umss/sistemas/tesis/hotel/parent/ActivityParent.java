@@ -2,7 +2,6 @@ package com.umss.sistemas.tesis.hotel.parent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +9,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 
 public class ActivityParent extends AppCompatActivity {
-    protected HelperSQLite helperSQLite;
+    protected HelperSQLiteInsert helperSQLiteInsert;
+    protected HelperSQLiteObtain helperSQLiteObtain;
 
     protected View progressView;
     protected View container;
@@ -25,6 +26,8 @@ public class ActivityParent extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
+
+
     }
 
     /**
@@ -60,8 +63,8 @@ public class ActivityParent extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (helperSQLite!=null)
-            helperSQLite.destroy();
+        if (helperSQLiteInsert !=null)
+            helperSQLiteInsert.destroy();
         super.onDestroy();
     }
 }

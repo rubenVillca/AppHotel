@@ -9,7 +9,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -36,8 +37,8 @@ public class OfferActivity extends ActivityParent {
     }
 
     private void chargeContent(int idOffer) {
-        helperSQLite=new HelperSQLite(this);
-        OfferModel offerModel=helperSQLite.getOfferModel(idOffer).get(0);
+        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        OfferModel offerModel= helperSQLiteObtain.getOfferModel(idOffer).get(0);
         ServicePriceModel listPrice =offerModel.getServicePriceModel().get(0);
 
         ImageView imageOffer=(ImageView)findViewById(R.id.imageHeaderCollapsing);

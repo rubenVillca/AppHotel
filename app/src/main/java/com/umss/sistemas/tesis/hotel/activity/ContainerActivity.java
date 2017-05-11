@@ -16,7 +16,8 @@ import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
 import com.umss.sistemas.tesis.hotel.fragments.MessageSendFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
@@ -35,7 +36,7 @@ public class ContainerActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
 
-        helperSQLite=new HelperSQLite(this);
+        helperSQLiteObtain =new HelperSQLiteObtain(this);
         obtainDataBundle();
         setActionBottomBar();
     }
@@ -45,7 +46,7 @@ public class ContainerActivity extends ActivityParent {
         if (bundle != null)
             idPerson = bundle.getInt("idPerson");
         else {
-            LoginModel loginModel = helperSQLite.getLoginModel();
+            LoginModel loginModel = helperSQLiteObtain.getLoginModel();
             idPerson = loginModel.getIdPerson();
         }
     }
@@ -95,7 +96,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpPerson(obj);
+                        helperSQLiteInsert.syncUpPerson(obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

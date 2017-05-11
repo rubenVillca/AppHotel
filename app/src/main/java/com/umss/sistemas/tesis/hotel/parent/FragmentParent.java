@@ -1,7 +1,6 @@
 package com.umss.sistemas.tesis.hotel.parent;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,8 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +31,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
 
-    protected HelperSQLite helperSQLite;
+    protected HelperSQLiteInsert helperSQLiteInsert;
+    protected HelperSQLiteObtain helperSQLiteObtain;
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
     private AsyncHttpClient client;
@@ -64,7 +65,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        helperSQLite = new HelperSQLite(getContext());
+        helperSQLiteInsert = new HelperSQLiteInsert(getContext());
         client = new AsyncHttpClient();
         params = new RequestParams();
 
@@ -113,7 +114,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpFoodMenu(obj);
+                        helperSQLiteInsert.syncUpFoodMenu(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -152,7 +153,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpOffer(obj);
+                        helperSQLiteInsert.syncUpOffer(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -186,7 +187,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpAbout(obj);
+                        helperSQLiteInsert.syncUpAbout(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -220,7 +221,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpService(obj);
+                        helperSQLiteInsert.syncUpService(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -254,7 +255,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpAbout(obj);
+                        helperSQLiteInsert.syncUpAbout(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -290,7 +291,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLite.syncUpSiteTour(obj);
+                        helperSQLiteInsert.syncUpSiteTour(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -354,8 +355,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (helperSQLite != null)
-            helperSQLite.destroy();
+        if (helperSQLiteInsert != null)
+            helperSQLiteInsert.destroy();
         super.onDestroy();
     }
 }

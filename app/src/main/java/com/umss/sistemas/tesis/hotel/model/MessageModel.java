@@ -10,8 +10,8 @@ public class MessageModel extends ModelParent {
     private String dateRecived;
     private String timeRecived;
     private boolean isRead;
-    private String emailRemitente;
-    private String nameRemitente;
+    private String emailSender;
+    private String nameSender;
     private boolean isActive;
 
     public MessageModel() {
@@ -21,8 +21,8 @@ public class MessageModel extends ModelParent {
         this.dateRecived = "";
         this.timeRecived = "";
         this.isRead = false;
-        this.emailRemitente = "";
-        this.nameRemitente = "";
+        this.emailSender = "";
+        this.nameSender = "";
         this.isActive = false;
     }
 
@@ -74,20 +74,20 @@ public class MessageModel extends ModelParent {
         isRead = read;
     }
 
-    public String getEmailRemitente() {
-        return emailRemitente;
+    public String getEmailSender() {
+        return emailSender;
     }
 
-    public void setEmailRemitente(String emailRemitente) {
-        this.emailRemitente = emailRemitente;
+    public void setEmailSender(String emailSender) {
+        this.emailSender = emailSender;
     }
 
-    public String getNameRemitente() {
-        return nameRemitente;
+    public String getNameSender() {
+        return nameSender;
     }
 
-    public void setNameRemitente(String nameRemitente) {
-        this.nameRemitente = nameRemitente;
+    public void setNameSender(String nameSender) {
+        this.nameSender = nameSender;
     }
 
     public boolean isActive() {

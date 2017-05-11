@@ -17,7 +17,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
@@ -42,7 +43,7 @@ public class ProfileFragment extends FragmentParent {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         super.showToolBar("", false, view);
 
-        helperSQLite=new HelperSQLite(getContext());
+        helperSQLiteObtain =new HelperSQLiteObtain(getContext());
         showContentProfile(view);
         showImageCamera(view);
 
@@ -88,7 +89,7 @@ public class ProfileFragment extends FragmentParent {
     }
 
     private void showContentProfile(View view) {
-        PersonModel profile = helperSQLite.getPersonModel();
+        PersonModel profile = helperSQLiteObtain.getPersonModel();
         showDataProfile(profile, view);
         if (!profile.getImgPerson().equals("")) {
             imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);

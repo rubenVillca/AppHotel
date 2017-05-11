@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 /**
@@ -27,7 +27,7 @@ public class FrequentlyFragment extends FragmentParent {
         super.showToolBar(getResources().getString(R.string.tab_frequently),false,view);
         super.showFloatingButtonMessage(view);
 
-        helperSQLite=new HelperSQLite(getContext());
+        helperSQLiteInsert =new HelperSQLiteInsert(getContext());
 
         return view;
     }

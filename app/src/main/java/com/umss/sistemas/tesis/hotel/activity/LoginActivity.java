@@ -12,7 +12,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLite;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -31,7 +31,7 @@ public class LoginActivity extends ActivityParent {
 
         container = findViewById(R.id.containerLogin);
         progressView = findViewById(R.id.progress_bar);
-        helperSQLite = new HelperSQLite(this);
+        helperSQLiteInsert = new HelperSQLiteInsert(this);
     }
 
     /**
@@ -98,7 +98,7 @@ public class LoginActivity extends ActivityParent {
                             goLoginActivity();
                             break;
                         default:
-                            helperSQLite.syncUpLogin(idPerson, passText, 1);
+                            helperSQLiteInsert.syncUpLogin(idPerson, passText, 1);
                             goHomeFragment(idPerson);
                             showMesaje("Ha iniciado Sesion");
                             break;

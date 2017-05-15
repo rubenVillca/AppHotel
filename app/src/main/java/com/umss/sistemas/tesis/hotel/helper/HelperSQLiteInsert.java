@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
@@ -122,13 +123,60 @@ public class HelperSQLiteInsert extends HelperParent {
      */
     public void syncUpMessages(JSONObject obj) {
         ArrayList<MessageModel> messageModels = getMessageModelJSON(obj);
-        insertMeessageSQLite(messageModels);
+        insertMessageSQLite(messageModels);
+    }
+
+    /**
+     * sincornizar webserve con SQLite la lista de actividades
+     *
+     * @param obj: objeto JSON activity
+     */
+    public void syncUpCalendar(JSONObject obj) {
+        ArrayList<ActivityModel> activityModelArrayList = getActivityModelJSON(obj);
+        insertActivitySQLite(activityModelArrayList);
+    }
+
+    //**************************************MODEL_JSON**********************************************
+
+    /**
+     * obtener la lista de actividades del hotel
+     *
+     * @param obj: objeto activity en formato JSON
+     * @return ArrayList<ActivityModel>: lista de actividades del hotel
+     */
+    private ArrayList<ActivityModel> getActivityModelJSON(JSONObject obj) {
+        ArrayList<ActivityModel> activityModelArrayList = new ArrayList<>();
+
+        try {
+            JSONArray activityJSONArray = obj.getJSONArray("calendar");
+
+            for (int i = 0; i < activityJSONArray.length(); i++) {
+                JSONObject activityObject = activityJSONArray.getJSONObject(i);
+
+                ActivityModel activityModel = new ActivityModel();
+
+                activityModel.setId(activityObject.getInt("ID_ACTIVITY"));
+                activityModel.setDateStart(activityObject.getString("DATE_START_ACTIVITY"));
+                activityModel.setDateEnd(activityObject.getString("DATE_END_ACTIVITY"));
+                activityModel.setTimeStart(activityObject.getString("TIME_START_ACTIVITY"));
+                activityModel.setTimeEnd(activityObject.getString("TIME_END_ACTIVITY"));
+                activityModel.setName(activityObject.getString("NAME_ACTIVITY"));
+                activityModel.setDescription(activityObject.getString("DESCRIPTION_ACTIVITY"));
+                activityModel.setImage(activityObject.getString("IMAGE_ACTIVITY"));
+
+                activityModelArrayList.add(activityModel);
+            }
+        } catch (JSONException e) {
+            System.out.println("Datos no legibles");
+            e.printStackTrace();
+        }
+        return activityModelArrayList;
     }
 
     /**
      * obtener el message model a partir del json recivido del webserver
      *
-     * @param obj: datos recividos del web server, objeto messagePErson
+     * @param obj: datos recividos del web server, objeto messagePerson
      * @return MessageModel: lista de mensajes recividos cnvertido en objeto
      */
     private ArrayList<MessageModel> getMessageModelJSON(JSONObject obj) {
@@ -147,7 +195,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 messageModel.setContent(messageObject.getString("CONTAINER_MESSAGE"));
                 messageModel.setDateRecived(messageObject.getString("DATE_MESSAGE"));
                 messageModel.setTimeRecived(messageObject.getString("TIME_MESSAGE"));
-                messageModel.setRead(messageObject.getInt("STATE_MESSAGE")>0);
+                messageModel.setRead(messageObject.getInt("STATE_MESSAGE") > 0);
                 messageModel.setEmailSender(messageObject.getString("EMAIL_PERSON"));
                 messageModel.setNameSender(messageObject.getString("NAME_PERSON"));
                 messageModel.setActive(true);
@@ -681,6 +729,8 @@ public class HelperSQLiteInsert extends HelperParent {
         return memberArray;
     }
 
+    //*****************************************INSERT_SQLITE****************************************
+
     /**
      * ingresar loginModel a la base de datos SQLite, si hay reemplazarlos
      *
@@ -1076,13 +1126,16 @@ public class HelperSQLiteInsert extends HelperParent {
         }
     }
 
-    private void insertMeessageSQLite(ArrayList<MessageModel> messageModels) {
+    /**
+     * guradar en SQLite la lista de mensajes recividos
+     *
+     * @param messageModels: lista de mensajes recibidos
+     */
+    private void insertMessageSQLite(ArrayList<MessageModel> messageModels) {
         for (MessageModel messageModel : messageModels) {
             ContentValues contentValues = new ContentValues();
 
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ID, messageModel.getId());
-
-
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TITTLE, messageModel.getId());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_CONTENT, messageModel.getContent());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_DATE_RECIVED, messageModel.getDateRecived());
@@ -1096,5 +1149,28 @@ public class HelperSQLiteInsert extends HelperParent {
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
 
+    }
+
+    /**
+     * guardar en SQLite la lista de actividades del hotel
+     *
+     * @param activityModelArrayList: lista de actividades
+     */
+    private void insertActivitySQLite(ArrayList<ActivityModel> activityModelArrayList) {
+        for (ActivityModel activityModel : activityModelArrayList) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_ID, activityModel.getId());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DATE_START, activityModel.getDateStart());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DATE_END, activityModel.getDateEnd());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_TIME_START, activityModel.getTimeStart());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_TIME_END, activityModel.getTimeEnd());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_NAME, activityModel.getName());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DESCRIPTION, activityModel.getDescription());
+            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_IMAGE, activityModel.getImage());
+
+            if (db.insert(DBSQLiteHelper.TABLE_ACTIVITY, null, contentValues) == -1)
+                System.out.println("Ocurrio un error al inserar la consulta activityModel");
+        }
     }
 }

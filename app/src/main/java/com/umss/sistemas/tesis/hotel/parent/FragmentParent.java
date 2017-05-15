@@ -64,6 +64,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onDestroy() {
+        if (helperSQLiteInsert != null)
+            helperSQLiteInsert.destroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void onClick(View v) {
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
 
@@ -94,7 +101,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 goLocation();
                 break;
             case R.id.imageActivity:
-                intent = new Intent(getActivity(), CalendarActivity.class);
+                goCalendar();
                 break;
             case R.id.imageServiceFood:
                 goServiceFood();
@@ -104,7 +111,43 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
             startActivity(intent);
         }
     }
+    //****************************************GO****************************************************
+    /**
+     * Conectar con el webServer y sincronizar la tabla Calendar
+     */
+    private void goCalendar() {
+        params.put("android", "android");
 
+        client.post(Conexion.getUrlServer(Conexion.CALENDAR), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCalendar(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goCalendarActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goCalendarActivity();
+                //showProgress(false);
+            }
+        });
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla Messages
+     */
     private void goMessages() {
         helperSQLiteObtain=new HelperSQLiteObtain(getContext());
         int idPerson= helperSQLiteObtain.getLoginModel().getIdPerson();
@@ -139,6 +182,9 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * Conectar con el webServer y sincronizar la tablaMenuFood
+     */
     private void goServiceFood() {
         params.put("android", "android");
 
@@ -168,11 +214,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 //showProgress(false);
             }
         });
-    }
-
-    private void goServiceFoodActivity() {
-        Intent intent = new Intent(getActivity(), MenuFoodActivity.class);
-        startActivity(intent);
     }
 
     /**
@@ -348,6 +389,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     }
 
+    //*************************************GO_ACTIVITY**********************************************
     /**
      * Cambiar de activity a AboutActivity
      */
@@ -388,15 +430,27 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * cambiar de activity a messageActivity
+     */
     private void goMessageActivity() {
         Intent intent = new Intent(getActivity(), MessagesActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public void onDestroy() {
-        if (helperSQLiteInsert != null)
-            helperSQLiteInsert.destroy();
-        super.onDestroy();
+    /**
+     * cambiar de activity a MenuFoodActivity
+     */
+    private void goServiceFoodActivity() {
+        Intent intent = new Intent(getActivity(), MenuFoodActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * cambiar de activity a CalendarActivity
+     */
+    private void goCalendarActivity() {
+        Intent intent = new Intent(getActivity(), CalendarActivity.class);
+        startActivity(intent);
     }
 }

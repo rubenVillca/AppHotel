@@ -80,7 +80,7 @@ public class ActivityModel extends ActivityParent {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = android.text.Html.fromHtml(description).toString();
     }
 
     public String getImage() {

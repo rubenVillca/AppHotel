@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
@@ -293,7 +294,6 @@ public class HelperSQLiteObtain extends HelperParent {
         return listPriceFood;
     }
 
-
     /**
      * si idCheck=0?obtener la lista de todos los registros de estadias: obtener la lista del registro con id=idCheck
      *
@@ -322,7 +322,6 @@ public class HelperSQLiteObtain extends HelperParent {
         }
         return listCheckModel;
     }
-
 
     /**
      * obtener de la base de datos SQLite la lista de consumos de in check
@@ -452,7 +451,50 @@ public class HelperSQLiteObtain extends HelperParent {
         return listMessageModel;
     }
 
+    /**
+     * obtener de la base de datos la lista de actividades a realizarse en el hotel
+     *
+     * @param idActivity: id de actividad
+     * @return ArrayList<ActivityModel>:idActivity>0?lista de todas las actividades: actividad seleccionada
+     */
+    public ArrayList<ActivityModel> getActivityModel(int idActivity) {
+        ArrayList<ActivityModel> listActivityModel = new ArrayList<>();
+        Cursor cursor;
 
+        if (idActivity > 0) {
+            cursor = db.rawQuery("select *"
+                    + " from " + DBSQLiteHelper.TABLE_ACTIVITY
+                    + " where " + DBSQLiteHelper.KEY_ACTIVITY_ID + "=" + idActivity, null);
+        } else {
+            cursor = db.rawQuery("select *" + " from " + DBSQLiteHelper.TABLE_ACTIVITY, null);
+        }
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ActivityModel activityModel = getActivityModelCursor(cursor);
+
+                listActivityModel.add(activityModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listActivityModel;
+    }
+
+    //*****************************************GET_MODEL_CURSOR*************************************
+    private ActivityModel getActivityModelCursor(Cursor cursor) {
+        ActivityModel activityModel = new ActivityModel();
+
+        activityModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_ID)));
+        activityModel.setDateStart(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_DATE_START)));
+        activityModel.setDateEnd(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_DATE_END)));
+        activityModel.setTimeStart(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_TIME_START)));
+        activityModel.setTimeEnd(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_TIME_END)));
+        activityModel.setName(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_NAME)));
+        activityModel.setDescription(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_DESCRIPTION)));
+        activityModel.setImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_IMAGE)));
+
+        return activityModel;
+    }
 
     private MessageModel getMessageModelCursor(Cursor cursor) {
         MessageModel messageModel = new MessageModel();

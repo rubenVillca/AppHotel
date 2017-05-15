@@ -18,27 +18,30 @@ public class Conexion {
     public static final int FREQUENTLY=14;
     public static final int FOOD_MENU=15;
     public static final int MESSAGES=16;
+    public static final int CALENDAR = 17;
 
     private static String ip="http://192.168.1.41/";
     private static String dirUser="hotel/";
-    private static String[] pagina={"login",
-            "register",
-            "profile",
-            "info",
-            "complaints",
-            "suggestion",
-            "contact",
-            "reserve",
-            "history",
-            "menu_bar",
-            "offer",
-            "service",
-            "img",
-            "sites",
-            "frequently",
-            "foodMenu",
-            "messages"
-    };
+    private static String[] pagina={
+                                    "login",
+                                    "register",
+                                    "profile",
+                                    "info",
+                                    "complaints",
+                                    "suggestion",
+                                    "contact",
+                                    "reserve",
+                                    "history",
+                                    "menu_bar",
+                                    "offer",
+                                    "service",
+                                    "img",
+                                    "sites",
+                                    "frequently",
+                                    "foodMenu",
+                                    "messages",
+                                    "calendar"
+                            };
     public static String urlServer=ip+dirUser;
 
     public static String getUrlServer(int i) {

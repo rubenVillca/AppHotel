@@ -3,10 +3,9 @@ package com.umss.sistemas.tesis.hotel.helper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 36;
+    public static final int DATABASE_VERSION = 38;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -204,7 +203,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_MESSAGE_NAME_SENDER = "nameRemitenteMessage";
     static final String KEY_MESSAGE_ISACTIVE = "isActiveMessage";
 
-    static final String TABLE_ACTIVITY="activity";
+    static final String TABLE_ACTIVITY="calendar";
     static final String KEY_ACTIVITY_ID = "idActivity";
     static final String KEY_ACTIVITY_DATE_START="dateStartActivity";
     static final String KEY_ACTIVITY_DATE_END="dateEndActivity";
@@ -606,13 +605,13 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     private String getActivity() {
         return "CREATE TABLE " + TABLE_ACTIVITY + " ( "
                 + KEY_ACTIVITY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_ACTIVITY_DATE_START + "TEXT,"
-                + KEY_ACTIVITY_DATE_END + "TEXT,"
-                + KEY_ACTIVITY_TIME_START + "TEXT,"
-                + KEY_ACTIVITY_TIME_END + "TEXT,"
-                + KEY_ACTIVITY_NAME + "TEXT,"
-                + KEY_ACTIVITY_DESCRIPTION + "TEXT,"
-                + KEY_ACTIVITY_IMAGE + "TEXT"
+                + KEY_ACTIVITY_DATE_START + " TEXT,"
+                + KEY_ACTIVITY_DATE_END + " TEXT,"
+                + KEY_ACTIVITY_TIME_START + " TEXT,"
+                + KEY_ACTIVITY_TIME_END + " TEXT,"
+                + KEY_ACTIVITY_NAME + " TEXT,"
+                + KEY_ACTIVITY_DESCRIPTION + " TEXT,"
+                + KEY_ACTIVITY_IMAGE + " TEXT"
                 + ")";
     }
 }

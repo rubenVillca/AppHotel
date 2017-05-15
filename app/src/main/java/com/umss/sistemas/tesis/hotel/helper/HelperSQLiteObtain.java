@@ -121,6 +121,11 @@ public class HelperSQLiteObtain extends HelperParent {
         return listService;
     }
 
+    /**
+     * Obtener de la base de datos SQLite la lista de precios de un servicio
+     *
+     * @return List<ServicePriceModel>: lista de precios de un servicio
+     */
     private ArrayList<ServicePriceModel> getServicePriceModel(int idService) {
         Cursor cursor = db.rawQuery("select * "
                 + "from " + DBSQLiteHelper.TABLE_PRICE_SERVICE
@@ -213,6 +218,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listOfferModel;
     }
 
+    /**
+     * obtener de la base datos SQLite una lista de menus ofrecidos en el hotel
+     *
+     * @param idFoodMenu: id de menu
+     * @return ArrayList<FoodMenuModel>: lista de alimentos ofrecidos en un menu
+     */
     public ArrayList<FoodMenuModel> getFoodMenuModel(int idFoodMenu) {
         ArrayList<FoodMenuModel> listFoodMenu = new ArrayList<>();
         Cursor cursor;
@@ -235,6 +246,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listFoodMenu;
     }
 
+    /**
+     * obtener de la base de datos SQLite la lista de alimentos ofrecidos en e menu
+     *
+     * @param idMenuFood: id del menu a obtener la lista de alimentos
+     * @return ArrayList<FoodModel>: lista de alimentos del menu solicitado
+     */
     private ArrayList<FoodModel> getFoodModel(int idMenuFood) {
         ArrayList<FoodModel> listFood = new ArrayList<>();
         Cursor cursor = db.rawQuery("select *"
@@ -253,6 +270,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listFood;
     }
 
+    /**
+     * obtener de SQLite la lista de precios de un alimento
+     *
+     * @param idFood: id de comida
+     * @return ArrayList<FoodPriceModel>: lista de precios q tiene un alimento
+     */
     private ArrayList<FoodPriceModel> getFoodPriceModel(int idFood) {
         ArrayList<FoodPriceModel> listPriceFood = new ArrayList<>();
         Cursor cursor = db.rawQuery("select *"
@@ -270,6 +293,13 @@ public class HelperSQLiteObtain extends HelperParent {
         return listPriceFood;
     }
 
+
+    /**
+     * si idCheck=0?obtener la lista de todos los registros de estadias: obtener la lista del registro con id=idCheck
+     *
+     * @param idCheck: id de registro de un huesped
+     * @return ArrayList<CheckModel>: lista de registros de estadia de un huesped
+     */
     public ArrayList<CheckModel> getCheckModel(int idCheck) {
         ArrayList<CheckModel> listCheckModel = new ArrayList<>();
         Cursor cursor;
@@ -293,6 +323,13 @@ public class HelperSQLiteObtain extends HelperParent {
         return listCheckModel;
     }
 
+
+    /**
+     * obtener de la base de datos SQLite la lista de consumos de in check
+     *
+     * @param idCheck: id de registro
+     * @return ArrayList<ConsumModel>: lista de consumos de un check
+     */
     private ArrayList<ConsumModel> getConsumModel(int idCheck) {
         ArrayList<ConsumModel> listConsumModel = new ArrayList<>();
         Cursor cursor;
@@ -313,6 +350,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listConsumModel;
     }
 
+    /**
+     * obtenerr de SQLite la lista de targetas de credito afilidas a un registro
+     *
+     * @param idCheck: id de registro de estadia
+     * @return ArrayList<CardModel>: lista de tarjetas de credito de un registro
+     */
     private ArrayList<CardModel> getCardModel(int idCheck) {
         ArrayList<CardModel> listCardModel = new ArrayList<>();
         Cursor cursor;
@@ -331,6 +374,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listCardModel;
     }
 
+    /**
+     * obtener de la base de datos la lista de miembros del consumo
+     *
+     * @param idConsum: id de consumo
+     * @return ArrayList<MemberModel>: lista de miembros
+     */
     private ArrayList<MemberModel> getMemberModel(int idConsum) {
         ArrayList<MemberModel> listMemberModel = new ArrayList<>();
         Cursor cursor;
@@ -350,6 +399,12 @@ public class HelperSQLiteObtain extends HelperParent {
         return listMemberModel;
     }
 
+    /**
+     * obtener de la base datos SQLite la lista de articulos entregados al ingresar
+     *
+     * @param idConsum: id de consumo
+     * @return ArrayList<ArticleModel>: lista de articulos entregados al momento del registro
+     */
     private ArrayList<ArticleModel> getArticleModel(int idConsum) {
         ArrayList<ArticleModel> listArticleModel = new ArrayList<>();
         Cursor cursor;
@@ -369,7 +424,13 @@ public class HelperSQLiteObtain extends HelperParent {
         return listArticleModel;
     }
 
-    private ArrayList<MessageModel> getMessageModel(int idMessage) {
+    /**
+     * obtener de la base deatos SQLite la lista de mensajes de un usuario
+     *
+     * @param idMessage: id de mensaje
+     * @return ArrayList<MessageModel>: idMensaje==0?lista de todos los mensjes: lista del mensaje con id requerido
+     */
+    public ArrayList<MessageModel> getMessageModel(int idMessage) {
         ArrayList<MessageModel> listMessageModel = new ArrayList<>();
         Cursor cursor;
         if (idMessage == 0) {
@@ -390,6 +451,8 @@ public class HelperSQLiteObtain extends HelperParent {
         }
         return listMessageModel;
     }
+
+
 
     private MessageModel getMessageModelCursor(Cursor cursor) {
         MessageModel messageModel = new MessageModel();

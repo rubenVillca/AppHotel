@@ -106,6 +106,9 @@
     <string name="cardview_type_money">$</string>
     <string name="cardview_food_price">0</string>
     <string name="categoria">Categoria: </string>
+    <string name="dateSendCardView">Fecha de envio:</string>
+    <string name="remitentCardView">Remitente:</string>
+    <string name="titleTextCardView">Asunto:</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

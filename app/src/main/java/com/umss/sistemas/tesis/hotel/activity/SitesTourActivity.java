@@ -21,9 +21,10 @@ public class SitesTourActivity extends ActivityParent {
         setContentView(R.layout.activity_sites_tour);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_sites_tour),true);
-        setRecyclerView();
+
+        adapterRecyclerView();
     }
-    private void setRecyclerView() {
+    private void adapterRecyclerView() {
         RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.siteTourRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);

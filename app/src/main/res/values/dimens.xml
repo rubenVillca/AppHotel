@@ -49,4 +49,6 @@
     <dimen name="marginleft_text_locationmap">5dp</dimen>
     <dimen name="paddingtop_table">20dp</dimen>
     <dimen name="padding_cardview_money">5dp</dimen>
+    <dimen name="paddingRigthTextCardView">5dp</dimen>
+    <dimen name="height_card_message">90dp</dimen>
 </resources>

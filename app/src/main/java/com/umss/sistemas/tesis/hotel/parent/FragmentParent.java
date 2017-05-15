@@ -66,13 +66,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
+
         client = new AsyncHttpClient();
         params = new RequestParams();
 
         Intent intent = null;
         switch (v.getId()) {
             case R.id.fab:
-                intent = new Intent(getActivity(), MessagesActivity.class);
+                goMessages();
                 break;
             case R.id.imageOffer:
                 goOffer();
@@ -102,6 +103,40 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    private void goMessages() {
+        helperSQLiteObtain=new HelperSQLiteObtain(getContext());
+        int idPerson= helperSQLiteObtain.getLoginModel().getIdPerson();
+
+        params.put("android", "android");
+        params.put("idPerson",idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.MESSAGES), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpMessages(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goMessageActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goMessageActivity();
+                //showProgress(false);
+            }
+        });
     }
 
     private void goServiceFood() {
@@ -136,7 +171,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     private void goServiceFoodActivity() {
-        Intent intent=new Intent(getActivity(), MenuFoodActivity.class);
+        Intent intent = new Intent(getActivity(), MenuFoodActivity.class);
         startActivity(intent);
     }
 
@@ -350,6 +385,11 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     private void goOfferActivity() {
         Intent intent = new Intent(getActivity(), OffersActivity.class);
+        startActivity(intent);
+    }
+
+    private void goMessageActivity() {
+        Intent intent = new Intent(getActivity(), MessagesActivity.class);
         startActivity(intent);
     }
 

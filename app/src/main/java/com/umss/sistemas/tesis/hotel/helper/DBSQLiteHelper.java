@@ -204,6 +204,16 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_MESSAGE_NAME_SENDER = "nameRemitenteMessage";
     static final String KEY_MESSAGE_ISACTIVE = "isActiveMessage";
 
+    static final String TABLE_ACTIVITY="activity";
+    static final String KEY_ACTIVITY_ID = "idActivity";
+    static final String KEY_ACTIVITY_DATE_START="dateStartActivity";
+    static final String KEY_ACTIVITY_DATE_END="dateEndActivity";
+    static final String KEY_ACTIVITY_TIME_START="timeStartActivity";
+    static final String KEY_ACTIVITY_TIME_END="timeEndActivity";
+    static final String KEY_ACTIVITY_NAME="nameActivity";
+    static final String KEY_ACTIVITY_DESCRIPTION="descriptionActivity";
+    static final String KEY_ACTIVITY_IMAGE="imageActivity";
+
     public DBSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -227,6 +237,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         String tableCard = getCard();
         String tableMember = getMember();
         String tableMessages = getMessages();
+        String tableActivity = getActivity();
 
         db.execSQL(tableLogin);
         db.execSQL(tablePerson);
@@ -245,6 +256,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(tableCard);
         db.execSQL(tableMember);
         db.execSQL(tableMessages);
+        db.execSQL(tableActivity);
     }
 
     @Override
@@ -267,6 +279,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_CARD);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_MEMBER);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_MESSAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_ACTIVITY);
         //se crea la nueva version de la tabla
         onCreate(db);
     }
@@ -582,6 +595,24 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_MESSAGE_EMAIL_SENDER + " TEXT,"
                 + KEY_MESSAGE_NAME_SENDER + " TEXT,"
                 + KEY_MESSAGE_ISACTIVE + " INTEGER"
+                + ")";
+    }
+
+    /**
+     * crear tabla activity
+     *
+     * @return String: tabla SQL de lista de actividades a realizar en el hotel
+     */
+    private String getActivity() {
+        return "CREATE TABLE " + TABLE_ACTIVITY + " ( "
+                + KEY_ACTIVITY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ACTIVITY_DATE_START + "TEXT,"
+                + KEY_ACTIVITY_DATE_END + "TEXT,"
+                + KEY_ACTIVITY_TIME_START + "TEXT,"
+                + KEY_ACTIVITY_TIME_END + "TEXT,"
+                + KEY_ACTIVITY_NAME + "TEXT,"
+                + KEY_ACTIVITY_DESCRIPTION + "TEXT,"
+                + KEY_ACTIVITY_IMAGE + "TEXT"
                 + ")";
     }
 }

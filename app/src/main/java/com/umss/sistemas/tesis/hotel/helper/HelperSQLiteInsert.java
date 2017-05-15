@@ -110,7 +110,7 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param obj:objeto JSON checkModel
      */
-    public void syncCheck(JSONObject obj) {
+    public void syncUpCheck(JSONObject obj) {
         ArrayList<CheckModel> checkModels = getCheckModelJSON(obj);
         insertCheckSQLite(checkModels);
     }
@@ -120,7 +120,7 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param obj:objeto JSON messaggeModel
      */
-    public void syncMessages(JSONObject obj) {
+    public void syncUpMessages(JSONObject obj) {
         ArrayList<MessageModel> messageModels = getMessageModelJSON(obj);
         insertMeessageSQLite(messageModels);
     }
@@ -147,7 +147,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 messageModel.setContent(messageObject.getString("CONTAINER_MESSAGE"));
                 messageModel.setDateRecived(messageObject.getString("DATE_MESSAGE"));
                 messageModel.setTimeRecived(messageObject.getString("TIME_MESSAGE"));
-                messageModel.setRead(messageObject.getBoolean("STATE_MESSAGE"));
+                messageModel.setRead(messageObject.getInt("STATE_MESSAGE")>0);
                 messageModel.setEmailSender(messageObject.getString("EMAIL_PERSON"));
                 messageModel.setNameSender(messageObject.getString("NAME_PERSON"));
                 messageModel.setActive(true);

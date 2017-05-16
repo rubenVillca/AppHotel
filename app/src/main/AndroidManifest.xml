@@ -180,6 +180,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.SiteTourActivity" />
         </activity>
+        <activity
+            android:name=".activity.HistoryActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ConsumeActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
     </application>
 
 </manifest>

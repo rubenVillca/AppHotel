@@ -17,7 +17,6 @@ public class HomeFragment extends FragmentParent {
 
     public HomeFragment() {}
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -57,6 +56,12 @@ public class HomeFragment extends FragmentParent {
 
         ImageView imgFoodMenu=(ImageView)view.findViewById(R.id.imageServiceFood);
         imgFoodMenu.setOnClickListener(this);
+
+        ImageView imgHistory=(ImageView)view.findViewById(R.id.imageHistory);
+        imgHistory.setOnClickListener(this);
+
+        ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
+        imgConsum.setOnClickListener(this);
     }
 
 }

@@ -13,6 +13,8 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
+import com.umss.sistemas.tesis.hotel.activity.ConsumeActivity;
+import com.umss.sistemas.tesis.hotel.activity.HistoryActivity;
 import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
 import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
 import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
@@ -73,11 +75,11 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
+        helperSQLiteObtain = new HelperSQLiteObtain(getContext());
 
         client = new AsyncHttpClient();
         params = new RequestParams();
 
-        Intent intent = null;
         switch (v.getId()) {
             case R.id.fab:
                 goMessages();
@@ -95,7 +97,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 goAbout();
                 break;
             case R.id.imageReserve:
-                intent = new Intent(getActivity(), ReserveActivity.class);
+                goReserve();
                 break;
             case R.id.imageLocationMap:
                 goLocation();
@@ -106,12 +108,125 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
             case R.id.imageServiceFood:
                 goServiceFood();
                 break;
-        }
-        if (intent != null) {
-            startActivity(intent);
+            case R.id.imageHistory:
+                goHistory();
+                break;
+            case R.id.imageConsum:
+                goConsume();
+                break;
         }
     }
+
     //****************************************GO****************************************************
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla Check
+     */
+    private void goReserve() {
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.RESERVE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goReserveActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goReserveActivity();
+                //showProgress(false);
+            }
+        });
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla Check
+     */
+    private void goConsume() {
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.RESERVE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goConsumeActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goConsumeActivity();
+                //showProgress(false);
+            }
+        });
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar la tabla Check
+     */
+    private void goHistory() {
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.RESERVE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goHistoryActivity();
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goHistoryActivity();
+                //showProgress(false);
+            }
+        });
+    }
+
     /**
      * Conectar con el webServer y sincronizar la tabla Calendar
      */
@@ -149,11 +264,10 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Messages
      */
     private void goMessages() {
-        helperSQLiteObtain=new HelperSQLiteObtain(getContext());
-        int idPerson= helperSQLiteObtain.getLoginModel().getIdPerson();
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
-        params.put("idPerson",idPerson);
+        params.put("idPerson", idPerson);
 
         client.post(Conexion.getUrlServer(Conexion.MESSAGES), params, new AsyncHttpResponseHandler() {
             @Override
@@ -390,6 +504,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     //*************************************GO_ACTIVITY**********************************************
+
     /**
      * Cambiar de activity a AboutActivity
      */
@@ -453,4 +568,29 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity(), CalendarActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * cambiar de activity a HistoryActivity
+     */
+    private void goHistoryActivity() {
+        Intent intent = new Intent(getActivity(), HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * cambiar de activity a ConsumeActivity
+     */
+    private void goConsumeActivity() {
+        Intent intent = new Intent(getActivity(), ConsumeActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * cambiar de activity a ReserveActivity
+     */
+    private void goReserveActivity() {
+        Intent intent = new Intent(getActivity(), ReserveActivity.class);
+        startActivity(intent);
+    }
+
 }

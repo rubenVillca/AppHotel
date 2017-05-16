@@ -273,7 +273,7 @@
                             android:id="@+id/imageHistory"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/image_font_island"
+                            android:background="@drawable/img_history_1"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -281,7 +281,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/label_home_icon_activity"
+                            android:text="@string/label_home_icon_history"
                             android:textAppearance="?android:attr/textAppearanceLarge" />
                     </LinearLayout>
 
@@ -296,7 +296,7 @@
                             android:id="@+id/imageConsum"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_food_3"
+                            android:background="@drawable/img_service_4"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -304,7 +304,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/label_home_icon_food"
+                            android:text="@string/label_home_icon_consume"
                             android:textAppearance="?android:attr/textAppearanceLarge" />
                     </LinearLayout>
 

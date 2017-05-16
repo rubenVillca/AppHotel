@@ -65,7 +65,7 @@
     <string name="toolbar_tittle_menu_food">Menu de comidas</string>
     <string name="toolbar_tittle_messages">Bandeja de mensajes</string>
     <string name="toolbar_tittle_offer">Lista de ofertas</string>
-    <string name="toolbar_tittle_reserve">Historial de reservas</string>
+    <string name="toolbar_tittle_reserve">Reservas</string>
     <string name="toolbar_tittle_services">Lista de servicios</string>
     <string name="toolbar_tittle_sites_tour">Sitios turisticos</string>
     <string name="content_profile_textView_name">Nombre(s):</string>
@@ -109,6 +109,10 @@
     <string name="dateSendCardView">Fecha de envio:</string>
     <string name="remitentCardView">Remitente:</string>
     <string name="titleTextCardView">Asunto:</string>
+    <string name="label_home_icon_history">Historial</string>
+    <string name="label_home_icon_consume">Consumo</string>
+    <string name="toolbar_tittle_consume">Consumo</string>
+    <string name="toolbar_tittle_history">Historial</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

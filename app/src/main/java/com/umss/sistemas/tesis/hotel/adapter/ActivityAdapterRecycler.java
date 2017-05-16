@@ -44,7 +44,7 @@ public class ActivityAdapterRecycler extends RecyclerView.Adapter<ActivityAdapte
         holder.timeEndCardView.setText(activityModel.getTimeEnd());
         holder.descriptionCardView.setText(activityModel.getDescription());
 
-        String urlImage = Conexion.urlServer+activityModel.getImage();
+        String urlImage = Conexion.urlServer + activityModel.getImage();
         if (!urlImage.isEmpty())
             Picasso.with(activity).load(urlImage).into(holder.imageCardView);
     }
@@ -72,7 +72,7 @@ public class ActivityAdapterRecycler extends RecyclerView.Adapter<ActivityAdapte
             timeStartCardView = (TextView) itemView.findViewById(R.id.timeStartActivityCardViewText);
             dateEndCardView = (TextView) itemView.findViewById(R.id.dateEndActivityCardViewText);
             timeEndCardView = (TextView) itemView.findViewById(R.id.timeEndActivityCardViewText);
-            descriptionCardView= (TextView) itemView.findViewById(R.id.descriptionActivityCardViewText);
+            descriptionCardView = (TextView) itemView.findViewById(R.id.descriptionActivityCardViewText);
             imageCardView = (ImageView) itemView.findViewById(R.id.imageActivityCardView);
         }
     }

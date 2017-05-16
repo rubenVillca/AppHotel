@@ -40,21 +40,20 @@
                         android:padding="@dimen/padding_homefragment_icon">
 
                         <ImageButton
-                            android:id="@+id/imageOffer"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/imageAboutHotel"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_offer_3"
+                            android:background="@drawable/img_about_1"
                             android:contentDescription="@string/description_logo" />
 
-
                         <TextView
-                            android:id="@+id/textOffer"
+                            android:id="@+id/textAboutHotel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/label_home_icon_offer"
+                            android:maxLines="3"
+                            android:text="@string/label_home_icon_about"
                             android:textAppearance="?android:attr/textAppearanceLarge" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -68,7 +67,7 @@
                             android:id="@+id/imageSiteTour"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_tour"
+                            android:background="@drawable/img_turismo_1"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -105,7 +104,7 @@
                                 android:id="@+id/imageService"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dimen_home_icon_heigth"
-                                android:background="@drawable/img_service"
+                                android:background="@drawable/img_service_1"
                                 android:contentDescription="@string/description_logo" />
                         </LinearLayout>
 
@@ -126,20 +125,21 @@
                         android:padding="@dimen/padding_homefragment_icon">
 
                         <ImageButton
-                            android:id="@+id/imageAboutHotel"
-                            android:layout_width="match_parent"
+                            android:id="@+id/imageOffer"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_about"
+                            android:background="@drawable/img_offer_3"
                             android:contentDescription="@string/description_logo" />
 
+
                         <TextView
-                            android:id="@+id/textAboutHotel"
+                            android:id="@+id/textOffer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/label_home_icon_about"
+                            android:text="@string/label_home_icon_offer"
                             android:textAppearance="?android:attr/textAppearanceLarge" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -162,7 +162,7 @@
                             android:id="@+id/imageReserve"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_reserve"
+                            android:background="@drawable/img_reserve_1"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -185,7 +185,7 @@
                             android:id="@+id/imageLocationMap"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_maps"
+                            android:background="@drawable/img_maps_4"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -218,7 +218,7 @@
                             android:id="@+id/imageActivity"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_calendar"
+                            android:background="@drawable/img_calendar_1"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
@@ -246,6 +246,61 @@
 
                         <TextView
                             android:id="@+id/textServiceFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_food"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/image_font_island"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_home_icon_activity"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_homefragment_icon">
+
+                        <ImageButton
+                            android:id="@+id/imageConsum"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_home_icon_heigth"
+                            android:background="@drawable/img_food_3"
+                            android:contentDescription="@string/description_logo" />
+
+                        <TextView
+                            android:id="@+id/textConsum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"

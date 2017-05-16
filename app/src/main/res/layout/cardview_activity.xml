@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/height_card_service"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/img_lago"
+                android:background="@drawable/image_font_island"
                 android:contentDescription="@string/description_logo"
                 android:scaleType="centerCrop" />
 

@@ -46,7 +46,7 @@
     <string name="transicionname_picture">transicionnamepicture</string>
     <string name="btn_message">Mensajes</string>
     <string name="label_home_icon_offer">Ofertas</string>
-    <string name="label_home_icon_site_tour">Sitios Turísticos</string>
+    <string name="label_home_icon_site_tour">Lugares Turísticos</string>
     <string name="label_home_icon_service">Servicios</string>
     <string name="label_home_icon_about">Acerca de nosotros</string>
     <string name="label_home_icon_reserve">Reservas</string>

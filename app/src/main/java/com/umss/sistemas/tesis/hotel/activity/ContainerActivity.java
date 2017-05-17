@@ -87,6 +87,8 @@ public class ContainerActivity extends ActivityParent {
     }
 
     private void goProfileFragment() {
+        helperSQLiteInsert=new HelperSQLiteInsert(this);
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 

@@ -273,7 +273,7 @@
                             android:id="@+id/imageHistory"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_history_1"
+                            android:background="@drawable/img_history_3"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView

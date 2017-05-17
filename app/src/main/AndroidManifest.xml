@@ -199,6 +199,7 @@
         <activity
             android:name=".activity.ComplaintsActivity"
             android:parentActivityName=".activity.ContainerActivity"
+            android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -207,6 +208,7 @@
         <activity
             android:name=".activity.SuggestionActivity"
             android:parentActivityName=".activity.ContainerActivity"
+            android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

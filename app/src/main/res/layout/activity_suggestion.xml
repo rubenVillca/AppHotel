@@ -13,7 +13,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/colorPrimaryLight"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/suggestion_form" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:padding="@dimen/padding_horizontal_fragment"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/suggestionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:background="@android:color/white"
+                    android:enabled="true"
+                    android:lines="8"
+                    android:minHeight="250dp"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_send"
+                    android:background="@color/colorPrimaryDark"
+                    android:id="@+id/btnSuggestionSend" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

@@ -2,7 +2,9 @@ package com.umss.sistemas.tesis.hotel.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;

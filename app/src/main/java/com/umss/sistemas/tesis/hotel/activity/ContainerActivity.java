@@ -1,8 +1,11 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -36,7 +39,7 @@ public class ContainerActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
 
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
         obtainDataBundle();
         setActionBottomBar();
     }
@@ -128,5 +131,41 @@ public class ContainerActivity extends ActivityParent {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        helperSQLiteInsert = new HelperSQLiteInsert(this);
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                intent=new Intent(this,SettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_complaints:
+                intent=new Intent(this,ComplaintsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_suggestion:
+                intent=new Intent(this,SuggestionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_frequently:
+                break;
+            case R.id.action_logout:
+                helperSQLiteInsert.logoutAction();
+                intent=new Intent(this,LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
 }

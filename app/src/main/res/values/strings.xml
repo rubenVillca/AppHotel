@@ -113,6 +113,15 @@
     <string name="label_home_icon_consume">Consumo</string>
     <string name="toolbar_tittle_consume">Consumo</string>
     <string name="toolbar_tittle_history">Historial</string>
+    <string name="action_title_menu">Hotel</string>
+    <string name="action_title_settings">Configurar</string>
+    <string name="action_title_logout">Cerrar Sesión</string>
+    <string name="action_title_frequently">Preguntas frecuentes</string>
+    <string name="action_title_suggestion">Sugerencias</string>
+    <string name="action_title_complaints">Quejas</string>
+    <string name="toolbar_tittle_complaints">Enviar Quejas</string>
+    <string name="toolbar_tittle_suggestion">Enviar sugerencias</string>
+    <string name="toolbar_tittle_settings">Configuraciones</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

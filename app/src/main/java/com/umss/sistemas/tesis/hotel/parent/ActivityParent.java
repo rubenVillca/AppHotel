@@ -63,6 +63,8 @@ public class ActivityParent extends AppCompatActivity {
     protected void onDestroy() {
         if (helperSQLiteInsert !=null)
             helperSQLiteInsert.destroy();
+        if (helperSQLiteObtain!=null)
+            helperSQLiteObtain.destroy();
         super.onDestroy();
     }
 }

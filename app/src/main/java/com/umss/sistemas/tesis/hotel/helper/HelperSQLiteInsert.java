@@ -1173,4 +1173,13 @@ public class HelperSQLiteInsert extends HelperParent {
                 System.out.println("Ocurrio un error al inserar la consulta activityModel");
         }
     }
+
+    //**********************************************************************************************
+
+    /**
+     * cerrar session del usuario, cambiar el estado de la tabla logout
+     */
+    public void logoutAction() {
+        db.execSQL("UPDATE " + DBSQLiteHelper.TABLE_LOGIN + " SET " + DBSQLiteHelper.KEY_LOGIN_STATE + "=0");
+    }
 }

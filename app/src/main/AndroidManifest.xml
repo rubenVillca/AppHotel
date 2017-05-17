@@ -138,7 +138,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -190,6 +190,30 @@
         </activity>
         <activity
             android:name=".activity.ConsumeActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ComplaintsActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SuggestionActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
             <meta-data

@@ -200,6 +200,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 messageModel.setRead(messageObject.getInt("STATE_MESSAGE") > 0);
                 messageModel.setEmailSender(messageObject.getString("EMAIL_PERSON"));
                 messageModel.setNameSender(messageObject.getString("NAME_PERSON"));
+                messageModel.setType(messageObject.getString("NAME_TYPE_MESSAGE"));
                 messageModel.setActive(true);
 
                 messagesModel.add(messageModel);
@@ -1138,13 +1139,14 @@ public class HelperSQLiteInsert extends HelperParent {
             ContentValues contentValues = new ContentValues();
 
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ID, messageModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TITTLE, messageModel.getId());
+            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TITTLE, messageModel.getTittle());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_CONTENT, messageModel.getContent());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_DATE_RECIVED, messageModel.getDateRecived());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TIME_RECIVED, messageModel.getTimeRecived());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISREAD, messageModel.isRead());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_EMAIL_SENDER, messageModel.getEmailSender());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_NAME_SENDER, messageModel.getNameSender());
+            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TYPE,messageModel.getType());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISACTIVE, true);
 
             if (db.insert(DBSQLiteHelper.TABLE_MESSAGE, null, contentValues) == -1)

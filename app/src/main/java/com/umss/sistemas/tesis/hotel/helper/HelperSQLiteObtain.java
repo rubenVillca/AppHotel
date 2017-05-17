@@ -508,6 +508,7 @@ public class HelperSQLiteObtain extends HelperParent {
         messageModel.setEmailSender(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_MESSAGE_EMAIL_SENDER)));
         messageModel.setNameSender(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_MESSAGE_NAME_SENDER)));
         messageModel.setActive(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_MESSAGE_ISACTIVE)) > 0);
+        messageModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_MESSAGE_TYPE)));
 
         return messageModel;
     }

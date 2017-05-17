@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 39;
+    public static final int DATABASE_VERSION = 41;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -202,6 +202,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_MESSAGE_EMAIL_SENDER = "emailRemitenteMessage";
     static final String KEY_MESSAGE_NAME_SENDER = "nameRemitenteMessage";
     static final String KEY_MESSAGE_ISACTIVE = "isActiveMessage";
+    static final String KEY_MESSAGE_TYPE = "typeMessage";
 
     static final String TABLE_ACTIVITY="calendar";
     static final String KEY_ACTIVITY_ID = "idActivity";
@@ -593,6 +594,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_MESSAGE_ISREAD + " INTEGER,"
                 + KEY_MESSAGE_EMAIL_SENDER + " TEXT,"
                 + KEY_MESSAGE_NAME_SENDER + " TEXT,"
+                + KEY_MESSAGE_TYPE + " TEXT,"
                 + KEY_MESSAGE_ISACTIVE + " INTEGER"
                 + ")";
     }

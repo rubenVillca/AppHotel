@@ -13,6 +13,7 @@ public class MessageModel extends ModelParent {
     private String emailSender;
     private String nameSender;
     private boolean isActive;
+    private String type;
 
     public MessageModel() {
         this.id = 0;
@@ -24,6 +25,15 @@ public class MessageModel extends ModelParent {
         this.emailSender = "";
         this.nameSender = "";
         this.isActive = false;
+        this.type="";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getId() {

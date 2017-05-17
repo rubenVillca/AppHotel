@@ -3,22 +3,12 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/messageCard"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_card_message"
+    android:layout_height="wrap_content"
     cardview:cardCornerRadius="@dimen/corner_radius_cardview">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageOfferCardView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_card_message"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorPrimaryLight"
-            android:scaleType="centerCrop"
-            android:transitionName="@string/transicionname_picture" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,6 +16,7 @@
             android:layout_gravity="bottom"
             android:background="@color/backgroundCard"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             android:paddingLeft="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_vertical_margin">
 

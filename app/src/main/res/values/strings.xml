@@ -123,6 +123,7 @@
     <string name="toolbar_tittle_suggestion">Enviar sugerencias</string>
     <string name="toolbar_tittle_settings">Configuraciones</string>
     <string name="action_send">Enviar Mensaje</string>
+    <string name="btn_create_account">Crear Cuenta</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

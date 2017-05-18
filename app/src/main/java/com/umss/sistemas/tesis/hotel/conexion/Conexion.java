@@ -2,7 +2,7 @@ package com.umss.sistemas.tesis.hotel.conexion;
 
 public class Conexion {
     public static final int LOGIN=0;
-    public static final int REGISTER=1;
+    public static final int CREATE_ACCOUNT =1;
     public static final int PROFILE=2;
     public static final int INFO=3;
     public static final int COMPLAINTS=4;
@@ -24,7 +24,7 @@ public class Conexion {
     private static String dirUser="hotel/";
     private static String[] pagina={
                                     "login",
-                                    "register",
+                                    "createAccount",
                                     "profile",
                                     "info",
                                     "complaints",

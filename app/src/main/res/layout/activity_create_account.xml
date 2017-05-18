@@ -135,6 +135,14 @@
                     android:checked="false" />
             </RadioGroup>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCreateAcount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_create_accout"
+                android:background="@color/colorPrimary"
+                android:text="@string/btn_create_account"/>
         </LinearLayout>
 
     </ScrollView>

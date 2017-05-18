@@ -58,8 +58,8 @@
     <string name="tab_activity">Calendario de actividades</string>
     <string name="tab_menu_food">Menu</string>
     <string name="tab_about">Acerca de nosotros</string>
-    <string name="tab_frequently">Dudas</string>
-    <string name="tab_message_new">Enviar Mensaje</string>
+    <string name="tab_frequently">Preguntas frecuentes</string>
+    <string name="tab_message_new">Contactenos</string>
     <string name="toolbar_tittle_about">Acerca de nosotros</string>
     <string name="toolbar_tittle_calendar">Calendario de actividades</string>
     <string name="toolbar_tittle_menu_food">Menu de comidas</string>

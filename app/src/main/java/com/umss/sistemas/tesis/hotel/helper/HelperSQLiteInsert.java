@@ -2,14 +2,13 @@ package com.umss.sistemas.tesis.hotel.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
+import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
@@ -136,6 +135,16 @@ public class HelperSQLiteInsert extends HelperParent {
     public void syncUpCalendar(JSONObject obj) {
         ArrayList<ActivityModel> activityModelArrayList = getActivityModelJSON(obj);
         insertActivitySQLite(activityModelArrayList);
+    }
+
+    /**
+     * sincornizar webserver con SQLite la lista de preguntas fecuentes
+     *
+     * @param obj: objeto JSON con los datos del modelo FrequenltyModel
+     */
+    public void syncUpFrequently(JSONObject obj) {
+        ArrayList<FrequentlyModel> frequentlyModelArrayList = getFrequentlyJSON(obj);
+        insertFrequenltySQLite(frequentlyModelArrayList);
     }
 
     //**************************************MODEL_JSON**********************************************
@@ -708,21 +717,22 @@ public class HelperSQLiteInsert extends HelperParent {
                 memberModel.setIdKeyConsum(memberObject.getInt("ID_CONSUME_SERVICE"));
                 memberModel.setIdKeyCheck(memberObject.getInt("ID_CHECK"));
                 memberModel.setTypeMember(memberObject.getString(""));
-                memberModel.setIdPerson(obj.getInt("ID_PERSON"));
-                memberModel.setEmailPerson(obj.getString("EMAIL_PERSON"));
-                memberModel.setNamePerson(obj.getString("NAME_PERSON"));
-                memberModel.setNameLastPerson(obj.getString("NAME_LAST_PERSON"));
-                memberModel.setSexPerson((byte) obj.getInt("SEX_PERSON"));
-                memberModel.setPointPerson(obj.getInt("POINT_PERSON"));
-                memberModel.setCityPerson(obj.getString("CITY_PERSON"));
-                memberModel.setCountryPerson(obj.getString("COUNTRY_PERSON"));
-                memberModel.setDateBornPerson(obj.getString("DATE_BORN_PERSON"));
-                memberModel.setDateRegisterPerson(obj.getString("DATE_REGISTER_PERSON"));
-                memberModel.setAddressPerson(obj.getString("ADDRESS_PERSON"));
-                memberModel.setImgPerson(obj.getString("IMAGE_PROFILE_PERSON"));
-                memberModel.setNumberPhone(obj.getInt("NUMBER_PHONE_PERSON"));
-                memberModel.setNumberDocument(obj.getInt("NUMBER_DOCUMENT_PERSON"));
-                memberModel.setTypeDocument(obj.getString("TYPE_DOCUMENT_PERSON"));
+                memberModel.setIdPerson(memberObject.getInt("ID_PERSON"));
+                memberModel.setEmailPerson(memberObject.getString("EMAIL_PERSON"));
+                memberModel.setNamePerson(memberObject.getString("NAME_PERSON"));
+                memberModel.setNameLastPerson(memberObject.getString("NAME_LAST_PERSON"));
+                memberModel.setSexPerson((byte) memberObject.getInt("SEX_PERSON"));
+                memberModel.setPointPerson(memberObject.getInt("POINT_PERSON"));
+                memberModel.setCityPerson(memberObject.getString("CITY_PERSON"));
+                memberModel.setCountryPerson(memberObject.getString("COUNTRY_PERSON"));
+                memberModel.setDateBornPerson(memberObject.getString("DATE_BORN_PERSON"));
+                memberModel.setDateRegisterPerson(memberObject.getString("DATE_REGISTER_PERSON"));
+                memberModel.setAddressPerson(memberObject.getString("ADDRESS_PERSON"));
+                memberModel.setImgPerson(memberObject.getString("IMAGE_PROFILE_PERSON"));
+                memberModel.setNumberPhone(memberObject.getInt("NUMBER_PHONE_PERSON"));
+                memberModel.setNumberDocument(memberObject.getInt("NUMBER_DOCUMENT_PERSON"));
+                memberModel.setTypeDocument(memberObject.getString("TYPE_DOCUMENT_PERSON"));
+
                 memberArray.add(memberModel);
             }
         } catch (JSONException e) {
@@ -730,6 +740,34 @@ public class HelperSQLiteInsert extends HelperParent {
         }
 
         return memberArray;
+    }
+
+    private ArrayList<FrequentlyModel> getFrequentlyJSON(JSONObject obj) {
+        ArrayList<FrequentlyModel> frequentlyModelArrayList = new ArrayList<>();
+
+        try {
+            JSONArray fequentlyJSONArray = obj.getJSONArray("frequently");
+
+            for (int j = 0; j < fequentlyJSONArray.length(); j++) {
+                FrequentlyModel frequentlyModel = new FrequentlyModel();
+
+                JSONObject frequentlyObject = fequentlyJSONArray.getJSONObject(j);
+
+                frequentlyModel.setId(frequentlyObject.getInt("ID_QUESTION"));
+                frequentlyModel.setIdInquest(frequentlyObject.getInt("ID_INQUEST"));
+                frequentlyModel.setNameInquest(frequentlyObject.getString("NAME_INQUEST"));
+                frequentlyModel.setQuestion(frequentlyObject.getString("DESCRIPTION_QUESTION"));
+                frequentlyModel.setResponse(frequentlyObject.getString("DESCRIPTION_RESPONSE"));
+                frequentlyModel.setTypeInquest(frequentlyObject.getInt("VALUE_STATE_INQUEST"));//no necesario
+                frequentlyModel.setActive(frequentlyObject.getInt("ACTIVE_QUESTION") > 0);
+
+                frequentlyModelArrayList.add(frequentlyModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return frequentlyModelArrayList;
     }
 
     //*****************************************INSERT_SQLITE****************************************
@@ -1014,6 +1052,13 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param checkModels:lista de registros formato JAVa
      */
     private void insertCheckSQLite(ArrayList<CheckModel> checkModels) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CHECK);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUM);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CARD);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ARTICLE);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MEMBER);
+
+
         for (CheckModel checkModel : checkModels) {
             ContentValues checkContent = new ContentValues();
 
@@ -1135,6 +1180,8 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param messageModels: lista de mensajes recibidos
      */
     private void insertMessageSQLite(ArrayList<MessageModel> messageModels) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MESSAGE);
+
         for (MessageModel messageModel : messageModels) {
             ContentValues contentValues = new ContentValues();
 
@@ -1146,7 +1193,7 @@ public class HelperSQLiteInsert extends HelperParent {
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISREAD, messageModel.isRead());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_EMAIL_SENDER, messageModel.getEmailSender());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_NAME_SENDER, messageModel.getNameSender());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TYPE,messageModel.getType());
+            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TYPE, messageModel.getType());
             contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISACTIVE, true);
 
             if (db.insert(DBSQLiteHelper.TABLE_MESSAGE, null, contentValues) == -1)
@@ -1161,6 +1208,8 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param activityModelArrayList: lista de actividades
      */
     private void insertActivitySQLite(ArrayList<ActivityModel> activityModelArrayList) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ACTIVITY);
+
         for (ActivityModel activityModel : activityModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
@@ -1178,6 +1227,29 @@ public class HelperSQLiteInsert extends HelperParent {
         }
     }
 
+    /**
+     * almacenar en SQLite la lista de preguntas
+     *
+     * @param frequentlyModelArrayList: lista de preguntas
+     */
+    private void insertFrequenltySQLite(ArrayList<FrequentlyModel> frequentlyModelArrayList) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_FREQUENTLY);
+
+        for (FrequentlyModel frequentlyModel : frequentlyModelArrayList) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_ID, frequentlyModel.getId());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_ID_INQUEST, frequentlyModel.getIdInquest());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_NAME_INQUEST, frequentlyModel.getNameInquest());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_QUESTION, frequentlyModel.getQuestion());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_RESPONSE, frequentlyModel.getResponse());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_TYPE_INQUEST, frequentlyModel.getTypeInquest());
+            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_IS_ACTIVE, frequentlyModel.isActive());
+
+            if (db.insert(DBSQLiteHelper.TABLE_FREQUENTLY, null, contentValues) == -1)
+                System.out.println("Ocurrio un error al inserar la consulta frequenltyModel");
+        }
+    }
     //**********************************************************************************************
 
     /**

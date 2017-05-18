@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 41;
+    public static final int DATABASE_VERSION = 42;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -204,15 +204,25 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_MESSAGE_ISACTIVE = "isActiveMessage";
     static final String KEY_MESSAGE_TYPE = "typeMessage";
 
-    static final String TABLE_ACTIVITY="calendar";
+    static final String TABLE_ACTIVITY = "calendar";
     static final String KEY_ACTIVITY_ID = "idActivity";
-    static final String KEY_ACTIVITY_DATE_START="dateStartActivity";
-    static final String KEY_ACTIVITY_DATE_END="dateEndActivity";
-    static final String KEY_ACTIVITY_TIME_START="timeStartActivity";
-    static final String KEY_ACTIVITY_TIME_END="timeEndActivity";
-    static final String KEY_ACTIVITY_NAME="nameActivity";
-    static final String KEY_ACTIVITY_DESCRIPTION="descriptionActivity";
-    static final String KEY_ACTIVITY_IMAGE="imageActivity";
+    static final String KEY_ACTIVITY_DATE_START = "dateStartActivity";
+    static final String KEY_ACTIVITY_DATE_END = "dateEndActivity";
+    static final String KEY_ACTIVITY_TIME_START = "timeStartActivity";
+    static final String KEY_ACTIVITY_TIME_END = "timeEndActivity";
+    static final String KEY_ACTIVITY_NAME = "nameActivity";
+    static final String KEY_ACTIVITY_DESCRIPTION = "descriptionActivity";
+    static final String KEY_ACTIVITY_IMAGE = "imageActivity";
+
+    static final String TABLE_FREQUENTLY = "fequently";
+    static final String KEY_FREQUENTLY_ID = "idFrequently";
+    static final String KEY_FREQUENTLY_ID_INQUEST = "idInquestFrequently";
+    static final String KEY_FREQUENTLY_NAME_INQUEST = "nameInquestFrequently";
+    static final String KEY_FREQUENTLY_QUESTION = "questionFrequently";
+    static final String KEY_FREQUENTLY_RESPONSE = "responseFrequently";
+    static final String KEY_FREQUENTLY_TYPE_INQUEST = "isFrequentlyFrequently";
+    static final String KEY_FREQUENTLY_IS_ACTIVE = "isActiveFrequently";
+
 
     public DBSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -220,43 +230,25 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String tableLogin = getTableLogin();
-        String tablePerson = getTablePerson();
-        String tableAbout = getTableAbout();
-        String tableService = getTableService();
-        String tableServicePrice = getTableServicePrice();
-        String tableSiteTour = getTableSiteTour();
-        String tableSiteTourImage = getTableSiteTourImage();
-        String tableOffer = getTableOffer();
-        String tableFood = getFood();
-        String tableFoodMenu = getFoodMenu();
-        String tableFoodPrice = getFoodPrice();
-        String tableCheck = getCheck();
-        String tableConsum = getConsum();
-        String tableArticle = getArticle();
-        String tableCard = getCard();
-        String tableMember = getMember();
-        String tableMessages = getMessages();
-        String tableActivity = getActivity();
-
-        db.execSQL(tableLogin);
-        db.execSQL(tablePerson);
-        db.execSQL(tableAbout);
-        db.execSQL(tableServicePrice);
-        db.execSQL(tableService);
-        db.execSQL(tableSiteTour);
-        db.execSQL(tableSiteTourImage);
-        db.execSQL(tableOffer);
-        db.execSQL(tableFood);
-        db.execSQL(tableFoodMenu);
-        db.execSQL(tableFoodPrice);
-        db.execSQL(tableCheck);
-        db.execSQL(tableConsum);
-        db.execSQL(tableArticle);
-        db.execSQL(tableCard);
-        db.execSQL(tableMember);
-        db.execSQL(tableMessages);
-        db.execSQL(tableActivity);
+        db.execSQL(getTableLogin());
+        db.execSQL(getTablePerson());
+        db.execSQL(getTableAbout());
+        db.execSQL(getTableServicePrice());
+        db.execSQL(getTableService());
+        db.execSQL(getTableSiteTour());
+        db.execSQL(getTableSiteTourImage());
+        db.execSQL(getTableOffer());
+        db.execSQL(getTableFood());
+        db.execSQL(getTableFoodMenu());
+        db.execSQL(getTableFoodPrice());
+        db.execSQL(getTableCheck());
+        db.execSQL(getTableConsum());
+        db.execSQL(getTableArticle());
+        db.execSQL(getTableCard());
+        db.execSQL(getTableMember());
+        db.execSQL(getTableMessages());
+        db.execSQL(getTableActivity());
+        db.execSQL(getTableFrequently());
     }
 
     @Override
@@ -280,6 +272,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_MEMBER);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_MESSAGE);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_ACTIVITY);
+        db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_FREQUENTLY);
         //se crea la nueva version de la tabla
         onCreate(db);
     }
@@ -447,7 +440,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de comidas
      */
-    private String getFood() {
+    private String getTableFood() {
         return "CREATE TABLE " + TABLE_FOOD + " ( "
                 + KEY_FOOD_MENU_ID_AUTOINCREMENT + " INTEGER PRIMARY KEY,"
                 + KEY_FOOD_ID + " INTEGER,"
@@ -465,7 +458,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tablaSQL de alimentos que ofrec el menu del hotel
      */
-    private String getFoodMenu() {
+    private String getTableFoodMenu() {
         return "CREATE TABLE " + TABLE_FOOD_MENU + " ( "
                 + KEY_FOOD_MENU_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FOOD_MENU_NAME + " TEXT,"
@@ -479,7 +472,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de los precios de las comidas
      */
-    private String getFoodPrice() {
+    private String getTableFoodPrice() {
         return "CREATE TABLE " + TABLE_FOOD_PRICE + " ( "
                 + KEY_FOOD_PRICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_FOOD_PRICE_IDKEYFOOD + " INTEGER,"
@@ -495,7 +488,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de registros dechekIn en el hotel
      */
-    private String getCheck() {
+    private String getTableCheck() {
         return "CREATE TABLE " + TABLE_CHECK + " ( "
                 + KEY_CHECK_ID + " INTEGER PRIMARY KEY,"
                 + KEY_CHECK_STATE + " INTEGER,"
@@ -512,7 +505,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de consumo del cliente
      */
-    private String getConsum() {
+    private String getTableConsum() {
         return "CREATE TABLE " + TABLE_CONSUM + " ( "
                 + KEY_CONSUM_ID + " INTEGER PRIMARY KEY,"
                 + KEY_CONSUM_DATE_START + " TEXT,"
@@ -534,7 +527,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de lista de articulos
      */
-    private String getArticle() {
+    private String getTableArticle() {
         return "CREATE TABLE " + TABLE_ARTICLE + " ( "
                 + KEY_ARTICLE_ID + " INTEGER PRIMARY KEY,"
                 + KEY_ARTICLE_ID_KEY_CONSUM + " INTEGER,"
@@ -549,7 +542,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de targetas de credito
      */
-    private String getCard() {
+    private String getTableCard() {
         return "CREATE TABLE " + TABLE_CARD + " ( "
                 + KEY_CARD_ID + " INTEGER PRIMARY KEY,"
                 + KEY_CARD_ID_KEY_CHECK + " INTEGER,"
@@ -569,7 +562,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de lista de clientes registrado en un check
      */
-    private String getMember() {
+    private String getTableMember() {
         return "CREATE TABLE " + TABLE_MEMBER + " ( "
                 + KEY_MEMBER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_MEMBER_TYPE_MEMBER + " TEXT,"
@@ -584,7 +577,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de lista de mensages recividos del usuario
      */
-    private String getMessages() {
+    private String getTableMessages() {
         return "CREATE TABLE " + TABLE_MESSAGE + " ( "
                 + KEY_MESSAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_MESSAGE_TITTLE + " TEXT,"
@@ -604,7 +597,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      *
      * @return String: tabla SQL de lista de actividades a realizar en el hotel
      */
-    private String getActivity() {
+    private String getTableActivity() {
         return "CREATE TABLE " + TABLE_ACTIVITY + " ( "
                 + KEY_ACTIVITY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_ACTIVITY_DATE_START + " TEXT,"
@@ -614,6 +607,23 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_ACTIVITY_NAME + " TEXT,"
                 + KEY_ACTIVITY_DESCRIPTION + " TEXT,"
                 + KEY_ACTIVITY_IMAGE + " TEXT"
+                + ")";
+    }
+
+    /**
+     * crear tabla activity
+     *
+     * @return String: tabla SQL de lista de preguntas frequentes sobre el hotel
+     */
+    private String getTableFrequently() {
+        return "CREATE TABLE " + TABLE_FREQUENTLY + " ( "
+                + KEY_FREQUENTLY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_FREQUENTLY_ID_INQUEST + " INTEGER,"
+                + KEY_FREQUENTLY_NAME_INQUEST + " TEXT,"
+                + KEY_FREQUENTLY_QUESTION + " TEXT,"
+                + KEY_FREQUENTLY_RESPONSE + " TEXT,"
+                + KEY_FREQUENTLY_TYPE_INQUEST + " INTEGER,"
+                + KEY_FREQUENTLY_IS_ACTIVE + " INTEGER"
                 + ")";
     }
 }

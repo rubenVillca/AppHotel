@@ -12,6 +12,7 @@ import com.umss.sistemas.tesis.hotel.model.ConsumModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
+import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
@@ -480,6 +481,36 @@ public class HelperSQLiteObtain extends HelperParent {
         return listActivityModel;
     }
 
+    /**
+     * obtener de SQLite la lista de preguntas ferquentes, si idFrequently=0 entonces
+     * lista de todas las pregutnas,
+     * si idFrequently>0 entonces devolver la pregunta con el id indicado
+     *
+     * @param idFrequently:id de pregunta
+     * @return Array: lista de preguntas frequentes
+     */
+    public ArrayList<FrequentlyModel> getFrequentlyModel(int idFrequently) {
+        ArrayList<FrequentlyModel> listFrequentlyModel = new ArrayList<>();
+        Cursor cursor;
+        if (idFrequently > 0) {
+            cursor = db.rawQuery("select *"
+                    + " from " + DBSQLiteHelper.TABLE_FREQUENTLY
+                    + " where " + DBSQLiteHelper.KEY_FREQUENTLY_ID + "=" + idFrequently, null);
+        } else {
+            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_FREQUENTLY, null);
+        }
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                FrequentlyModel frequentlyModel = getFrequentlyModelCursor(cursor);
+                listFrequentlyModel.add(frequentlyModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listFrequentlyModel;
+
+    }
+
     //*****************************************GET_MODEL_CURSOR*************************************
     private ActivityModel getActivityModelCursor(Cursor cursor) {
         ActivityModel activityModel = new ActivityModel();
@@ -766,5 +797,19 @@ public class HelperSQLiteObtain extends HelperParent {
         checkModel.setTimeEnd(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_TIME_END)));
 
         return checkModel;
+    }
+
+    private FrequentlyModel getFrequentlyModelCursor(Cursor cursor) {
+        FrequentlyModel frequentlyModel = new FrequentlyModel();
+
+        frequentlyModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_ID)));
+        frequentlyModel.setIdInquest(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_ID_INQUEST)));
+        frequentlyModel.setNameInquest(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_NAME_INQUEST)));
+        frequentlyModel.setQuestion(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_QUESTION)));
+        frequentlyModel.setResponse(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_RESPONSE)));
+        frequentlyModel.setTypeInquest(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_TYPE_INQUEST)));
+        frequentlyModel.setActive(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_IS_ACTIVE)) > 0);
+
+        return frequentlyModel;
     }
 }

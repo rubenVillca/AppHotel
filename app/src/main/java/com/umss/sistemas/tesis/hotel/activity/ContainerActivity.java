@@ -16,7 +16,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.fragments.FrequentlyFragment;
 import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
-import com.umss.sistemas.tesis.hotel.fragments.MessageSendFragment;
+import com.umss.sistemas.tesis.hotel.fragments.ContactFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
 import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
@@ -76,10 +76,10 @@ public class ContainerActivity extends ActivityParent {
                         goFragment(new SearchFragment());
                         break;
                     case R.id.tabMessajeSend:
-                        goFragment(new MessageSendFragment());
+                        goFragment(new ContactFragment());
                         break;
                     case R.id.tabFrequently:
-                        goFragment(new FrequentlyFragment());
+                        goFrequentlyFragment();
                         break;
                 }
             }
@@ -115,6 +115,40 @@ public class ContainerActivity extends ActivityParent {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goFragment(new ProfileFragment());
+                //showProgress(false);
+                System.out.println("Servidor no esta disponible");
+            }
+        });
+    }
+
+    private void goFrequentlyFragment(){
+        helperSQLiteInsert=new HelperSQLiteInsert(this);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("android", "android");
+
+        client.post(Conexion.getUrlServer(Conexion.FREQUENTLY), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpFrequently(obj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Servidor no disponible");
+                }
+                goFragment(new FrequentlyFragment());
+                //showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goFragment(new FrequentlyFragment());
                 //showProgress(false);
                 System.out.println("Servidor no esta disponible");
             }

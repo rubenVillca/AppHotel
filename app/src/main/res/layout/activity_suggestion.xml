@@ -35,6 +35,8 @@
                     android:background="@android:color/white"
                     android:enabled="true"
                     android:lines="8"
+                    android:gravity="top"
+                    android:hint="Sugerencia"
                     android:minHeight="250dp"
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"/>

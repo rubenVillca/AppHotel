@@ -3,26 +3,34 @@ package com.umss.sistemas.tesis.hotel.model;
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
 /**
- * Created by ruben on 04/05/2017.
+ * Created by ruben on 04/05/2017
  */
 
 public class FrequentlyModel extends ModelParent {
     private int id;
     private int idInquest;
-    private String type;
+    private String nameInquest;
     private String question;
     private String response;
-    private boolean isFrequently;
+    private int typeInquest;
     private boolean isActive;
 
     public FrequentlyModel() {
         this.id = 0;
         this.idInquest = 0;
-        this.type = "";
+        this.nameInquest = "";
         this.question = "";
         this.response = "";
-        this.isFrequently = false;
+        this.typeInquest = 0;
         this.isActive = false;
+    }
+
+    public String getNameInquest() {
+        return nameInquest;
+    }
+
+    public void setNameInquest(String nameInquest) {
+        this.nameInquest = nameInquest;
     }
 
     public int getId() {
@@ -41,14 +49,6 @@ public class FrequentlyModel extends ModelParent {
         this.idInquest = idInquest;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getQuestion() {
         return question;
     }
@@ -65,12 +65,12 @@ public class FrequentlyModel extends ModelParent {
         this.response = response;
     }
 
-    public boolean isFrequently() {
-        return isFrequently;
+    public int getTypeInquest() {
+        return typeInquest;
     }
 
-    public void setFrequently(boolean frequently) {
-        isFrequently = frequently;
+    public void setTypeInquest(int typeInquest) {
+        this.typeInquest = typeInquest;
     }
 
     public boolean isActive() {

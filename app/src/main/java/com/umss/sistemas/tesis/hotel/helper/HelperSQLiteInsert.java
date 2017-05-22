@@ -8,16 +8,19 @@ import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
+import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
@@ -317,7 +320,6 @@ public class HelperSQLiteInsert extends HelperParent {
 
         } catch (JSONException e) {
             System.out.println("Error: Objeto no convertible, " + e.toString());
-
             e.printStackTrace();
         }
 
@@ -598,8 +600,10 @@ public class HelperSQLiteInsert extends HelperParent {
                 checkModel.setTimeIn(checkObject.getString("TIME_START_CHECK"));
                 checkModel.setDateEnd(checkObject.getString("DATE_END_CHECK"));
                 checkModel.setTimeEnd(checkObject.getString("TIME_END_CHECK"));
+
                 checkModel.setCardTargetArrayList(getCardModelJSON(checkObject));
-                checkModel.setConsumModelArrayList(getConsumModelJSON(checkObject));
+                checkModel.setConsumeModelArrayList(getConsumeModelJSON(checkObject));
+                checkModel.setConsumeFoodModelArrayList(getConsumeFoodModelJSON(checkObject));
 
                 checkArray.add(checkModel);
             }
@@ -608,6 +612,37 @@ public class HelperSQLiteInsert extends HelperParent {
         }
 
         return checkArray;
+    }
+
+    private ArrayList<ConsumeFoodModel> getConsumeFoodModelJSON(JSONObject obj) {
+        ArrayList<ConsumeFoodModel> consumeFoodArray = new ArrayList<>();
+
+        try {
+            JSONArray consumeFoodJSONArray = obj.getJSONArray("consumeFood");
+
+            for (int j = 0; j < consumeFoodJSONArray.length(); j++) {
+                ConsumeFoodModel consumeFoodModel = new ConsumeFoodModel();
+
+                JSONObject consumeFoodObject = consumeFoodJSONArray.getJSONObject(j);
+
+                consumeFoodModel.setIdConsume(consumeFoodObject.getInt("ID_CONSUME_FOOD"));
+                consumeFoodModel.setIdKeyCheck(consumeFoodObject.getInt("ID_CHECK"));
+                consumeFoodModel.setPrice(consumeFoodObject.getDouble("PRICE_CONSUME_FOOD"));
+                consumeFoodModel.setPay(consumeFoodObject.getDouble("PAY_CONSUME_FOOD"));
+                consumeFoodModel.setTypeMoney(consumeFoodObject.getString("NAME_TYPE_MONEY"));
+                consumeFoodModel.setNameFood(consumeFoodObject.getString("NAME_FOOD"));
+                consumeFoodModel.setDescriptionFood(consumeFoodObject.getString("DESCRIPTION_FOOD"));
+                consumeFoodModel.setPointObtain(consumeFoodObject.getInt("POINT_OBTAIN_COST_FOOD"));
+                consumeFoodModel.setPointRequired(consumeFoodObject.getInt("POINT_REQUIRED_COST_FOOD"));
+                consumeFoodModel.setUnitFood(consumeFoodObject.getInt("UNIT_CONSUME_FOOD"));
+
+                consumeFoodArray.add(consumeFoodModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return consumeFoodArray;
     }
 
     private ArrayList<CardModel> getCardModelJSON(JSONObject obj) {
@@ -641,40 +676,103 @@ public class HelperSQLiteInsert extends HelperParent {
         return cardArray;
     }
 
-    private ArrayList<ConsumModel> getConsumModelJSON(JSONObject obj) {
-        ArrayList<ConsumModel> consumArray = new ArrayList<>();
+    private ArrayList<ConsumeModel> getConsumeModelJSON(JSONObject obj) {
+        ArrayList<ConsumeModel> consumArray = new ArrayList<>();
 
         try {
             JSONArray consumJSONArray = obj.getJSONArray("consum");
 
             for (int j = 0; j < consumJSONArray.length(); j++) {
-                ConsumModel consumModel = new ConsumModel();
+                ConsumeModel consumeModel = new ConsumeModel();
 
                 JSONObject consumObject = consumJSONArray.getJSONObject(j);
 
-                consumModel.setIdConsum(consumObject.getInt("ID_CONSUME_SERVICE"));
-                consumModel.setIdKeyCheck(consumObject.getInt("ID_CHECK"));
-                consumModel.setIdKeyService(consumObject.getInt("ID_SERVICE"));
-                consumModel.setPrice(consumObject.getDouble("PRICE_CONSUME_SERVICE"));
-                consumModel.setPay(consumObject.getDouble("PAY_CONSUME_SERVICE"));
-                consumModel.setDateInConsum(consumObject.getString("DATE_START_CONSUME_SERVICE"));
-                consumModel.setTimeInConsum(consumObject.getString("TIME_START_CONSUME_SERVICE"));
-                consumModel.setDateOutConsum(consumObject.getString("DATE_END_CONSUME_SERVICE"));
-                consumModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
-                consumModel.setTypeRoom(consumObject.getString("NAME_ROOM_MODEL"));
-                consumModel.setNameRoom(consumObject.getString("NAME_ROOM"));
-                consumModel.setState(consumObject.getBoolean("ACTIVE_CONSUME_SERVICE"));
-                consumModel.setIdService(consumObject.getInt("ID_COST_SERVICE"));
-                consumModel.setMemberModelArrayList(getMemberModelJSON(consumObject));
-                consumModel.setArticleModel(getArticleModelJSON(consumObject));
+                consumeModel.setIdConsum(consumObject.getInt("ID_CONSUME_SERVICE"));
+                consumeModel.setIdKeyCheck(consumObject.getInt("ID_CHECK"));
+                consumeModel.setIdKeyService(consumObject.getInt("ID_SERVICE"));
+                consumeModel.setPrice(consumObject.getDouble("PRICE_CONSUME_SERVICE"));
+                consumeModel.setPay(consumObject.getDouble("PAY_CONSUME_SERVICE"));
+                consumeModel.setDateInConsum(consumObject.getString("DATE_START_CONSUME_SERVICE"));
+                consumeModel.setTimeInConsum(consumObject.getString("TIME_START_CONSUME_SERVICE"));
+                consumeModel.setDateOutConsum(consumObject.getString("DATE_END_CONSUME_SERVICE"));
+                consumeModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
+                consumeModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE")>0);
+                consumeModel.setNameService(consumObject.getString("NAME_SERVICE"));
+                consumeModel.setPointObtain(consumObject.getInt("POINT_OBTAIN_COST_SERVICE"));
+                consumeModel.setPointRequired(consumObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+                consumeModel.setnDay(consumObject.getInt("UNIT_DAY_COST_SERVICE"));
+                consumeModel.setnHour(consumObject.getInt("UNIT_HOUR_COST_SERVICE"));
+                consumeModel.setUnit(consumObject.getInt("UNIT_CONSUME_SERVICE"));
 
-                consumArray.add(consumModel);
+                consumeModel.setMemberModelArrayList(getMemberModelJSON(consumObject));
+                consumeModel.setArticleModel(getArticleModelJSON(consumObject));
+                consumeModel.setOccupationModelArrayList(getOccupationModelJSON(consumObject));
+                consumeModel.setReserveModelArrayList(getReserveModelJSON(consumObject));
+
+                consumArray.add(consumeModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return consumArray;
+    }
+
+    private ArrayList<ReserveModel> getReserveModelJSON(JSONObject obj) {
+        ArrayList<ReserveModel> reserveModelArrayList = new ArrayList<>();
+
+        try {
+            JSONArray fequentlyJSONArray = obj.getJSONArray("reserve");
+
+            for (int j = 0; j < fequentlyJSONArray.length(); j++) {
+                ReserveModel reserveModel = new ReserveModel();
+
+                JSONObject reserveObject = fequentlyJSONArray.getJSONObject(j);
+
+                reserveModel.setIdConsume(reserveObject.getInt("ID_CONSUME_SERVICE"));
+                reserveModel.setNameRoomModel(reserveObject.getString("NAME_ROOM_MODEL"));
+                reserveModel.setDescriptionRoomModel(reserveObject.getString("DESCRIPTION_ROOM_MODEL"));
+                reserveModel.setnAdult(reserveObject.getInt("UNIT_ADULT_ROOM_MODEL"));
+                reserveModel.setnBoy(reserveObject.getInt("UNIT_BOY_ROOM_MODEL"));
+                reserveModel.setUnit(reserveObject.getInt("UNIT_RESERVED"));
+
+                reserveModelArrayList.add(reserveModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return reserveModelArrayList;
+    }
+
+    private ArrayList<OccupationModel> getOccupationModelJSON(JSONObject obj) {
+        ArrayList<OccupationModel> occupationModelArrayList = new ArrayList<>();
+
+        try {
+            JSONArray occupationJSONArray = obj.getJSONArray("occupation");
+
+            for (int j = 0; j < occupationJSONArray.length(); j++) {
+                OccupationModel occupationModel = new OccupationModel();
+
+                JSONObject occupationObject = occupationJSONArray.getJSONObject(j);
+
+                occupationModel.setIdRoom(occupationObject.getInt("ID_ROOM"));
+                occupationModel.setIdConsumeService(occupationObject.getInt("ID_CONSUME_SERVICE"));
+                occupationModel.setNameRoom(occupationObject.getString("NAME_ROOM"));
+                occupationModel.setImageRoom(occupationObject.getString("IMAGE_ROOM").isEmpty() ? occupationObject.getString("IMAGE_ROOM_MODEL") : occupationObject.getString("IMAGE_ROOM"));
+                occupationModel.setStateRoom(occupationObject.getInt("VALUE_TYPE_ROOM_MODEL") > 0);
+                occupationModel.setTypeRoom(occupationObject.getString("NAME_ROOM_MODEL"));
+                occupationModel.setDescriptionTypeRoom(occupationObject.getString("DESCRIPTION_ROOM_MODEL"));
+                occupationModel.setnAdult(occupationObject.getInt("UNIT_ADULT_ROOM_MODEL"));
+                occupationModel.setnBoy(occupationObject.getInt("UNIT_BOY_ROOM_MODEL"));
+
+                occupationModelArrayList.add(occupationModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return occupationModelArrayList;
     }
 
     private ArrayList<ArticleModel> getArticleModelJSON(JSONObject obj) {
@@ -688,11 +786,11 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 JSONObject articleObject = articleJSONArray.getJSONObject(j);
 
-                articleModel.setId(articleObject.getInt(""));
-                articleModel.setIdKeyConsum(articleObject.getInt(""));
-                articleModel.setName(articleObject.getString(""));
-                articleModel.setDescription(articleObject.getString(""));
-                articleModel.setActive(articleObject.getInt("") > 0);
+                articleModel.setId(articleObject.getInt("ID_ARTICLE"));
+                articleModel.setIdKeyConsum(articleObject.getInt("ID_CONSUME_SERVICE"));
+                articleModel.setName(articleObject.getString("NAME_ARTICLE"));
+                articleModel.setDescription(articleObject.getString("DESCRIPTION_ARTICLE"));
+                articleModel.setActive(articleObject.getInt("VALUE_STATE_ARTICLE") > 0);
 
                 articleArray.add(articleModel);
             }
@@ -707,7 +805,7 @@ public class HelperSQLiteInsert extends HelperParent {
         ArrayList<MemberModel> memberArray = new ArrayList<>();
 
         try {
-            JSONArray memberJSONArray = obj.getJSONArray("member");
+            JSONArray memberJSONArray = obj.getJSONArray("members");
 
             for (int j = 0; j < memberJSONArray.length(); j++) {
                 MemberModel memberModel = new MemberModel();
@@ -715,12 +813,10 @@ public class HelperSQLiteInsert extends HelperParent {
                 JSONObject memberObject = memberJSONArray.getJSONObject(j);
 
                 memberModel.setIdKeyConsum(memberObject.getInt("ID_CONSUME_SERVICE"));
-                memberModel.setIdKeyCheck(memberObject.getInt("ID_CHECK"));
-                memberModel.setTypeMember(memberObject.getString(""));
                 memberModel.setIdPerson(memberObject.getInt("ID_PERSON"));
                 memberModel.setEmailPerson(memberObject.getString("EMAIL_PERSON"));
                 memberModel.setNamePerson(memberObject.getString("NAME_PERSON"));
-                memberModel.setNameLastPerson(memberObject.getString("NAME_LAST_PERSON"));
+                memberModel.setNameLastPerson(memberObject.getString("LAST_NAME_PERSON"));
                 memberModel.setSexPerson((byte) memberObject.getInt("SEX_PERSON"));
                 memberModel.setPointPerson(memberObject.getInt("POINT_PERSON"));
                 memberModel.setCityPerson(memberObject.getString("CITY_PERSON"));
@@ -728,10 +824,10 @@ public class HelperSQLiteInsert extends HelperParent {
                 memberModel.setDateBornPerson(memberObject.getString("DATE_BORN_PERSON"));
                 memberModel.setDateRegisterPerson(memberObject.getString("DATE_REGISTER_PERSON"));
                 memberModel.setAddressPerson(memberObject.getString("ADDRESS_PERSON"));
-                memberModel.setImgPerson(memberObject.getString("IMAGE_PROFILE_PERSON"));
-                memberModel.setNumberPhone(memberObject.getInt("NUMBER_PHONE_PERSON"));
-                memberModel.setNumberDocument(memberObject.getInt("NUMBER_DOCUMENT_PERSON"));
-                memberModel.setTypeDocument(memberObject.getString("TYPE_DOCUMENT_PERSON"));
+                memberModel.setImgPerson(memberObject.getString("IMAGE_PROFILE"));
+                memberModel.setNumberPhone(memberObject.getInt("NUMBER_PHONE"));
+                memberModel.setNumberDocument(memberObject.getInt("NUMBER_DOCUMENT"));
+                memberModel.setTypeDocument(memberObject.getString("NAME_TYPE_DOCUMENT"));
 
                 memberArray.add(memberModel);
             }
@@ -778,13 +874,16 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param loginModel: objeto a ingresar a la base de datos sqlite
      */
     private void insertLoginSQLite(LoginModel loginModel) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_LOGIN);
+
         ContentValues newRegister = new ContentValues();
+
         newRegister.put(DBSQLiteHelper.KEY_LOGIN_ID_PERSON, loginModel.getIdPerson());
         newRegister.put(DBSQLiteHelper.KEY_LOGIN_PASSWORD, loginModel.getPassword());
         newRegister.put(DBSQLiteHelper.KEY_LOGIN_STATE, loginModel.getState());
 
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_LOGIN);
-        db.insert(DBSQLiteHelper.TABLE_LOGIN, null, newRegister);
+        if (db.insert(DBSQLiteHelper.TABLE_LOGIN, null, newRegister)==-1)
+            System.out.println("Ocurrio un error al inserar la consulta en LoginModel");
     }
 
     /**
@@ -793,7 +892,10 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param personModel: objeto a ingresar a la base dedd atos sqlite
      */
     private void insertPersonSQLite(PersonModel personModel) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON +" where "+DBSQLiteHelper.KEY_PERSON_ID+"="+personModel.getIdPerson());
+
         ContentValues newRegister = new ContentValues();
+
         newRegister.put(DBSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
         newRegister.put(DBSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
         newRegister.put(DBSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
@@ -810,8 +912,8 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
         newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
 
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON);
-        db.insert(DBSQLiteHelper.TABLE_PERSON, null, newRegister);
+        if (db.insert(DBSQLiteHelper.TABLE_PERSON, null, newRegister)==-1)
+            System.out.println("Ocurrio un error al inserar la consulta en PersonModel");
     }
 
     /**
@@ -820,6 +922,8 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param aboutModel: objeto a ingresar a la base ded datos sqlite
      */
     private void insertAboutSQLite(AboutModel aboutModel) {
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ABOUT);
+
         ContentValues newRegister = new ContentValues();
 
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
@@ -842,8 +946,8 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
 
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ABOUT);
-        db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister);
+        if (db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister)==-1)
+            System.out.println("Ocurrio un error al inserar la consulta en AboutModel");
     }
 
     /**
@@ -866,7 +970,8 @@ public class HelperSQLiteInsert extends HelperParent {
             serviceContent.put(DBSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
             serviceContent.put(DBSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
 
-            db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent);
+            if (db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent)==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
 
             insertServicePriceSQLite(serviceModel.getServicePrice());
         }
@@ -891,8 +996,8 @@ public class HelperSQLiteInsert extends HelperParent {
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceModel.isServicePriceIsOffer() ? 1 : 0));
-
-            db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent);
+            if ( db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent)==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
         }
     }
 
@@ -918,7 +1023,8 @@ public class HelperSQLiteInsert extends HelperParent {
 
             insertSiteTourImageSQLite(siteTourModel);
 
-            db.insert(DBSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent);
+            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent)==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en SiteTourModel");
         }
     }
 
@@ -939,7 +1045,8 @@ public class HelperSQLiteInsert extends HelperParent {
 
             siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
 
-            db.insert(DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent);
+            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent)==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en SiteTourImageModel");
         }
     }
 
@@ -949,8 +1056,7 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param offerModel:lista offertas
      */
     private void insertOfferSQLite(ArrayList<OfferModel> offerModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PRICE_SERVICE
-                + " WHERE " + DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=1");
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PRICE_SERVICE + " WHERE " + DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=1");
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OFFER);
         for (OfferModel offer : offerModel) {
             ContentValues offerContent = new ContentValues();
@@ -968,7 +1074,8 @@ public class HelperSQLiteInsert extends HelperParent {
             offerContent.put(DBSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
             offerContent.put(DBSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
 
-            db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent);
+            if (db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent)==-1)
+                System.out.println("Ocurrio un error al inserar la consulta en OfferModel");
 
             insertServicePriceSQLite(offer.getServicePriceModel());
         }
@@ -993,8 +1100,8 @@ public class HelperSQLiteInsert extends HelperParent {
             foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_NAME, foodMenuModel.getName());
             foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
             foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
-            long success = db.insert(DBSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent);
-            if (success == -1)
+
+            if ( db.insert(DBSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en FoodMenuModel");
 
         }
@@ -1057,7 +1164,8 @@ public class HelperSQLiteInsert extends HelperParent {
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CARD);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ARTICLE);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MEMBER);
-
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUME_FOOD);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OCCUPATION);
 
         for (CheckModel checkModel : checkModels) {
             ContentValues checkContent = new ContentValues();
@@ -1074,7 +1182,33 @@ public class HelperSQLiteInsert extends HelperParent {
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
             insertTargetSQLite(checkModel.getCardTargetArrayList());
-            insertConsumSQLite(checkModel.getConsumModelArrayList());
+            insertConsumeSQLite(checkModel.getConsumeModelArrayList());
+            insertConsumeFoodSQLite(checkModel.getConsumeFoodModelArrayList());
+        }
+    }
+
+    /**
+     * guardar lista de alimentos consumidos en base de datos SQLite
+     *
+     * @param consumeFoodModelArrayList:lista de alimentos consumidos
+     */
+    private void insertConsumeFoodSQLite(ArrayList<ConsumeFoodModel> consumeFoodModelArrayList) {
+        for (ConsumeFoodModel consumeFoodModel : consumeFoodModelArrayList) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID, consumeFoodModel.getIdConsume());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK, consumeFoodModel.getIdKeyCheck());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PRICE, consumeFoodModel.getPrice());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PAY, consumeFoodModel.getPay());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_TYPE_MONEY, consumeFoodModel.getTypeMoney());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_NAME_FOOD, consumeFoodModel.getNameFood());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_DESCRIPTION_FOOD, consumeFoodModel.getDescriptionFood());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_OBTAIN, consumeFoodModel.getPointObtain());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_REQUIRED, consumeFoodModel.getPointRequired());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_UNIT_FOOD, consumeFoodModel.getUnitFood());
+
+            if (db.insert(DBSQLiteHelper.TABLE_CONSUME_FOOD, null, contentValues) == -1)
+                System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
 
@@ -1106,30 +1240,81 @@ public class HelperSQLiteInsert extends HelperParent {
     /**
      * guardar registro consumos del huesped en la base de datos SQLIte
      *
-     * @param consumModelArrayList:lista de consumos hechos por el cliente en la cuenta del check  formato JAVa
+     * @param consumeModelArrayList:lista de consumos hechos por el cliente en la cuenta del check  formato JAVa
      */
-    private void insertConsumSQLite(ArrayList<ConsumModel> consumModelArrayList) {
-        for (ConsumModel consumModel : consumModelArrayList) {
+    private void insertConsumeSQLite(ArrayList<ConsumeModel> consumeModelArrayList) {
+        for (ConsumeModel consumeModel : consumeModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumModel.getIdConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumModel.getDateInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumModel.getTimeInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumModel.getDateOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_END, consumModel.getTimeOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PRICE, consumModel.getPrice());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PAY, consumModel.getPay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TYPE_ROOM, consumModel.getTypeRoom());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_ROOM, consumModel.getNameRoom());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumModel.isState());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumModel.getIdKeyService());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumModel.getIdKeyCheck());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeModel.getIdConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumeModel.getDateInConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumeModel.getTimeInConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumeModel.getDateOutConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_END, consumeModel.getTimeOutConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PRICE, consumeModel.getPrice());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PAY, consumeModel.getPay());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumeModel.isState());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumeModel.getIdKeyService());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE, consumeModel.getNameService());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumeModel.getIdKeyCheck());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN, consumeModel.getPointObtain());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED, consumeModel.getPointRequired());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_DAY, consumeModel.getnDay());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_HOUR, consumeModel.getnHour());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_UNIT, consumeModel.getUnit());
 
             if (db.insert(DBSQLiteHelper.TABLE_CONSUM, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
-            insertArticleSQLite(consumModel.getArticleModel());
-            insertMemberSQLite(consumModel.getMemberModelArrayList());
+            insertArticleSQLite(consumeModel.getArticleModel());
+            insertMemberSQLite(consumeModel.getMemberModelArrayList());
+            insertOccupationSQLite(consumeModel.getOccupationModelArrayList());
+            insertReserveSQLite(consumeModel.getReserveModelArrayList());
+        }
+    }
+
+    /**
+     * Guardar en la base de datos SQLite la lista de reservas q hizo el usuario
+     *
+     * @param reserveModelArrayList: lista de reservas realizadas por el huesped
+     */
+    private void insertReserveSQLite(ArrayList<ReserveModel> reserveModelArrayList) {
+        for (ReserveModel reserveModel : reserveModelArrayList) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_ID_CONSUME,reserveModel.getIdConsume());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_NAME_ROOM_MODEL,reserveModel.getNameRoomModel());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_DESCRIPTION_ROOM_MODEL,reserveModel.getDescriptionRoomModel());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_ADULT,reserveModel.getnAdult());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_BOY,reserveModel.getnBoy());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_UNIT,reserveModel.getUnit());
+
+            if (db.insert(DBSQLiteHelper.TABLE_RESERVE, null, contentValues) == -1)
+                System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
+        }
+    }
+
+    /**
+     * Guardar lista de habitaciones ocupadas por el cliente
+     *
+     * @param occupationModelArrayList: lista habitaciones ocupadas por el huesped
+     */
+    private void insertOccupationSQLite(ArrayList<OccupationModel> occupationModelArrayList) {
+        for (OccupationModel occupationModel : occupationModelArrayList) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_ID_CONSUME_SERVICE, occupationModel.getIdConsumeService());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_ID_ROOM, occupationModel.getIdRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_NAME_ROOM, occupationModel.getNameRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_IMAGE_ROOM, occupationModel.getImageRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_STATE_ROOM, occupationModel.isStateRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_TYPE_ROOM, occupationModel.getTypeRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM, occupationModel.getDescriptionTypeRoom());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_N_ADULT, occupationModel.getnAdult());
+            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_N_BOY, occupationModel.getnBoy());
+
+            if (db.insert(DBSQLiteHelper.TABLE_OCCUPATION, null, contentValues) == -1)
+                System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
 
@@ -1162,9 +1347,7 @@ public class HelperSQLiteInsert extends HelperParent {
         for (MemberModel memberModel : memberModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_MEMBER_TYPE_MEMBER, memberModel.getTypeMember());
             contentValues.put(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM, memberModel.getIdKeyConsum());
-            contentValues.put(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CHECK, memberModel.getIdKeyCheck());
             contentValues.put(DBSQLiteHelper.KEY_MEMBER_ID_KEY_PERSON, memberModel.getIdPerson());
 
             if (db.insert(DBSQLiteHelper.TABLE_MEMBER, null, contentValues) == -1)

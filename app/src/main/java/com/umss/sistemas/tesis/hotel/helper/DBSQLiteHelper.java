@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 42;
+    public static final int DATABASE_VERSION = 47;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -147,20 +147,24 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_CHECK_DATE_END = "dateEndCheck";
     static final String KEY_CHECK_TIME_END = "timeEndCheck";
 
-    //consum
+    //consume
     static final String TABLE_CONSUM = "consumHotel";
-    static final String KEY_CONSUM_ID = "id";
-    static final String KEY_CONSUM_DATE_START = "dateStart";
-    static final String KEY_CONSUM_TIME_START = "timeStart";
-    static final String KEY_CONSUM_DATE_END = "dateEnd";
-    static final String KEY_CONSUM_TIME_END = "timeEnd";
-    static final String KEY_CONSUM_PRICE = "price";
-    static final String KEY_CONSUM_PAY = "pay";
-    static final String KEY_CONSUM_TYPE_ROOM = "typeRoom";
-    static final String KEY_CONSUM_NAME_ROOM = "nameRoom";
-    static final String KEY_CONSUM_STATE = "state";
-    static final String KEY_CONSUM_ID_KEY_SERVICE = "idKeyService";
-    static final String KEY_CONSUM_ID_KEY_CHECK = "idKeyCheck";
+    static final String KEY_CONSUM_ID = "idConsume";
+    static final String KEY_CONSUM_DATE_START = "dateStartConsume";
+    static final String KEY_CONSUM_TIME_START = "timeStartConsume";
+    static final String KEY_CONSUM_DATE_END = "dateEndConsume";
+    static final String KEY_CONSUM_TIME_END = "timeEndConsume";
+    static final String KEY_CONSUM_PRICE = "priceConsume";
+    static final String KEY_CONSUM_PAY = "payConsume";
+    static final String KEY_CONSUM_STATE = "stateConsume";
+    static final String KEY_CONSUM_ID_KEY_SERVICE = "idKeyServiceConsume";
+    static final String KEY_CONSUM_NAME_SERVICE = "nameServiceConsume";
+    static final String KEY_CONSUM_ID_KEY_CHECK = "idKeyCheckConsume";
+    static final String KEY_CONSUM_POINT_OBTAIN = "pointObatinConsume";
+    static final String KEY_CONSUM_POINT_REQUIRED = "pointRequiredConsume";
+    static final String KEY_CONSUM_N_HOUR = "nHourConsume";
+    static final String KEY_CONSUM_N_DAY = "nDayConsume";
+    static final String KEY_CONSUM_N_UNIT = "nUnitConsume";
 
     //article
     static final String TABLE_ARTICLE = "article";
@@ -185,10 +189,8 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
 
     //client
     static final String TABLE_MEMBER = "clientHotel";
-    static final String KEY_MEMBER_ID = "idMember";
-    static final String KEY_MEMBER_TYPE_MEMBER = "typeMemberMember";
+    private static final String KEY_MEMBER_ID = "idMember";
     static final String KEY_MEMBER_ID_KEY_CONSUM = "idKeyConsumMember";
-    static final String KEY_MEMBER_ID_KEY_CHECK = "idKeyCheckMember";
     static final String KEY_MEMBER_ID_KEY_PERSON = "idKeyPersonMember";
 
     //message
@@ -204,6 +206,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_MESSAGE_ISACTIVE = "isActiveMessage";
     static final String KEY_MESSAGE_TYPE = "typeMessage";
 
+    //activity
     static final String TABLE_ACTIVITY = "calendar";
     static final String KEY_ACTIVITY_ID = "idActivity";
     static final String KEY_ACTIVITY_DATE_START = "dateStartActivity";
@@ -214,6 +217,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_ACTIVITY_DESCRIPTION = "descriptionActivity";
     static final String KEY_ACTIVITY_IMAGE = "imageActivity";
 
+    //frequently
     static final String TABLE_FREQUENTLY = "fequently";
     static final String KEY_FREQUENTLY_ID = "idFrequently";
     static final String KEY_FREQUENTLY_ID_INQUEST = "idInquestFrequently";
@@ -223,6 +227,41 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_FREQUENTLY_TYPE_INQUEST = "isFrequentlyFrequently";
     static final String KEY_FREQUENTLY_IS_ACTIVE = "isActiveFrequently";
 
+    //consume_food
+    static final String TABLE_CONSUME_FOOD = "consumeFood";
+    static final String KEY_CONSUME_FOOD_ID = "idConsumeFood";
+    static final String KEY_CONSUME_FOOD_ID_KEY_CHECK = "idKeyCheckFood";
+    static final String KEY_CONSUME_FOOD_PRICE = "priceConsumeFood";
+    static final String KEY_CONSUME_FOOD_PAY = "payConsumeFood";
+    static final String KEY_CONSUME_FOOD_TYPE_MONEY = "typeMoneyConsumeFood";
+    static final String KEY_CONSUME_FOOD_NAME_FOOD = "nameFoodConsumeFood";
+    static final String KEY_CONSUME_FOOD_DESCRIPTION_FOOD = "descriptionFoodConsumeFood";
+    static final String KEY_CONSUME_FOOD_POINT_OBTAIN = "pointObtainConsumeFood";
+    static final String KEY_CONSUME_FOOD_POINT_REQUIRED = "pointRequiredConsumeFood";
+    static final String KEY_CONSUME_FOOD_UNIT_FOOD = "unitFoodConsumeFood";
+
+    //occupation
+    static final String TABLE_OCCUPATION = "occupation";
+    private static final String KEY_OCCUPATION_ID= "idOccupation";
+    static final String KEY_OCCUPATION_ID_CONSUME_SERVICE = "idConsumeServiceOccupartion";
+    static final String KEY_OCCUPATION_ID_ROOM = "idRoomOccupartion";
+    static final String KEY_OCCUPATION_NAME_ROOM = "nameRoomOccupartion";
+    static final String KEY_OCCUPATION_IMAGE_ROOM = "imageRoomOccupartion";
+    static final String KEY_OCCUPATION_STATE_ROOM = "stateRoomOccupartion";
+    static final String KEY_OCCUPATION_TYPE_ROOM = "typeRoomOccupartion";
+    static final String KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM = "descriptionTypeRoomOccupartion";
+    static final String KEY_OCCUPATION_N_ADULT = "nAdultOccupartion";
+    static final String KEY_OCCUPATION_N_BOY = "nBoyOccupartion";
+
+    //reserve
+    static final String TABLE_RESERVE = "reserve";
+    private static final String KEY_RESERVE_ID = "idReserve";
+    static final String KEY_RESERVE_ID_CONSUME = "idConsumeReserve";
+    static final String KEY_RESERVE_NAME_ROOM_MODEL = "nameRoomModelReserve";
+    static final String KEY_RESERVE_DESCRIPTION_ROOM_MODEL = "descriptionRoomModelReserve";
+    static final String KEY_RESERVE_N_ADULT = "nAdultReserve";
+    static final String KEY_RESERVE_N_BOY = "nBoyReserve";
+    static final String KEY_RESERVE_UNIT = "unitReserve";
 
     public DBSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -249,6 +288,9 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(getTableMessages());
         db.execSQL(getTableActivity());
         db.execSQL(getTableFrequently());
+        db.execSQL(getTableConsumeFood());
+        db.execSQL(getTableOccupation());
+        db.execSQL(getTableReserve());
     }
 
     @Override
@@ -273,6 +315,9 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_MESSAGE);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_ACTIVITY);
         db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_FREQUENTLY);
+        db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_CONSUME_FOOD);
+        db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_OCCUPATION);
+        db.execSQL("DROP TABLE IF EXISTS " + DBSQLiteHelper.TABLE_RESERVE);
         //se crea la nueva version de la tabla
         onCreate(db);
     }
@@ -514,10 +559,14 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_CONSUM_TIME_END + " TEXT,"
                 + KEY_CONSUM_PRICE + " REAL,"
                 + KEY_CONSUM_PAY + " REAL,"
-                + KEY_CONSUM_TYPE_ROOM + " TEXT,"
-                + KEY_CONSUM_NAME_ROOM + " TEXT,"
+                + KEY_CONSUM_POINT_OBTAIN + " INTEGER,"
+                + KEY_CONSUM_POINT_REQUIRED + " INTEGER,"
+                + KEY_CONSUM_N_HOUR + " INTEGER,"
+                + KEY_CONSUM_N_DAY + " INTEGER,"
+                + KEY_CONSUM_N_UNIT + " INTEGER,"
                 + KEY_CONSUM_STATE + " INTEGER,"
                 + KEY_CONSUM_ID_KEY_SERVICE + " INTEGER,"
+                + KEY_CONSUM_NAME_SERVICE + " TEXT,"
                 + KEY_CONSUM_ID_KEY_CHECK + " INTEGER"
                 + ")";
     }
@@ -565,9 +614,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     private String getTableMember() {
         return "CREATE TABLE " + TABLE_MEMBER + " ( "
                 + KEY_MEMBER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_MEMBER_TYPE_MEMBER + " TEXT,"
                 + KEY_MEMBER_ID_KEY_CONSUM + " INTEGER,"
-                + KEY_MEMBER_ID_KEY_CHECK + " INTEGER,"
                 + KEY_MEMBER_ID_KEY_PERSON + " INTEGER"
                 + ")";
     }
@@ -624,6 +671,63 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_FREQUENTLY_RESPONSE + " TEXT,"
                 + KEY_FREQUENTLY_TYPE_INQUEST + " INTEGER,"
                 + KEY_FREQUENTLY_IS_ACTIVE + " INTEGER"
+                + ")";
+    }
+
+    /**
+     * crear la tabla consumeFood
+     *
+     * @return String: tabla SQL de lista de conusumos de comida
+     */
+    private String getTableConsumeFood() {
+        return "CREATE TABLE " + TABLE_CONSUME_FOOD + " ( "
+                + KEY_CONSUME_FOOD_ID + " INTEGER PRIMARY KEY,"
+                + KEY_CONSUME_FOOD_ID_KEY_CHECK + " INTEGER,"
+                + KEY_CONSUME_FOOD_PRICE + " REAL,"
+                + KEY_CONSUME_FOOD_PAY + " REAL,"
+                + KEY_CONSUME_FOOD_TYPE_MONEY + " TEXT,"
+                + KEY_CONSUME_FOOD_NAME_FOOD + " TEXT,"
+                + KEY_CONSUME_FOOD_DESCRIPTION_FOOD + " TEXT,"
+                + KEY_CONSUME_FOOD_POINT_OBTAIN + " INTEGER,"
+                + KEY_CONSUME_FOOD_POINT_REQUIRED + " INTEGER,"
+                + KEY_CONSUME_FOOD_UNIT_FOOD + " INTEGER"
+                + ")";
+    }
+
+    /**
+     * crear la tabla occupation para las habitaciones q el cliente ha usado
+     *
+     * @return String: tabla SQL de lista habitaciones ocupadas por el cliente
+     */
+    private String getTableOccupation() {
+        return "CREATE TABLE " + TABLE_OCCUPATION + " ( "
+                + KEY_OCCUPATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_OCCUPATION_ID_CONSUME_SERVICE + " INTEGER,"
+                + KEY_OCCUPATION_ID_ROOM + " INTEGER,"
+                + KEY_OCCUPATION_NAME_ROOM + " TEXT,"
+                + KEY_OCCUPATION_IMAGE_ROOM + " TEXT,"
+                + KEY_OCCUPATION_STATE_ROOM + " INTEGER,"
+                + KEY_OCCUPATION_TYPE_ROOM + " TEXT,"
+                + KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM + " TEXT,"
+                + KEY_OCCUPATION_N_ADULT + " INTEGER,"
+                + KEY_OCCUPATION_N_BOY + " INTEGER"
+        + ")";
+    }
+
+    /**
+     * crear la tabla reserve para los tipos de habitaciones reservadas por el cliente
+     *
+     * @return String: tabla SQL de lista habitaciones reservadas por el cliente
+     */
+    private String getTableReserve() {
+        return "CREATE TABLE " + TABLE_RESERVE + " ( "
+                + KEY_RESERVE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_RESERVE_ID_CONSUME + " INTEGER,"
+                + KEY_RESERVE_NAME_ROOM_MODEL + " TEXT,"
+                + KEY_RESERVE_DESCRIPTION_ROOM_MODEL + " TEXT,"
+                + KEY_RESERVE_N_ADULT + " INTEGER,"
+                + KEY_RESERVE_N_BOY + " INTEGER,"
+                + KEY_RESERVE_UNIT + " INTEGER"
                 + ")";
     }
 }

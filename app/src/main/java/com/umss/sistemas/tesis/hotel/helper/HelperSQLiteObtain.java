@@ -8,7 +8,8 @@ import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
@@ -16,8 +17,10 @@ import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
+import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
@@ -51,7 +54,7 @@ public class HelperSQLiteObtain extends HelperParent {
         Cursor cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_LOGIN, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                loginModel = getLoginModelCursor(cursor);
+                loginModel = obtainLoginModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -64,12 +67,17 @@ public class HelperSQLiteObtain extends HelperParent {
      *
      * @return List<PersonModel>: lista de perfiles
      */
-    public PersonModel getPersonModel() {
+    public PersonModel getPersonModel(int idPerson) {
         PersonModel personModel = new PersonModel();
-        Cursor cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON, null);
+        Cursor cursor;
+        if (idPerson==0) {
+            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON, null);
+        }else{
+            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON + " where "+DBSQLiteHelper.KEY_PERSON_ID+"="+idPerson, null);
+        }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                personModel = getPersonModelCursor(cursor);
+                personModel = obtainPersonModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -87,7 +95,7 @@ public class HelperSQLiteObtain extends HelperParent {
         Cursor cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_ABOUT, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                aboutModel = getAboutModelCursor(cursor);
+                aboutModel = obtainAboutModelCursor(cursor);
                 cursor.moveToNext();
             }
         }
@@ -113,7 +121,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServiceModel serviceModel = getServiceModelCursor(cursor);
+                ServiceModel serviceModel = obtainServiceModelCursor(cursor);
                 serviceModel.setServicePrice(getServicePriceModel(serviceModel.getServiceId()));
 
                 listService.add(serviceModel);
@@ -136,7 +144,7 @@ public class HelperSQLiteObtain extends HelperParent {
         ArrayList<ServicePriceModel> listPrice = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServicePriceModel servicePriceModel = getServicePriceModelCursor(cursor);
+                ServicePriceModel servicePriceModel = obtainServicePriceModelCursor(cursor);
                 listPrice.add(servicePriceModel);
                 cursor.moveToNext();
             }
@@ -163,7 +171,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                SiteTourModel siteTourModel = getSiteTourModelCursor(cursor);
+                SiteTourModel siteTourModel = obtainSiteTourModelCursor(cursor);
 
                 siteTourModel.setImagesSite(getSiteTourImageModel(siteTourModel.getIdSite()));
                 listSiteTour.add(siteTourModel);
@@ -185,7 +193,7 @@ public class HelperSQLiteObtain extends HelperParent {
         ArrayList<SiteTourImageModel> listSiteTourImages = new ArrayList<>();
         if (cursorImages.moveToFirst()) {
             while (!cursorImages.isAfterLast()) {
-                SiteTourImageModel siteTourImageModel = getSiteTourImagesModelCursor(cursorImages);
+                SiteTourImageModel siteTourImageModel = obtainSiteTourImagesModelCursor(cursorImages);
                 listSiteTourImages.add(siteTourImageModel);
                 cursorImages.moveToNext();
             }
@@ -209,7 +217,7 @@ public class HelperSQLiteObtain extends HelperParent {
         ArrayList<OfferModel> listOfferModel = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                OfferModel offerModel = getOfferModelCursor(cursor);
+                OfferModel offerModel = obtainOfferModelCursor(cursor);
                 offerModel.setServicePriceModel(getServicePriceModel(offerModel.getIdKeyService()));
 
                 listOfferModel.add(offerModel);
@@ -238,7 +246,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                FoodMenuModel foodMenuModel = getFoodMenuModelCursor(cursor);
+                FoodMenuModel foodMenuModel = obtainFoodMenuModelCursor(cursor);
                 foodMenuModel.setFoodModelArrayList(getFoodModel(foodMenuModel.getId()));
 
                 listFoodMenu.add(foodMenuModel);
@@ -262,7 +270,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                FoodModel foodModel = getFoodModelCursor(cursor);
+                FoodModel foodModel = obtainFoodModelCursor(cursor);
                 foodModel.setListFoodPriceModel(getFoodPriceModel(foodModel.getId()));
                 listFood.add(foodModel);
 
@@ -286,7 +294,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                FoodPriceModel foodPriceModel = getFoodPriceModelCursor(cursor);
+                FoodPriceModel foodPriceModel = obtainFoodPriceModelCursor(cursor);
                 listPriceFood.add(foodPriceModel);
 
                 cursor.moveToNext();
@@ -301,21 +309,29 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param idCheck: id de registro de un huesped
      * @return ArrayList<CheckModel>: lista de registros de estadia de un huesped
      */
-    public ArrayList<CheckModel> getCheckModel(int idCheck) {
+    public ArrayList<CheckModel> getCheckModel(int idCheck, int idStateCheck) {
         ArrayList<CheckModel> listCheckModel = new ArrayList<>();
         Cursor cursor;
-        if (idCheck > 0) {
+        if (idCheck > 0) {//para un check especifico
             cursor = db.rawQuery("select *"
                     + " from " + DBSQLiteHelper.TABLE_CHECK
                     + " where " + DBSQLiteHelper.KEY_CHECK_ID + "=" + idCheck, null);
         } else {
-            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK, null);
+            if (idStateCheck > 0) {//para los check con estado idState
+                cursor = db.rawQuery("select *"
+                        + " from " + DBSQLiteHelper.TABLE_CHECK
+                        + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck, null);
+            } else {//para el historial
+                cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK, null);
+            }
         }
+
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                CheckModel checkModel = getCheckModelCursor(cursor);
+                CheckModel checkModel = obtainCheckModelCursor(cursor);
                 checkModel.setCardTargetArrayList(getCardModel(checkModel.getId()));
-                checkModel.setConsumModelArrayList(getConsumModel(checkModel.getId()));
+                checkModel.setConsumeModelArrayList(getConsumeModel(checkModel.getId()));
+                checkModel.setConsumeFoodModelArrayList(getConsumeFoodModel(checkModel.getId()));
                 listCheckModel.add(checkModel);
 
                 cursor.moveToNext();
@@ -325,13 +341,37 @@ public class HelperSQLiteObtain extends HelperParent {
     }
 
     /**
+     * lista de todos los alimentos consumidos por el huesped
+     *
+     * @param idCheck: id de registro de un huesped
+     * @return ArrayList<ConsumeFoodModel>: lista de alimentos consumidos
+     */
+    private ArrayList<ConsumeFoodModel> getConsumeFoodModel(int idCheck) {
+        ArrayList<ConsumeFoodModel> listConsumeFoodModel = new ArrayList<>();
+        Cursor cursor;
+        cursor = db.rawQuery("select *"
+                + " from " + DBSQLiteHelper.TABLE_CONSUME_FOOD
+                + " where " + DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK + "=" + idCheck, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ConsumeFoodModel consumeFoodModel = obtainConsumeFoodModelCursor(cursor);
+                listConsumeFoodModel.add(consumeFoodModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listConsumeFoodModel;
+    }
+
+    /**
      * obtener de la base de datos SQLite la lista de consumos de in check
      *
      * @param idCheck: id de registro
-     * @return ArrayList<ConsumModel>: lista de consumos de un check
+     * @return ArrayList<ConsumeModel>: lista de consumos de un check
      */
-    private ArrayList<ConsumModel> getConsumModel(int idCheck) {
-        ArrayList<ConsumModel> listConsumModel = new ArrayList<>();
+    private ArrayList<ConsumeModel> getConsumeModel(int idCheck) {
+        ArrayList<ConsumeModel> listConsumeModel = new ArrayList<>();
         Cursor cursor;
         cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_CONSUM
@@ -339,15 +379,66 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ConsumModel consumModel = getConsumModelCursor(cursor);
-                consumModel.setArticleModel(getArticleModel(consumModel.getIdConsum()));
-                consumModel.setMemberModelArrayList(getMemberModel(consumModel.getIdConsum()));
-                listConsumModel.add(consumModel);
+                ConsumeModel consumeModel = obtainConsumeModelCursor(cursor);
+                consumeModel.setArticleModel(getArticleModel(consumeModel.getIdConsum()));
+                consumeModel.setMemberModelArrayList(getMemberModel(consumeModel.getIdConsum()));
+                consumeModel.setOccupationModelArrayList(getOccupationModel(consumeModel.getIdConsum()));
+                consumeModel.setReserveModelArrayList(getReserveModel(consumeModel.getIdConsum()));
+
+                listConsumeModel.add(consumeModel);
 
                 cursor.moveToNext();
             }
         }
-        return listConsumModel;
+        return listConsumeModel;
+    }
+
+    /**
+     * obtener de la base de datos la lista de reservas hechas por el cliente
+     *
+     * @param idConsum: identificador de consumo
+     * @return listReserveModel: lista de reservas hechas por el usuario
+     */
+    private ArrayList<ReserveModel> getReserveModel(int idConsum) {
+        ArrayList<ReserveModel> listReserveModel = new ArrayList<>();
+        Cursor cursor;
+        cursor = db.rawQuery("select *"
+                + " from " + DBSQLiteHelper.TABLE_RESERVE
+                + " where " + DBSQLiteHelper.KEY_RESERVE_ID_CONSUME + "=" + idConsum, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ReserveModel reserveModel = obtainReserveModelCursor(cursor);
+                listReserveModel.add(reserveModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listReserveModel;
+    }
+
+    /**
+     * obtener de la base de datos la lista de habitacioes ocupadas por el cliente
+     *
+     * @param idConsum: identificador de consumo
+     * @return listOccuparionModel: lista de habitaciones occupadas
+     */
+    private ArrayList<OccupationModel> getOccupationModel(int idConsum) {
+        ArrayList<OccupationModel> listOccupationModel = new ArrayList<>();
+        Cursor cursor;
+        cursor = db.rawQuery("select *"
+                + " from " + DBSQLiteHelper.TABLE_OCCUPATION
+                + " where " + DBSQLiteHelper.KEY_OCCUPATION_ID_CONSUME_SERVICE + "=" + idConsum, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                OccupationModel occupationModel = obtainOccupationModelCursor(cursor);
+                listOccupationModel.add(occupationModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listOccupationModel;
     }
 
     /**
@@ -365,7 +456,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                CardModel cardModel = getCardModelCursor(cursor);
+                CardModel cardModel = obtainCardModelCursor(cursor);
                 listCardModel.add(cardModel);
 
                 cursor.moveToNext();
@@ -377,19 +468,19 @@ public class HelperSQLiteObtain extends HelperParent {
     /**
      * obtener de la base de datos la lista de miembros del consumo
      *
-     * @param idConsum: id de consumo
+     * @param idConsume: id de consumo
      * @return ArrayList<MemberModel>: lista de miembros
      */
-    private ArrayList<MemberModel> getMemberModel(int idConsum) {
+    private ArrayList<MemberModel> getMemberModel(int idConsume) {
         ArrayList<MemberModel> listMemberModel = new ArrayList<>();
         Cursor cursor;
         cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_MEMBER
-                + " where " + DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM + "=" + idConsum, null);
+                + " where " + DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM + "=" + idConsume, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                MemberModel memberModel = getMemberModelCursor(cursor);
+                MemberModel memberModel = obtainMemberModelCursor(cursor);
 
                 listMemberModel.add(memberModel);
 
@@ -414,7 +505,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ArticleModel articleModel = getArticleModelCursor(cursor);
+                ArticleModel articleModel = obtainArticleModelCursor(cursor);
 
                 listArticleModel.add(articleModel);
 
@@ -442,7 +533,7 @@ public class HelperSQLiteObtain extends HelperParent {
         }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                MessageModel messageModel = getMessageModelCursor(cursor);
+                MessageModel messageModel = obtainMessageModelCursor(cursor);
 
                 listMessageModel.add(messageModel);
 
@@ -471,7 +562,7 @@ public class HelperSQLiteObtain extends HelperParent {
         }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ActivityModel activityModel = getActivityModelCursor(cursor);
+                ActivityModel activityModel = obtainActivityModelCursor(cursor);
 
                 listActivityModel.add(activityModel);
 
@@ -501,7 +592,7 @@ public class HelperSQLiteObtain extends HelperParent {
         }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                FrequentlyModel frequentlyModel = getFrequentlyModelCursor(cursor);
+                FrequentlyModel frequentlyModel = obtainFrequentlyModelCursor(cursor);
                 listFrequentlyModel.add(frequentlyModel);
 
                 cursor.moveToNext();
@@ -512,7 +603,7 @@ public class HelperSQLiteObtain extends HelperParent {
     }
 
     //*****************************************GET_MODEL_CURSOR*************************************
-    private ActivityModel getActivityModelCursor(Cursor cursor) {
+    private ActivityModel obtainActivityModelCursor(Cursor cursor) {
         ActivityModel activityModel = new ActivityModel();
 
         activityModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ACTIVITY_ID)));
@@ -527,7 +618,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return activityModel;
     }
 
-    private MessageModel getMessageModelCursor(Cursor cursor) {
+    private MessageModel obtainMessageModelCursor(Cursor cursor) {
         MessageModel messageModel = new MessageModel();
 
         messageModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_MESSAGE_ID)));
@@ -544,7 +635,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return messageModel;
     }
 
-    private ArticleModel getArticleModelCursor(Cursor cursor) {
+    private ArticleModel obtainArticleModelCursor(Cursor cursor) {
         ArticleModel articleModel = new ArticleModel();
 
         articleModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ARTICLE_ID)));
@@ -556,37 +647,63 @@ public class HelperSQLiteObtain extends HelperParent {
         return articleModel;
     }
 
-    private MemberModel getMemberModelCursor(Cursor cursor) {
-        MemberModel memberModel = (MemberModel) getPersonModelCursor(cursor);
+    private MemberModel obtainMemberModelCursor(Cursor cursorPerson) {
+        MemberModel memberModel = new MemberModel();
 
-        memberModel.setTypeMember(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_TYPE_MEMBER)));
-        memberModel.setIdKeyConsum(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM)));
-        memberModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CHECK)));
-        memberModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_ID_KEY_PERSON)));
+        memberModel.setIdPerson(cursorPerson.getInt(cursorPerson.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_ID_KEY_PERSON)));
+        memberModel.setIdKeyConsum(cursorPerson.getInt(cursorPerson.getColumnIndex(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM)));
+
+        Cursor cursorMember = db.rawQuery("select *"
+                + " from " + DBSQLiteHelper.TABLE_PERSON
+                + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + memberModel.getIdPerson(), null);
+
+        if (cursorMember.moveToFirst()) {
+            while (!cursorMember.isAfterLast()) {
+                memberModel.setNamePerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NAME)));
+                memberModel.setNameLastPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NAME_LAST)));
+                memberModel.setCityPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_CITY)));
+                memberModel.setAddressPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_ADDRESS)));
+                memberModel.setDateBornPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_DATE_BORN)));
+                memberModel.setDateRegisterPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_DATE_REGISTER)));
+                memberModel.setEmailPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_EMAIL)));
+                memberModel.setPointPerson(cursorMember.getInt(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_POINT)));
+                memberModel.setCountryPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_COUNTRY)));
+                memberModel.setSexPerson((byte) cursorMember.getInt(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_SEX)));
+                memberModel.setImgPerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_IMG_PERSON)));
+                memberModel.setTypeDocument(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT)));
+                memberModel.setNumberDocument(cursorMember.getInt(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT)));
+                memberModel.setNumberPhone(cursorMember.getInt(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NUMBER_PHONE)));
+
+                cursorMember.moveToNext();
+            }
+        }
 
         return memberModel;
     }
 
-    private ConsumModel getConsumModelCursor(Cursor cursor) {
-        ConsumModel consumModel = new ConsumModel();
+    private ConsumeModel obtainConsumeModelCursor(Cursor cursor) {
+        ConsumeModel consumeModel = new ConsumeModel();
 
-        consumModel.setIdConsum(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID)));
-        consumModel.setDateInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_START)));
-        consumModel.setTimeInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_START)));
-        consumModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
-        consumModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
-        consumModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
-        consumModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
-        consumModel.setTypeRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TYPE_ROOM)));
-        consumModel.setNameRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_ROOM)));
-        consumModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);
-        consumModel.setIdKeyService(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE)));
-        consumModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK)));
+        consumeModel.setIdConsum(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID)));
+        consumeModel.setDateInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_START)));
+        consumeModel.setTimeInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_START)));
+        consumeModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
+        consumeModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
+        consumeModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
+        consumeModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
+        consumeModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);
+        consumeModel.setIdKeyService(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE)));
+        consumeModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK)));
+        consumeModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN)));
+        consumeModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED)));
+        consumeModel.setnDay(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_DAY)));
+        consumeModel.setnHour(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_HOUR)));
+        consumeModel.setUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_UNIT)));
 
-        return consumModel;
+        return consumeModel;
     }
 
-    private CardModel getCardModelCursor(Cursor cursor) {
+    private CardModel obtainCardModelCursor(Cursor cursor) {
         CardModel cardModel = new CardModel();
 
         cardModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CARD_ID)));
@@ -602,8 +719,9 @@ public class HelperSQLiteObtain extends HelperParent {
         return cardModel;
     }
 
-    private PersonModel getPersonModelCursor(Cursor cursor) {
+    private PersonModel obtainPersonModelCursor(Cursor cursor) {
         PersonModel personModel = new PersonModel();
+
         personModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_ID)));
         personModel.setNamePerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NAME)));
         personModel.setNameLastPerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NAME_LAST)));
@@ -616,10 +734,11 @@ public class HelperSQLiteObtain extends HelperParent {
         personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_COUNTRY)));
         personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_SEX)));
         personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_IMG_PERSON)));
+
         return personModel;
     }
 
-    private AboutModel getAboutModelCursor(Cursor cursor) {
+    private AboutModel obtainAboutModelCursor(Cursor cursor) {
         AboutModel aboutModel = new AboutModel();
 
         aboutModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ID)));
@@ -645,7 +764,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return aboutModel;
     }
 
-    private LoginModel getLoginModelCursor(Cursor cursor) {
+    private LoginModel obtainLoginModelCursor(Cursor cursor) {
         LoginModel loginModel = new LoginModel();
 
         loginModel.setIdPerson(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_LOGIN_ID_PERSON)));
@@ -655,7 +774,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return loginModel;
     }
 
-    private ServiceModel getServiceModelCursor(Cursor cursor) {
+    private ServiceModel obtainServiceModelCursor(Cursor cursor) {
         ServiceModel serviceModel = new ServiceModel();
 
         serviceModel.setServiceId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_ID)));
@@ -672,7 +791,7 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param cursor:base de datos SQLITE servicePrice
      * @return servicePriceModel: lista de precios de un servicio
      */
-    private ServicePriceModel getServicePriceModelCursor(Cursor cursor) {
+    private ServicePriceModel obtainServicePriceModelCursor(Cursor cursor) {
         ServicePriceModel servicePriceModel = new ServicePriceModel();
 
         servicePriceModel.setServicePriceId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_ID)));
@@ -689,7 +808,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return servicePriceModel;
     }
 
-    private SiteTourModel getSiteTourModelCursor(Cursor cursor) {
+    private SiteTourModel obtainSiteTourModelCursor(Cursor cursor) {
         SiteTourModel siteTourModel = new SiteTourModel();
 
         siteTourModel.setIdSite(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SITE_TOUR_ID)));
@@ -703,7 +822,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return siteTourModel;
     }
 
-    private SiteTourImageModel getSiteTourImagesModelCursor(Cursor cursor) {
+    private SiteTourImageModel obtainSiteTourImagesModelCursor(Cursor cursor) {
         SiteTourImageModel siteTourImageModel = new SiteTourImageModel();
 
         siteTourImageModel.setIdSiteTourImage(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID)));
@@ -723,7 +842,7 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param cursor:lista de offertas en formato RAW
      * @return offerModel: objeto de ofertas leido desde la base de datos SQLite
      */
-    private OfferModel getOfferModelCursor(Cursor cursor) {
+    private OfferModel obtainOfferModelCursor(Cursor cursor) {
         OfferModel offerModel = new OfferModel();
 
         offerModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OFFER_ID)));
@@ -747,7 +866,7 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param cursor:lista de menus de comida en formato RAW
      * @return foodMenuModel: objeto de menu leido desde la base de datos SQLite
      */
-    private FoodMenuModel getFoodMenuModelCursor(Cursor cursor) {
+    private FoodMenuModel obtainFoodMenuModelCursor(Cursor cursor) {
         FoodMenuModel foodMenuModel = new FoodMenuModel();
 
         foodMenuModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_MENU_ID)));
@@ -758,7 +877,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return foodMenuModel;
     }
 
-    private FoodModel getFoodModelCursor(Cursor cursor) {
+    private FoodModel obtainFoodModelCursor(Cursor cursor) {
         FoodModel foodModel = new FoodModel();
 
         foodModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_ID)));
@@ -772,7 +891,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return foodModel;
     }
 
-    private FoodPriceModel getFoodPriceModelCursor(Cursor cursor) {
+    private FoodPriceModel obtainFoodPriceModelCursor(Cursor cursor) {
         FoodPriceModel foodPriceModel = new FoodPriceModel();
 
         foodPriceModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_ID)));
@@ -785,7 +904,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return foodPriceModel;
     }
 
-    private CheckModel getCheckModelCursor(Cursor cursor) {
+    private CheckModel obtainCheckModelCursor(Cursor cursor) {
         CheckModel checkModel = new CheckModel();
 
         checkModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID)));
@@ -799,7 +918,7 @@ public class HelperSQLiteObtain extends HelperParent {
         return checkModel;
     }
 
-    private FrequentlyModel getFrequentlyModelCursor(Cursor cursor) {
+    private FrequentlyModel obtainFrequentlyModelCursor(Cursor cursor) {
         FrequentlyModel frequentlyModel = new FrequentlyModel();
 
         frequentlyModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_ID)));
@@ -811,5 +930,51 @@ public class HelperSQLiteObtain extends HelperParent {
         frequentlyModel.setActive(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FREQUENTLY_IS_ACTIVE)) > 0);
 
         return frequentlyModel;
+    }
+
+    private ConsumeFoodModel obtainConsumeFoodModelCursor(Cursor cursor) {
+        ConsumeFoodModel consumeFoodModel = new ConsumeFoodModel();
+
+        consumeFoodModel.setIdConsume(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_ID)));
+        consumeFoodModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK)));
+        consumeFoodModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_PRICE)));
+        consumeFoodModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_PAY)));
+        consumeFoodModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_TYPE_MONEY)));
+        consumeFoodModel.setNameFood(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_NAME_FOOD)));
+        consumeFoodModel.setDescriptionFood(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_DESCRIPTION_FOOD)));
+        consumeFoodModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_OBTAIN)));
+        consumeFoodModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_REQUIRED)));
+        consumeFoodModel.setUnitFood(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_UNIT_FOOD)));
+
+        return consumeFoodModel;
+    }
+
+    private OccupationModel obtainOccupationModelCursor(Cursor cursor) {
+        OccupationModel occupationModel = new OccupationModel();
+
+        occupationModel.setIdRoom(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_ID_ROOM)));
+        occupationModel.setIdConsumeService(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_ID_CONSUME_SERVICE)));
+        occupationModel.setNameRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_NAME_ROOM)));
+        occupationModel.setImageRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_IMAGE_ROOM)));
+        occupationModel.setStateRoom(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_STATE_ROOM)) > 0);
+        occupationModel.setTypeRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_TYPE_ROOM)));
+        occupationModel.setDescriptionTypeRoom(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM)));
+        occupationModel.setnAdult(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_N_ADULT)));
+        occupationModel.setnBoy(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_OCCUPATION_N_BOY)));
+
+        return occupationModel;
+    }
+
+    private ReserveModel obtainReserveModelCursor(Cursor cursor) {
+        ReserveModel reserveModel = new ReserveModel();
+
+        reserveModel.setIdConsume(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_ID_CONSUME)));
+        reserveModel.setNameRoomModel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_NAME_ROOM_MODEL)));
+        reserveModel.setDescriptionRoomModel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_DESCRIPTION_ROOM_MODEL)));
+        reserveModel.setnAdult(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_N_ADULT)));
+        reserveModel.setnBoy(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_N_BOY)));
+        reserveModel.setUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_RESERVE_UNIT)));
+
+        return reserveModel;
     }
 }

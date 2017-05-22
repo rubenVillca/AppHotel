@@ -4,7 +4,7 @@ import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
 import java.util.ArrayList;
 
-public class ConsumModel extends ModelParent {
+public class ConsumeModel extends ModelParent {
     private int idConsum;
     private String dateInConsum;
     private String timeInConsum;
@@ -12,15 +12,23 @@ public class ConsumModel extends ModelParent {
     private String timeOutConsum;
     private double price;
     private double pay;
-    private String typeRoom;
-    private String nameRoom;
+    private String typeMoney;
     private boolean state;
     private int idKeyService;
+    private String nameService;
     private int idKeyCheck;
+    private int pointObtain;
+    private int pointRequired;
+    private int nDay;
+    private int nHour;
+    private int unit;
+
     private ArrayList<ArticleModel> articleModel;
     private ArrayList<MemberModel> memberModelArrayList;
+    private ArrayList<ReserveModel> reserveModelArrayList;
+    private ArrayList<OccupationModel> occupationModelArrayList;
 
-    public ConsumModel() {
+    public ConsumeModel() {
         idConsum=0;
         dateInConsum="";
         timeInConsum="";
@@ -28,13 +36,53 @@ public class ConsumModel extends ModelParent {
         timeOutConsum="";
         price=0;
         pay=0;
-        typeRoom="";
-        nameRoom="";
+        typeMoney="$";
         state=false;
         idKeyService=0;
+        nameService="";
         idKeyCheck=0;
+        pointObtain=0;
+        pointRequired=0;
+        nDay=0;
+        nHour=0;
+        unit=0;
+
         articleModel=new ArrayList<>();
         memberModelArrayList =new ArrayList<>();
+        reserveModelArrayList=new ArrayList<>();
+        occupationModelArrayList=new ArrayList<>();
+    }
+
+    public ArrayList<ReserveModel> getReserveModelArrayList() {
+        return reserveModelArrayList;
+    }
+
+    public void setReserveModelArrayList(ArrayList<ReserveModel> reserveModelArrayList) {
+        this.reserveModelArrayList = reserveModelArrayList;
+    }
+
+    public ArrayList<OccupationModel> getOccupationModelArrayList() {
+        return occupationModelArrayList;
+    }
+
+    public void setOccupationModelArrayList(ArrayList<OccupationModel> occupationModelArrayList) {
+        this.occupationModelArrayList = occupationModelArrayList;
+    }
+
+    public String getTypeMoney() {
+        return typeMoney;
+    }
+
+    public void setTypeMoney(String typeMoney) {
+        this.typeMoney = typeMoney;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     public double getPay() {
@@ -117,43 +165,59 @@ public class ConsumModel extends ModelParent {
         this.price = price;
     }
 
-    public String getTypeRoom() {
-        return typeRoom;
-    }
-
-    public void setTypeRoom(String typeRoom) {
-        this.typeRoom = typeRoom;
-    }
-
-    public String getNameRoom() {
-        return nameRoom;
-    }
-
-    public void setNameRoom(String nameRoom) {
-        this.nameRoom = nameRoom;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
-    public int getIdService() {
-        return idKeyService;
-    }
-
-    public void setIdService(int idKeyService) {
-        this.idKeyService = idKeyService;
-    }
-
     public ArrayList<ArticleModel> getArticleModel() {
         return articleModel;
     }
 
     public void setArticleModel(ArrayList<ArticleModel> articleModel) {
         this.articleModel = articleModel;
+    }
+
+    public String getNameService() {
+        return nameService;
+    }
+
+    public void setNameService(String nameService) {
+        this.nameService = nameService;
+    }
+
+    public int getPointObtain() {
+        return pointObtain;
+    }
+
+    public void setPointObtain(int pointObtain) {
+        this.pointObtain = pointObtain;
+    }
+
+    public int getPointRequired() {
+        return pointRequired;
+    }
+
+    public void setPointRequired(int pointRequired) {
+        this.pointRequired = pointRequired;
+    }
+
+    public int getnDay() {
+        return nDay;
+    }
+
+    public void setnDay(int nDay) {
+        this.nDay = nDay;
+    }
+
+    public int getnHour() {
+        return nHour;
+    }
+
+    public void setnHour(int nHour) {
+        this.nHour = nHour;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
     }
 }

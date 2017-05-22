@@ -19,6 +19,7 @@ public class Conexion {
     public static final int FOOD_MENU=15;
     public static final int MESSAGES=16;
     public static final int CALENDAR = 17;
+    public static final int CHECK =18;
 
     private static String ip="http://192.168.1.41/";
     private static String dirUser="hotel/";
@@ -40,7 +41,8 @@ public class Conexion {
                                     "frequently",
                                     "foodMenu",
                                     "messages",
-                                    "calendar"
+                                    "calendar",
+                                    "check"
                             };
     public static String urlServer=ip+dirUser;
 

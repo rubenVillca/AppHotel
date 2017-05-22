@@ -89,7 +89,7 @@ public class ProfileFragment extends FragmentParent {
     }
 
     private void showContentProfile(View view) {
-        PersonModel profile = helperSQLiteObtain.getPersonModel();
+        PersonModel profile = helperSQLiteObtain.getPersonModel(0);
         showDataProfile(profile, view);
         if (!profile.getImgPerson().equals("")) {
             imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);

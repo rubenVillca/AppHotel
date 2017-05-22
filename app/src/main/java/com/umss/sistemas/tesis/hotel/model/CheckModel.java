@@ -16,7 +16,8 @@ public class CheckModel extends ModelParent {
     private String dateEnd;
     private String timeEnd;
     private ArrayList<CardModel> cardTargetArrayList;
-    private ArrayList<ConsumModel> consumModelArrayList;
+    private ArrayList<ConsumeModel> consumeModelArrayList;
+    private ArrayList<ConsumeFoodModel> consumeFoodModelArrayList;
 
     public CheckModel() {
         id=0;
@@ -27,15 +28,24 @@ public class CheckModel extends ModelParent {
         dateEnd="";
         timeEnd="";
         cardTargetArrayList=new ArrayList<>();
-        consumModelArrayList = new ArrayList<>();
+        consumeModelArrayList = new ArrayList<>();
+        consumeFoodModelArrayList=new ArrayList<>();
     }
 
-    public ArrayList<ConsumModel> getConsumModelArrayList() {
-        return consumModelArrayList;
+    public ArrayList<ConsumeFoodModel> getConsumeFoodModelArrayList() {
+        return consumeFoodModelArrayList;
     }
 
-    public void setConsumModelArrayList(ArrayList<ConsumModel> consumModelArrayList) {
-        this.consumModelArrayList = consumModelArrayList;
+    public void setConsumeFoodModelArrayList(ArrayList<ConsumeFoodModel> consumeFoodModelArrayList) {
+        this.consumeFoodModelArrayList = consumeFoodModelArrayList;
+    }
+
+    public ArrayList<ConsumeModel> getConsumeModelArrayList() {
+        return consumeModelArrayList;
+    }
+
+    public void setConsumeModelArrayList(ArrayList<ConsumeModel> consumeModelArrayList) {
+        this.consumeModelArrayList = consumeModelArrayList;
     }
 
     public int getId() {

@@ -38,5 +38,6 @@ dependencies {
     compile 'com.zoonref:simple-view-behavior:1.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
     testCompile 'junit:junit:4.12'
 }

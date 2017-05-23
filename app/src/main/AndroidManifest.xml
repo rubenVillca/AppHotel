@@ -222,6 +222,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
+        <activity android:name=".activity.RoomAvailableActivity"
+            android:parentActivityName=".activity.ReserveActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveActivity" />
+        </activity>
     </application>
-
 </manifest>

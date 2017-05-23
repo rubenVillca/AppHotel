@@ -123,7 +123,9 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goReserve() {
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+        goReserveActivity();
+
+        /*int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
         params.put("idPerson", idPerson);
@@ -152,7 +154,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 goReserveActivity();
                 //showProgress(false);
             }
-        });
+        });*/
     }
 
     /**

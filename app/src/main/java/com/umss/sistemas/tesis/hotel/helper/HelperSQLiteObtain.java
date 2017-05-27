@@ -21,6 +21,7 @@ import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
+import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;

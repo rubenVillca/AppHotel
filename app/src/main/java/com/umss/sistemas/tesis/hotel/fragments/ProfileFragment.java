@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -91,11 +92,10 @@ public class ProfileFragment extends FragmentParent {
     private void showContentProfile(View view) {
         PersonModel profile = helperSQLiteObtain.getPersonModel(0);
         showDataProfile(profile, view);
+        imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
-            imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);
             Picasso.with(getActivity()).load(Conexion.urlServer + profile.getImgPerson()).into(imgProfile);
         }
-
     }
 
     private void showImageCamera(View view) {
@@ -160,7 +160,8 @@ public class ProfileFragment extends FragmentParent {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == FragmentParent.REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+        getActivity();
+        if (requestCode == FragmentParent.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
 
             Picasso.with(getActivity()).load(mCurrentPhotoPath).into(imgProfile);
             addPictureToGalery();

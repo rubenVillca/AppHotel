@@ -126,6 +126,8 @@
     <string name="btn_create_account">Crear Cuenta</string>
     <string name="btn_continue_reserve">Continuar</string>
     <string name="toolbar_tittle_room_available">Habitaciones Disponibles</string>
+    <string name="room_cardview_available_room">Habitaciones disponibles</string>
+    <string name="toolbar_tittle_room_selected">Habitación</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

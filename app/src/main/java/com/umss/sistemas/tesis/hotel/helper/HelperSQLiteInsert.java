@@ -21,6 +21,7 @@ import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
+import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
@@ -151,6 +152,42 @@ public class HelperSQLiteInsert extends HelperParent {
     }
 
     //**************************************MODEL_JSON**********************************************
+
+    /**
+     * obtener la lista de habitaciones libres del hotel
+     *
+     * @param obj: objeto habitaciones disponibles en formato JSON
+     * @return ArrayList<RoomAvailableModel>: lista de tipos de habitaciones disponibles del hotel
+     */
+    public ArrayList<RoomAvailableModel> getRoomAvailableModel(JSONObject obj) {
+        ArrayList<RoomAvailableModel> roomAvailableModels = new ArrayList<>();
+        try {
+            JSONArray roomAvailableJSONArray = obj.getJSONArray("roomAvailable");
+
+            for (int i = 0; i < roomAvailableJSONArray.length(); i++) {
+                JSONObject roomAvailableObject = roomAvailableJSONArray.getJSONObject(i);
+
+                RoomAvailableModel roomAvailableModel = new RoomAvailableModel();
+
+                roomAvailableModel.setIdTypeRoom(roomAvailableObject.getInt("ID_ROOM_MODEL"));
+                roomAvailableModel.setUnitAdult(roomAvailableObject.getInt("UNIT_ADULT_ROOM_MODEL"));
+                roomAvailableModel.setUnitBoy(roomAvailableObject.getInt("UNIT_BOY_ROOM_MODEL"));
+                roomAvailableModel.setUnitPet(roomAvailableObject.getInt("UNIT_PET_ROOM_MODEL"));
+                roomAvailableModel.setUnitRoom(roomAvailableObject.getInt("TOTAL_ROOM") - roomAvailableObject.getInt("n_reserved"));
+                roomAvailableModel.setIdService(roomAvailableObject.getInt("ID_SERVICE"));
+                roomAvailableModel.setNameService(roomAvailableObject.getString("NAME_SERVICE"));
+                roomAvailableModel.setImageTypeRoom(roomAvailableObject.getString("IMAGE_ROOM_MODEL"));
+                roomAvailableModel.setNameTypeRoom(roomAvailableObject.getString("NAME_ROOM_MODEL"));
+                roomAvailableModel.setDescriptionTypeRoom(roomAvailableObject.getString("DESCRIPTION_ROOM_MODEL"));
+
+                roomAvailableModels.add(roomAvailableModel);
+            }
+        } catch (JSONException e) {
+            System.out.println("Datos no legibles");
+            e.printStackTrace();
+        }
+        return roomAvailableModels;
+    }
 
     /**
      * obtener la lista de actividades del hotel
@@ -696,7 +733,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 consumeModel.setTimeInConsum(consumObject.getString("TIME_START_CONSUME_SERVICE"));
                 consumeModel.setDateOutConsum(consumObject.getString("DATE_END_CONSUME_SERVICE"));
                 consumeModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
-                consumeModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE")>0);
+                consumeModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE") > 0);
                 consumeModel.setNameService(consumObject.getString("NAME_SERVICE"));
                 consumeModel.setPointObtain(consumObject.getInt("POINT_OBTAIN_COST_SERVICE"));
                 consumeModel.setPointRequired(consumObject.getInt("POINT_REQUIRED_COST_SERVICE"));
@@ -882,7 +919,7 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_LOGIN_PASSWORD, loginModel.getPassword());
         newRegister.put(DBSQLiteHelper.KEY_LOGIN_STATE, loginModel.getState());
 
-        if (db.insert(DBSQLiteHelper.TABLE_LOGIN, null, newRegister)==-1)
+        if (db.insert(DBSQLiteHelper.TABLE_LOGIN, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en LoginModel");
     }
 
@@ -892,7 +929,7 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param personModel: objeto a ingresar a la base dedd atos sqlite
      */
     private void insertPersonSQLite(PersonModel personModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON +" where "+DBSQLiteHelper.KEY_PERSON_ID+"="+personModel.getIdPerson());
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + personModel.getIdPerson());
 
         ContentValues newRegister = new ContentValues();
 
@@ -912,7 +949,7 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
         newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
 
-        if (db.insert(DBSQLiteHelper.TABLE_PERSON, null, newRegister)==-1)
+        if (db.insert(DBSQLiteHelper.TABLE_PERSON, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en PersonModel");
     }
 
@@ -946,7 +983,7 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
 
-        if (db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister)==-1)
+        if (db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en AboutModel");
     }
 
@@ -970,7 +1007,7 @@ public class HelperSQLiteInsert extends HelperParent {
             serviceContent.put(DBSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
             serviceContent.put(DBSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
 
-            if (db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent)==-1)
+            if (db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
 
             insertServicePriceSQLite(serviceModel.getServicePrice());
@@ -996,7 +1033,7 @@ public class HelperSQLiteInsert extends HelperParent {
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
             serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceModel.isServicePriceIsOffer() ? 1 : 0));
-            if ( db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent)==-1)
+            if (db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
         }
     }
@@ -1023,7 +1060,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
             insertSiteTourImageSQLite(siteTourModel);
 
-            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent)==-1)
+            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en SiteTourModel");
         }
     }
@@ -1045,7 +1082,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
             siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
 
-            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent)==-1)
+            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en SiteTourImageModel");
         }
     }
@@ -1074,7 +1111,7 @@ public class HelperSQLiteInsert extends HelperParent {
             offerContent.put(DBSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
             offerContent.put(DBSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
 
-            if (db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent)==-1)
+            if (db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en OfferModel");
 
             insertServicePriceSQLite(offer.getServicePriceModel());
@@ -1101,7 +1138,7 @@ public class HelperSQLiteInsert extends HelperParent {
             foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
             foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
 
-            if ( db.insert(DBSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent) == -1)
+            if (db.insert(DBSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en FoodMenuModel");
 
         }
@@ -1282,12 +1319,12 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ReserveModel reserveModel : reserveModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_ID_CONSUME,reserveModel.getIdConsume());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_NAME_ROOM_MODEL,reserveModel.getNameRoomModel());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_DESCRIPTION_ROOM_MODEL,reserveModel.getDescriptionRoomModel());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_ADULT,reserveModel.getnAdult());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_BOY,reserveModel.getnBoy());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_UNIT,reserveModel.getUnit());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_ID_CONSUME, reserveModel.getIdConsume());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_NAME_ROOM_MODEL, reserveModel.getNameRoomModel());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_DESCRIPTION_ROOM_MODEL, reserveModel.getDescriptionRoomModel());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_ADULT, reserveModel.getnAdult());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_BOY, reserveModel.getnBoy());
+            contentValues.put(DBSQLiteHelper.KEY_RESERVE_UNIT, reserveModel.getUnit());
 
             if (db.insert(DBSQLiteHelper.TABLE_RESERVE, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");

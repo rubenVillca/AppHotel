@@ -20,6 +20,7 @@ import com.umss.sistemas.tesis.hotel.model.MessageModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
@@ -179,6 +180,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 roomAvailableModel.setImageTypeRoom(roomAvailableObject.getString("IMAGE_ROOM_MODEL"));
                 roomAvailableModel.setNameTypeRoom(roomAvailableObject.getString("NAME_ROOM_MODEL"));
                 roomAvailableModel.setDescriptionTypeRoom(roomAvailableObject.getString("DESCRIPTION_ROOM_MODEL"));
+                roomAvailableModel.setPriceServiceModels(getPriceRoomModel(roomAvailableObject));
 
                 roomAvailableModels.add(roomAvailableModel);
             }
@@ -187,6 +189,33 @@ public class HelperSQLiteInsert extends HelperParent {
             e.printStackTrace();
         }
         return roomAvailableModels;
+    }
+
+    private ArrayList<PriceServiceModel> getPriceRoomModel(JSONObject obj) {
+        ArrayList<PriceServiceModel> priceServiceModels = new ArrayList<>();
+        try {
+            JSONArray priceRoomJSONArray = obj.getJSONArray("list_cost");
+
+            for (int i = 0; i < priceRoomJSONArray.length(); i++) {
+                JSONObject roomAvailableObject = priceRoomJSONArray.getJSONObject(i);
+
+                PriceServiceModel priceRoomModel = new PriceServiceModel();
+
+                priceRoomModel.setUnitHour(roomAvailableObject.getInt("UNIT_HOUR_COST_SERVICE"));
+                priceRoomModel.setUnitDay(roomAvailableObject.getInt("UNIT_DAY_COST_SERVICE"));
+                priceRoomModel.setPointObtain(roomAvailableObject.getInt("POINT_OBTAIN_COST_SERVICE"));
+                priceRoomModel.setPointRequired(roomAvailableObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+                priceRoomModel.setIdKeyCost(roomAvailableObject.getInt("ID_COST_SERVICE"));
+                priceRoomModel.setNameTypeMoney(roomAvailableObject.getString("NAME_TYPE_MONEY"));
+                priceRoomModel.setPriceService(roomAvailableObject.getInt("PRICE_COST_SERVICE"));
+                priceRoomModel.setUnitService(roomAvailableObject.getInt("UNIT_COST_SERVICE"));
+
+                priceServiceModels.add(priceRoomModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return priceServiceModels;
     }
 
     /**

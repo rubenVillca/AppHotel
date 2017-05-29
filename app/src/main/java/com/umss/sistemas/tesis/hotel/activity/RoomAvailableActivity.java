@@ -43,6 +43,8 @@ public class RoomAvailableActivity extends ActivityParent {
 
         pictureRecycler.setLayoutManager(linearLayoutManager);
 
+
+
         RoomAvailableAdapterRecycler homeAdapter = new RoomAvailableAdapterRecycler(buildService(), R.layout.cardview_available_room, this);
         pictureRecycler.setAdapter(homeAdapter);
     }

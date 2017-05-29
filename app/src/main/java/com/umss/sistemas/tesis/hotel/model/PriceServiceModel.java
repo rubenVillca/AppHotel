@@ -2,23 +2,25 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
+import java.io.Serializable;
+
 /**
  * Created by ruben on 25/05/2017
  */
 
-public class PriceServiceParent extends ModelParent {
+public class PriceServiceModel extends ModelParent implements Serializable{
     private int pointObtain;
     private int pointRequired;
     private int idKeyCost;
-    private int nameTypeMoney;
+    private String nameTypeMoney;
     private double priceService;
     private int unitService;
     private int unitHour;
     private int unitDay;
 
-    public PriceServiceParent(int pointObtain) {
+    public PriceServiceModel() {
         this.idKeyCost = 0;
-        this.nameTypeMoney = 0;
+        this.nameTypeMoney = "";
         this.priceService = 0;
         this.pointObtain = 0;
         this.pointRequired = 0;
@@ -67,11 +69,11 @@ public class PriceServiceParent extends ModelParent {
         this.idKeyCost = idKeyCost;
     }
 
-    public int getNameTypeMoney() {
+    public String getNameTypeMoney() {
         return nameTypeMoney;
     }
 
-    public void setNameTypeMoney(int nameTypeMoney) {
+    public void setNameTypeMoney(String nameTypeMoney) {
         this.nameTypeMoney = nameTypeMoney;
     }
 

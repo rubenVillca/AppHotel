@@ -1,18 +1,22 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 public class RoomSelectedActivity extends ActivityParent {
 
+    private RoomAvailableModel roomAvailableModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_selected);
 
-        super.showToolBar(getResources().getString(R.string.toolbar_tittle_room_selected), true);
+        super.showToolBar("", true);
+
+        roomAvailableModel=(RoomAvailableModel)getIntent().getExtras().getSerializable("roomAvailableModel");
     }
+
 }

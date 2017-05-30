@@ -1,16 +1,19 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ReserveTargetActivity;
 import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
 
 import java.text.ParseException;
@@ -81,6 +84,13 @@ public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdap
 
             }
         });
+        holder.buttonCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, ReserveTargetActivity.class);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -115,6 +125,7 @@ public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdap
         private TextView timeUnitCardView;
         private TextView timeSelectedCardView;
         private Spinner spinnerCardView;
+        private Button buttonCardView;
 
         private PriceServiceViewHolder(View itemView) {
             super(itemView);
@@ -124,6 +135,7 @@ public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdap
             timeUnitCardView = (TextView) itemView.findViewById(R.id.timeUnitPriceServiceCardView);
             timeSelectedCardView = (TextView) itemView.findViewById(R.id.timeSelectedPriceServiceCardView);
             spinnerCardView = (Spinner) itemView.findViewById(R.id.nRoomPriceServiceCardView);
+            buttonCardView=(Button)itemView.findViewById(R.id.btnPriceServiceCardView);
         }
     }
 }

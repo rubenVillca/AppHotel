@@ -128,6 +128,9 @@
     <string name="toolbar_tittle_room_available">Habitaciones Disponibles</string>
     <string name="room_cardview_available_room">Habitaciones disponibles</string>
     <string name="toolbar_tittle_room_selected">Habitación</string>
+    <string name="label_name_target">Tipo de tarjeta</string>
+    <string name="label_target_ccv">CCV</string>
+    <string name="label_number_target">Número de tarjeta</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

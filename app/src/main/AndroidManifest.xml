@@ -238,6 +238,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.RoomAvailableActivity" />
         </activity>
+        <activity
+            android:name=".activity.ReserveTargetActivity"
+            android:parentActivityName=".activity.RoomSelectedActivity"
+            android:windowSoftInputMode="stateHidden"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.RoomSelectedActivity" />
+        </activity>
     </application>
 
 </manifest>

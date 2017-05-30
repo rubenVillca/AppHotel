@@ -21,7 +21,7 @@ public class Conexion {
     public static final int CALENDAR = 17;
     public static final int CHECK =18;
 
-    private static String ip="http://192.168.1.33/";
+    private static String ip="http://192.168.1.36/";
     private static String dirUser="hotel/";
     private static String[] pagina={
                                     "login",

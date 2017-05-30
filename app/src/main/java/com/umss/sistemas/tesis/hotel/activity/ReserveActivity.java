@@ -46,6 +46,9 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
     //private int timeOut=0;
     private TextView typeTimeOutTextViewReserve;
 
+    private TextView nAdult;
+    private TextView nBoy;
+
     private DatePickerFragment datePickerFragmentIn;
     private DatePickerFragment datePickerFragmentOut;
     private TimePickerFragment timePickerFragmentIn;
@@ -78,6 +81,9 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         timeOutTextViewReserve = (TextView) findViewById(R.id.hourOutReserve);
         typeTimeOutTextViewReserve = (TextView) findViewById(R.id.typeHourOutReserve);
 
+        nBoy = (TextView) findViewById(R.id.nPersonBoy);
+        nAdult = (TextView) findViewById(R.id.nPersonAdult);
+
         Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
 
@@ -91,10 +97,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        TextView nAdult = (TextView) findViewById(R.id.nPersonAdult);
         int numberPersonAdult = Integer.parseInt(nAdult.getText().toString());
-
-        TextView nBoy = (TextView) findViewById(R.id.nPersonBoy);
         int numberPersonBoy = Integer.parseInt(nBoy.getText().toString());
 
         switch (v.getId()) {
@@ -115,23 +118,26 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                 nBoy.setText(String.valueOf(numberPersonBoy));
                 break;
             case R.id.btnContinueReserve:
-                goRoomAvailable(nAdult, nBoy);
+                goRoomAvailable();
                 break;
         }
 
     }
 
-    private void goRoomAvailable(TextView nAdult, TextView nBoy) {
+    /**
+     * obtener lista de tipos de habitaciones disponibles del servidor
+     */
+    private void goRoomAvailable() {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
         params.put("android", "android");
-        params.put("nAdult", nAdult);
-        params.put("nBoy", nBoy);
-        params.put("dateIn", dateInTextViewReserve.getText());
-        params.put("timeIn", timeInTextViewReserve.getText());
-        params.put("dateOut", dateOutTextViewReserve.getText());
-        params.put("timeOut", timeOutTextViewReserve.getText());
+        params.put("nAdult", nAdult.getText().toString());
+        params.put("nBoy", nBoy.getText().toString());
+        params.put("dateIn", dateInTextViewReserve.getText().toString());
+        params.put("timeIn", timeInTextViewReserve.getText().toString());
+        params.put("dateOut", dateOutTextViewReserve.getText().toString());
+        params.put("timeOut", timeOutTextViewReserve.getText().toString());
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
@@ -141,7 +147,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<RoomAvailableModel> roomAvailableModels=helperSQLiteInsert.getRoomAvailableModel(obj);
+                        ArrayList<RoomAvailableModel> roomAvailableModels = helperSQLiteInsert.getRoomAvailableModel(obj);
                         goActivityRoomAvailable(roomAvailableModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
@@ -161,14 +167,24 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         });
     }
 
+    /**
+     * cambiar de activity a roomAvailableActivity enviando variables
+     * @param roomAvailableModels:lista de tipos de habitaciones disponibles
+     */
     private void goActivityRoomAvailable(ArrayList<RoomAvailableModel> roomAvailableModels) {
-        Intent intent=new Intent(this,RoomAvailableActivity.class);
+        Intent intent = new Intent(this, RoomAvailableActivity.class);
 
-        int size=roomAvailableModels.size();
-        intent.putExtra("roomAvailableSize",size);
+        intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
+        intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
+        intent.putExtra("dateIn", dateInTextViewReserve.getText().toString());
+        intent.putExtra("timeIn", timeInTextViewReserve.getText().toString());
+        intent.putExtra("dateOut", dateOutTextViewReserve.getText().toString());
+        intent.putExtra("timeOut", timeOutTextViewReserve.getText().toString());
 
-        for (int i=0;i<size;i++){
-            intent.putExtra("room-"+i,roomAvailableModels.get(i));
+        int size = roomAvailableModels.size();
+        intent.putExtra("roomAvailableSize", size);
+        for (int i = 0; i < size; i++) {
+            intent.putExtra("room-" + i, roomAvailableModels.get(i));
         }
 
         startActivity(intent);
@@ -273,7 +289,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
      * @param calendar:calendario
      */
     private void setDateOut(final Calendar calendar) {
-        calendar.add(Calendar.DAY_OF_MONTH,1);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
         String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
         String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
 

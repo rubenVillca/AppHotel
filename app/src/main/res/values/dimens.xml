@@ -53,4 +53,5 @@
     <dimen name="height_card_message">90dp</dimen>
     <dimen name="height_card_activity">90dp</dimen>
     <dimen name="text_size_title_card">18sp</dimen>
+    <dimen name="textsize_room_select">15sp</dimen>
 </resources>

@@ -4,61 +4,58 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.RoomAvailableAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
-import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
 
 public class RoomAvailableActivity extends ActivityParent {
 
+    private int nAdult;
+    private int nBoy;
+    private String dateIn;
+    private String dateOut;
+    private String timeIn;
+    private String timeOut;
+    private  ArrayList<RoomAvailableModel> roomAvailableModels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_available);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_room_available), true);
-
+        buildBundle();
         adapterRecyclerView();
     }
 
+    private void buildBundle() {
+        Bundle bundle=getIntent().getExtras();
+        nAdult = bundle.getInt("nAdult");
+        nBoy = bundle.getInt("nBoy");
+        dateIn = bundle.getString("dateIn");
+        dateOut = bundle.getString("dateOut");
+        timeIn = bundle.getString("timeIn");
+        timeOut = bundle.getString("timeOut");
+
+        roomAvailableModels = new ArrayList<>();
+        int size = getIntent().getExtras().getInt("roomAvailableSize");
+        for (int i = 0; i < size; i++) {
+            RoomAvailableModel roomAvailableModel = (RoomAvailableModel) getIntent().getExtras().getSerializable("room-" + i);
+            roomAvailableModels.add(roomAvailableModel);
+        }
+    }
+
     private void adapterRecyclerView() {
-        RecyclerView pictureRecycler = (RecyclerView) findViewById(R.id.roomAvailableRecyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.roomAvailableRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        pictureRecycler.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-
-
-        RoomAvailableAdapterRecycler homeAdapter = new RoomAvailableAdapterRecycler(buildService(), R.layout.cardview_available_room, this);
-        pictureRecycler.setAdapter(homeAdapter);
+        RoomAvailableAdapterRecycler roomAvailableAdapterRecycler = new RoomAvailableAdapterRecycler(roomAvailableModels, R.layout.cardview_available_room, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut);
+        recyclerView.setAdapter(roomAvailableAdapterRecycler);
     }
-
-    public ArrayList<RoomAvailableModel> buildService() {
-        ArrayList<RoomAvailableModel> roomAvailableModels=new ArrayList<>();
-
-        int size=getIntent().getExtras().getInt("roomAvailableSize");
-        for (int i=0;i<size;i++){
-            RoomAvailableModel roomAvailableModel=(RoomAvailableModel) getIntent().getExtras().getSerializable("room-"+i);
-            roomAvailableModels.add(roomAvailableModel);
-        }
-
-        return roomAvailableModels;
-    }
-
 }

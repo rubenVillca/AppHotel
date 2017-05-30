@@ -24,6 +24,7 @@ public class ActivityParent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(tittle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
+        getSupportActionBar().setDisplayShowHomeEnabled(upButton);
     }
 
     /**
@@ -59,10 +60,12 @@ public class ActivityParent extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (helperSQLiteInsert !=null)
-            helperSQLiteInsert.destroy();
-        if (helperSQLiteObtain!=null)
-            helperSQLiteObtain.destroy();
         super.onDestroy();
+        if (helperSQLiteInsert !=null) {
+            helperSQLiteInsert.destroy();
+        }
+        if (helperSQLiteObtain!=null) {
+            helperSQLiteObtain.destroy();
+        }
     }
 }

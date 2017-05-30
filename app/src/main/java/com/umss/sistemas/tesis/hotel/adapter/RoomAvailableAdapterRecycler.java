@@ -30,11 +30,23 @@ public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvail
     private ArrayList<RoomAvailableModel> availableModelArray;
     private int resource;
     private Activity activity;
+    private int nAdult;
+    private int nBoy;
+    private String dateIn;
+    private String dateOut;
+    private String timeIn;
+    private String timeOut;
 
-    public RoomAvailableAdapterRecycler(ArrayList<RoomAvailableModel> roomAvailableModels, int resource, Activity activity) {
+    public RoomAvailableAdapterRecycler(ArrayList<RoomAvailableModel> roomAvailableModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut) {
         this.availableModelArray = roomAvailableModels;
         this.resource = resource;
         this.activity = activity;
+        this.nAdult = nAdult;
+        this.nBoy = nBoy;
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
+        this.timeIn = timeIn;
+        this.timeOut = timeOut;
     }
 
     @Override
@@ -48,7 +60,7 @@ public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvail
         final RoomAvailableModel roomAvailableModel = availableModelArray.get(position);
 
         holder.nameTypeRoomCardView.setText(roomAvailableModel.getNameService());
-        holder.priceCardView.setText(String.valueOf("Habitaciones Disponibles: "+roomAvailableModel.getUnitRoom()));
+        holder.priceCardView.setText(String.valueOf("Habitaciones Disponibles: " + roomAvailableModel.getUnitRoom()));
 
         String urlImage = Conexion.urlServer + roomAvailableModel.getImageTypeRoom();
         if (!urlImage.isEmpty())
@@ -57,15 +69,23 @@ public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvail
         holder.imageCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, RoomSelectedActivity.class);
-                intent.putExtra("roomAvailableModel",roomAvailableModel);
+                Intent intent = new Intent(activity, RoomSelectedActivity.class);
 
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                    Explode explode=new Explode();
+                intent.putExtra("roomAvailableModel", roomAvailableModel);
+                intent.putExtra("nAdult", nAdult);
+                intent.putExtra("nBoy", nBoy);
+                intent.putExtra("dateIn", dateIn);
+                intent.putExtra("timeIn", timeIn);
+                intent.putExtra("dateOut", dateOut);
+                intent.putExtra("timeOut", timeOut);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Explode explode = new Explode();
                     explode.setDuration(1000);
                     activity.getWindow().setExitTransition(explode);
-                    activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity,v,activity.getString(R.string.transicionname_picture)).toBundle());
-                }else{
+                    activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, v, activity.getString(R.string.transicionname_picture)).toBundle());
+                } else {
                     activity.startActivity(intent);
                 }
             }

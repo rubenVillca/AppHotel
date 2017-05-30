@@ -3,6 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -73,6 +74,15 @@ public class ServiceDetailActivity extends ActivityParent {
             elementos.add(String.valueOf(price.getServicePricePointRequired()));
 
             tabla.agregarFilaTabla(elementos);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }

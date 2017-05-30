@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,7 +58,6 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         int idSiteTour=bundle.getInt("idSiteTour");
         helperSQLiteObtain= new HelperSQLiteObtain(this);
         siteTourModel = helperSQLiteObtain.getSiteTourModel(idSiteTour).get(0);
-
 
         addMarker();
         verifyActiveGPS();
@@ -144,11 +144,12 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
     };
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        /*Intent intent=new Intent(this,SiteTourActivity.class);
-        intent.putExtra("idSiteTour",siteTourModel.getIdSite());
-        startActivity(intent);*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
-
 }

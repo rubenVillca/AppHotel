@@ -1,12 +1,9 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -32,27 +29,20 @@ import java.util.GregorianCalendar;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ReserveActivity extends ActivityParent implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class ReserveActivity extends ActivityParent implements View.OnClickListener {
 
     private TextView dayInTextViewReserve;
     private TextView dateInTextViewReserve;
     private TextView timeInTextViewReserve;
-    //private int timeIn=0;
     private TextView typeTimeInTextViewReserve;
 
     private TextView dayOutTextViewReserve;
     private TextView dateOutTextViewReserve;
     private TextView timeOutTextViewReserve;
-    //private int timeOut=0;
     private TextView typeTimeOutTextViewReserve;
 
     private TextView nAdult;
     private TextView nBoy;
-
-    private DatePickerFragment datePickerFragmentIn;
-    private DatePickerFragment datePickerFragmentOut;
-    private TimePickerFragment timePickerFragmentIn;
-    private TimePickerFragment timePickerFragmentOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +55,19 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
     }
 
     private void initContent() {
-        ImageView btnLeft = (ImageView) findViewById(R.id.btnLeftAdult);
-        btnLeft.setOnClickListener(this);
+        nAdult = (TextView) findViewById(R.id.nPersonAdult);
+        ImageView btnLeftAdult = (ImageView) findViewById(R.id.btnLeftAdult);
+        btnLeftAdult.setOnClickListener(this);
 
-        ImageView btnRight = (ImageView) findViewById(R.id.btnRightAdult);
-        btnRight.setOnClickListener(this);
+        ImageView btnRightAdult = (ImageView) findViewById(R.id.btnRightAdult);
+        btnRightAdult.setOnClickListener(this);
+
+        nBoy = (TextView) findViewById(R.id.nPersonBoy);
+        ImageView btnLeftBoy = (ImageView) findViewById(R.id.btnLeftBoy);
+        btnLeftBoy.setOnClickListener(this);
+
+        ImageView btnRightBoy = (ImageView) findViewById(R.id.btnRightBoy);
+        btnRightBoy.setOnClickListener(this);
 
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
@@ -81,18 +79,33 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         timeOutTextViewReserve = (TextView) findViewById(R.id.hourOutReserve);
         typeTimeOutTextViewReserve = (TextView) findViewById(R.id.typeHourOutReserve);
 
-        nBoy = (TextView) findViewById(R.id.nPersonBoy);
-        nAdult = (TextView) findViewById(R.id.nPersonAdult);
-
         Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance();
 
-        setDateIn(calendar);
-        setTimeIn(calendar);
-        setDateOut(calendar);
-        setTimeOut(calendar);
+        //date in
+        String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
+        String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
+
+        dayInTextViewReserve.setText(dia);
+        dateInTextViewReserve.setText(dateFormat.format(calendar.getTime()));
+
+        //dateOut
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+
+        dayOutTextViewReserve.setText(dia);
+        dateOutTextViewReserve.setText(dateFormat.format(calendar.getTime()));
+
+        //timeIn
+        timeInTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+        typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM))==1?"PM":"AM");
+
+        //timeOut
+        timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+        typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM))==1?"PM":"AM");
     }
 
     @Override
@@ -110,9 +123,8 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                 nAdult.setText(String.valueOf(numberPersonAdult));
                 break;
             case R.id.btnLeftBoy:
-                numberPersonBoy = (numberPersonBoy - 1) > 0 ? --numberPersonBoy : numberPersonBoy;
+                numberPersonBoy = (numberPersonBoy - 1) >= 0 ? --numberPersonBoy : numberPersonBoy;
                 nBoy.setText(String.valueOf(numberPersonBoy));
-                showMesaje("Menos boy");
                 break;
             case R.id.btnRightBoy:
                 numberPersonBoy = (numberPersonBoy + 1) < 100 ? ++numberPersonBoy : numberPersonBoy;
@@ -170,6 +182,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
 
     /**
      * cambiar de activity a roomAvailableActivity enviando variables
+     *
      * @param reserveSearchModels:lista de tipos de habitaciones disponibles
      */
     private void goActivityRoomAvailable(ArrayList<ReserveSearchModel> reserveSearchModels) {
@@ -191,111 +204,29 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         startActivity(intent);
     }
 
-    public void showDatePickerDialog(View v) {
-        datePickerFragmentIn = new DatePickerFragment();
+    public void showDateInPickerDialog(View v) {
+        DatePickerFragment datePickerFragmentIn = new DatePickerFragment();
+        datePickerFragmentIn.setTextView(dateInTextViewReserve, dayInTextViewReserve);
         datePickerFragmentIn.show(getFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialog(View view) {
-        timePickerFragmentIn = new TimePickerFragment();
+    public void showTimeInPickerDialog(View view) {
+        TimePickerFragment timePickerFragmentIn = new TimePickerFragment();
+        timePickerFragmentIn.setTextViewTime(timeInTextViewReserve);
+        timePickerFragmentIn.setTextViewTypeTime(typeTimeInTextViewReserve);
         timePickerFragmentIn.show(getSupportFragmentManager(), "timePicker");
     }
 
     public void showDateOutPickerDialog(View v) {
-        datePickerFragmentOut = new DatePickerFragment();
+        DatePickerFragment datePickerFragmentOut = new DatePickerFragment();
+        datePickerFragmentOut.setTextView(dateOutTextViewReserve, dayOutTextViewReserve);
         datePickerFragmentOut.show(getFragmentManager(), "datePicker");
     }
 
     public void showTimeOutPickerDialog(View view) {
-        timePickerFragmentOut = new TimePickerFragment();
+        TimePickerFragment timePickerFragmentOut = new TimePickerFragment();
+        timePickerFragmentOut.setTextViewTime(timeOutTextViewReserve);
+        timePickerFragmentOut.setTextViewTypeTime(typeTimeOutTextViewReserve);
         timePickerFragmentOut.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        Calendar cal = new GregorianCalendar(year, month, day);
-        int a = view.getId();
-        int b = datePickerFragmentIn.getId();
-        //int c = timePickerFragmentIn.getId();
-        //int d = datePickerFragmentOut.getId();
-        //int e = timePickerFragmentOut.getId();
-        if (view.getId() == datePickerFragmentIn.getId()) {
-            setDateIn(cal);
-        }
-        if (view.getId() == datePickerFragmentOut.getId()) {
-            setDateOut(cal);
-        }
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Calendar cal = new GregorianCalendar(0, 0, 0, hourOfDay, minute);
-        if (view.getId() == R.id.layoutTimeInReserve)
-            setTimeIn(cal);
-        if (view.getId() == R.id.layoutTimeOutReserve)
-            setTimeOut(cal);
-    }
-
-    /**
-     * To set date on TextView
-     *
-     * @param calendar:calendario
-     */
-    private void setTimeIn(Calendar calendar) {
-        byte hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);
-        boolean type = false;
-        if (hour > 12) {
-            hour -= 12;
-            type = true;
-        }
-
-        timeInTextViewReserve.setText(String.valueOf(hour + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeInTextViewReserve.setText(type ? "PM" : "AM");
-    }
-
-    /**
-     * To set date on TextView
-     *
-     * @param calendar:calendario
-     */
-    private void setTimeOut(Calendar calendar) {
-        byte hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);
-        boolean type = false;
-        if (hour > 12) {
-            hour -= 12;
-            type = true;
-        }
-
-        timeOutTextViewReserve.setText(String.valueOf(hour + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeOutTextViewReserve.setText(type ? "PM" : "AM");
-    }
-
-    /**
-     * To set date on TextView
-     *
-     * @param calendar:calendario
-     */
-    private void setDateIn(final Calendar calendar) {
-        String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-        String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-
-        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
-        dayInTextViewReserve.setText(dia);
-        dateInTextViewReserve.setText(dateFormat.format(calendar.getTime()));
-    }
-
-    /**
-     * To set date on TextView
-     *
-     * @param calendar:calendario
-     */
-    private void setDateOut(final Calendar calendar) {
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-        String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-
-        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
-        dayOutTextViewReserve.setText(dia);
-        dateOutTextViewReserve.setText(dateFormat.format(calendar.getTime()));
     }
 }

@@ -147,7 +147,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="0.5"
                         android:gravity="center"
-                        android:onClick="showDatePickerDialog"
+                        android:onClick="showDateInPickerDialog"
                         android:orientation="vertical">
 
                         <TextView
@@ -171,7 +171,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="0.5"
                         android:gravity="center"
-                        android:onClick="showTimePickerDialog"
+                        android:onClick="showTimeInPickerDialog"
                         android:orientation="vertical">
 
                         <TextView

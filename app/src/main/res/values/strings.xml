@@ -131,6 +131,19 @@
     <string name="label_name_target">Tipo de tarjeta</string>
     <string name="label_target_ccv">CCV</string>
     <string name="label_number_target">Número de tarjeta</string>
+    <string name="label_name">Nombre</string>
+    <string name="label_last_name">Apellido(s)</string>
+    <string name="label_document">Documento</string>
+    <string name="label_phone">Telefono</string>
+    <string name="label_email">Email</string>
+    <string name="label_date_born">Fecha de Nacimiento</string>
+    <string name="label_men">Hombre</string>
+    <string name="label_women">Mujer</string>
+    <string name="label_city">Ciudad</string>
+    <string name="label_pais">Pais</string>
+    <string name="action_reserve">Reservar</string>
+    <string name="label_address">Direccion</string>
+    <string name="action_cancel">Cancelar</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

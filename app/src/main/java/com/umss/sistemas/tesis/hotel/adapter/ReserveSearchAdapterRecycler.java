@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.activity.RoomSelectedActivity;
-import com.umss.sistemas.tesis.hotel.activity.ServiceDetailActivity;
+import com.umss.sistemas.tesis.hotel.activity.ReserveSelectedActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 
 import java.util.ArrayList;
 
@@ -25,9 +24,9 @@ import java.util.ArrayList;
  * Created by ruben on 23/05/2017
  */
 
-public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvailableAdapterRecycler.AvailableRoomViewHolder> {
+public class ReserveSearchAdapterRecycler extends RecyclerView.Adapter<ReserveSearchAdapterRecycler.AvailableRoomViewHolder> {
 
-    private ArrayList<RoomAvailableModel> availableModelArray;
+    private ArrayList<ReserveSearchModel> availableModelArray;
     private int resource;
     private Activity activity;
     private int nAdult;
@@ -37,8 +36,8 @@ public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvail
     private String timeIn;
     private String timeOut;
 
-    public RoomAvailableAdapterRecycler(ArrayList<RoomAvailableModel> roomAvailableModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut) {
-        this.availableModelArray = roomAvailableModels;
+    public ReserveSearchAdapterRecycler(ArrayList<ReserveSearchModel> reserveSearchModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut) {
+        this.availableModelArray = reserveSearchModels;
         this.resource = resource;
         this.activity = activity;
         this.nAdult = nAdult;
@@ -50,28 +49,28 @@ public class RoomAvailableAdapterRecycler extends RecyclerView.Adapter<RoomAvail
     }
 
     @Override
-    public RoomAvailableAdapterRecycler.AvailableRoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReserveSearchAdapterRecycler.AvailableRoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        return new RoomAvailableAdapterRecycler.AvailableRoomViewHolder(view);
+        return new ReserveSearchAdapterRecycler.AvailableRoomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RoomAvailableAdapterRecycler.AvailableRoomViewHolder holder, int position) {
-        final RoomAvailableModel roomAvailableModel = availableModelArray.get(position);
+    public void onBindViewHolder(ReserveSearchAdapterRecycler.AvailableRoomViewHolder holder, int position) {
+        final ReserveSearchModel reserveSearchModel = availableModelArray.get(position);
 
-        holder.nameTypeRoomCardView.setText(roomAvailableModel.getNameService());
-        holder.priceCardView.setText(String.valueOf("Habitaciones Disponibles: " + roomAvailableModel.getUnitRoom()));
+        holder.nameTypeRoomCardView.setText(reserveSearchModel.getNameService());
+        holder.priceCardView.setText(String.valueOf("Habitaciones Disponibles: " + reserveSearchModel.getUnitRoom()));
 
-        String urlImage = Conexion.urlServer + roomAvailableModel.getImageTypeRoom();
+        String urlImage = Conexion.urlServer + reserveSearchModel.getImageTypeRoom();
         if (!urlImage.isEmpty())
             Picasso.with(activity).load(urlImage).into(holder.imageCardView);
 
         holder.imageCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, RoomSelectedActivity.class);
+                Intent intent = new Intent(activity, ReserveSelectedActivity.class);
 
-                intent.putExtra("roomAvailableModel", roomAvailableModel);
+                intent.putExtra("reserveSearchModel", reserveSearchModel);
                 intent.putExtra("nAdult", nAdult);
                 intent.putExtra("nBoy", nBoy);
                 intent.putExtra("dateIn", dateIn);

@@ -223,7 +223,7 @@
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
         <activity
-            android:name=".activity.RoomAvailableActivity"
+            android:name=".activity.ReserveSearchActivity"
             android:parentActivityName=".activity.ReserveActivity"
             tools:targetApi="jelly_bean">
             <meta-data
@@ -231,22 +231,24 @@
                 android:value="com.umss.sistemas.tesis.hotel.activity.ReserveActivity" />
         </activity>
         <activity
-            android:name=".activity.RoomSelectedActivity"
-            android:parentActivityName=".activity.RoomAvailableActivity"
+            android:name=".activity.ReserveSelectedActivity"
+            android:parentActivityName=".activity.ReserveSearchActivity"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.umss.sistemas.tesis.hotel.activity.RoomAvailableActivity" />
+                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity" />
         </activity>
         <activity
             android:name=".activity.ReserveTargetActivity"
-            android:parentActivityName=".activity.RoomSelectedActivity"
+            android:parentActivityName=".activity.ReserveSelectedActivity"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.umss.sistemas.tesis.hotel.activity.RoomSelectedActivity" />
+                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveSelectedActivity" />
         </activity>
+        <activity android:name=".activity.ReserveMemberActivity" />
+        <activity android:name=".activity.ReserveListActivity"></activity>
     </application>
 
 </manifest>

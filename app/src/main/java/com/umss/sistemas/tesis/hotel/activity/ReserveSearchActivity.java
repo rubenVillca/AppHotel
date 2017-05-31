@@ -5,13 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.RoomAvailableAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
+import com.umss.sistemas.tesis.hotel.adapter.ReserveSearchAdapterRecycler;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
 
-public class RoomAvailableActivity extends ActivityParent {
+public class ReserveSearchActivity extends ActivityParent {
 
     private int nAdult;
     private int nBoy;
@@ -19,11 +19,11 @@ public class RoomAvailableActivity extends ActivityParent {
     private String dateOut;
     private String timeIn;
     private String timeOut;
-    private  ArrayList<RoomAvailableModel> roomAvailableModels;
+    private  ArrayList<ReserveSearchModel> reserveSearchModels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_available);
+        setContentView(R.layout.activity_reserve_search);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_room_available), true);
         buildBundle();
@@ -39,11 +39,11 @@ public class RoomAvailableActivity extends ActivityParent {
         timeIn = bundle.getString("timeIn");
         timeOut = bundle.getString("timeOut");
 
-        roomAvailableModels = new ArrayList<>();
+        reserveSearchModels = new ArrayList<>();
         int size = getIntent().getExtras().getInt("roomAvailableSize");
         for (int i = 0; i < size; i++) {
-            RoomAvailableModel roomAvailableModel = (RoomAvailableModel) getIntent().getExtras().getSerializable("room-" + i);
-            roomAvailableModels.add(roomAvailableModel);
+            ReserveSearchModel reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("room-" + i);
+            reserveSearchModels.add(reserveSearchModel);
         }
     }
 
@@ -55,7 +55,7 @@ public class RoomAvailableActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        RoomAvailableAdapterRecycler roomAvailableAdapterRecycler = new RoomAvailableAdapterRecycler(roomAvailableModels, R.layout.cardview_available_room, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut);
-        recyclerView.setAdapter(roomAvailableAdapterRecycler);
+        ReserveSearchAdapterRecycler reserveSearchAdapterRecycler = new ReserveSearchAdapterRecycler(reserveSearchModels, R.layout.cardview_search_reserve, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut);
+        recyclerView.setAdapter(reserveSearchAdapterRecycler);
     }
 }

@@ -22,7 +22,7 @@ import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
-import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
@@ -158,37 +158,37 @@ public class HelperSQLiteInsert extends HelperParent {
      * obtener la lista de habitaciones libres del hotel
      *
      * @param obj: objeto habitaciones disponibles en formato JSON
-     * @return ArrayList<RoomAvailableModel>: lista de tipos de habitaciones disponibles del hotel
+     * @return ArrayList<ReserveSearchModel>: lista de tipos de habitaciones disponibles del hotel
      */
-    public ArrayList<RoomAvailableModel> getRoomAvailableModel(JSONObject obj) {
-        ArrayList<RoomAvailableModel> roomAvailableModels = new ArrayList<>();
+    public ArrayList<ReserveSearchModel> getRoomAvailableModel(JSONObject obj) {
+        ArrayList<ReserveSearchModel> reserveSearchModels = new ArrayList<>();
         try {
             JSONArray roomAvailableJSONArray = obj.getJSONArray("roomAvailable");
 
             for (int i = 0; i < roomAvailableJSONArray.length(); i++) {
                 JSONObject roomAvailableObject = roomAvailableJSONArray.getJSONObject(i);
 
-                RoomAvailableModel roomAvailableModel = new RoomAvailableModel();
+                ReserveSearchModel reserveSearchModel = new ReserveSearchModel();
 
-                roomAvailableModel.setIdTypeRoom(roomAvailableObject.getInt("ID_ROOM_MODEL"));
-                roomAvailableModel.setUnitAdult(roomAvailableObject.getInt("UNIT_ADULT_ROOM_MODEL"));
-                roomAvailableModel.setUnitBoy(roomAvailableObject.getInt("UNIT_BOY_ROOM_MODEL"));
-                roomAvailableModel.setUnitPet(roomAvailableObject.getInt("UNIT_PET_ROOM_MODEL"));
-                roomAvailableModel.setUnitRoom(roomAvailableObject.getInt("TOTAL_ROOM") - roomAvailableObject.getInt("n_reserved"));
-                roomAvailableModel.setIdService(roomAvailableObject.getInt("ID_SERVICE"));
-                roomAvailableModel.setNameService(roomAvailableObject.getString("NAME_SERVICE"));
-                roomAvailableModel.setImageTypeRoom(roomAvailableObject.getString("IMAGE_ROOM_MODEL"));
-                roomAvailableModel.setNameTypeRoom(roomAvailableObject.getString("NAME_ROOM_MODEL"));
-                roomAvailableModel.setDescriptionTypeRoom(roomAvailableObject.getString("DESCRIPTION_ROOM_MODEL"));
-                roomAvailableModel.setPriceServiceModels(getPriceRoomModel(roomAvailableObject));
+                reserveSearchModel.setIdTypeRoom(roomAvailableObject.getInt("ID_ROOM_MODEL"));
+                reserveSearchModel.setUnitAdult(roomAvailableObject.getInt("UNIT_ADULT_ROOM_MODEL"));
+                reserveSearchModel.setUnitBoy(roomAvailableObject.getInt("UNIT_BOY_ROOM_MODEL"));
+                reserveSearchModel.setUnitPet(roomAvailableObject.getInt("UNIT_PET_ROOM_MODEL"));
+                reserveSearchModel.setUnitRoom(roomAvailableObject.getInt("TOTAL_ROOM") - roomAvailableObject.getInt("n_reserved"));
+                reserveSearchModel.setIdService(roomAvailableObject.getInt("ID_SERVICE"));
+                reserveSearchModel.setNameService(roomAvailableObject.getString("NAME_SERVICE"));
+                reserveSearchModel.setImageTypeRoom(roomAvailableObject.getString("IMAGE_ROOM_MODEL"));
+                reserveSearchModel.setNameTypeRoom(roomAvailableObject.getString("NAME_ROOM_MODEL"));
+                reserveSearchModel.setDescriptionTypeRoom(roomAvailableObject.getString("DESCRIPTION_ROOM_MODEL"));
+                reserveSearchModel.setPriceServiceModels(getPriceRoomModel(roomAvailableObject));
 
-                roomAvailableModels.add(roomAvailableModel);
+                reserveSearchModels.add(reserveSearchModel);
             }
         } catch (JSONException e) {
             System.out.println("Datos no legibles");
             e.printStackTrace();
         }
-        return roomAvailableModels;
+        return reserveSearchModels;
     }
 
     private ArrayList<PriceServiceModel> getPriceRoomModel(JSONObject obj) {

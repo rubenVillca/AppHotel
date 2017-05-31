@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdapterRecycler.PriceServiceViewHolder> {
+public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<ReserveSelectPriceAdapterRecycler.PriceServiceViewHolder> {
 
     private ArrayList<PriceServiceModel> priceServiceModels;
     private int resource;
@@ -34,7 +34,7 @@ public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdap
     private String timeOut;
     private int unitRoomFree;
 
-    public RoomPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom) {
+    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom) {
         this.priceServiceModels = priceService;
         this.resource = resource;
         this.activity = activity;
@@ -88,6 +88,16 @@ public class RoomPriceAdapterRecycler extends RecyclerView.Adapter<RoomPriceAdap
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, ReserveTargetActivity.class);
+
+                intent.putExtra("priceServiceModel", priceServiceModel);
+                intent.putExtra("nRoom",String.valueOf(holder.spinnerCardView.getSelectedItemPosition()+1));
+                intent.putExtra("nAdult", nAdult);
+                intent.putExtra("nBoy", nBoy);
+                intent.putExtra("dateIn", dateIn);
+                intent.putExtra("timeIn", timeIn);
+                intent.putExtra("dateOut", dateOut);
+                intent.putExtra("timeOut", timeOut);
+
                 activity.startActivity(intent);
             }
         });

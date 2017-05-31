@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by ruben on 23/05/2017
  */
 
-public class RoomAvailableModel extends ModelParent implements Serializable{
+public class ReserveSearchModel extends ModelParent implements Serializable{
     private int idTypeRoom;
     private int unitAdult;
     private int unitBoy;
@@ -22,7 +22,7 @@ public class RoomAvailableModel extends ModelParent implements Serializable{
     private String imageTypeRoom;
     private ArrayList<PriceServiceModel> priceServiceModels;
 
-    public RoomAvailableModel() {
+    public ReserveSearchModel() {
         this.idTypeRoom = 0;
         this.nameTypeRoom = "";
         this.descriptionTypeRoom = "";

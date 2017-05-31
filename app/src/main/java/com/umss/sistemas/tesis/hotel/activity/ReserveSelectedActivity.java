@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.RoomPriceAdapterRecycler;
+import com.umss.sistemas.tesis.hotel.adapter.ReserveSelectPriceAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
-public class RoomSelectedActivity extends ActivityParent {
+public class ReserveSelectedActivity extends ActivityParent {
 
-    private RoomAvailableModel roomAvailableModel;
+    private ReserveSearchModel reserveSearchModel;
     private int nAdult;
     private int nBoy;
     private String dateIn;
@@ -27,7 +27,7 @@ public class RoomSelectedActivity extends ActivityParent {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_selected);
+        setContentView(R.layout.activity_reserve_selected);
 
         super.showToolBar("", true);
 
@@ -42,7 +42,7 @@ public class RoomSelectedActivity extends ActivityParent {
         dateOut = getIntent().getExtras().getString("dateOut");
         timeIn = getIntent().getExtras().getString("timeIn");
         timeOut = getIntent().getExtras().getString("timeOut");
-        roomAvailableModel = (RoomAvailableModel) getIntent().getExtras().getSerializable("roomAvailableModel");
+        reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("reserveSearchModel");
     }
 
     public void init() {
@@ -59,7 +59,7 @@ public class RoomSelectedActivity extends ActivityParent {
         dateOutTextView.setText(String.valueOf(dateOut + "\n" + timeOut + " Horas"));
 
         ImageView imageView = (ImageView) findViewById(R.id.imageHeaderCollapsing);
-        Picasso.with(this).load(Conexion.urlServer+roomAvailableModel.getImageTypeRoom()).into(imageView);
+        Picasso.with(this).load(Conexion.urlServer+ reserveSearchModel.getImageTypeRoom()).into(imageView);
     }
 
     private void setRecyclerView() {
@@ -70,10 +70,10 @@ public class RoomSelectedActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        RoomPriceAdapterRecycler homeAdapter = new RoomPriceAdapterRecycler(
-                roomAvailableModel.getPriceServiceModels(),
+        ReserveSelectPriceAdapterRecycler homeAdapter = new ReserveSelectPriceAdapterRecycler(
+                reserveSearchModel.getPriceServiceModels(),
                 R.layout.cardview_price_service, this,
-                nAdult, nBoy, dateIn, timeIn, dateOut, timeOut,roomAvailableModel.getUnitRoom());
+                nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, reserveSearchModel.getUnitRoom());
         recyclerView.setAdapter(homeAdapter);
     }
 

@@ -17,7 +17,7 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.model.RoomAvailableModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
 import com.umss.sistemas.tesis.hotel.util.TimePickerFragment;
@@ -112,6 +112,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
             case R.id.btnLeftBoy:
                 numberPersonBoy = (numberPersonBoy - 1) > 0 ? --numberPersonBoy : numberPersonBoy;
                 nBoy.setText(String.valueOf(numberPersonBoy));
+                showMesaje("Menos boy");
                 break;
             case R.id.btnRightBoy:
                 numberPersonBoy = (numberPersonBoy + 1) < 100 ? ++numberPersonBoy : numberPersonBoy;
@@ -147,8 +148,8 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<RoomAvailableModel> roomAvailableModels = helperSQLiteInsert.getRoomAvailableModel(obj);
-                        goActivityRoomAvailable(roomAvailableModels);
+                        ArrayList<ReserveSearchModel> reserveSearchModels = helperSQLiteInsert.getRoomAvailableModel(obj);
+                        goActivityRoomAvailable(reserveSearchModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -169,10 +170,10 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
 
     /**
      * cambiar de activity a roomAvailableActivity enviando variables
-     * @param roomAvailableModels:lista de tipos de habitaciones disponibles
+     * @param reserveSearchModels:lista de tipos de habitaciones disponibles
      */
-    private void goActivityRoomAvailable(ArrayList<RoomAvailableModel> roomAvailableModels) {
-        Intent intent = new Intent(this, RoomAvailableActivity.class);
+    private void goActivityRoomAvailable(ArrayList<ReserveSearchModel> reserveSearchModels) {
+        Intent intent = new Intent(this, ReserveSearchActivity.class);
 
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
         intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
@@ -181,10 +182,10 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         intent.putExtra("dateOut", dateOutTextViewReserve.getText().toString());
         intent.putExtra("timeOut", timeOutTextViewReserve.getText().toString());
 
-        int size = roomAvailableModels.size();
+        int size = reserveSearchModels.size();
         intent.putExtra("roomAvailableSize", size);
         for (int i = 0; i < size; i++) {
-            intent.putExtra("room-" + i, roomAvailableModels.get(i));
+            intent.putExtra("room-" + i, reserveSearchModels.get(i));
         }
 
         startActivity(intent);

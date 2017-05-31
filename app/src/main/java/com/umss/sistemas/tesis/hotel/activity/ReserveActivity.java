@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -25,7 +24,6 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -131,7 +129,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                 nBoy.setText(String.valueOf(numberPersonBoy));
                 break;
             case R.id.btnContinueReserve:
-                goRoomAvailable();
+                goReserveSearch();
                 break;
         }
 
@@ -140,7 +138,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
     /**
      * obtener lista de tipos de habitaciones disponibles del servidor
      */
-    private void goRoomAvailable() {
+    private void goReserveSearch() {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -161,7 +159,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         ArrayList<ReserveSearchModel> reserveSearchModels = helperSQLiteInsert.getRoomAvailableModel(obj);
-                        goActivityRoomAvailable(reserveSearchModels);
+                        goActivityReserveSearch(reserveSearchModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -185,7 +183,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
      *
      * @param reserveSearchModels:lista de tipos de habitaciones disponibles
      */
-    private void goActivityRoomAvailable(ArrayList<ReserveSearchModel> reserveSearchModels) {
+    private void goActivityReserveSearch(ArrayList<ReserveSearchModel> reserveSearchModels) {
         Intent intent = new Intent(this, ReserveSearchActivity.class);
 
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));

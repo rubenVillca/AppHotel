@@ -73,7 +73,7 @@ public class ReserveSelectedActivity extends ActivityParent {
         ReserveSelectPriceAdapterRecycler homeAdapter = new ReserveSelectPriceAdapterRecycler(
                 reserveSearchModel.getPriceServiceModels(),
                 R.layout.cardview_price_service, this,
-                nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, reserveSearchModel.getUnitRoom());
+                nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, reserveSearchModel.getUnitRoom(),reserveSearchModel.getIdTypeRoom());
         recyclerView.setAdapter(homeAdapter);
     }
 

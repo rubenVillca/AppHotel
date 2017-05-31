@@ -33,8 +33,9 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     private String timeIn;
     private String timeOut;
     private int unitRoomFree;
+    private int idTypeRoom;
 
-    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom) {
+    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom, int idTypeRoom) {
         this.priceServiceModels = priceService;
         this.resource = resource;
         this.activity = activity;
@@ -45,6 +46,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.unitRoomFree = unitRoom;
+        this.idTypeRoom = idTypeRoom;
     }
 
     @Override
@@ -65,8 +67,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         holder.timeUnitCardView.setText(String.valueOf(timeUnit + " Horas"));
 
         holder.timeSelectedCardView.setText(String.valueOf(timeSelected + " Horas"));
-        double priceSelect=timeSelected * priceServiceModel.getPriceService() / timeUnit;
-        holder.priceEstimatedCardView.setText(String.valueOf(priceSelect+" "+priceServiceModel.getNameTypeMoney()));
+        double priceSelect = timeSelected * priceServiceModel.getPriceService() / timeUnit;
+        holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + priceServiceModel.getNameTypeMoney()));
 
         String valores[] = new String[unitRoomFree];
         for (int i = 0; i < unitRoomFree; i++) {
@@ -75,8 +77,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         holder.spinnerCardView.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, valores));
         holder.spinnerCardView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                holder.priceEstimatedCardView.setText(String.valueOf((position+1)*priceServiceModel.getPriceService()));
+            public void onItemSelected(AdapterView<?> parent, View view, int positionSpin, long id) {
+                holder.priceEstimatedCardView.setText(String.valueOf((positionSpin + 1) * priceServiceModel.getPriceService()));
             }
 
             @Override
@@ -87,17 +89,30 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         holder.buttonCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, ReserveTargetActivity.class);
+                Intent intent = new Intent(activity, ReserveTargetActivity.class);
 
                 intent.putExtra("priceServiceModel", priceServiceModel);
-                intent.putExtra("nRoom",String.valueOf(holder.spinnerCardView.getSelectedItemPosition()+1));
+                intent.putExtra("idTypeRoom", idTypeRoom);
+                intent.putExtra("nRoom", String.valueOf(holder.spinnerCardView.getSelectedItemPosition() + 1));
                 intent.putExtra("nAdult", nAdult);
                 intent.putExtra("nBoy", nBoy);
-                intent.putExtra("dateIn", dateIn);
+                intent.putExtra("priceEstimated", holder.priceEstimatedCardView.getText().toString());
                 intent.putExtra("timeIn", timeIn);
-                intent.putExtra("dateOut", dateOut);
                 intent.putExtra("timeOut", timeOut);
 
+                try {
+                    SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
+                    SimpleDateFormat formateador = new SimpleDateFormat("yy/MM/dd");
+
+                    Date dateInParse = parseador.parse(dateIn);
+                    intent.putExtra("dateIn", formateador.format(dateInParse));
+
+                    Date dateOutParse = parseador.parse(dateOut);
+                    intent.putExtra("dateOut", formateador.format(dateOutParse));
+                } catch (ParseException e) {
+                    intent.putExtra("dateIn", dateIn);
+                    intent.putExtra("dateOut", dateOut);
+                }
                 activity.startActivity(intent);
             }
         });
@@ -105,6 +120,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
 
     /**
      * obnter el tiempo de la reserva convertido en horas
+     *
      * @return int:tiempo de estadia en horas
      */
     private int getTimeSelected() {
@@ -145,7 +161,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
             timeUnitCardView = (TextView) itemView.findViewById(R.id.timeUnitPriceServiceCardView);
             timeSelectedCardView = (TextView) itemView.findViewById(R.id.timeSelectedPriceServiceCardView);
             spinnerCardView = (Spinner) itemView.findViewById(R.id.nRoomPriceServiceCardView);
-            buttonCardView=(Button)itemView.findViewById(R.id.btnPriceServiceCardView);
+            buttonCardView = (Button) itemView.findViewById(R.id.btnPriceServiceCardView);
         }
     }
 }

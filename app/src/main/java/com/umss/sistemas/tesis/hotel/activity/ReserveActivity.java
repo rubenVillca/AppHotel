@@ -13,6 +13,8 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
@@ -48,8 +50,21 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         setContentView(R.layout.activity_reserve);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_reserve), true);
-
+        isActiveReserve();
         initContent();
+    }
+
+    private void isActiveReserve() {
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        ArrayList<CheckModel> checkModels = helperSQLiteObtain.getCheckModel(0, 1, 1);
+        if (!checkModels.isEmpty()) {
+            goReserveListActivity();
+        }
+    }
+
+    private void goReserveListActivity() {
+        Intent intent = new Intent(this, ReserveListActivity.class);
+        startActivity(intent);
     }
 
     private void initContent() {
@@ -99,11 +114,11 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
 
         //timeIn
         timeInTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM))==1?"PM":"AM");
+        typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
 
         //timeOut
         timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM))==1?"PM":"AM");
+        typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
     }
 
     @Override

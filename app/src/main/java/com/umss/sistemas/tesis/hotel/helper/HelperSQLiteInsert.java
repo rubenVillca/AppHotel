@@ -661,6 +661,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 checkModel.setId(checkObject.getInt("ID_CHECK"));
                 checkModel.setState(checkObject.getInt("VALUE_STATE_CHECK"));
+                checkModel.setIdType(checkObject.getInt("ID_TYPE_CHECK"));
                 checkModel.setType(checkObject.getString("NAME_TYPE_CHECK"));
                 checkModel.setDateIn(checkObject.getString("DATE_START_CHECK"));
                 checkModel.setTimeIn(checkObject.getString("TIME_START_CHECK"));
@@ -1238,6 +1239,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
             checkContent.put(DBSQLiteHelper.KEY_CHECK_ID, checkModel.getId());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_STATE, checkModel.getState());
+            checkContent.put(DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE,checkModel.getIdType());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_TYPE, checkModel.getType());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_DATE_IN, checkModel.getDateIn());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_TIME_IN, checkModel.getTimeIn());

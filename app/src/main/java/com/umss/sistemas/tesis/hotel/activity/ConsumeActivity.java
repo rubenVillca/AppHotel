@@ -39,7 +39,7 @@ public class ConsumeActivity extends ActivityParent {
     public ArrayList<ConsumeModel> buildService(){
         helperSQLiteObtain =new HelperSQLiteObtain(this);
 
-        ArrayList<CheckModel> checkModels=helperSQLiteObtain.getCheckModel(0,1);
+        ArrayList<CheckModel> checkModels=helperSQLiteObtain.getCheckModel(0,1,2);
         ArrayList<ConsumeModel> consumeModels=new ArrayList<>();
 
         for (CheckModel checkModel: checkModels) {

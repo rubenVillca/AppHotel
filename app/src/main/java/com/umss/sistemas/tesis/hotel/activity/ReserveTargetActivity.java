@@ -19,13 +19,11 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
-import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
@@ -198,7 +196,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
 
-                        goActivityReserveList();
+                        goActivityReserve();
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -217,8 +215,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         });
     }
 
-    private void goActivityReserveList() {
-        Intent intent = new Intent(this, ReserveListActivity.class);
+    private void goActivityReserve() {
+        Intent intent = new Intent(this, ReserveActivity.class);
         startActivity(intent);
     }
 }

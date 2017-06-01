@@ -70,10 +70,10 @@ public class HelperSQLiteObtain extends HelperParent {
     public PersonModel getPersonModel(int idPerson) {
         PersonModel personModel = new PersonModel();
         Cursor cursor;
-        if (idPerson==0) {
+        if (idPerson == 0) {
             cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON, null);
-        }else{
-            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON + " where "+DBSQLiteHelper.KEY_PERSON_ID+"="+idPerson, null);
+        } else {
+            cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_PERSON + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + idPerson, null);
         }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -309,7 +309,7 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param idCheck: id de registro de un huesped
      * @return ArrayList<CheckModel>: lista de registros de estadia de un huesped
      */
-    public ArrayList<CheckModel> getCheckModel(int idCheck, int idStateCheck) {
+    public ArrayList<CheckModel> getCheckModel(int idCheck, int idStateCheck, int idTypeCheck) {
         ArrayList<CheckModel> listCheckModel = new ArrayList<>();
         Cursor cursor;
         if (idCheck > 0) {//para un check especifico
@@ -318,11 +318,21 @@ public class HelperSQLiteObtain extends HelperParent {
                     + " where " + DBSQLiteHelper.KEY_CHECK_ID + "=" + idCheck, null);
         } else {
             if (idStateCheck > 0) {//para los check con estado idState
-                cursor = db.rawQuery("select *"
-                        + " from " + DBSQLiteHelper.TABLE_CHECK
-                        + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck, null);
+                if (idTypeCheck > 0) {
+                    cursor = db.rawQuery("select *"
+                            + " from " + DBSQLiteHelper.TABLE_CHECK
+                            + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck + " AND " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
+                } else {
+                    cursor = db.rawQuery("select *"
+                            + " from " + DBSQLiteHelper.TABLE_CHECK
+                            + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck, null);
+                }
             } else {//para el historial
-                cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK, null);
+                if (idTypeCheck > 0) {
+                    cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK + " where " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
+                } else {
+                    cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK, null);
+                }
             }
         }
 
@@ -909,6 +919,7 @@ public class HelperSQLiteObtain extends HelperParent {
 
         checkModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID)));
         checkModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_STATE)));
+        checkModel.setIdType(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE)));
         checkModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_TYPE)));
         checkModel.setDateIn(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_DATE_IN)));
         checkModel.setTimeIn(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_TIME_IN)));

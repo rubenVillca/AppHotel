@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class CheckModel extends ModelParent {
     private int id;
     private int state;
+    private int idType;
     private String type;
     private String dateIn;
     private String timeIn;
@@ -21,6 +22,7 @@ public class CheckModel extends ModelParent {
 
     public CheckModel() {
         id=0;
+        idType=0;
         state=0;
         type="";
         dateIn="";
@@ -30,6 +32,14 @@ public class CheckModel extends ModelParent {
         cardTargetArrayList=new ArrayList<>();
         consumeModelArrayList = new ArrayList<>();
         consumeFoodModelArrayList=new ArrayList<>();
+    }
+
+    public int getIdType() {
+        return idType;
+    }
+
+    public void setIdType(int idType) {
+        this.idType = idType;
     }
 
     public ArrayList<ConsumeFoodModel> getConsumeFoodModelArrayList() {

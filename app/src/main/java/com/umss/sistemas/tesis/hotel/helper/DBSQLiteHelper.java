@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 47;
+    public static final int DATABASE_VERSION = 48;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -141,6 +141,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String TABLE_CHECK = "checkHotel";
     static final String KEY_CHECK_ID = "idCheck";
     static final String KEY_CHECK_STATE = "stateCheck";
+    static final String KEY_CHECK_ID_KEY_TYPE = "idTypeCheck";
     static final String KEY_CHECK_TYPE = "typeCheck";
     static final String KEY_CHECK_DATE_IN = "dateInCheck";
     static final String KEY_CHECK_TIME_IN = "timeInCheck";
@@ -242,7 +243,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
 
     //occupation
     static final String TABLE_OCCUPATION = "occupation";
-    private static final String KEY_OCCUPATION_ID= "idOccupation";
+    private static final String KEY_OCCUPATION_ID = "idOccupation";
     static final String KEY_OCCUPATION_ID_CONSUME_SERVICE = "idConsumeServiceOccupartion";
     static final String KEY_OCCUPATION_ID_ROOM = "idRoomOccupartion";
     static final String KEY_OCCUPATION_NAME_ROOM = "nameRoomOccupartion";
@@ -537,6 +538,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         return "CREATE TABLE " + TABLE_CHECK + " ( "
                 + KEY_CHECK_ID + " INTEGER PRIMARY KEY,"
                 + KEY_CHECK_STATE + " INTEGER,"
+                + KEY_CHECK_ID_KEY_TYPE + " INTEGER,"
                 + KEY_CHECK_TYPE + " TEXT,"
                 + KEY_CHECK_DATE_IN + " TEXT,"
                 + KEY_CHECK_TIME_IN + " TEXT,"
@@ -711,7 +713,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM + " TEXT,"
                 + KEY_OCCUPATION_N_ADULT + " INTEGER,"
                 + KEY_OCCUPATION_N_BOY + " INTEGER"
-        + ")";
+                + ")";
     }
 
     /**

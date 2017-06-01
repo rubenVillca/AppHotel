@@ -30,7 +30,6 @@ public class LoginActivity extends ActivityParent {
         setContentView(R.layout.activity_login);
 
         container = findViewById(R.id.containerLogin);
-        progressView = findViewById(R.id.progress_bar);
         helperSQLiteInsert = new HelperSQLiteInsert(this);
     }
 
@@ -52,7 +51,6 @@ public class LoginActivity extends ActivityParent {
     public void goContainerActivity(View view) {
         boolean cancel = isValidLogin();
         if (!cancel) {
-            showProgress(true);
             iniciarSession();
         }
     }
@@ -61,6 +59,8 @@ public class LoginActivity extends ActivityParent {
      * conectar con webServer e iniciar session
      */
     private void iniciarSession() {
+        showProgress(true);
+
         final String emailText = ((EditText) findViewById(R.id.userName)).getText().toString();
         final String passText = ((EditText) findViewById(R.id.password)).getText().toString();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -107,11 +107,13 @@ public class LoginActivity extends ActivityParent {
                     goLoginActivity();
                     showMesaje("Servidor no disponible");
                 }
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goLoginActivity();
+                showProgress(false);
                 showMesaje("Servidor no esta disponible");
             }
         });

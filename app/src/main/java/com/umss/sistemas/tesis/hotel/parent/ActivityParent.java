@@ -2,10 +2,10 @@ package com.umss.sistemas.tesis.hotel.parent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
@@ -16,7 +16,7 @@ public class ActivityParent extends AppCompatActivity {
     protected HelperSQLiteInsert helperSQLiteInsert;
     protected HelperSQLiteObtain helperSQLiteObtain;
 
-    protected View progressView;
+    protected ProgressBar progressBar;
     protected View container;
 
     protected void showToolBar(String tittle, boolean upButton) {
@@ -32,20 +32,23 @@ public class ActivityParent extends AppCompatActivity {
      * @param show:estado del progressBar
      */
     protected void showProgress(final boolean show) {
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-        container.setVisibility(show ? View.VISIBLE : View.GONE);
-        container.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+
+        container.setVisibility(show ? View.GONE : View.VISIBLE);
+        container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                container.setVisibility(show ? View.VISIBLE : View.GONE);
+                container.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         });
 
-        progressView.setVisibility(show ? View.GONE : View.VISIBLE);
-        progressView.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                progressView.setVisibility(show ? View.GONE : View.VISIBLE);
+                progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         });
     }

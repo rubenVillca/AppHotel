@@ -45,6 +45,7 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:noHistory="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CreateAccountActivity"
@@ -255,8 +256,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
-        <activity android:name=".activity.ReserveMemberActivity" />
-        <activity android:name=".activity.ReserveVerifyActivity"></activity>
+        <activity
+            android:name=".activity.ReserveMemberActivity"
+            android:parentActivityName=".activity.ReserveVerifyActivity"
+            android:windowSoftInputMode="stateHidden"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity" />
+        </activity>
+        <activity android:name=".activity.ReserveVerifyActivity" />
     </application>
 
 </manifest>

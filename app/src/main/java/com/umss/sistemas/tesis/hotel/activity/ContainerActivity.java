@@ -167,10 +167,6 @@ public class ContainerActivity extends ActivityParent {
     }
 
     @Override
-    public void onBackPressed() {
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_top, menu);
         return true;
@@ -203,5 +199,9 @@ public class ContainerActivity extends ActivityParent {
                 break;
         }
         return true;
+    }
+    @Override//boton de atras del teclado
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

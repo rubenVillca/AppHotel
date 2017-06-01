@@ -56,6 +56,7 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, ReserveActivity.class);
+                intent.putExtra("idCheck",checkModel.getId());
                 activity.startActivity(intent);
             }
         });

@@ -1,13 +1,16 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ReserveMemberActivity;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 
 public class ReserveMemberAdapterRecycler extends RecyclerView.Adapter<ReserveMemberAdapterRecycler.MemberReserveViewHolder>{
@@ -31,6 +34,13 @@ public class ReserveMemberAdapterRecycler extends RecyclerView.Adapter<ReserveMe
     @Override
     public void onBindViewHolder(MemberReserveViewHolder holder, int position) {
         holder.memberReserveTextView.setText(String.valueOf(position+1));
+        holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(activity, ReserveMemberActivity.class);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -40,9 +50,11 @@ public class ReserveMemberAdapterRecycler extends RecyclerView.Adapter<ReserveMe
 
     class MemberReserveViewHolder extends RecyclerView.ViewHolder{
         TextView memberReserveTextView;
+        ImageView btnEditCardViewReserveMember;
         private MemberReserveViewHolder(View itemView) {
             super(itemView);
             memberReserveTextView=(TextView)itemView.findViewById(R.id.memberReserveTextView);
+            btnEditCardViewReserveMember=(ImageView)itemView.findViewById(R.id.btnEditCardViewReserveMember);
         }
     }
 }

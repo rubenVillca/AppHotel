@@ -218,5 +218,6 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     private void goActivityReserveVerify() {
         Intent intent = new Intent(this, ReserveVerifyActivity.class);
         startActivity(intent);
+        this.finish();
     }
 }

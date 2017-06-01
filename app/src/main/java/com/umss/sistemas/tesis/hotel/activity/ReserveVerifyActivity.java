@@ -3,6 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
@@ -33,10 +34,17 @@ public class ReserveVerifyActivity extends ActivityParent {
     private void goReserveListActivity() {
         Intent intent=new Intent(this,ReserveCheckActivity.class);
         startActivity(intent);
+        ReserveVerifyActivity.this.finish();
     }
 
     private void goReserveActivity() {
         Intent intent=new Intent(this,ReserveActivity.class);
         startActivity(intent);
+        ReserveVerifyActivity.this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

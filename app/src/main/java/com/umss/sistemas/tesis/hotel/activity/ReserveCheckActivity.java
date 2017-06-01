@@ -1,8 +1,10 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ReserveCheckAdapterRecycler;
@@ -40,5 +42,14 @@ public class ReserveCheckActivity extends ActivityParent {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
 
         return helperSQLiteObtain.getCheckModel(0,1,1);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent=new Intent(this,ContainerActivity.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -594,6 +594,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     private void goReserveVerifyActivity() {
         Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 
 }

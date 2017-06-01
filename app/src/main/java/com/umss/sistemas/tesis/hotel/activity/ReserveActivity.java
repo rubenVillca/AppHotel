@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -227,5 +228,14 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         timePickerFragmentOut.setTextViewTime(timeOutTextViewReserve);
         timePickerFragmentOut.setTextViewTypeTime(typeTimeOutTextViewReserve);
         timePickerFragmentOut.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent=new Intent(this,ContainerActivity.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

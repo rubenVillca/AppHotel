@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/label_phone"
-                        android:inputType="phone" />
+                        android:inputType="numberSigned" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/label_document"
-                        android:inputType="text" />
+                        android:inputType="numberSigned" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -209,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_supervisor_account" />
+                    android:background="@drawable/ic_sex" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -303,6 +303,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="goReserveVerifyActivity"
                     android:text="@string/action_cancel" />
 
                 <Button

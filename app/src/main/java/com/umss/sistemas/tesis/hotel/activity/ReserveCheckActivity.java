@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.adapter.CheckReserveAdapterRecycler;
+import com.umss.sistemas.tesis.hotel.adapter.ReserveCheckAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -32,7 +32,7 @@ public class ReserveCheckActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        CheckReserveAdapterRecycler siteTourAdapter = new CheckReserveAdapterRecycler(buildCheckReserve(), R.layout.cardview_check_reserve, this);
+        ReserveCheckAdapterRecycler siteTourAdapter = new ReserveCheckAdapterRecycler(buildCheckReserve(), R.layout.cardview_reserve_check, this);
         recyclerView.setAdapter(siteTourAdapter);
     }
 

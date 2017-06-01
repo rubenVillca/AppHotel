@@ -93,7 +93,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
 
                 intent.putExtra("priceServiceModel", priceServiceModel);
                 intent.putExtra("idTypeRoom", idTypeRoom);
-                intent.putExtra("nRoom", String.valueOf(holder.spinnerCardView.getSelectedItemPosition() + 1));
+                intent.putExtra("nRoom", String.valueOf(holder.spinnerCardView.getSelectedItem().toString()));
                 intent.putExtra("nAdult", nAdult);
                 intent.putExtra("nBoy", nBoy);
                 intent.putExtra("priceEstimated", holder.priceEstimatedCardView.getText().toString());

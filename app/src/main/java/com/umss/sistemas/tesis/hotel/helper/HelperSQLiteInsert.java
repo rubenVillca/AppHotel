@@ -1233,6 +1233,7 @@ public class HelperSQLiteInsert extends HelperParent {
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MEMBER);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUME_FOOD);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OCCUPATION);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_RESERVE);
 
         for (CheckModel checkModel : checkModels) {
             ContentValues checkContent = new ContentValues();

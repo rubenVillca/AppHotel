@@ -55,7 +55,7 @@ public class ReserveSearchActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ReserveSearchAdapterRecycler reserveSearchAdapterRecycler = new ReserveSearchAdapterRecycler(reserveSearchModels, R.layout.cardview_search_reserve, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut);
+        ReserveSearchAdapterRecycler reserveSearchAdapterRecycler = new ReserveSearchAdapterRecycler(reserveSearchModels, R.layout.cardview_reserve_search, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut);
         recyclerView.setAdapter(reserveSearchAdapterRecycler);
     }
 }

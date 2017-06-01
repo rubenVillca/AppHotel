@@ -256,6 +256,7 @@
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
         <activity android:name=".activity.ReserveMemberActivity" />
+        <activity android:name=".activity.ReserveVerifyActivity"></activity>
     </application>
 
 </manifest>

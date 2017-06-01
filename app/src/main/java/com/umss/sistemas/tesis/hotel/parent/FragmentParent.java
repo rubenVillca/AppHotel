@@ -20,6 +20,7 @@ import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
 import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
+import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
@@ -123,7 +124,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goReserve() {
-        //goReserveActivity();
+        //goReserveVerifyActivity();
 
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
@@ -144,14 +145,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 } else {
                     System.out.println("Modo Offline");
                 }
-                goReserveActivity();
+                goReserveVerifyActivity();
                 //showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
-                goReserveActivity();
+                goReserveVerifyActivity();
                 //showProgress(false);
             }
         });
@@ -590,8 +591,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     /**
      * cambiar de activity a ReserveActivity
      */
-    private void goReserveActivity() {
-        Intent intent = new Intent(getActivity(), ReserveActivity.class);
+    private void goReserveVerifyActivity() {
+        Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
         startActivity(intent);
     }
 

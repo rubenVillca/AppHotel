@@ -196,7 +196,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
 
-                        goActivityReserve();
+                        goActivityReserveVerify();
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -215,8 +215,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         });
     }
 
-    private void goActivityReserve() {
-        Intent intent = new Intent(this, ReserveActivity.class);
+    private void goActivityReserveVerify() {
+        Intent intent = new Intent(this, ReserveVerifyActivity.class);
         startActivity(intent);
     }
 }

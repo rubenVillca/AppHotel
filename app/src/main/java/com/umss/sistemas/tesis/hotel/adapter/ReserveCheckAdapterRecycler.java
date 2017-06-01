@@ -1,14 +1,17 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 
@@ -49,6 +52,14 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
 
         holder.checkReserveCostTotal.setText(String.valueOf(typeMoney+" "+priceTotal));
         holder.checkReserveDeposit.setText(String.valueOf(typeMoney+""+depositTotal));
+        holder.btnPlusReserveCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, ReserveActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -68,6 +79,7 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
         TextView checkReserveOutTextView;
         TextView checkReserveCostTotal;
         TextView checkReserveDeposit;
+        ImageView btnPlusReserveCardView;
         private CheckReserveViewHolder(View itemView) {
             super(itemView);
             recyclerView=(RecyclerView)itemView.findViewById(R.id.consumeReserveRecyclerView);
@@ -75,6 +87,7 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
             checkReserveOutTextView=(TextView)itemView.findViewById(R.id.checkReserveOutTextView);
             checkReserveCostTotal=(TextView)itemView.findViewById(R.id.checkReserveCostTotal);
             checkReserveDeposit=(TextView)itemView.findViewById(R.id.checkReserveDeposit);
+            btnPlusReserveCardView=(ImageView)itemView.findViewById(R.id.btnPlusReserveCardView);
         }
     }
 }

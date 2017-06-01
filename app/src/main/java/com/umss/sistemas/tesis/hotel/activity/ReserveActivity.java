@@ -50,21 +50,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
         setContentView(R.layout.activity_reserve);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_reserve), true);
-        isActiveReserve();
         initContent();
-    }
-
-    private void isActiveReserve() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        ArrayList<CheckModel> checkModels = helperSQLiteObtain.getCheckModel(0, 1, 1);
-        if (!checkModels.isEmpty()) {
-            goReserveListActivity();
-        }
-    }
-
-    private void goReserveListActivity() {
-        Intent intent = new Intent(this, ReserveCheckActivity.class);
-        startActivity(intent);
     }
 
     private void initContent() {

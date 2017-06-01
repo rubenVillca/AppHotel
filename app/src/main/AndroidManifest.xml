@@ -247,8 +247,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.ReserveSelectedActivity" />
         </activity>
+        <activity
+            android:name=".activity.ReserveCheckActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
         <activity android:name=".activity.ReserveMemberActivity" />
-        <activity android:name=".activity.ReserveListActivity"></activity>
     </application>
 
 </manifest>

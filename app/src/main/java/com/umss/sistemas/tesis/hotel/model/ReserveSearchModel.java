@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by ruben on 23/05/2017
  */
 
-public class ReserveSearchModel extends ModelParent implements Serializable{
+public class ReserveSearchModel extends ModelParent {
     private int idTypeRoom;
     private int unitAdult;
     private int unitBoy;

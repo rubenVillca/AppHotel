@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ConsumeModel extends ModelParent {

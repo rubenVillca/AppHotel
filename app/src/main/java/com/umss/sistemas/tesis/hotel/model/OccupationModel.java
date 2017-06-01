@@ -1,10 +1,12 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
 /**
  * Created by ruben on 20/05/2017
  */
 
-public class OccupationModel {
+public class OccupationModel extends ModelParent {
     private int idConsumeService;
     private int idRoom;
     private String nameRoom;

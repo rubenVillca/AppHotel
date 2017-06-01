@@ -2,6 +2,8 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
+import java.io.Serializable;
+
 /**
  * Created by ruben on 08/05/2017
  */

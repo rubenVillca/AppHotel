@@ -63,7 +63,7 @@ public class ReserveActivity extends ActivityParent implements View.OnClickListe
     }
 
     private void goReserveListActivity() {
-        Intent intent = new Intent(this, ReserveListActivity.class);
+        Intent intent = new Intent(this, ReserveCheckActivity.class);
         startActivity(intent);
     }
 

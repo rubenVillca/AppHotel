@@ -1,10 +1,12 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
 /**
  * Created by ruben on 20/05/2017
  */
 
-public class ConsumeFoodModel {
+public class ConsumeFoodModel extends ModelParent{
     private int idConsume;
     private int idKeyCheck;
     private double price;

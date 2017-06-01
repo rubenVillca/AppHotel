@@ -1,10 +1,14 @@
 package com.umss.sistemas.tesis.hotel.model;
 
+import com.umss.sistemas.tesis.hotel.parent.ModelParent;
+
+import java.io.Serializable;
+
 /**
  * Created by ruben on 20/05/2017
  */
 
-public class ReserveModel {
+public class ReserveModel extends ModelParent {
     private int idConsume;
     private String nameRoomModel;
     private String descriptionRoomModel;

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by ruben on 25/05/2017
  */
 
-public class PriceServiceModel extends ModelParent implements Serializable{
+public class PriceServiceModel extends ModelParent {
     private int pointObtain;
     private int pointRequired;
     private int idKeyCost;

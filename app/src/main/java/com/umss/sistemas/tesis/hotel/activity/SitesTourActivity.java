@@ -20,24 +20,25 @@ public class SitesTourActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sites_tour);
 
-        super.showToolBar(getResources().getString(R.string.toolbar_tittle_sites_tour),true);
+        super.showToolBar(getResources().getString(R.string.toolbar_tittle_sites_tour), true);
 
         adapterRecyclerView();
     }
-    private void adapterRecyclerView() {
-        RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.siteTourRecyclerView);
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+    private void adapterRecyclerView() {
+        RecyclerView pictureRecycler = (RecyclerView) findViewById(R.id.siteTourRecyclerView);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         pictureRecycler.setLayoutManager(linearLayoutManager);
 
-        SiteTourAdapterRecycler siteTourAdapter=new SiteTourAdapterRecycler(buildSiteTour(),R.layout.cardview_site_tour,this);
+        SiteTourAdapterRecycler siteTourAdapter = new SiteTourAdapterRecycler(buildSiteTour(), R.layout.cardview_site_tour, this);
         pictureRecycler.setAdapter(siteTourAdapter);
     }
 
-    public ArrayList<SiteTourModel> buildSiteTour(){
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+    public ArrayList<SiteTourModel> buildSiteTour() {
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
 
         return helperSQLiteObtain.getSiteTourModel(0);
     }

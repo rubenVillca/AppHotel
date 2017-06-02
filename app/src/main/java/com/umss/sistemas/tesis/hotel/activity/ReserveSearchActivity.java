@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,6 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
@@ -44,6 +46,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     private TextView nAdult;
     private TextView nBoy;
 
+    private CheckModel checkModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +54,12 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_reserve), true);
         container=findViewById(R.id.reserveSearchScrollView);
-        initContent();
+        buildContent();
+        initContentArrow();
+        initContentDate();
     }
 
-    private void initContent() {
+    private void initContentArrow() {
         nAdult = (TextView) findViewById(R.id.nPersonAdult);
         ImageView btnLeftAdult = (ImageView) findViewById(R.id.btnLeftAdult);
         btnLeftAdult.setOnClickListener(this);
@@ -68,7 +73,14 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         ImageView btnRightBoy = (ImageView) findViewById(R.id.btnRightBoy);
         btnRightBoy.setOnClickListener(this);
+    }
 
+    private void buildContent() {
+        Bundle bundle=getIntent().getExtras();
+        checkModel=(CheckModel) bundle.getSerializable("checkModel");
+    }
+
+    private void initContentDate() {
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
         timeInTextViewReserve = (TextView) findViewById(R.id.hourInReserve);
@@ -79,10 +91,23 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         timeOutTextViewReserve = (TextView) findViewById(R.id.hourOutReserve);
         typeTimeOutTextViewReserve = (TextView) findViewById(R.id.typeHourOutReserve);
 
-        Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
-        continueReserve.setOnClickListener(this);
-
         Calendar calendar = Calendar.getInstance();
+
+        typeTimeOutTextViewReserve.setEnabled(false);
+
+        if (checkModel.getId()>0){
+            LinearLayout linearLayout=(LinearLayout)findViewById(R.id.contentLayoutReserveSearch);
+            linearLayout.setVisibility(View.INVISIBLE);
+            timeInTextViewReserve.setVisibility(View.INVISIBLE);
+            dayInTextViewReserve.setVisibility(View.INVISIBLE);
+            dateInTextViewReserve.setVisibility(View.INVISIBLE);
+            timeInTextViewReserve.setVisibility(View.INVISIBLE);
+            typeTimeInTextViewReserve.setVisibility(View.INVISIBLE);
+            dayOutTextViewReserve.setVisibility(View.INVISIBLE);
+            dateOutTextViewReserve.setVisibility(View.INVISIBLE);
+            timeOutTextViewReserve.setVisibility(View.INVISIBLE);
+            typeTimeOutTextViewReserve.setVisibility(View.INVISIBLE);
+        }
 
         //date in
         String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
@@ -106,6 +131,9 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         //timeOut
         timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
         typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
+
+        Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
+        continueReserve.setOnClickListener(this);
     }
 
     @Override
@@ -131,7 +159,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                 nBoy.setText(String.valueOf(numberPersonBoy));
                 break;
             case R.id.btnContinueReserve:
-                goReserveSearch();
+                goReserveResult();
                 break;
         }
 
@@ -140,12 +168,13 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     /**
      * obtener lista de tipos de habitaciones disponibles del servidor
      */
-    private void goReserveSearch() {
+    private void goReserveResult() {
         showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
         params.put("android", "android");
+
         params.put("nAdult", nAdult.getText().toString());
         params.put("nBoy", nBoy.getText().toString());
         params.put("dateIn", dateInTextViewReserve.getText().toString());
@@ -162,7 +191,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         ArrayList<ReserveSearchModel> reserveSearchModels = helperSQLiteInsert.getRoomAvailableModel(obj);
-                        goActivityReserveSearch(reserveSearchModels);
+                        goReserveResultActivity(reserveSearchModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -186,7 +215,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
      *
      * @param reserveSearchModels:lista de tipos de habitaciones disponibles
      */
-    private void goActivityReserveSearch(ArrayList<ReserveSearchModel> reserveSearchModels) {
+    private void goReserveResultActivity(ArrayList<ReserveSearchModel> reserveSearchModels) {
         Intent intent = new Intent(this, ReserveResultActivity.class);
 
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));

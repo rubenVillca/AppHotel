@@ -36,6 +36,7 @@ public class ReserveVerifyActivity extends ActivityParent {
 
     private void goReserveActivity() {
         Intent intent=new Intent(this,ReserveSearchActivity.class);
+        intent.putExtra("checkModel",new CheckModel());
         startActivity(intent);
         ReserveVerifyActivity.this.finish();
     }

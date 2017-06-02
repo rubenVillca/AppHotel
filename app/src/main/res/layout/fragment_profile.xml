@@ -60,7 +60,7 @@
         android:layout_gravity="center|top"
         android:layout_marginTop="@dimen/margin_top_circleprofile"
         android:elevation="@dimen/elevation_circleimageprofile"
-        android:src="@drawable/image_font_island"
+        android:src="@drawable/image_font"
         app:dependTargetY="@dimen/limitY_circleimage"
         app:dependType="y"
         app:dependsOn="@+id/appBarProfile"

@@ -43,10 +43,19 @@ public class ReserveCheckActivity extends ActivityParent {
 
     public ArrayList<CheckModel> buildCheckReserve() {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
-
         return helperSQLiteObtain.getCheckModel(0,1,1);
     }
 
+    public void goReserveSearchActivity(View view) {
+        Intent intent=new Intent(this,ReserveSearchActivity.class);
+        intent.putExtra("checkModel",new CheckModel());
+        startActivity(intent);
+    }
+    /**
+     * @param keyCode: boton de atras del teclado del celular
+     * @param event:evento al presionar el boron
+     * @return boolean:si presiono el boton return true
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -56,6 +65,11 @@ public class ReserveCheckActivity extends ActivityParent {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    /**
+     * @param item: munu superior
+     * @return boolean:resultado de presionar el boton de atras del menu superior
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -65,10 +79,5 @@ public class ReserveCheckActivity extends ActivityParent {
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void goReserveSearch(View view) {
-        Intent intent = new Intent(this, ReserveSearchActivity.class);
-        startActivity(intent);
     }
 }

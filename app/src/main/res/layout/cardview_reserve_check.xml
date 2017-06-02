@@ -43,7 +43,8 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
                         android:text="Ingreso:"
-                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/primary_text"/>
 
@@ -51,7 +52,8 @@
                         android:id="@+id/checkReserveInTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16dp"
                         android:textColor="@color/primary_text"/>
 
                     <LinearLayout
@@ -62,9 +64,9 @@
 
                         <ImageView
                             android:id="@+id/btnPlusReserveCardView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_action_plusone" />
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:background="@drawable/ic_plus" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -79,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
                         android:text="Salida:"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/primary_text"/>
 
@@ -87,7 +89,7 @@
                         android:id="@+id/checkReserveOutTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
+                        android:textSize="16dp"
                         android:textColor="@color/primary_text" />
                 </LinearLayout>
 
@@ -102,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
                         android:text="Costo Total:"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/primary_text"/>
 
@@ -110,7 +112,7 @@
                         android:id="@+id/checkReserveCostTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>
@@ -126,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
                         android:text="Deposito:"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/primary_text"/>
 
@@ -134,7 +136,7 @@
                         android:id="@+id/checkReserveDeposit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
+                        android:textSize="16dp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>

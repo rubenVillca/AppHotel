@@ -17,7 +17,7 @@
             android:id="@+id/imageHeaderCollapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/image_font_island"
+            android:background="@drawable/image_font"
             android:contentDescription="@string/description_logo"
             android:scaleType="centerCrop"
             android:transitionName="@string/transicionname_picture"

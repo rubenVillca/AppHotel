@@ -8,23 +8,25 @@
     tools:context="com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity">
 
     <include layout="@layout/actionbar_toolbar" />
+
     <include layout="@layout/actionbar_progress_bar" />
 
     <ScrollView
         android:id="@+id/reserveSearchScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/image_font_island" />
+                android:layout_height="150dp"
+                android:background="@drawable/image_reserve" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,15 +54,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:textSize="25sp"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Adultos"
-                        android:textSize="15sp"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -102,15 +104,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="25sp"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Niños"
-                        android:textSize="15sp"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -127,159 +129,166 @@
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
+                android:id="@+id/contentLayoutReserveSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Ingreso"
-                    android:textSize="20sp"
-                    android:textColor="@color/primary_text"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Ingreso"
+                        android:textColor="@color/primary_text"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <LinearLayout
+                            android:id="@+id/layoutDateInReserve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:onClick="showDateInPickerDialog"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/dayInReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/dateInReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutTimeInReserve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:onClick="showTimeInPickerDialog"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/hourInReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/typeHourInReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Salida"
+                        android:textColor="@color/primary_text"
+                        android:textSize="20sp" />
 
                     <LinearLayout
-                        android:id="@+id/layoutDateInReserve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:onClick="showDateInPickerDialog"
-                        android:orientation="vertical">
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                        <TextView
-                            android:id="@+id/dayInReserve"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/layoutDateOutReserve"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:onClick="showDateOutPickerDialog"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/dateInReserve"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/dayOutReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/dateOutReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutTimeOutReserve"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:onClick="showTimeOutPickerDialog"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/hourOutReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/typeHourOutReserve"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_text"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layoutTimeInReserve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:onClick="showTimeInPickerDialog"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/hourInReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-
-                        <TextView
-                            android:id="@+id/typeHourInReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-                    </LinearLayout>
-
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Salida"
-                    android:textSize="20sp"
-                    android:textColor="@color/primary_text"/>
-
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <LinearLayout
-                        android:id="@+id/layoutDateOutReserve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:onClick="showDateOutPickerDialog"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/dayOutReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-
-                        <TextView
-                            android:id="@+id/dateOutReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layoutTimeOutReserve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:onClick="showTimeOutPickerDialog"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/hourOutReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-
-                        <TextView
-                            android:id="@+id/typeHourOutReserve"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/primary_text"/>
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
 
             <Button
                 android:id="@+id/btnContinueReserve"

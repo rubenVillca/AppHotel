@@ -46,8 +46,11 @@ public class ReserveCheckActivity extends ActivityParent {
     }
 
     public void goReserveSearchActivity(View view) {
+        CheckModel checkModel=new CheckModel();
+        checkModel.setId(-1);
+
         Intent intent=new Intent(this,ReserveSearchActivity.class);
-        intent.putExtra("checkModel",new CheckModel());
+        intent.putExtra("checkModel",checkModel);
         startActivity(intent);
     }
     /**
@@ -66,7 +69,7 @@ public class ReserveCheckActivity extends ActivityParent {
     }
 
     /**
-     * @param item: munu superior
+     * @param item: menu superior
      * @return boolean:resultado de presionar el boton de atras del menu superior
      */
     @Override

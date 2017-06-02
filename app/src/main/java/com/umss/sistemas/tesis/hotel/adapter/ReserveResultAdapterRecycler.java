@@ -24,11 +24,12 @@ import java.util.ArrayList;
  * Created by ruben on 23/05/2017
  */
 
-public class ReserveSearchAdapterRecycler extends RecyclerView.Adapter<ReserveSearchAdapterRecycler.AvailableRoomViewHolder> {
+public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveResultAdapterRecycler.AvailableRoomViewHolder> {
 
     private ArrayList<ReserveSearchModel> availableModelArray;
     private int resource;
     private Activity activity;
+    private int idCheck;
     private int nAdult;
     private int nBoy;
     private String dateIn;
@@ -36,7 +37,7 @@ public class ReserveSearchAdapterRecycler extends RecyclerView.Adapter<ReserveSe
     private String timeIn;
     private String timeOut;
 
-    public ReserveSearchAdapterRecycler(ArrayList<ReserveSearchModel> reserveSearchModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut) {
+    public ReserveResultAdapterRecycler(ArrayList<ReserveSearchModel> reserveSearchModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int idCheck) {
         this.availableModelArray = reserveSearchModels;
         this.resource = resource;
         this.activity = activity;
@@ -46,16 +47,17 @@ public class ReserveSearchAdapterRecycler extends RecyclerView.Adapter<ReserveSe
         this.dateOut = dateOut;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
+        this.idCheck = idCheck;
     }
 
     @Override
-    public ReserveSearchAdapterRecycler.AvailableRoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReserveResultAdapterRecycler.AvailableRoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        return new ReserveSearchAdapterRecycler.AvailableRoomViewHolder(view);
+        return new ReserveResultAdapterRecycler.AvailableRoomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ReserveSearchAdapterRecycler.AvailableRoomViewHolder holder, int position) {
+    public void onBindViewHolder(ReserveResultAdapterRecycler.AvailableRoomViewHolder holder, int position) {
         final ReserveSearchModel reserveSearchModel = availableModelArray.get(position);
 
         holder.nameTypeRoomCardView.setText(reserveSearchModel.getNameService());

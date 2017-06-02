@@ -47,16 +47,22 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     private TextView nBoy;
 
     private CheckModel checkModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_search);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_reserve), true);
-        container=findViewById(R.id.reserveSearchScrollView);
+        container = findViewById(R.id.reserveSearchScrollView);
         buildContent();
         initContentArrow();
         initContentDate();
+    }
+
+    private void buildContent() {
+        Bundle bundle = getIntent().getExtras();
+        checkModel = (CheckModel) bundle.getSerializable("checkModel");
     }
 
     private void initContentArrow() {
@@ -75,11 +81,6 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         btnRightBoy.setOnClickListener(this);
     }
 
-    private void buildContent() {
-        Bundle bundle=getIntent().getExtras();
-        checkModel=(CheckModel) bundle.getSerializable("checkModel");
-    }
-
     private void initContentDate() {
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
@@ -95,8 +96,8 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         typeTimeOutTextViewReserve.setEnabled(false);
 
-        if (checkModel.getId()>0){
-            LinearLayout linearLayout=(LinearLayout)findViewById(R.id.contentLayoutReserveSearch);
+        if (checkModel.getId() > 0) {
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
             linearLayout.setVisibility(View.INVISIBLE);
             timeInTextViewReserve.setVisibility(View.INVISIBLE);
             dayInTextViewReserve.setVisibility(View.INVISIBLE);
@@ -108,29 +109,27 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
             timeOutTextViewReserve.setVisibility(View.INVISIBLE);
             typeTimeOutTextViewReserve.setVisibility(View.INVISIBLE);
         }
+        if (checkModel.getId() <= 0) {
+            //date in
+            String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
+            String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
+            //dateIn
+            dayInTextViewReserve.setText(dia);
+            dateInTextViewReserve.setText(dateFormat.format(calendar.getTime()));
+            //dateOut
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+            dayOutTextViewReserve.setText(dia);
+            dateOutTextViewReserve.setText(dateFormat.format(calendar.getTime()));
 
-        //date in
-        String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-        String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
-
-        dayInTextViewReserve.setText(dia);
-        dateInTextViewReserve.setText(dateFormat.format(calendar.getTime()));
-
-        //dateOut
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-
-        dayOutTextViewReserve.setText(dia);
-        dateOutTextViewReserve.setText(dateFormat.format(calendar.getTime()));
-
-        //timeIn
-        timeInTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
-
-        //timeOut
-        timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-        typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
+            //timeIn
+            timeInTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+            typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
+            //timeOut
+            timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+            typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
+        }
 
         Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
@@ -218,6 +217,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     private void goReserveResultActivity(ArrayList<ReserveSearchModel> reserveSearchModels) {
         Intent intent = new Intent(this, ReserveResultActivity.class);
 
+        intent.putExtra("checkModel", checkModel);
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
         intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
         intent.putExtra("dateIn", dateInTextViewReserve.getText().toString());
@@ -263,17 +263,29 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Intent intent=new Intent(this,ContainerActivity.class);
-            startActivity(intent);
+            if (checkModel.getId()==-1) {
+                Intent intent = new Intent(this, ReserveCheckActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, ContainerActivity.class);
+                startActivity(intent);
+            }
+            return true;
+        }else {
+            return super.onKeyDown(keyCode, event);
         }
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intent=new Intent(this,ContainerActivity.class);
-            startActivity(intent);
+            if (checkModel.getId()==-1||checkModel.getId()>0) {
+                Intent intent = new Intent(this, ReserveCheckActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, ContainerActivity.class);
+                startActivity(intent);
+            }
             return true;
         } else {
             return super.onOptionsItemSelected(item);

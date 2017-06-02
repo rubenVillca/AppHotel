@@ -1,8 +1,10 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,8 +33,12 @@ public class ReserveSelectedActivity extends ActivityParent {
 
         super.showToolBar("", true);
 
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setEnterTransition(new Fade());
+        }
+
         buildBundle();
-        init();
+        initContent();
         setRecyclerView();
     }
     private void buildBundle() {
@@ -45,7 +51,7 @@ public class ReserveSelectedActivity extends ActivityParent {
         reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("reserveSearchModel");
     }
 
-    public void init() {
+    public void initContent() {
         TextView nAdultTextView = (TextView) findViewById(R.id.nPersonAdultReserve);
         nAdultTextView.setText(String.valueOf(nAdult + " Adultos"));
 

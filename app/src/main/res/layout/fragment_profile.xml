@@ -10,7 +10,7 @@
         android:id="@+id/appBarProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_primary"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@color/colorPrimary">
+            app:statusBarScrim="@color/color_primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,15 +138,16 @@
                     android:text="@string/content_profile_textView_name"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileNamePerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -163,15 +164,16 @@
                     android:text="@string/content_profile_textView_lastname"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileLastNamePerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -188,15 +190,16 @@
                     android:text="@string/content_profile_textView_email"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileEmailPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -213,15 +216,16 @@
                     android:text="@string/content_profile_textView_point"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profilePointPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -238,15 +242,16 @@
                     android:text="@string/content_profile_textView_address"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileAddressPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -263,15 +268,16 @@
                     android:layout_weight="0.5"
                     android:text="@string/content_profile_textView_city"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileCityPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -288,15 +294,16 @@
                     android:text="@string/content_profile_textView_country"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileCountryPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -313,15 +320,16 @@
                     android:text="@string/content_profile_textView_sex"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileSexPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -338,15 +346,16 @@
                     android:text="@string/content_profile_textView_dateborn"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileDateBornPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -363,15 +372,16 @@
                     android:text="@string/content_profile_textView_dateregister"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileDateRegisterPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -388,15 +398,16 @@
                     android:text="@string/content_profile_textView_numberphone"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileNumberPhonePerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -413,15 +424,16 @@
                     android:text="@string/content_profile_textView_typedocument"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileTypeDocumentPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -438,15 +450,16 @@
                     android:text="@string/content_profile_textView_numberdocument"
                     android:textStyle="bold"
                     android:textSize="@dimen/content_profile_textView_size"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/profileNumberDocumentPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
-                    android:textSize="@dimen/content_profile_textView_size" />
+                    android:textSize="@dimen/content_profile_textView_size"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

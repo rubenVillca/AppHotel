@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/backgroundCard"
+            android:background="@color/color_primary_light"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:paddingLeft="@dimen/activity_vertical_margin"
@@ -52,16 +52,16 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="5dp"
                         android:text="@string/remitentCardView"
-                        android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_name_card"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/remitentMessageCardViewText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/text_size_name_card" />
+                        android:textSize="@dimen/text_size_name_card"
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -77,16 +77,16 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/paddingRigthTextCardView"
                         android:text="@string/dateSendCardView"
-                        android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_name_card"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/dateMessageCardViewText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/text_size_name_card" />
+                        android:textSize="@dimen/text_size_name_card"
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -102,16 +102,16 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/paddingRigthTextCardView"
                         android:text="@string/titleTextCardView"
-                        android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_name_card"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/titleMessageCardViewText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/text_size_name_card" />
+                        android:textSize="@dimen/text_size_name_card"
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

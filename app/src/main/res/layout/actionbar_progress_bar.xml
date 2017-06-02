@@ -5,5 +5,5 @@
     android:layout_height="match_parent"
     android:padding="50dp"
     style="?android:attr/progressBarStyleLarge"
-    android:background="@color/colorPrimary"
+    android:background="@color/color_primary"
     android:visibility="gone" />

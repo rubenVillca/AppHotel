@@ -4,6 +4,7 @@
     android:id="@+id/checkReserveCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:paddingTop="10dp"
     cardview:cardCornerRadius="@dimen/corner_radius_cardview">
 
@@ -15,99 +16,140 @@
             android:id="@+id/checkReserveLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/backgroundCard"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="@dimen/activity_vertical_margin"
-            android:paddingRight="@dimen/activity_vertical_margin">
+            android:background="@color/color_primary_light"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ingreso:"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/checkReserveInTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:id="@+id/btnPlusReserveCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_action_plusone"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Salida:"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/checkReserveOutTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Costo Total:"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/checkReserveCostTotal"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Deposito:"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
-                <TextView
-                    android:id="@+id/checkReserveDeposit"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Ingreso:"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveInTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/primary_text"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/btnPlusReserveCardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_action_plusone" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Salida:"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveOutTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/primary_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Costo Total:"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveCostTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/primary_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Deposito:"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveDeposit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/primary_text"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/consumeReserveRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/consumeReserveRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_divider"
-            android:background="@color/icons" />
+            android:background="@color/divider" />
 
     </FrameLayout>
 

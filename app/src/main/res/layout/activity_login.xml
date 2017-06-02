@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/color_primary"
     android:fitsSystemWindows="true"
     tools:context="com.umss.sistemas.tesis.hotel.activity.LoginActivity">
 
@@ -90,8 +90,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dontAccount"
-                        android:textColor="@color/editTextColorWhite"
-                        android:textSize="@dimen/text_size_dont_account" />
+                        android:textSize="@dimen/text_size_dont_account"
+                        android:textColor="@color/editTextColorWhite" />
 
                     <TextView
                         android:id="@+id/createAccountHere"

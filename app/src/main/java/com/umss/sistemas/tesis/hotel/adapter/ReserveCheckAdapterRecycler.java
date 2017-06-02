@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +21,7 @@ import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 import java.util.ArrayList;
 
 public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveCheckAdapterRecycler.CheckReserveViewHolder> {
-
+    private final static int FADE_DURATION = 1000; // in milliseconds
     private ArrayList<CheckModel> checkModels;
     private int resource;
     private Activity activity;
@@ -67,6 +70,14 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         ReserveConsumeAdapterRecycler siteTourAdapter = new ReserveConsumeAdapterRecycler(checkModel.getConsumeModelArrayList(), R.layout.cardview_reserve_consume, activity);
         holder.recyclerView.setAdapter(siteTourAdapter);
+
+        setFadeAnimation(holder.itemView);
+    }
+
+    private void setFadeAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 
     @Override

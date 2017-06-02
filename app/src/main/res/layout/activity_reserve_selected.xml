@@ -33,13 +33,15 @@
                     android:layout_height="wrap_content"
                     android:text="Ingreso:"
                     android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/dateTimeInReserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_room_select" />
+                    android:textSize="@dimen/textsize_room_select"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -53,13 +55,15 @@
                     android:layout_height="wrap_content"
                     android:text="Salida:"
                     android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/dateTimeOutReserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_room_select" />
+                    android:textSize="@dimen/textsize_room_select"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -73,14 +77,16 @@
                     android:layout_height="wrap_content"
                     android:text="Personas:"
                     android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/nPersonAdultReserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 Adulto"
-                    android:textSize="@dimen/textsize_room_select" />
+                    android:textSize="@dimen/textsize_room_select"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/nPersonBoyReserve"
@@ -88,7 +94,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="0 Niños"
-                    android:textSize="@dimen/textsize_room_select" />
+                    android:textSize="@dimen/textsize_room_select"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:text="Precios:"
                     android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/priceRoomRecyclerView"

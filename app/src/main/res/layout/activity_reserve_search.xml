@@ -52,13 +52,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Adultos"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <ImageView
@@ -100,13 +102,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Niños"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <ImageView
@@ -132,7 +136,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Ingreso"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,13 +161,15 @@
                             android:id="@+id/dayInReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
 
                         <TextView
                             android:id="@+id/dateInReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -180,13 +187,15 @@
                             android:id="@+id/hourInReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
 
                         <TextView
                             android:id="@+id/typeHourInReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -202,7 +211,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Salida"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -226,13 +236,15 @@
                             android:id="@+id/dayOutReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
 
                         <TextView
                             android:id="@+id/dateOutReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -250,13 +262,15 @@
                             android:id="@+id/hourOutReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
 
                         <TextView
                             android:id="@+id/typeHourOutReserve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -272,7 +286,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/color_primary_dark"
                 android:text="@string/btn_continue_reserve" />
         </LinearLayout>
     </ScrollView>

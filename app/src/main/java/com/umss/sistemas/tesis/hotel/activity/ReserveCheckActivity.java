@@ -6,11 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ReserveCheckAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
@@ -35,8 +37,8 @@ public class ReserveCheckActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ReserveCheckAdapterRecycler siteTourAdapter = new ReserveCheckAdapterRecycler(buildCheckReserve(), R.layout.cardview_reserve_check, this);
-        recyclerView.setAdapter(siteTourAdapter);
+        ReserveCheckAdapterRecycler adapterRecycler = new ReserveCheckAdapterRecycler(buildCheckReserve(), R.layout.cardview_reserve_check, this);
+        recyclerView.setAdapter(adapterRecycler);
     }
 
     public ArrayList<CheckModel> buildCheckReserve() {
@@ -63,5 +65,10 @@ public class ReserveCheckActivity extends ActivityParent {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void goReserveSearch(View view) {
+        Intent intent = new Intent(this, ReserveSearchActivity.class);
+        startActivity(intent);
     }
 }

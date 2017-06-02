@@ -114,11 +114,12 @@
                 android:layout_marginTop="@dimen/margin_create_accout">
 
                 <TextView
+                    android:id="@+id/textViewSex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/label_sex"
-                    android:id="@+id/textViewSex" />
+                    android:textColor="@color/primary_text" />
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_create_accout"
-                android:background="@color/colorPrimary"
+                android:background="@color/color_primary"
                 android:text="@string/btn_create_account"/>
         </LinearLayout>
 

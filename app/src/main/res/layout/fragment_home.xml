@@ -53,7 +53,8 @@
                             android:gravity="center"
                             android:maxLines="3"
                             android:text="@string/label_home_icon_about"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -76,7 +77,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_site_tour"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -114,7 +116,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_service"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -138,7 +141,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_offer"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
 
                     </LinearLayout>
 
@@ -171,7 +175,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_reserve"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -195,7 +200,8 @@
                             android:gravity="center"
                             android:maxLines="3"
                             android:text="@string/label_home_icon_location"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -227,7 +233,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_activity"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -250,7 +257,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_food"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -282,7 +290,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_history"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -305,7 +314,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_consume"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
                 </LinearLayout>

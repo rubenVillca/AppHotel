@@ -28,7 +28,8 @@
                 android:textSize="@dimen/textsize_usernamedetail"
                 android:text="@string/name_card"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" />
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textColor="@color/primary_text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address_site"
-                    android:textSize="@dimen/textsize_likenumberdetail" />
+                    android:textSize="@dimen/textsize_likenumberdetail"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/addressSiteTourlTextView"
@@ -51,13 +53,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/marginleft_seconleft"
                     android:layout_marginRight="@dimen/marginleft_seconleft"
-                    android:textSize="@dimen/textsize_likenumberdetail" />
+                    android:textSize="@dimen/textsize_likenumberdetail"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_divider"
-                android:background="@color/icons"/>
+                android:background="@color/divider"/>
 
             <TextView
                 android:id="@+id/descripctionTextView"
@@ -67,7 +70,8 @@
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:text="@string/titledetail"
                 android:textSize="@dimen/textsize_likenumberdetail"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/primary_text"/>
 
             <TextView
                 android:id="@+id/descriptionSiteTourTextView"
@@ -77,7 +81,8 @@
                 android:paddingLeft="@dimen/padding_horizontal_textcontent"
                 android:paddingRight="@dimen/padding_horizontal_textcontent"
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
-                android:textSize="@dimen/textsize_likenumberdetail" />
+                android:textSize="@dimen/textsize_likenumberdetail"
+                android:textColor="@color/primary_text"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

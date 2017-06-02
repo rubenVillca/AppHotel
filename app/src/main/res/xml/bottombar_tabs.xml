@@ -4,25 +4,25 @@
         id="@+id/tabSearch"
         icon="@drawable/ic_search"
         title="@string/tab_search"
-        barColorWhenSelected="@color/colorPrimary" />
+        barColorWhenSelected="@color/color_primary" />
     <tab
         id="@+id/tabProfile"
         icon="@drawable/ic_edit_user_male"
         title="@string/tab_profile"
-        barColorWhenSelected="@color/colorPrimary" />
+        barColorWhenSelected="@color/color_primary" />
     <tab
         id="@+id/tabHome"
         icon="@drawable/ic_home"
         title="@string/tab_home"
-        barColorWhenSelected="@color/colorPrimary" />
+        barColorWhenSelected="@color/color_primary" />
     <tab
         id="@+id/tabFrequently"
         icon="@drawable/ic_question"
         title="@string/tab_frequently"
-        barColorWhenSelected="@color/colorPrimary" />
+        barColorWhenSelected="@color/color_primary" />
     <tab
         id="@+id/tabMessajeSend"
         icon="@drawable/ic_new_message"
         title="@string/tab_message_new"
-        barColorWhenSelected="@color/colorPrimary" />
+        barColorWhenSelected="@color/color_primary" />
 </tabs>

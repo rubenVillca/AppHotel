@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/backgroundCard"
+            android:background="@color/color_primary_light"
             android:orientation="vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="@dimen/activity_vertical_margin"
@@ -33,16 +33,16 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
                     android:text="Precio Unitario"
-                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_name_card"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/priceUnitPriceServiceCardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_name_card"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -57,16 +57,16 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Tiempo"
-                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_name_card"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/timeUnitPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_name_card"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -81,9 +81,9 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Habitaciones"
-                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_name_card"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <Spinner
                     android:id="@+id/nRoomPriceServiceCardView"
@@ -94,8 +94,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_name_card"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -110,16 +110,16 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Precio estimado"
-                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_name_card"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/priceEstimadedPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_name_card"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -134,30 +134,30 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Tiempo"
-                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_name_card"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/timeSelectedPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_name_card"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnPriceServiceCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/color_primary"
                 android:text="@string/btn_continue_reserve" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_divider"
-            android:background="@color/icons" />
+            android:background="@color/divider" />
 
     </FrameLayout>
 

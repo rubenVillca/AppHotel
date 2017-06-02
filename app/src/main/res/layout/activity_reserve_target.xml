@@ -8,7 +8,8 @@
     tools:context="com.umss.sistemas.tesis.hotel.activity.ReserveTargetActivity">
 
     <include layout="@layout/actionbar_toolbar" />
-    <include layout="@layout/actionbar_progress_bar"/>
+
+    <include layout="@layout/actionbar_progress_bar" />
 
     <ScrollView
         android:id="@+id/layoutReserveTargetActivity"
@@ -19,10 +20,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:orientation="vertical">
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,8 +39,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="number"
-                        android:hint="@string/label_number_target" />
+                        android:hint="@string/label_number_target"
+                        android:textColor="@color/color_primary"
+                        android:inputType="number"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -51,6 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_target_ccv"
+                        android:textColor="@color/color_primary"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -66,9 +69,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:text="Año Expiración:"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Año Expiración:" />
+                    android:textColor="@color/primary_text"/>
 
                 <Spinner
                     android:id="@+id/spinnerYearTargetReserve"
@@ -89,16 +93,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:textStyle="bold"
+                    android:text="Mes Expiración:"
                     android:textSize="18sp"
-                    android:text="Mes Expiración:" />
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"/>
 
                 <Spinner
                     android:id="@+id/spinnerMonthTargetReserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:gravity="left"/>
+                    android:gravity="left" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,37 +116,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:text="Tarjeta:"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Tarjeta:" />
+                    android:textColor="@color/primary_text"/>
 
                 <Spinner
                     android:id="@+id/spinnerTypeTargetReserve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:gravity="left"/>
+                    android:gravity="left" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btnCancelReserveTarget"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:text="Cancel"/>
+                    android:text="Cancel" />
 
                 <Button
                     android:id="@+id/btnContinueReserveTarget"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:backgroundTint="@color/color_primary_dark"
                     android:text="Siguiente"
                     tools:ignore="ButtonStyle" />
 

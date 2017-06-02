@@ -14,7 +14,7 @@
         android:id="@+id/layoutComplaintActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/color_primary_light"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -40,13 +40,14 @@
                     android:hint="Mensaje"
                     android:minHeight="250dp"
                     android:scrollHorizontally="false"
+                    android:textColor="@color/color_primary"
                     android:scrollbars="vertical" />
 
                 <Button
                     android:id="@+id/btnComplaintsSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/color_primary_dark"
                     android:text="@string/action_send" />
             </LinearLayout>
         </ScrollView>

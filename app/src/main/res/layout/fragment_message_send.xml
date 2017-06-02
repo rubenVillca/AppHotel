@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/color_primary_light"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
@@ -34,10 +34,11 @@
                     android:spinnerMode="dialog" />
 
                 <EditText
+                    android:id="@+id/contactTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/contactTitle"
-                    android:hint="Titulo del mensaje" />
+                    android:hint="Titulo del mensaje"
+                    android:textColor="@color/color_primary"/>
 
                 <EditText
                     android:id="@+id/contactEditText"
@@ -51,14 +52,15 @@
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"
                     android:gravity="top"
-                    android:hint="Mensaje"/>
+                    android:hint="Mensaje"
+                    android:textColor="@color/color_primary"/>
 
                 <Button
                     android:id="@+id/btnContactSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/action_send"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/color_primary_dark" />
             </LinearLayout>
         </ScrollView>
 

@@ -39,13 +39,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_name" />
+                        android:text="@string/activityabout_text_name"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -60,13 +61,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_address" />
+                        android:text="@string/activityabout_text_address"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,13 +83,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_type" />
+                        android:text="@string/activityabout_text_type"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -102,13 +105,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_domain" />
+                        android:text="@string/activityabout_text_domain"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelSiteWeb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,13 +127,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_datefoundation" />
+                        android:text="@string/activityabout_text_datefoundation"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelDateFoundation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -144,13 +149,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_history" />
+                        android:text="@string/activityabout_text_history"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -165,13 +171,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_mision" />
+                        android:text="@string/activityabout_text_mision"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelMision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,13 +193,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_vision" />
+                        android:text="@string/activityabout_text_vision"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelVision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -207,13 +215,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_lema" />
+                        android:text="@string/activityabout_text_lema"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelWatchword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -228,13 +237,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_alcance" />
+                        android:text="@string/activityabout_text_alcance"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelScope"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,13 +259,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_objetive" />
+                        android:text="@string/activityabout_text_objetive"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelObjetives"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -270,13 +281,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_description" />
+                        android:text="@string/activityabout_text_description"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -291,13 +303,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_email" />
+                        android:text="@string/activityabout_text_email"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -312,13 +325,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/activityabout_text_phone" />
+                        android:text="@string/activityabout_text_phone"
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
             </LinearLayout>

@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/marginleft_text_locationmap"
                 android:layout_marginTop="@dimen/margintop_text_locationmap"
-                android:text="@string/textview_distance_locationmap" />
+                android:text="@string/textview_distance_locationmap"
+                android:textColor="@color/primary_text"/>
 
             <ImageView
                 android:layout_width="40dp"
@@ -48,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/marginleft_text_locationmap"
                 android:layout_marginTop="@dimen/margintop_text_locationmap"
-                android:text="@string/textview_duration_locationmap" />
+                android:text="@string/textview_duration_locationmap"
+                android:textColor="@color/primary_text"/>
         </LinearLayout>
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"

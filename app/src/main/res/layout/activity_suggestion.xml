@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/color_primary_light"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
@@ -36,11 +36,11 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:background="@android:color/white"
-                    android:enabled="true"
+                    android:minHeight="250dp"
                     android:lines="8"
                     android:gravity="top"
                     android:hint="Sugerencia"
-                    android:minHeight="250dp"
+                    android:textColor="@color/color_primary"
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"/>
 
@@ -48,7 +48,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/action_send"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/color_primary_dark"
                     android:id="@+id/btnSuggestionSend" />
             </LinearLayout>
         </ScrollView>

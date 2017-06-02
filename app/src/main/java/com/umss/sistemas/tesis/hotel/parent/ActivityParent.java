@@ -57,7 +57,7 @@ public class ActivityParent extends AppCompatActivity {
      * mostrar mensajes en Toast
      * @param m:mensaje
      */
-    protected void showMesaje(String m) {
+    protected void showMessaje(String m) {
         Toast.makeText(getApplicationContext(), m, Toast.LENGTH_SHORT).show();
     }
 

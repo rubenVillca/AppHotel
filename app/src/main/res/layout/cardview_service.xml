@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_card"
-                android:textSize="@dimen/text_size_name_card"
+                android:textSize="@dimen/text_size_primary"
                 android:textColor="@color/primary_text"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/date_cardview_service"
-                android:textSize="@dimen/text_size_name_card"
+                android:textSize="@dimen/text_size_primary"
                 android:textColor="@color/primary_text"/>
 
         </LinearLayout>

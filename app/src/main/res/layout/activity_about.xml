@@ -40,12 +40,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_name"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -62,12 +64,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_address"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -84,12 +88,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_type"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -106,12 +112,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_domain"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelSiteWeb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -128,12 +136,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_datefoundation"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelDateFoundation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text" />
                 </LinearLayout>
 
@@ -150,12 +160,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_history"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -172,12 +184,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_mision"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelMision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -194,12 +208,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_vision"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelVision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -216,12 +232,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_lema"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelWatchword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -238,12 +256,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_alcance"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelScope"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -260,12 +280,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_objetive"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelObjetives"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -282,12 +304,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_description"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -304,12 +328,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_email"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 
@@ -326,12 +352,14 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/activityabout_text_phone"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/aboutHotelPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_primary"
                         android:textColor="@color/primary_text"/>
                 </LinearLayout>
 

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name_card"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_name_card" />
+                android:textSize="@dimen/text_size_primary" />
 
             <TextView
                 android:id="@+id/addressSiteTourCardView"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/date_cardview_service"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_name_card" />
+                android:textSize="@dimen/text_size_primary" />
 
         </LinearLayout>
     </FrameLayout>

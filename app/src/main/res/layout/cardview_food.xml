@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name_card"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_name_card" />
+                android:textSize="@dimen/text_size_primary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -49,14 +49,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/categoria"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_primary" />
 
                 <TextView
                     android:id="@+id/typeFoodCardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_primary" />
             </LinearLayout>
 
             <LinearLayout
@@ -71,7 +71,7 @@
                     android:text="@string/cardview_type_money"
                     android:textColor="@android:color/white"
                     android:paddingRight="@dimen/padding_cardview_money"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_primary" />
 
                 <TextView
                     android:id="@+id/priceFoodCardView"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/cardview_food_price"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_name_card" />
+                    android:textSize="@dimen/text_size_primary" />
             </LinearLayout>
 
         </LinearLayout>

@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$ 0"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00/00/0000"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00:00"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
@@ -62,7 +62,7 @@
                     android:id="@+id/serviceConsumeCardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
 
             </LinearLayout>

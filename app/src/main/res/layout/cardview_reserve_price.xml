@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
                     android:text="Precio Unitario"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
@@ -41,7 +41,7 @@
                     android:id="@+id/priceUnitPriceServiceCardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Tiempo"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
@@ -65,7 +65,7 @@
                     android:id="@+id/timeUnitPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Habitaciones"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
@@ -94,7 +94,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Precio estimado"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
@@ -118,7 +118,7 @@
                     android:id="@+id/priceEstimadedPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
                     android:text="Tiempo"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
@@ -142,7 +142,7 @@
                     android:id="@+id/timeSelectedPriceServiceCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_name_card"
+                    android:textSize="@dimen/text_size_primary"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 

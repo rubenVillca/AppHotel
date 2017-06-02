@@ -9,7 +9,10 @@
 
     <include layout="@layout/actionbar_toolbar" />
 
+    <include layout="@layout/actionbar_progress_bar"/>
+
     <LinearLayout
+        android:id="@+id/layoutSuggestionActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

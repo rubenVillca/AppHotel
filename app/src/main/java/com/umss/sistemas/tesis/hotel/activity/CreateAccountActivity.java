@@ -48,7 +48,7 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
         setContentView(R.layout.activity_create_account);
 
         super.showToolBar(getResources().getString(R.string.toolbar_tittle_create_account), true);
-
+        container=findViewById(R.id.layoutCreateAccountActivity);
         getDataView();
     }
 
@@ -89,12 +89,12 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
             cancel = isValidInput();
 
         if (!cancel) {
-            //showProgress(true);
             registerPost();
         }
     }
 
     private void registerPost() {
+        showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -116,21 +116,21 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
                         idPerson = obj.getInt("idPerson");
                     } catch (JSONException e) {
                         idPerson = 0;
-                        showMesaje("Error en el servidor");
+                        showMessaje("Error en el servidor");
                     }
                     if (idPerson>0)
                         iniciarSession(idPerson);
                     else
                         goCreateAccount();
                 } else {
-                    showMesaje("Error en tiempo de respuesta de lado del servidor");
+                    showMessaje("Error en tiempo de respuesta de lado del servidor");
                 }
-                //showProgress(false);
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                //showProgress(false);
+                showProgress(false);
                 System.out.println("Servidor no disponible intente nuevamente");
             }
         });
@@ -140,17 +140,17 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
         helperSQLiteInsert=new HelperSQLiteInsert(this);
 
         if (idPerson > 0) {
-            showMesaje("Usuario registrado exitosamente");
+            showMessaje("Usuario registrado exitosamente");
             helperSQLiteInsert.syncUpLogin(idPerson, pass, 1);
             goHomeContainer(idPerson);
         }
         if (idPerson == -1) {
-            showMesaje("Nombre de usuario no disponible");
+            showMessaje("Nombre de usuario no disponible");
         }
         if (idPerson == -2) {
             appText.setError(getString(R.string.error_field_email_repeat));
             focusView = appText;
-            showMesaje("Error en la consulta");
+            showMessaje("Error en la consulta");
         }
     }
 

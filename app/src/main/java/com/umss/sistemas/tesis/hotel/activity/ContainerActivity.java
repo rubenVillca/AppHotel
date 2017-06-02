@@ -38,7 +38,7 @@ public class ContainerActivity extends ActivityParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-
+        container=findViewById(R.id.container);
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         obtainDataBundle();
         setActionBottomBar();
@@ -68,9 +68,7 @@ public class ContainerActivity extends ActivityParent {
                         goFragment(new HomeFragment());
                         break;
                     case R.id.tabProfile:
-                        //showProgress(true);
                         goProfileFragment();
-                        //showProgress(false);
                         break;
                     case R.id.tabSearch:
                         goFragment(new SearchFragment());
@@ -87,6 +85,7 @@ public class ContainerActivity extends ActivityParent {
     }
 
     private void goProfileFragment() {
+        showProgress(true);
         helperSQLiteInsert=new HelperSQLiteInsert(this);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -109,19 +108,20 @@ public class ContainerActivity extends ActivityParent {
                     System.out.println("Servidor no disponible");
                 }
                 goFragment(new ProfileFragment());
-                //showProgress(false);
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goFragment(new ProfileFragment());
-                //showProgress(false);
+                showProgress(false);
                 System.out.println("Servidor no esta disponible");
             }
         });
     }
 
     private void goFrequentlyFragment(){
+        showProgress(true);
         helperSQLiteInsert=new HelperSQLiteInsert(this);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -143,13 +143,13 @@ public class ContainerActivity extends ActivityParent {
                     System.out.println("Servidor no disponible");
                 }
                 goFragment(new FrequentlyFragment());
-                //showProgress(false);
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goFragment(new FrequentlyFragment());
-                //showProgress(false);
+                showProgress(false);
                 System.out.println("Servidor no esta disponible");
             }
         });

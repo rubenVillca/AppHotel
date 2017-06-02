@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ReserveCheckAdapterRecycler;
@@ -49,7 +50,18 @@ public class ReserveCheckActivity extends ActivityParent {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Intent intent=new Intent(this,ContainerActivity.class);
             startActivity(intent);
+            return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent=new Intent(this,ContainerActivity.class);
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

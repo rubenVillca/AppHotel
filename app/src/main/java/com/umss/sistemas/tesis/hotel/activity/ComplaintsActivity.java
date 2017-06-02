@@ -27,6 +27,7 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
         setContentView(R.layout.activity_complaints);
 
         showToolBar(getResources().getString(R.string.toolbar_tittle_complaints), true);
+        container=findViewById(R.id.layoutComplaintActivity);
 
         Button button = (Button) findViewById(R.id.btnComplaintsSend);
         button.setOnClickListener(this);
@@ -48,6 +49,7 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
      * @param text:quejas
      */
     private void sendComplaints(String text) {
+        showProgress(true);
         helperSQLiteObtain=new HelperSQLiteObtain(this);
         int idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
 
@@ -67,27 +69,27 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
                         JSONObject obj = new JSONObject(new String(responseBody));
                         idMessage=obj.getInt("isSave");
                     } catch (JSONException e) {
-                        showMesaje("Error de consulta");
-                        //showProgress(false);
+                        showMessaje("Error de consulta");
+                        showProgress(false);
                     }
 
                     if (idMessage>0) {
                         Intent intent = new Intent(ComplaintsActivity.this, ContainerActivity.class);
                         startActivity(intent);
-                        showMesaje("Mensaje Enviado");
+                        showMessaje("Mensaje Enviado");
                     } else {
-                        showMesaje("No se envio su mensaje intente nuevamente");
+                        showMessaje("No se envio su mensaje intente nuevamente");
                     }
-                    //showProgress(false);
                 }else{
-                    showMesaje("Servidor no disponible");
+                    showMessaje("Servidor no disponible");
                 }
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                //showProgress(false);
-                showMesaje("No se ha podido establecer conecion con el servidor");
+                showProgress(false);
+                showMessaje("No se ha podido establecer conecion con el servidor");
             }
         });
     }

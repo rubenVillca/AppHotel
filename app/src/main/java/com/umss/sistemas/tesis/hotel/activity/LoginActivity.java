@@ -81,31 +81,31 @@ public class LoginActivity extends ActivityParent {
                     } catch (JSONException e) {
                         goLoginActivity();
                         idPerson = 0;
-                        showMesaje("Error de conexion");
+                        showMessaje("Error de conexion");
                     }
 
                     switch (idPerson) {
                         case 0:
-                            showMesaje("Nombre de usuario incorrecto");
+                            showMessaje("Nombre de usuario incorrecto");
                             goLoginActivity();
                             break;
                         case -1:
-                            showMesaje("Contrasenia incorrectos");
+                            showMessaje("Contrasenia incorrectos");
                             goLoginActivity();
                             break;
                         case -2:
-                            showMesaje("Cuenta no disponible");
+                            showMessaje("Cuenta no disponible");
                             goLoginActivity();
                             break;
                         default:
                             helperSQLiteInsert.syncUpLogin(idPerson, passText, 1);
                             goHomeFragment(idPerson);
-                            showMesaje("Ha iniciado Sesion");
+                            showMessaje("Ha iniciado Sesion");
                             break;
                     }
                 } else {
                     goLoginActivity();
-                    showMesaje("Servidor no disponible");
+                    showMessaje("Servidor no disponible");
                 }
                 showProgress(false);
             }
@@ -114,7 +114,7 @@ public class LoginActivity extends ActivityParent {
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goLoginActivity();
                 showProgress(false);
-                showMesaje("Servidor no esta disponible");
+                showMessaje("Servidor no esta disponible");
             }
         });
     }

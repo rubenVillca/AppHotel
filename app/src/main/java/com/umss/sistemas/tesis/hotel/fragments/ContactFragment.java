@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import org.json.JSONException;
@@ -31,16 +33,12 @@ import cz.msebera.android.httpclient.Header;
  */
 public class ContactFragment extends FragmentParent {
 
-    public ContactFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message_send, container, false);
         super.showToolBar(getResources().getString(R.string.tab_message_new), false, view);
         super.showFloatingButtonMessage(view);
-
         setSpinner(view);
         showButtonMessage(view);
 
@@ -49,6 +47,7 @@ public class ContactFragment extends FragmentParent {
 
     /**
      * cargar lista de tipos de usuarios en el spinner
+     *
      * @param view:actividad en ejecucion
      */
     private void setSpinner(View view) {
@@ -63,19 +62,19 @@ public class ContactFragment extends FragmentParent {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText=(EditText)view.findViewById(R.id.contactEditText);
-                String messsage=editText.getText().toString();
+                EditText editText = (EditText) view.findViewById(R.id.contactEditText);
+                String messsage = editText.getText().toString();
 
-                EditText titleMessage=(EditText)view.findViewById(R.id.contactTitle);
-                String title=titleMessage.getText().toString();
+                EditText titleMessage = (EditText) view.findViewById(R.id.contactTitle);
+                String title = titleMessage.getText().toString();
 
                 Spinner spin = (Spinner) view.findViewById(R.id.contactSpinner);
                 String receiver = spin.getSelectedItem().toString();
-                receiver=receiver.equals("Administrador")?"admin":"recepcion";
+                receiver = receiver.equals("Administrador") ? "admin" : "recepcion";
 
-                if (!title.isEmpty()&&!messsage.isEmpty())
-                    sendMessage(title,messsage,receiver);
-                else{
+                if (!title.isEmpty() && !messsage.isEmpty())
+                    sendMessage(title, messsage, receiver);
+                else {
                     editText.setError("Ingrese un titulo y un contenido");
                     titleMessage.setError("Ingrese un titulo y un contenido");
                 }
@@ -86,45 +85,46 @@ public class ContactFragment extends FragmentParent {
 
     /**
      * enviar mensaje de sugerencia al webserver
-     *  @param title :titulo del mensaje
-     * @param messsage :mensaje a enviar
+     *
+     * @param title     :titulo del mensaje
+     * @param messsage  :mensaje a enviar
      * @param receiver: usuaraio/s a los q se esta enviando el mensaje
      */
     private void sendMessage(String title, String messsage, String receiver) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        helperSQLiteObtain=new HelperSQLiteObtain(getContext());
-        int idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
+        helperSQLiteObtain = new HelperSQLiteObtain(getContext());
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
-        params.put("message",messsage);
-        params.put("tittle",title);
-        params.put("android","android");
-        params.put("receiver",receiver);
-        params.put("idPerson",idPerson);
+        params.put("message", messsage);
+        params.put("tittle", title);
+        params.put("android", "android");
+        params.put("receiver", receiver);
+        params.put("idPerson", idPerson);
 
         client.post(Conexion.getUrlServer(Conexion.CONTACT), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
-                    int idMessage=0;
+                    int idMessage = 0;
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        idMessage=obj.getInt("isSave");
+                        idMessage = obj.getInt("isSave");
                     } catch (JSONException e) {
                         showMessage("Error de consulta");
                         //showProgress(false);
                     }
 
-                    if (idMessage>0) {
+                    if (idMessage > 0) {
                         Intent intent = new Intent(getActivity(), ContainerActivity.class);
                         startActivity(intent);
                         showMessage("Mensaje Enviado");
                     }
-                    if (idMessage==0) {
+                    if (idMessage == 0) {
                         showMessage("No se envio su mensaje intente nuevamente");
                     }
-                    if (idMessage<0) {
+                    if (idMessage < 0) {
                         showMessage("Error al insertar a la BD del webserver");
                     }
                     //showProgress(false);
@@ -138,7 +138,8 @@ public class ContactFragment extends FragmentParent {
             }
         });
     }
-    private void showMessage(String message){
-        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+
+    private void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -48,7 +48,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_target);
-
+        container=findViewById(R.id.layoutReserveTargetActivity);
         super.showToolBar("Tarjeta de credito", true);
 
         builtBundle();
@@ -164,6 +164,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     }
 
     private void goReserveList() {
+        showProgress(true);
         helperSQLiteObtain=new HelperSQLiteObtain(this);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
@@ -204,13 +205,13 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                 } else {
                     System.out.println("Modo Offline");
                 }
-                //showProgress(false);
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
-                //showProgress(false);
+                showProgress(false);
             }
         });
     }

@@ -14,7 +14,6 @@ public class ReserveVerifyActivity extends ActivityParent {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         verify();
     }
 
@@ -39,10 +38,5 @@ public class ReserveVerifyActivity extends ActivityParent {
         Intent intent=new Intent(this,ReserveSearchActivity.class);
         startActivity(intent);
         ReserveVerifyActivity.this.finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }

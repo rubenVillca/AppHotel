@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.ContainerActivity">
 
+    <include layout="@layout/actionbar_progress_bar" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

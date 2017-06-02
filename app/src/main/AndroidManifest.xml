@@ -109,7 +109,7 @@
                 android:value=".activity.ContainerActivity" />
         </activity>
         <activity
-            android:name=".activity.ReserveActivity"
+            android:name=".activity.ReserveSearchActivity"
             android:parentActivityName=".activity.ContainerActivity"
             tools:targetApi="jelly_bean">
             <meta-data
@@ -224,20 +224,20 @@
                 android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
         </activity>
         <activity
-            android:name=".activity.ReserveSearchActivity"
-            android:parentActivityName=".activity.ReserveActivity"
-            tools:targetApi="jelly_bean">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveActivity" />
-        </activity>
-        <activity
-            android:name=".activity.ReserveSelectedActivity"
+            android:name=".activity.ReserveResultActivity"
             android:parentActivityName=".activity.ReserveSearchActivity"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ReserveSelectedActivity"
+            android:parentActivityName=".activity.ReserveResultActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ReserveResultActivity" />
         </activity>
         <activity
             android:name=".activity.ReserveTargetActivity"

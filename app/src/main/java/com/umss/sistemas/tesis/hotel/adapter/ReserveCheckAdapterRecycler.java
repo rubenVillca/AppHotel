@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
+import com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 
@@ -55,7 +55,7 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
         holder.btnPlusReserveCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, ReserveActivity.class);
+                Intent intent=new Intent(activity, ReserveSearchActivity.class);
                 intent.putExtra("idCheck",checkModel.getId());
                 activity.startActivity(intent);
             }

@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/actionbar_progressbar" />
+        <include layout="@layout/actionbar_progress_bar" />
 
         <ScrollView
             android:layout_width="match_parent"

@@ -19,7 +19,6 @@ import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
 import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
 import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
-import com.umss.sistemas.tesis.hotel.activity.ReserveActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
@@ -40,6 +39,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
     private AsyncHttpClient client;
     private RequestParams params;
+    protected ActivityParent containerActivity;
 
     /**
      * barra superior de la activity en la q esta el boton de atras y el nombre de la misma
@@ -75,9 +75,11 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        containerActivity = (ActivityParent) getActivity();
+        containerActivity.container = getActivity().findViewById(R.id.container);
+
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
         helperSQLiteObtain = new HelperSQLiteObtain(getContext());
-
         client = new AsyncHttpClient();
         params = new RequestParams();
 
@@ -124,8 +126,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goReserve() {
-        //goReserveVerifyActivity();
-
+        containerActivity.showProgress(true);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
@@ -146,14 +147,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goReserveVerifyActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goReserveVerifyActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -162,6 +163,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goConsume() {
+        containerActivity.showProgress(true);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
@@ -182,14 +184,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goConsumeActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goConsumeActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -198,6 +200,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goHistory() {
+        containerActivity.showProgress(true);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
@@ -218,14 +221,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goHistoryActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goHistoryActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -234,6 +237,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Calendar
      */
     private void goCalendar() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.CALENDAR), params, new AsyncHttpResponseHandler() {
@@ -251,14 +255,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goCalendarActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goCalendarActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -267,6 +271,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla Messages
      */
     private void goMessages() {
+        containerActivity.showProgress(true);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("android", "android");
@@ -287,14 +292,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goMessageActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goMessageActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -303,6 +308,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tablaMenuFood
      */
     private void goServiceFood() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.FOOD_MENU), params, new AsyncHttpResponseHandler() {
@@ -321,14 +327,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goServiceFoodActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goServiceFoodActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -337,6 +343,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla offer
      */
     private void goOffer() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.OFFER), params, new AsyncHttpResponseHandler() {
@@ -355,14 +362,14 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goOfferActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
                 goOfferActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
         });
     }
@@ -371,13 +378,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla about
      */
     private void goAbout() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
-
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         helperSQLiteInsert.syncUpAbout(obj);
@@ -389,13 +396,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goAboutActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goAboutActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
                 System.out.println("Servidor no disponible");
             }
         });
@@ -405,6 +412,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla service
      */
     private void goService() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
@@ -423,13 +431,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goServiceActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goServiceActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
                 System.out.println("Servidor no disponible");
             }
         });
@@ -439,6 +447,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla location
      */
     private void goLocation() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
@@ -457,13 +466,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goLocationActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goLocationActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
                 System.out.println("Servidor no disponible");
             }
         });
@@ -475,13 +484,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * Conectar con el webServer y sincronizar la tabla siteTour y siteToutImage
      */
     private void goSiteTour() {
+        containerActivity.showProgress(true);
         params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.SITES), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
-
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         helperSQLiteInsert.syncUpSiteTour(obj);
@@ -493,13 +502,13 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                     System.out.println("Modo Offline");
                 }
                 goSiteTourActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goSiteTourActivity();
-                //showProgress(false);
+                containerActivity.showProgress(false);
                 System.out.println("Servidor no disponible");
             }
         });
@@ -589,7 +598,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * cambiar de activity a ReserveActivity
+     * cambiar de activity a ReserveSearchActivity
      */
     private void goReserveVerifyActivity() {
         Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);

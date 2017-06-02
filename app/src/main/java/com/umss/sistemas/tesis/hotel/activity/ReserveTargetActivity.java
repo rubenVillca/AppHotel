@@ -170,7 +170,6 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-
         params.put("android", "android");
         params.put("idPerson", idPerson);
         params.put("idCost", priceServiceModel.getIdKeyCost());
@@ -185,26 +184,30 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("numberTarget", editTextNumberTarget.getText().toString());
         params.put("ccvTarget", editTextCCV.getText().toString());
         params.put("yearTarget", spinnerYear.getSelectedItem().toString());
-        params.put("monthTarget", spinnerMonth.getSelectedItem().toString());
-        params.put("typeTarget", spinnerType.getSelectedItem().toString());
+        params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition()+1));
+        params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition()+1));
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         client.post(Conexion.getUrlServer(Conexion.RESERVE_SAVE), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                int isReserve=0;
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-
+                        isReserve=obj.getInt("isReserve");
                         goActivityReserveVerify();
                     } catch (JSONException e) {
+                        isReserve=-1;
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
                     }
                 } else {
                     System.out.println("Modo Offline");
                 }
+                if (isReserve>0)
+                    showMessaje("Reserve realizada correctamente");
                 showProgress(false);
             }
 

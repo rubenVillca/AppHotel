@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
@@ -64,7 +63,7 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
         SiteTourModel siteTourModel = helperSQLiteObtain.getSiteTourModel(idSite).get(0);
         ArrayList<SiteTourImageModel> siteTourImageModel= helperSQLiteObtain.getSiteTourImageModel(idSite);
 
-        viewPager=(ViewPager)findViewById(R.id.imageSiteHeaderCollapsing);
+        viewPager=(ViewPager)findViewById(R.id.imageViewPagerHeaderCollapsing);
 
         customSwip=new CustomSwip(siteTourImageModel,this);
         viewPager.setAdapter(customSwip);

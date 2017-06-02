@@ -8,6 +8,7 @@
     tools:context="com.umss.sistemas.tesis.hotel.activity.ReserveTargetActivity">
 
     <include layout="@layout/actionbar_toolbar" />
+    <include layout="@layout/actionbar_progress_bar"/>
 
     <ScrollView
         android:id="@+id/layoutReserveTargetActivity"

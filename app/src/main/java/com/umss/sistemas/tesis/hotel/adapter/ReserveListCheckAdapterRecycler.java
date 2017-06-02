@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
@@ -20,13 +19,13 @@ import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 
 import java.util.ArrayList;
 
-public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveCheckAdapterRecycler.CheckReserveViewHolder> {
+public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<ReserveListCheckAdapterRecycler.CheckReserveViewHolder> {
     private final static int FADE_DURATION = 1000; // in milliseconds
     private ArrayList<CheckModel> checkModels;
     private int resource;
     private Activity activity;
 
-    public ReserveCheckAdapterRecycler(ArrayList<CheckModel> checkModels, int resource, Activity activity) {
+    public ReserveListCheckAdapterRecycler(ArrayList<CheckModel> checkModels, int resource, Activity activity) {
         this.checkModels = checkModels;
         this.resource = resource;
         this.activity = activity;
@@ -68,7 +67,7 @@ public class ReserveCheckAdapterRecycler extends RecyclerView.Adapter<ReserveChe
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveConsumeAdapterRecycler siteTourAdapter = new ReserveConsumeAdapterRecycler(checkModel.getConsumeModelArrayList(), R.layout.cardview_reserve_consume, activity);
+        ReserveListConsumeAdapterRecycler siteTourAdapter = new ReserveListConsumeAdapterRecycler(checkModel.getConsumeModelArrayList(), R.layout.cardview_reserve_list_consume, activity);
         holder.recyclerView.setAdapter(siteTourAdapter);
 
         setFadeAnimation(holder.itemView);

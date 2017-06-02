@@ -32,8 +32,8 @@
                     android:background="@color/color_primary_dark"
                     android:drawableRight="@drawable/ic_reservation"
                     android:onClick="goReserveSearchActivity"
-                    android:paddingLeft="50dp"
-                    android:paddingRight="50dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     android:text="Añadir reserva" />
             </LinearLayout>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/memberReserveCard"
+    android:id="@+id/consumeReserveCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
@@ -9,15 +9,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/color_primary_light"
-            android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,27 +26,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Huesped:"
+                    android:text="Servicio:"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
                 <TextView
-                    android:id="@+id/memberReserveTextView"
+                    android:id="@+id/nameServiceReserveConsume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/primary_text"/>
 
-                <ImageView
-                    android:id="@+id/btnEditCardViewReserveMember"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_mode_edit"/>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/memberReserveRecyclerView"
+                android:id="@+id/typeRoomReserveRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"/>
 
         </LinearLayout>
 

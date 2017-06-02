@@ -11,4 +11,5 @@
     <color name="editTextColorWhite">#FFF</color>
     <color name="editTextColorBlack">#000</color>
     <color name="backgroundCard">#53292929</color>
+    <color name="color_background">#5346dc70</color>
 </resources>

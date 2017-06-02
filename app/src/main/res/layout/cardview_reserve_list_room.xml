@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/typeRoomReserveCard"
+    android:id="@+id/roomReserveCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
@@ -27,28 +27,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tipo de habitacion:"
+                    android:text="Habitación:"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
 
                 <TextView
-                    android:id="@+id/nameReserveTypeRoom"
+                    android:id="@+id/numberReserveRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/primary_text"/>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/roomReserveRecyclerView"
+                android:id="@+id/memberReserveRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"/>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_divider"
-            android:background="@color/divider" />
 
     </FrameLayout>
 

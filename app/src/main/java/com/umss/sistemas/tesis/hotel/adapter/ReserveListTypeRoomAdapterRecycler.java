@@ -13,13 +13,13 @@ import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 
 import java.util.ArrayList;
 
-public class ReserveTypeRoomAdapterRecycler extends RecyclerView.Adapter<ReserveTypeRoomAdapterRecycler.TypeRoomReserveViewHolder>{
+public class ReserveListTypeRoomAdapterRecycler extends RecyclerView.Adapter<ReserveListTypeRoomAdapterRecycler.TypeRoomReserveViewHolder>{
 
     private ArrayList<ReserveModel> reserveModels;
     private int resource;
     private Activity activity;
 
-    public ReserveTypeRoomAdapterRecycler(ArrayList<ReserveModel> reserveModels, int resource, Activity activity) {
+    public ReserveListTypeRoomAdapterRecycler(ArrayList<ReserveModel> reserveModels, int resource, Activity activity) {
         this.reserveModels = reserveModels;
         this.resource = resource;
         this.activity = activity;
@@ -34,12 +34,12 @@ public class ReserveTypeRoomAdapterRecycler extends RecyclerView.Adapter<Reserve
     @Override
     public void onBindViewHolder(TypeRoomReserveViewHolder holder, int position) {
         ReserveModel reserveModel=reserveModels.get(position);
-        holder.consumeReserveRoom.setText(String.valueOf(position+1));
+        holder.consumeReserveRoom.setText(reserveModel.getNameRoomModel());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveRoomAdapterRecycler adapterRecycler = new ReserveRoomAdapterRecycler(reserveModel, R.layout.cardview_reserve_room, activity);
+        ReserveListRoomAdapterRecycler adapterRecycler = new ReserveListRoomAdapterRecycler(reserveModel, R.layout.cardview_reserve_list_room, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 

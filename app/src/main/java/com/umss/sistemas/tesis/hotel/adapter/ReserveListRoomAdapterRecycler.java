@@ -6,17 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 
-public class ReserveRoomAdapterRecycler extends RecyclerView.Adapter<ReserveRoomAdapterRecycler.RoomReserveViewHolder>{
+public class ReserveListRoomAdapterRecycler extends RecyclerView.Adapter<ReserveListRoomAdapterRecycler.RoomReserveViewHolder>{
 
     private ReserveModel reserveModel;
     private int resource;
     private Activity activity;
 
-    public ReserveRoomAdapterRecycler(ReserveModel reserveModel, int resource, Activity activity) {
+    public ReserveListRoomAdapterRecycler(ReserveModel reserveModel, int resource, Activity activity) {
         this.reserveModel = reserveModel;
         this.resource = resource;
         this.activity = activity;
@@ -30,12 +31,12 @@ public class ReserveRoomAdapterRecycler extends RecyclerView.Adapter<ReserveRoom
 
     @Override
     public void onBindViewHolder(RoomReserveViewHolder holder, int position) {
-        //holder.consumeReservePriceRoom.setText(String.valueOf(consumeModel.getPrice()));
+        holder.numberReserveRoom.setText(String.valueOf(position+1));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveMemberAdapterRecycler adapterRecycler = new ReserveMemberAdapterRecycler(reserveModel, R.layout.cardview_reserve_member, activity);
+        ReserveListMemberAdapterRecycler adapterRecycler = new ReserveListMemberAdapterRecycler(reserveModel, R.layout.cardview_reserve_list_member, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 
@@ -46,11 +47,11 @@ public class ReserveRoomAdapterRecycler extends RecyclerView.Adapter<ReserveRoom
 
     class RoomReserveViewHolder extends RecyclerView.ViewHolder{
         RecyclerView recyclerView;
-        //TextView consumeReservePriceRoom;
+        TextView numberReserveRoom;
         private RoomReserveViewHolder(View itemView) {
             super(itemView);
             recyclerView=(RecyclerView)itemView.findViewById(R.id.memberReserveRecyclerView);
-            //consumeReservePriceRoom=(TextView)itemView.findViewById(R.id.consumeReservePriceRoom);
+            numberReserveRoom=(TextView)itemView.findViewById(R.id.numberReserveRoom);
 
         }
     }

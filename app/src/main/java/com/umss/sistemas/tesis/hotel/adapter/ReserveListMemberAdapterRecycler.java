@@ -13,13 +13,13 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveMemberActivity;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 
-public class ReserveMemberAdapterRecycler extends RecyclerView.Adapter<ReserveMemberAdapterRecycler.MemberReserveViewHolder>{
+public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<ReserveListMemberAdapterRecycler.MemberReserveViewHolder>{
 
     private ReserveModel reserveModel;
     private int resource;
     private Activity activity;
 
-    public ReserveMemberAdapterRecycler(ReserveModel reserveModel, int resource, Activity activity) {
+    public ReserveListMemberAdapterRecycler(ReserveModel reserveModel, int resource, Activity activity) {
         this.reserveModel = reserveModel;
         this.resource = resource;
         this.activity = activity;

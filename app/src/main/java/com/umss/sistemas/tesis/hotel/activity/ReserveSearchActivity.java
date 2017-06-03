@@ -24,14 +24,16 @@ import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
-import com.umss.sistemas.tesis.hotel.util.TimePickerFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -120,7 +122,6 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
         timeOutSpinnerViewReserve.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -133,13 +134,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         });
 
         if (checkModel.getId() > 0) {
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
-            linearLayout.setVisibility(View.INVISIBLE);
-
-            dateInTextViewReserve.setText(checkModel.getDateIn());
-            timeInSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeIn().split(":")[0]));
-            dateOutTextViewReserve.setText(checkModel.getDateEnd());
-            timeOutSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeEnd().split(":")[0]));
+            chargeDateReserve();
         }
         if (checkModel.getId() <= 0) {
             setDateReserve(1, 6, dayInTextViewReserve, dateInTextViewReserve, timeInSpinnerViewReserve, typeTimeInTextViewReserve);
@@ -148,6 +143,27 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
+    }
+
+    private void chargeDateReserve() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
+        linearLayout.setVisibility(View.INVISIBLE);
+
+        SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");
+        SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy");
+        try {
+
+            Date dateInParse = parseador.parse(checkModel.getDateIn());
+            dateInTextViewReserve.setText(formateador.format(dateInParse));
+
+            Date dateOutParse = parseador.parse(checkModel.getDateEnd());
+            dateOutTextViewReserve.setText(formateador.format(dateOutParse));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        timeInSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeIn().split(":")[0]));
+        timeOutSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeEnd().split(":")[0]));
     }
 
     private void setDateReserve(int dayLast, int hour, TextView dayTextView, TextView dateTextView, Spinner spinnerTime, TextView typeTimeReserve) {

@@ -35,7 +35,9 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
     @Override
     public void onBindViewHolder(MemberReserveViewHolder holder, int position) {
         final MemberModel memberModel=consumeModel.getMemberModelArrayList().get(position);
-        holder.memberReserveTextView.setText(String.valueOf(position + 1));
+        holder.memberReserveTextView.setText(String.valueOf(" "+(position + 1)+": "));
+        holder.memberNameReserveTextView.setText(memberModel.getNamePerson() +" "+memberModel.getNameLastPerson());
+
         holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +56,13 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
     class MemberReserveViewHolder extends RecyclerView.ViewHolder {
         TextView memberReserveTextView;
+        TextView memberNameReserveTextView;
         ImageView btnEditCardViewReserveMember;
 
         private MemberReserveViewHolder(View itemView) {
             super(itemView);
             memberReserveTextView = (TextView) itemView.findViewById(R.id.memberReserveTextView);
+            memberNameReserveTextView =(TextView)itemView.findViewById(R.id.memberNameReserveTextView);
             btnEditCardViewReserveMember = (ImageView) itemView.findViewById(R.id.btnEditCardViewReserveMember);
         }
     }

@@ -16,99 +16,97 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingBottom="10dp">
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingreso:"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
-                <TextView
-                    android:id="@+id/dateTimeInReserve"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ingreso:"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dateTimeInReserve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textColor="@color/primary_text"/>
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salida:"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/dateTimeOutReserve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Salida:"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
-                <TextView
-                    android:id="@+id/dateTimeOutReserve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textColor="@color/primary_text"/>
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personas:"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select"
+                        android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
+                    <TextView
+                        android:id="@+id/nPersonAdultReserve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Adulto"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Personas:"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
-
-                <TextView
-                    android:id="@+id/nPersonAdultReserve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 Adulto"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textColor="@color/primary_text"/>
-
-                <TextView
-                    android:id="@+id/nPersonBoyReserve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 Niños"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textColor="@color/primary_text"/>
+                    <TextView
+                        android:id="@+id/nPersonBoyReserve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Niños"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/textsize_room_select" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Precios:"
-                    android:textSize="@dimen/textsize_room_select"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/priceRoomRecyclerView"

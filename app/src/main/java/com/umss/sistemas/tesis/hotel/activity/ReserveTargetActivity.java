@@ -55,7 +55,15 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         super.showToolBar("Tarjeta de credito", true);
 
         builtBundle();
+        verifyCheck();
         init();
+    }
+
+    private void verifyCheck() {
+        if (idCheck>0){
+            showProgress(true);
+            goReserveSave();
+        }
     }
 
     private void builtBundle() {
@@ -168,12 +176,13 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         showProgress(true);
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-
+        boolean ismm=isMember;
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+
         params.put("android", "android");
         params.put("idCheck", idCheck);
-        params.put("isMember", isMember);
+        params.put("isMember", isMember?idPerson:0);
         params.put("idPerson", idPerson);
         params.put("idCost", priceServiceModel.getIdKeyCost());
         params.put("priceEstimated",priceEstimated);
@@ -186,12 +195,13 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("timeIn", timeIn);
         params.put("dateOut", dateOut);
         params.put("timeOut", timeOut);
-        params.put("numberTarget", editTextNumberTarget.getText().toString());
-        params.put("ccvTarget", editTextCCV.getText().toString());
-        params.put("yearTarget", spinnerYear.getSelectedItem().toString());
-        params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition() + 1));
-        params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition() + 1));
-
+        if (idCheck<=0) {
+            params.put("numberTarget", editTextNumberTarget.getText().toString());
+            params.put("ccvTarget", editTextCCV.getText().toString());
+            params.put("yearTarget", spinnerYear.getSelectedItem().toString());
+            params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition() + 1));
+            params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition() + 1));
+        }
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         client.post(Conexion.getUrlServer(Conexion.RESERVE_SAVE), params, new AsyncHttpResponseHandler() {

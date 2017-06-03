@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
-                    android:text="Tiempo"
+                    android:text="Tiempo unitario:"
                     android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/paddingRigthTextCardView"
-                    android:text="Tiempo"
+                    android:text="Estadía"
                     android:textSize="@dimen/text_size_primary"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
@@ -150,7 +150,7 @@
                 android:id="@+id/btnPriceServiceCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_primary"
+                android:backgroundTint="@color/color_primary"
                 android:text="@string/btn_continue_reserve" />
         </LinearLayout>
 

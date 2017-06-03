@@ -70,7 +70,9 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         int timeUnit = priceServiceModel.getUnitHour() + priceServiceModel.getUnitDay() * 24;
         holder.timeUnitCardView.setText(String.valueOf(timeUnit + " Horas"));
 
-        holder.timeSelectedCardView.setText(String.valueOf(timeSelected + " Horas"));
+        String resTimeDayText=timeSelected/24>0?timeSelected/24 +" Días":"";
+        String resTimeHour=timeSelected%24>0?timeSelected%24+" Horas":"";
+        holder.timeSelectedCardView.setText(String.valueOf(resTimeDayText + (resTimeHour.isEmpty()?"":" ,"+resTimeHour)));
         final double priceSelect = timeSelected * priceServiceModel.getPriceService() / timeUnit;
         holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + priceServiceModel.getNameTypeMoney()));
 
@@ -90,6 +92,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
 
             }
         });
+        if (idCheck>0)
+            holder.buttonCardView.setText(String.valueOf("Agregar"));
         holder.buttonCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

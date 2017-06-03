@@ -147,6 +147,55 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Verificación Tarjeta:"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveVerifyTarget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/primary_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="Estado de la reserva:"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+
+                    <TextView
+                        android:id="@+id/checkReserveState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/primary_text"/>
+
+                </LinearLayout>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/consumeReserveRecyclerView"
                     android:layout_width="match_parent"

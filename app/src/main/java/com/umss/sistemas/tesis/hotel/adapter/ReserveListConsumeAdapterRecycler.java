@@ -34,13 +34,10 @@ public class ReserveListConsumeAdapterRecycler extends RecyclerView.Adapter<Rese
     @Override
     public void onBindViewHolder(ConsumeReserveViewHolder holder, int position) {
         ConsumeModel consumeModel = consumeModels.get(position);
-
-        holder.nameServiceReserveConsume.setText(String.valueOf(consumeModel.getNameService()));
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListTypeRoomAdapterRecycler adapterRecycler = new ReserveListTypeRoomAdapterRecycler(consumeModel.getReserveModelArrayList(), R.layout.cardview_reserve_list_type_room, activity);
+        ReserveListTypeRoomAdapterRecycler adapterRecycler = new ReserveListTypeRoomAdapterRecycler(consumeModel, R.layout.cardview_reserve_list_type_room, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 
@@ -51,12 +48,9 @@ public class ReserveListConsumeAdapterRecycler extends RecyclerView.Adapter<Rese
 
     class ConsumeReserveViewHolder extends RecyclerView.ViewHolder{
         RecyclerView recyclerView;
-        TextView nameServiceReserveConsume;
         private ConsumeReserveViewHolder(View itemView) {
             super(itemView);
             recyclerView=(RecyclerView)itemView.findViewById(R.id.typeRoomReserveRecyclerView);
-            nameServiceReserveConsume=(TextView)itemView.findViewById(R.id.nameServiceReserveConsume);
-
         }
     }
 }

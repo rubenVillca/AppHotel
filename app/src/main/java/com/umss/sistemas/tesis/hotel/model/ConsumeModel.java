@@ -11,12 +11,12 @@ public class ConsumeModel extends ModelParent {
     private String timeInConsum;
     private String dateOutConsum;
     private String timeOutConsum;
+    private String typeMoney;
+    private String nameService;
     private double price;
     private double pay;
-    private String typeMoney;
     private boolean state;
     private int idKeyService;
-    private String nameService;
     private int idKeyCheck;
     private int pointObtain;
     private int pointRequired;

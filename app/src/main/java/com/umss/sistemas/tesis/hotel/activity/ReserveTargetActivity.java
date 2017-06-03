@@ -30,10 +30,13 @@ import cz.msebera.android.httpclient.Header;
 
 public class ReserveTargetActivity extends ActivityParent implements View.OnClickListener {
     private PriceServiceModel priceServiceModel;
+    private boolean isMember;
+    private int idCheck;
     private int nRoom;
     private int nAdult;
     private int nBoy;
     private int idTypeRoom;
+    private double priceEstimated;
     private String dateIn;
     private String dateOut;
     private String timeIn;
@@ -56,11 +59,14 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     }
 
     private void builtBundle() {
+        isMember =getIntent().getExtras().getBoolean("isMember");
+        idCheck =getIntent().getExtras().getInt("idCheck");
         priceServiceModel = (PriceServiceModel) getIntent().getExtras().getSerializable("priceServiceModel");
-        idTypeRoom = getIntent().getExtras().getInt("idTypeRoom");
-        nRoom = getIntent().getExtras().getInt("nRoom");
-        nAdult = getIntent().getExtras().getInt("nAdult");
-        nBoy = getIntent().getExtras().getInt("nBoy");
+        priceEstimated=Double.parseDouble(getIntent().getExtras().getString("priceEstimated"));
+        idTypeRoom = Integer.parseInt(getIntent().getExtras().getString("idTypeRoom"));
+        nRoom = Integer.parseInt(getIntent().getExtras().getString("nRoom"));
+        nAdult = Integer.parseInt(getIntent().getExtras().getString("nAdult"));
+        nBoy = Integer.parseInt(getIntent().getExtras().getString("nBoy"));
         dateIn = getIntent().getExtras().getString("dateIn");
         timeIn = getIntent().getExtras().getString("timeIn");
         dateOut = getIntent().getExtras().getString("dateOut");
@@ -166,8 +172,12 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("android", "android");
+        params.put("idCheck", idCheck);
+        params.put("isMember", isMember);
         params.put("idPerson", idPerson);
         params.put("idCost", priceServiceModel.getIdKeyCost());
+        params.put("priceEstimated",priceEstimated);
+        params.put("nameTypeMoney",priceServiceModel.getNameTypeMoney());
         params.put("idTypeRoom", idTypeRoom);
         params.put("nRoom", nRoom);
         params.put("nAdult", nAdult);

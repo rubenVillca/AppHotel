@@ -14,7 +14,7 @@ public class ReserveMemberActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_member);
 
-        super.showToolBar("Miembros", true);
+        super.showToolBar("Huéspedes", true);
     }
 
     public void goReserveVerifyActivity(View view) {

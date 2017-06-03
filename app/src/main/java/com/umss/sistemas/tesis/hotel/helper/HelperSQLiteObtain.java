@@ -700,6 +700,7 @@ public class HelperSQLiteObtain extends HelperParent {
         consumeModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
         consumeModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
         consumeModel.setNameService(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE)));
+        consumeModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY)));
         consumeModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
         consumeModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
         consumeModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);

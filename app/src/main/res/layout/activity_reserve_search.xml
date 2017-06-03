@@ -30,6 +30,33 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp">
+
+                <Switch
+                    android:id="@+id/switchButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_primary_dark"
+                    android:checked="true"
+                    android:showText="true"
+                    android:text="Sere un huesped"
+                    android:textOff="No"
+                    android:textOn="Si" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
@@ -209,6 +236,11 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -271,7 +303,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/primary_text"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/typeHourOutReserve"
@@ -296,7 +328,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/color_primary_dark"
-                android:text="@string/btn_continue_reserve" />
+                android:text="@string/btn_continue_reserve"
+                android:layout_marginBottom="15dp"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

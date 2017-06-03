@@ -11,33 +11,37 @@ import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveMemberActivity;
-import com.umss.sistemas.tesis.hotel.model.ReserveModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.MemberModel;
 
-public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<ReserveListMemberAdapterRecycler.MemberReserveViewHolder>{
+public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<ReserveListMemberAdapterRecycler.MemberReserveViewHolder> {
 
-    private ReserveModel reserveModel;
+    private ConsumeModel consumeModel;
     private int resource;
     private Activity activity;
 
-    public ReserveListMemberAdapterRecycler(ReserveModel reserveModel, int resource, Activity activity) {
-        this.reserveModel = reserveModel;
+    public ReserveListMemberAdapterRecycler(ConsumeModel consumeModel, int resource, Activity activity) {
+        this.consumeModel = consumeModel;
         this.resource = resource;
         this.activity = activity;
     }
 
     @Override
     public MemberReserveViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(resource,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
         return new MemberReserveViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MemberReserveViewHolder holder, int position) {
-        holder.memberReserveTextView.setText(String.valueOf(position+1));
+        final MemberModel memberModel=consumeModel.getMemberModelArrayList().get(position);
+        holder.memberReserveTextView.setText(String.valueOf(position + 1));
         holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(activity, ReserveMemberActivity.class);
+                Intent intent = new Intent(activity, ReserveMemberActivity.class);
+                intent.putExtra("idConsume",consumeModel.getIdConsum());
+                intent.putExtra("member",memberModel);
                 activity.startActivity(intent);
             }
         });
@@ -45,16 +49,17 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
     @Override
     public int getItemCount() {
-        return reserveModel.getnAdult()+reserveModel.getnBoy();
+        return consumeModel.getMemberModelArrayList().size();
     }
 
-    class MemberReserveViewHolder extends RecyclerView.ViewHolder{
+    class MemberReserveViewHolder extends RecyclerView.ViewHolder {
         TextView memberReserveTextView;
         ImageView btnEditCardViewReserveMember;
+
         private MemberReserveViewHolder(View itemView) {
             super(itemView);
-            memberReserveTextView=(TextView)itemView.findViewById(R.id.memberReserveTextView);
-            btnEditCardViewReserveMember=(ImageView)itemView.findViewById(R.id.btnEditCardViewReserveMember);
+            memberReserveTextView = (TextView) itemView.findViewById(R.id.memberReserveTextView);
+            btnEditCardViewReserveMember = (ImageView) itemView.findViewById(R.id.btnEditCardViewReserveMember);
         }
     }
 }

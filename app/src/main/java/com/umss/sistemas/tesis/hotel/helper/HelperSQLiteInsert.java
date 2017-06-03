@@ -767,6 +767,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 consumeModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
                 consumeModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE") > 0);
                 consumeModel.setNameService(consumObject.getString("NAME_SERVICE"));
+                consumeModel.setTypeMoney(consumObject.getString("NAME_TYPE_MONEY"));
                 consumeModel.setPointObtain(consumObject.getInt("POINT_OBTAIN_COST_SERVICE"));
                 consumeModel.setPointRequired(consumObject.getInt("POINT_REQUIRED_COST_SERVICE"));
                 consumeModel.setnDay(consumObject.getInt("UNIT_DAY_COST_SERVICE"));
@@ -1329,6 +1330,7 @@ public class HelperSQLiteInsert extends HelperParent {
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumeModel.isState());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumeModel.getIdKeyService());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE, consumeModel.getNameService());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY, consumeModel.getTypeMoney());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumeModel.getIdKeyCheck());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN, consumeModel.getPointObtain());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED, consumeModel.getPointRequired());

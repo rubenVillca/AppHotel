@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 49;
+    public static final int DATABASE_VERSION = 51;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -162,8 +162,9 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_CONSUM_STATE = "stateConsume";
     static final String KEY_CONSUM_ID_KEY_SERVICE = "idKeyServiceConsume";
     static final String KEY_CONSUM_NAME_SERVICE = "nameServiceConsume";
+    static final String KEY_CONSUM_NAME_MONEY = "nameTypeMoneyConsume";
     static final String KEY_CONSUM_ID_KEY_CHECK = "idKeyCheckConsume";
-    static final String KEY_CONSUM_POINT_OBTAIN = "pointObatinConsume";
+    static final String KEY_CONSUM_POINT_OBTAIN = "pointObtainConsume";
     static final String KEY_CONSUM_POINT_REQUIRED = "pointRequiredConsume";
     static final String KEY_CONSUM_N_HOUR = "nHourConsume";
     static final String KEY_CONSUM_N_DAY = "nDayConsume";
@@ -573,6 +574,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_CONSUM_STATE + " INTEGER,"
                 + KEY_CONSUM_ID_KEY_SERVICE + " INTEGER,"
                 + KEY_CONSUM_NAME_SERVICE + " TEXT,"
+                + KEY_CONSUM_NAME_MONEY + " TEXT,"
                 + KEY_CONSUM_ID_KEY_CHECK + " INTEGER"
                 + ")";
     }

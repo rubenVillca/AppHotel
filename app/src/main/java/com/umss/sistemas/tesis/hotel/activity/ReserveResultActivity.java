@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ReserveResultActivity extends ActivityParent {
 
     private CheckModel checkModel;
+    private boolean isMember;
     private int nAdult;
     private int nBoy;
     private String dateIn;
@@ -38,6 +39,7 @@ public class ReserveResultActivity extends ActivityParent {
     private void buildBundle() {
         Bundle bundle = getIntent().getExtras();
         checkModel = (CheckModel) bundle.getSerializable("checkModel");
+        isMember = bundle.getBoolean("isMember");
         nAdult = bundle.getInt("nAdult");
         nBoy = bundle.getInt("nBoy");
         dateIn = bundle.getString("dateIn");
@@ -61,7 +63,7 @@ public class ReserveResultActivity extends ActivityParent {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ReserveResultAdapterRecycler reserveResultAdapterRecycler = new ReserveResultAdapterRecycler(reserveSearchModels, R.layout.cardview_reserve_result, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, checkModel.getId());
+        ReserveResultAdapterRecycler reserveResultAdapterRecycler = new ReserveResultAdapterRecycler(reserveSearchModels, R.layout.cardview_reserve_result, this, nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, checkModel.getId(),isMember);
         recyclerView.setAdapter(reserveResultAdapterRecycler);
     }
 

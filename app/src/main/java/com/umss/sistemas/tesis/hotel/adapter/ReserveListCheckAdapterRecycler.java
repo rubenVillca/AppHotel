@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity;
+import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 
@@ -41,24 +42,30 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
         final CheckModel checkModel = checkModels.get(position);
 
-        holder.checkReserveInTextView.setText(checkModel.getDateIn()+" "+checkModel.getTimeIn());
-        holder.checkReserveOutTextView.setText(checkModel.getDateEnd()+" "+checkModel.getTimeEnd());
-        double priceTotal=0;
-        double depositTotal=0;
-        String typeMoney="$";
-        for (ConsumeModel consumeModel:checkModel.getConsumeModelArrayList()){
-            priceTotal+=consumeModel.getPrice();
-            depositTotal+=consumeModel.getPay();
-            typeMoney=consumeModel.getTypeMoney();
+        holder.checkReserveInTextView.setText(checkModel.getDateIn() + " " + checkModel.getTimeIn());
+        holder.checkReserveOutTextView.setText(checkModel.getDateEnd() + " " + checkModel.getTimeEnd());
+        boolean isVerify=false;
+        for (CardModel cardModel: checkModel.getCardTargetArrayList()) {
+            isVerify=cardModel.isValid();
+        }
+        holder.checkReserveVerifyTarget.setText(isVerify?"Verificado":"Pendiente");
+        holder.checkReserveState.setText(checkModel.getNameState());
+        double priceTotal = 0;
+        double depositTotal = 0;
+        String typeMoney = "$";
+        for (ConsumeModel consumeModel : checkModel.getConsumeModelArrayList()) {
+            priceTotal += consumeModel.getPrice();
+            depositTotal += consumeModel.getPay();
+            typeMoney = consumeModel.getTypeMoney();
         }
 
-        holder.checkReserveCostTotal.setText(String.valueOf(typeMoney+" "+priceTotal));
-        holder.checkReserveDeposit.setText(String.valueOf(typeMoney+""+depositTotal));
+        holder.checkReserveCostTotal.setText(String.valueOf(typeMoney + " " + priceTotal));
+        holder.checkReserveDeposit.setText(String.valueOf(typeMoney + " " + depositTotal));
         holder.btnPlusReserveCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, ReserveSearchActivity.class);
-                intent.putExtra("checkModel",checkModel);
+                Intent intent = new Intent(activity, ReserveSearchActivity.class);
+                intent.putExtra("checkModel", checkModel);
                 activity.startActivity(intent);
             }
         });
@@ -90,15 +97,20 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         TextView checkReserveOutTextView;
         TextView checkReserveCostTotal;
         TextView checkReserveDeposit;
+        TextView checkReserveVerifyTarget;
+        TextView checkReserveState;
         ImageView btnPlusReserveCardView;
+
         private CheckReserveViewHolder(View itemView) {
             super(itemView);
-            recyclerView=(RecyclerView)itemView.findViewById(R.id.consumeReserveRecyclerView);
-            checkReserveInTextView=(TextView)itemView.findViewById(R.id.checkReserveInTextView);
-            checkReserveOutTextView=(TextView)itemView.findViewById(R.id.checkReserveOutTextView);
-            checkReserveCostTotal=(TextView)itemView.findViewById(R.id.checkReserveCostTotal);
-            checkReserveDeposit=(TextView)itemView.findViewById(R.id.checkReserveDeposit);
-            btnPlusReserveCardView=(ImageView)itemView.findViewById(R.id.btnPlusReserveCardView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.consumeReserveRecyclerView);
+            checkReserveInTextView = (TextView) itemView.findViewById(R.id.checkReserveInTextView);
+            checkReserveOutTextView = (TextView) itemView.findViewById(R.id.checkReserveOutTextView);
+            checkReserveCostTotal = (TextView) itemView.findViewById(R.id.checkReserveCostTotal);
+            checkReserveDeposit = (TextView) itemView.findViewById(R.id.checkReserveDeposit);
+            checkReserveVerifyTarget = (TextView) itemView.findViewById(R.id.checkReserveVerifyTarget);
+            checkReserveState = (TextView)itemView.findViewById(R.id.checkReserveState);
+            btnPlusReserveCardView = (ImageView) itemView.findViewById(R.id.btnPlusReserveCardView);
         }
     }
 }

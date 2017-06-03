@@ -30,6 +30,7 @@ public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveRe
     private int resource;
     private Activity activity;
     private int idCheck;
+    private boolean isMember;
     private int nAdult;
     private int nBoy;
     private String dateIn;
@@ -37,7 +38,7 @@ public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveRe
     private String timeIn;
     private String timeOut;
 
-    public ReserveResultAdapterRecycler(ArrayList<ReserveSearchModel> reserveSearchModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int idCheck) {
+    public ReserveResultAdapterRecycler(ArrayList<ReserveSearchModel> reserveSearchModels, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int idCheck,boolean isMember) {
         this.availableModelArray = reserveSearchModels;
         this.resource = resource;
         this.activity = activity;
@@ -48,6 +49,7 @@ public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveRe
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.idCheck = idCheck;
+        this.isMember=isMember;
     }
 
     @Override
@@ -73,6 +75,8 @@ public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveRe
                 Intent intent = new Intent(activity, ReserveSelectedActivity.class);
 
                 intent.putExtra("reserveSearchModel", reserveSearchModel);
+                intent.putExtra("idCheck", idCheck);
+                intent.putExtra("isMember", isMember);
                 intent.putExtra("nAdult", nAdult);
                 intent.putExtra("nBoy", nBoy);
                 intent.putExtra("dateIn", dateIn);

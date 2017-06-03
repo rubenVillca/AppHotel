@@ -26,8 +26,10 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     private ArrayList<PriceServiceModel> priceServiceModels;
     private int resource;
     private Activity activity;
+    private int idCheck;
     private int nAdult;
     private int nBoy;
+    private boolean isMember;
     private String dateIn;
     private String dateOut;
     private String timeIn;
@@ -35,7 +37,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     private int unitRoomFree;
     private int idTypeRoom;
 
-    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom, int idTypeRoom) {
+    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom, int idTypeRoom, boolean isMember, int idCheck) {
         this.priceServiceModels = priceService;
         this.resource = resource;
         this.activity = activity;
@@ -47,6 +49,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         this.timeOut = timeOut;
         this.unitRoomFree = unitRoom;
         this.idTypeRoom = idTypeRoom;
+        this.isMember = isMember;
+        this.idCheck = idCheck;
     }
 
     @Override
@@ -67,7 +71,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         holder.timeUnitCardView.setText(String.valueOf(timeUnit + " Horas"));
 
         holder.timeSelectedCardView.setText(String.valueOf(timeSelected + " Horas"));
-        double priceSelect = timeSelected * priceServiceModel.getPriceService() / timeUnit;
+        final double priceSelect = timeSelected * priceServiceModel.getPriceService() / timeUnit;
         holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + priceServiceModel.getNameTypeMoney()));
 
         String valores[] = new String[unitRoomFree];
@@ -91,14 +95,16 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ReserveTargetActivity.class);
 
+                intent.putExtra("idCheck", idCheck);
+                intent.putExtra("isMember", isMember);
                 intent.putExtra("priceServiceModel", priceServiceModel);
-                intent.putExtra("idTypeRoom", idTypeRoom);
+                intent.putExtra("idTypeRoom", String.valueOf(idTypeRoom));
                 intent.putExtra("nRoom", String.valueOf(holder.spinnerCardView.getSelectedItem().toString()));
-                intent.putExtra("nAdult", nAdult);
-                intent.putExtra("nBoy", nBoy);
-                intent.putExtra("priceEstimated", holder.priceEstimatedCardView.getText().toString());
-                intent.putExtra("timeIn", timeIn);
-                intent.putExtra("timeOut", timeOut);
+                intent.putExtra("nAdult", String.valueOf(nAdult));
+                intent.putExtra("nBoy", String.valueOf(nBoy));
+                intent.putExtra("priceEstimated", String.valueOf(priceSelect));
+                intent.putExtra("timeIn", String.valueOf(timeIn));
+                intent.putExtra("timeOut", String.valueOf(timeOut));
 
                 try {
                     SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");

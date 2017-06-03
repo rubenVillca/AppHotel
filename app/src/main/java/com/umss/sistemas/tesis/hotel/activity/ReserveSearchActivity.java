@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,6 +37,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class ReserveSearchActivity extends ActivityParent implements View.OnClickListener {
 
+    private Switch isMember;
     private TextView dayInTextViewReserve;
     private TextView dateInTextViewReserve;
     private Spinner timeInSpinnerViewReserve;
@@ -85,6 +87,8 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     }
 
     private void initContentDate() {
+        isMember = (Switch)findViewById(R.id.switchButton);
+
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
         timeInSpinnerViewReserve = (Spinner) findViewById(R.id.hourInSpinnerReserveSearch);
@@ -245,6 +249,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         Intent intent = new Intent(this, ReserveResultActivity.class);
 
         intent.putExtra("checkModel", checkModel);
+        intent.putExtra("isMember",isMember.isChecked());
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
         intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
         intent.putExtra("dateIn", String.valueOf(dateInTextViewReserve.getText().toString()));

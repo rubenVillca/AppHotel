@@ -19,6 +19,8 @@ import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 public class ReserveSelectedActivity extends ActivityParent {
 
     private ReserveSearchModel reserveSearchModel;
+    private boolean isMember;
+    private int idCheck;
     private int nAdult;
     private int nBoy;
     private String dateIn;
@@ -42,8 +44,10 @@ public class ReserveSelectedActivity extends ActivityParent {
         setRecyclerView();
     }
     private void buildBundle() {
+        idCheck= getIntent().getExtras().getInt("idCheck");
         nAdult = getIntent().getExtras().getInt("nAdult");
         nBoy = getIntent().getExtras().getInt("nBoy");
+        isMember = getIntent().getExtras().getBoolean("isMember");
         dateIn = getIntent().getExtras().getString("dateIn");
         dateOut = getIntent().getExtras().getString("dateOut");
         timeIn = getIntent().getExtras().getString("timeIn");
@@ -78,8 +82,19 @@ public class ReserveSelectedActivity extends ActivityParent {
 
         ReserveSelectPriceAdapterRecycler homeAdapter = new ReserveSelectPriceAdapterRecycler(
                 reserveSearchModel.getPriceServiceModels(),
-                R.layout.cardview_reserve_price, this,
-                nAdult, nBoy, dateIn, timeIn, dateOut, timeOut, reserveSearchModel.getUnitRoom(),reserveSearchModel.getIdTypeRoom());
+                R.layout.cardview_reserve_price,
+                this,
+                nAdult,
+                nBoy,
+                dateIn,
+                timeIn,
+                dateOut,
+                timeOut,
+                reserveSearchModel.getUnitRoom(),
+                reserveSearchModel.getIdTypeRoom(),
+                isMember,
+                idCheck
+        );
         recyclerView.setAdapter(homeAdapter);
     }
 

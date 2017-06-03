@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 48;
+    public static final int DATABASE_VERSION = 49;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -140,7 +140,9 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     //check
     static final String TABLE_CHECK = "checkHotel";
     static final String KEY_CHECK_ID = "idCheck";
-    static final String KEY_CHECK_STATE = "stateCheck";
+    static final String KEY_CHECK_ID_STATE = "stateCheck";
+    static final String KEY_CHECK_NAME_STATE = "nameStateCheck";
+    static final String KEY_CHECK_VALUE_STATE = "valueStateCheck";
     static final String KEY_CHECK_ID_KEY_TYPE = "idTypeCheck";
     static final String KEY_CHECK_TYPE = "typeCheck";
     static final String KEY_CHECK_DATE_IN = "dateInCheck";
@@ -537,7 +539,9 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     private String getTableCheck() {
         return "CREATE TABLE " + TABLE_CHECK + " ( "
                 + KEY_CHECK_ID + " INTEGER PRIMARY KEY,"
-                + KEY_CHECK_STATE + " INTEGER,"
+                + KEY_CHECK_ID_STATE + " INTEGER,"
+                + KEY_CHECK_VALUE_STATE + " INTEGER,"
+                + KEY_CHECK_NAME_STATE + " TEXT,"
                 + KEY_CHECK_ID_KEY_TYPE + " INTEGER,"
                 + KEY_CHECK_TYPE + " TEXT,"
                 + KEY_CHECK_DATE_IN + " TEXT,"

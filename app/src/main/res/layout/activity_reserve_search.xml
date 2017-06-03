@@ -191,8 +191,8 @@
                             android:onClick="showTimeInPickerDialog"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/hourInReserve"
+                            <Spinner
+                                android:id="@+id/hourInSpinnerReserveSearch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/primary_text"
@@ -266,12 +266,12 @@
                             android:onClick="showTimeOutPickerDialog"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/hourOutReserve"
+                            <Spinner
+                                android:id="@+id/hourOutSpinnerReserveSearch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/primary_text"
-                                android:textSize="18sp" />
+                                android:textSize="18sp"/>
 
                             <TextView
                                 android:id="@+id/typeHourOutReserve"

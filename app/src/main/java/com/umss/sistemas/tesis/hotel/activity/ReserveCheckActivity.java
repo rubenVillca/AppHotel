@@ -42,7 +42,14 @@ public class ReserveCheckActivity extends ActivityParent {
 
     public ArrayList<CheckModel> buildCheckReserve() {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
-        return helperSQLiteObtain.getCheckModel(0,1,1);
+        ArrayList<CheckModel> checkModelActive= helperSQLiteObtain.getCheckModel(0,1,1);
+        ArrayList<CheckModel> checkModelPending= helperSQLiteObtain.getCheckModel(0,3,1);
+
+        ArrayList<CheckModel> checkModels=new ArrayList<>();
+        checkModels.addAll(checkModelActive);
+        checkModels.addAll(checkModelPending);
+
+        return  checkModels;
     }
 
     public void goReserveSearchActivity(View view) {

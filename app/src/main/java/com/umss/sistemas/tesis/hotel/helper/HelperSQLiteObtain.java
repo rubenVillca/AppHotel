@@ -321,11 +321,11 @@ public class HelperSQLiteObtain extends HelperParent {
                 if (idTypeCheck > 0) {
                     cursor = db.rawQuery("select *"
                             + " from " + DBSQLiteHelper.TABLE_CHECK
-                            + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck + " AND " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
+                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck + " AND " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
                 } else {
                     cursor = db.rawQuery("select *"
                             + " from " + DBSQLiteHelper.TABLE_CHECK
-                            + " where " + DBSQLiteHelper.KEY_CHECK_STATE + "=" + idStateCheck, null);
+                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck, null);
                 }
             } else {//para el historial
                 if (idTypeCheck > 0) {
@@ -699,6 +699,7 @@ public class HelperSQLiteObtain extends HelperParent {
         consumeModel.setTimeInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_START)));
         consumeModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
         consumeModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
+        consumeModel.setNameService(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE)));
         consumeModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
         consumeModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
         consumeModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);
@@ -918,7 +919,9 @@ public class HelperSQLiteObtain extends HelperParent {
         CheckModel checkModel = new CheckModel();
 
         checkModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID)));
-        checkModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_STATE)));
+        checkModel.setIdState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID_STATE)));
+        checkModel.setValueState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_VALUE_STATE)));
+        checkModel.setNameState(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_NAME_STATE)));
         checkModel.setIdType(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE)));
         checkModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_TYPE)));
         checkModel.setDateIn(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CHECK_DATE_IN)));

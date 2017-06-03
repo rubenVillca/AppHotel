@@ -2,7 +2,6 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +9,10 @@ import java.util.ArrayList;
  */
 public class CheckModel extends ModelParent {
     private int id;
-    private int state;
+    private int idState;
     private int idType;
+    private int valueState;
+    private String nameState;
     private String type;
     private String dateIn;
     private String timeIn;
@@ -24,7 +25,9 @@ public class CheckModel extends ModelParent {
     public CheckModel() {
         id=0;
         idType=0;
-        state=0;
+        idState =0;
+        valueState=0;
+        nameState="";
         type="";
         dateIn="";
         timeIn="";
@@ -33,6 +36,22 @@ public class CheckModel extends ModelParent {
         cardTargetArrayList=new ArrayList<>();
         consumeModelArrayList = new ArrayList<>();
         consumeFoodModelArrayList=new ArrayList<>();
+    }
+
+    public int getValueState() {
+        return valueState;
+    }
+
+    public void setValueState(int valueState) {
+        this.valueState = valueState;
+    }
+
+    public String getNameState() {
+        return nameState;
+    }
+
+    public void setNameState(String nameState) {
+        this.nameState = nameState;
     }
 
     public int getIdType() {
@@ -67,12 +86,12 @@ public class CheckModel extends ModelParent {
         this.id = id;
     }
 
-    public int getState() {
-        return state;
+    public int getIdState() {
+        return idState;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setIdState(int idState) {
+        this.idState = idState;
     }
 
     public String getType() {

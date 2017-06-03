@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -35,12 +38,12 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
     private TextView dayInTextViewReserve;
     private TextView dateInTextViewReserve;
-    private TextView timeInTextViewReserve;
+    private Spinner timeInSpinnerViewReserve;
     private TextView typeTimeInTextViewReserve;
 
     private TextView dayOutTextViewReserve;
     private TextView dateOutTextViewReserve;
-    private TextView timeOutTextViewReserve;
+    private Spinner timeOutSpinnerViewReserve;
     private TextView typeTimeOutTextViewReserve;
 
     private TextView nAdult;
@@ -84,55 +87,79 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     private void initContentDate() {
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
-        timeInTextViewReserve = (TextView) findViewById(R.id.hourInReserve);
+        timeInSpinnerViewReserve = (Spinner) findViewById(R.id.hourInSpinnerReserveSearch);
         typeTimeInTextViewReserve = (TextView) findViewById(R.id.typeHourInReserve);
 
         dayOutTextViewReserve = (TextView) findViewById(R.id.dayOutReserve);
         dateOutTextViewReserve = (TextView) findViewById(R.id.dateOutReserve);
-        timeOutTextViewReserve = (TextView) findViewById(R.id.hourOutReserve);
+        timeOutSpinnerViewReserve = (Spinner) findViewById(R.id.hourOutSpinnerReserveSearch);
         typeTimeOutTextViewReserve = (TextView) findViewById(R.id.typeHourOutReserve);
 
-        Calendar calendar = Calendar.getInstance();
+        String valuesHour[] = new String[24];
+        for (int i = 0; i < valuesHour.length; i++) {
+            if (i < 10)
+                valuesHour[i] = String.valueOf("0" + i + ":00");
+            else
+                valuesHour[i] = String.valueOf(i + ":00");
+        }
+        timeInSpinnerViewReserve.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valuesHour));
+        timeOutSpinnerViewReserve.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valuesHour));
 
-        typeTimeOutTextViewReserve.setEnabled(false);
+        timeInSpinnerViewReserve.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                typeTimeInTextViewReserve.setText(position > 12 ? "PM" : "AM");
+                timeOutSpinnerViewReserve.setSelection(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        timeOutSpinnerViewReserve.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                typeTimeOutTextViewReserve.setText(position > 12 ? "PM" : "AM");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         if (checkModel.getId() > 0) {
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
             linearLayout.setVisibility(View.INVISIBLE);
-            timeInTextViewReserve.setVisibility(View.INVISIBLE);
-            dayInTextViewReserve.setVisibility(View.INVISIBLE);
-            dateInTextViewReserve.setVisibility(View.INVISIBLE);
-            timeInTextViewReserve.setVisibility(View.INVISIBLE);
-            typeTimeInTextViewReserve.setVisibility(View.INVISIBLE);
-            dayOutTextViewReserve.setVisibility(View.INVISIBLE);
-            dateOutTextViewReserve.setVisibility(View.INVISIBLE);
-            timeOutTextViewReserve.setVisibility(View.INVISIBLE);
-            typeTimeOutTextViewReserve.setVisibility(View.INVISIBLE);
+
+            dateInTextViewReserve.setText(checkModel.getDateIn());
+            timeInSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeIn().split(":")[0]));
+            dateOutTextViewReserve.setText(checkModel.getDateEnd());
+            timeOutSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeEnd().split(":")[0]));
         }
         if (checkModel.getId() <= 0) {
-            //date in
-            String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-            String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
-            //dateIn
-            dayInTextViewReserve.setText(dia);
-            dateInTextViewReserve.setText(dateFormat.format(calendar.getTime()));
-            //dateOut
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-            dayOutTextViewReserve.setText(dia);
-            dateOutTextViewReserve.setText(dateFormat.format(calendar.getTime()));
-
-            //timeIn
-            timeInTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-            typeTimeInTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
-            //timeOut
-            timeOutTextViewReserve.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
-            typeTimeOutTextViewReserve.setText((calendar.get(Calendar.AM_PM)) == 1 ? "PM" : "AM");
+            setDateReserve(1, 6, dayInTextViewReserve, dateInTextViewReserve, timeInSpinnerViewReserve, typeTimeInTextViewReserve);
+            setDateReserve(2, 6, dayOutTextViewReserve, dateOutTextViewReserve, timeOutSpinnerViewReserve, typeTimeOutTextViewReserve);
         }
 
         Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
+    }
+
+    private void setDateReserve(int dayLast, int hour, TextView dayTextView, TextView dateTextView, Spinner spinnerTime, TextView typeTimeReserve) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, dayLast);//sumar dias
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+
+        String[] strDays = new String[]{"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
+        String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];//obtener dia
+
+        dayTextView.setText(dia);
+        dateTextView.setText(dateFormat.format(calendar.getTime()));
+
+        spinnerTime.setSelection(hour);
+        typeTimeReserve.setText(hour > 12 ? "PM" : "AM");
     }
 
     @Override
@@ -176,10 +203,10 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         params.put("nAdult", nAdult.getText().toString());
         params.put("nBoy", nBoy.getText().toString());
-        params.put("dateIn", dateInTextViewReserve.getText().toString());
-        params.put("timeIn", timeInTextViewReserve.getText().toString());
-        params.put("dateOut", dateOutTextViewReserve.getText().toString());
-        params.put("timeOut", timeOutTextViewReserve.getText().toString());
+        params.put("dateIn", String.valueOf(dateInTextViewReserve.getText().toString()));
+        params.put("timeIn", String.valueOf(timeInSpinnerViewReserve.getSelectedItem().toString()));
+        params.put("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
+        params.put("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
@@ -220,10 +247,10 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         intent.putExtra("checkModel", checkModel);
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
         intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
-        intent.putExtra("dateIn", dateInTextViewReserve.getText().toString());
-        intent.putExtra("timeIn", timeInTextViewReserve.getText().toString());
-        intent.putExtra("dateOut", dateOutTextViewReserve.getText().toString());
-        intent.putExtra("timeOut", timeOutTextViewReserve.getText().toString());
+        intent.putExtra("dateIn", String.valueOf(dateInTextViewReserve.getText().toString()));
+        intent.putExtra("timeIn", String.valueOf(timeInSpinnerViewReserve.getSelectedItem().toString()));
+        intent.putExtra("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
+        intent.putExtra("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
         int size = reserveSearchModels.size();
         intent.putExtra("roomAvailableSize", size);
@@ -240,38 +267,24 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         datePickerFragmentIn.show(getFragmentManager(), "datePicker");
     }
 
-    public void showTimeInPickerDialog(View view) {
-        TimePickerFragment timePickerFragmentIn = new TimePickerFragment();
-        timePickerFragmentIn.setTextViewTime(timeInTextViewReserve);
-        timePickerFragmentIn.setTextViewTypeTime(typeTimeInTextViewReserve);
-        timePickerFragmentIn.show(getSupportFragmentManager(), "timePicker");
-    }
-
     public void showDateOutPickerDialog(View v) {
         DatePickerFragment datePickerFragmentOut = new DatePickerFragment();
         datePickerFragmentOut.setTextView(dateOutTextViewReserve, dayOutTextViewReserve);
         datePickerFragmentOut.show(getFragmentManager(), "datePicker");
     }
 
-    public void showTimeOutPickerDialog(View view) {
-        TimePickerFragment timePickerFragmentOut = new TimePickerFragment();
-        timePickerFragmentOut.setTextViewTime(timeOutTextViewReserve);
-        timePickerFragmentOut.setTextViewTypeTime(typeTimeOutTextViewReserve);
-        timePickerFragmentOut.show(getSupportFragmentManager(), "timePicker");
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if (checkModel.getId()==-1) {
+            if (checkModel.getId() == -1) {
                 Intent intent = new Intent(this, ReserveCheckActivity.class);
                 startActivity(intent);
-            }else{
+            } else {
                 Intent intent = new Intent(this, ContainerActivity.class);
                 startActivity(intent);
             }
             return true;
-        }else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
     }
@@ -279,10 +292,10 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (checkModel.getId()==-1||checkModel.getId()>0) {
+            if (checkModel.getId() == -1 || checkModel.getId() > 0) {
                 Intent intent = new Intent(this, ReserveCheckActivity.class);
                 startActivity(intent);
-            }else{
+            } else {
                 Intent intent = new Intent(this, ContainerActivity.class);
                 startActivity(intent);
             }

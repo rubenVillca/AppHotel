@@ -28,7 +28,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
@@ -40,8 +42,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/label_number_target"
-                        android:textColor="@color/color_primary"
-                        android:inputType="number"/>
+                        android:inputType="number"
+                        android:textColor="@color/color_primary" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -53,8 +55,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_target_ccv"
-                        android:textColor="@color/color_primary"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textColor="@color/color_primary" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -62,21 +64,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Año Expiración:"
+                    android:textColor="@color/primary_text"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerYearTargetReserve"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5" />
 
@@ -86,21 +89,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Mes Expiración:"
+                    android:textColor="@color/primary_text"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerMonthTargetReserve"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left" />
@@ -109,7 +113,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
@@ -117,9 +122,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Tarjeta:"
+                    android:textColor="@color/primary_text"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerTypeTargetReserve"

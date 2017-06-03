@@ -48,7 +48,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_target);
-        container=findViewById(R.id.layoutReserveTargetActivity);
+        container = findViewById(R.id.layoutReserveTargetActivity);
         super.showToolBar("Tarjeta de credito", true);
 
         builtBundle();
@@ -116,7 +116,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                goReserveList();
+                                goReserveSave();
                             }
                         });
 
@@ -139,8 +139,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                         "Si",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                goReserveVerify();
                                 dialog.cancel();
-                                goHomeActivity();
                             }
                         });
 
@@ -158,14 +158,9 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         }
     }
 
-    private void goHomeActivity() {
-        Intent intent = new Intent(this, ContainerActivity.class);
-        startActivity(intent);
-    }
-
-    private void goReserveList() {
+    private void goReserveSave() {
         showProgress(true);
-        helperSQLiteObtain=new HelperSQLiteObtain(this);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -184,29 +179,29 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("numberTarget", editTextNumberTarget.getText().toString());
         params.put("ccvTarget", editTextCCV.getText().toString());
         params.put("yearTarget", spinnerYear.getSelectedItem().toString());
-        params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition()+1));
-        params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition()+1));
+        params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition() + 1));
+        params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition() + 1));
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         client.post(Conexion.getUrlServer(Conexion.RESERVE_SAVE), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                int isReserve=0;
+                int isReserve = 0;
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        isReserve=obj.getInt("isReserve");
-                        goActivityReserveVerify();
+                        isReserve = obj.getInt("isReserve");
+                        goReserveVerify();
                     } catch (JSONException e) {
-                        isReserve=-1;
+                        isReserve = -1;
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
                     }
                 } else {
                     System.out.println("Modo Offline");
                 }
-                if (isReserve>0)
+                if (isReserve > 0)
                     showMessaje("Reserve realizada correctamente");
                 showProgress(false);
             }
@@ -219,9 +214,51 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         });
     }
 
-    private void goActivityReserveVerify() {
+    /**
+     * Conectar con el webServer y sincronizar la tabla Check
+     */
+    private void goReserveVerify() {
+        showProgress(true);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goReserveVerifyActivity();
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                goReserveVerifyActivity();
+                showProgress(false);
+            }
+        });
+    }
+
+    /**
+     * cambiar de activity a ReserveSearchActivity
+     */
+    private void goReserveVerifyActivity() {
         Intent intent = new Intent(this, ReserveVerifyActivity.class);
         startActivity(intent);
-        this.finish();
+        finish();
     }
 }

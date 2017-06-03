@@ -100,7 +100,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 goAbout();
                 break;
             case R.id.imageReserve:
-                goReserve();
+                goReserveVerify();
                 break;
             case R.id.imageLocationMap:
                 goLocation();
@@ -125,7 +125,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     /**
      * Conectar con el webServer y sincronizar la tabla Check
      */
-    private void goReserve() {
+    private void goReserveVerify() {
         containerActivity.showProgress(true);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 

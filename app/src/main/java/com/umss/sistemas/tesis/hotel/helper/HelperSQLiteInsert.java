@@ -660,7 +660,9 @@ public class HelperSQLiteInsert extends HelperParent {
                 JSONObject checkObject = checkJSONArray.getJSONObject(j);
 
                 checkModel.setId(checkObject.getInt("ID_CHECK"));
-                checkModel.setState(checkObject.getInt("VALUE_STATE_CHECK"));
+                checkModel.setIdState(checkObject.getInt("ID_STATE_CHECK"));
+                checkModel.setValueState(checkObject.getInt("VALUE_STATE_CHECK"));
+                checkModel.setNameState(checkObject.getString("NAME_STATE_CHECK"));
                 checkModel.setIdType(checkObject.getInt("ID_TYPE_CHECK"));
                 checkModel.setType(checkObject.getString("NAME_TYPE_CHECK"));
                 checkModel.setDateIn(checkObject.getString("DATE_START_CHECK"));
@@ -1239,7 +1241,9 @@ public class HelperSQLiteInsert extends HelperParent {
             ContentValues checkContent = new ContentValues();
 
             checkContent.put(DBSQLiteHelper.KEY_CHECK_ID, checkModel.getId());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_STATE, checkModel.getState());
+            checkContent.put(DBSQLiteHelper.KEY_CHECK_ID_STATE, checkModel.getIdState());
+            checkContent.put(DBSQLiteHelper.KEY_CHECK_VALUE_STATE, checkModel.getValueState());
+            checkContent.put(DBSQLiteHelper.KEY_CHECK_NAME_STATE, checkModel.getNameState());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE,checkModel.getIdType());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_TYPE, checkModel.getType());
             checkContent.put(DBSQLiteHelper.KEY_CHECK_DATE_IN, checkModel.getDateIn());

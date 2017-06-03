@@ -19,16 +19,21 @@ public class ReserveVerifyActivity extends ActivityParent {
 
     private void verify() {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
-        ArrayList<CheckModel> checkModels = helperSQLiteObtain.getCheckModel(0, 1, 1);
+        ArrayList<CheckModel> checkModelActive = helperSQLiteObtain.getCheckModel(0, 1, 1);
+        ArrayList<CheckModel> checkModelPending = helperSQLiteObtain.getCheckModel(0, 3, 1);
+
+        ArrayList<CheckModel> checkModels=new ArrayList<>();
+        checkModels.addAll(checkModelActive);
+        checkModels.addAll(checkModelPending);
 
         if (!checkModels.isEmpty()) {
-            goReserveListActivity();
+            goReserveCheckActivity();
         }else{
             goReserveActivity();
         }
     }
 
-    private void goReserveListActivity() {
+    private void goReserveCheckActivity() {
         Intent intent=new Intent(this,ReserveCheckActivity.class);
         startActivity(intent);
         ReserveVerifyActivity.this.finish();

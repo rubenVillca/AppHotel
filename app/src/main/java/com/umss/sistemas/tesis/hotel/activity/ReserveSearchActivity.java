@@ -90,6 +90,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
     private void initContentDate() {
         isMember = (Switch)findViewById(R.id.switchButton);
+        isMember.setChecked(checkModel.getId()<1);
 
         dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
         dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);

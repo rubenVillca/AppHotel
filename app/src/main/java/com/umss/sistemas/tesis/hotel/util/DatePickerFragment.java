@@ -57,7 +57,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         String dia = strDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
 
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
-        textViewDay.setText(dia);
+        if (textViewDay!=null)
+            textViewDay.setText(dia);
         textViewDate.setText(dateFormat.format(calendar.getTime()));
     }
 }

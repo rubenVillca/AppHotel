@@ -6,10 +6,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
+import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ReserveMemberActivity extends ActivityParent {
     private MemberModel memberModel;
@@ -25,8 +42,6 @@ public class ReserveMemberActivity extends ActivityParent {
     private RadioButton reserveMemberRadioMujer;
     private EditText reserveMemberCity;
     private EditText reserveMemberCountry;
-    private Button btnMemberCancel;
-    private Button btnMemberReserve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +50,7 @@ public class ReserveMemberActivity extends ActivityParent {
 
         super.showToolBar("Huéspedes", true);
 
+        container=findViewById(R.id.scrollReserveMember);
         updateBundle();
         initContent();
         updateContent();
@@ -52,8 +68,6 @@ public class ReserveMemberActivity extends ActivityParent {
         reserveMemberRadioMujer = (RadioButton) findViewById(R.id.reserveMemberRadioMujer);
         reserveMemberCity = (EditText) findViewById(R.id.reserveMemberCity);
         reserveMemberCountry = (EditText) findViewById(R.id.reserveMemberCountry);
-        btnMemberCancel = (Button) findViewById(R.id.btnMemberCancel);
-        btnMemberReserve = (Button) findViewById(R.id.btnMemberReserve);
     }
 
     private void updateBundle() {
@@ -80,5 +94,84 @@ public class ReserveMemberActivity extends ActivityParent {
         Intent intent = new Intent(this, ReserveVerifyActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    /**
+     * enviar datos modificados de huesped para actualizarlo al webserver
+     * @param view:boton de aceptar
+     */
+    public void goReserveCheck(View view) {
+        showProgress(true);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        helperSQLiteInsert = new HelperSQLiteInsert(this);
+
+        SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd");
+
+        Date dateInParse = new Date();
+        try {
+            dateInParse = parseador.parse(memberModel.getDateBornPerson());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String dateBorn=formateador.format(dateInParse);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("android", "android");
+        params.put("idKeyConsum", memberModel.getIdKeyConsum());
+        params.put("idPerson", memberModel.getIdPerson());
+        params.put("sexPerson", (reserveMemberRadioHombre.isChecked()||reserveMemberRadioMujer.isChecked())?-1:reserveMemberRadioHombre.isChecked());
+        params.put("pointPerson",memberModel.getPointPerson());
+        params.put("numberDocument", reserveMemberDocument.getText().toString());
+        params.put("numberPhone", reserveMemberPhone.getText().toString());
+        params.put("emailPerson", reserveMemberEmail.getText().toString());
+        params.put("namePerson",reserveMemberName.getText().toString());
+        params.put("nameLastPerson", reserveMemberLastName.getText().toString());
+        params.put("cityPerson", reserveMemberCity.getText().toString());
+        params.put("countryPerson", reserveMemberCountry.getText().toString());
+        params.put("addressPerson", reserveMemberAddress.getText().toString());
+        params.put("imgPerson", memberModel.getImgPerson());
+        params.put("dateBornPerson", dateBorn);
+        params.put("dateRegisterPerson", memberModel.getDateRegisterPerson());
+        params.put("typeDocument", memberModel.getTypeDocument());
+
+        client.post(Conexion.getUrlServer(Conexion.MEMBER_SAVE), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    showMessaje("conectado");
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+
+                        goReserveCheckActivity();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                showMessaje("no conectado");
+                showProgress(false);
+            }
+        });
+    }
+
+    /**
+     * Ir a la actividad reserveCheckActivity
+     */
+    private void goReserveCheckActivity() {
+        Intent intent=new Intent(this,ReserveCheckActivity.class);
+        startActivity(intent);
+    }
+
+    public void showDateBorn(View view) {
+        DatePickerFragment datePickerFragmentOut = new DatePickerFragment();
+        datePickerFragmentOut.setTextView(reserveMemberDateBorn,null);
+        datePickerFragmentOut.show(getFragmentManager(), "datePicker");
     }
 }

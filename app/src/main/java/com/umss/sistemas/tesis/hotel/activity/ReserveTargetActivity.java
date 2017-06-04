@@ -175,8 +175,9 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     private void goReserveSave() {
         showProgress(true);
         helperSQLiteObtain = new HelperSQLiteObtain(this);
+        helperSQLiteInsert = new HelperSQLiteInsert(this);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-        boolean ismm=isMember;
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -202,7 +203,6 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
             params.put("monthTarget", String.valueOf(spinnerMonth.getSelectedItemPosition() + 1));
             params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition() + 1));
         }
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         client.post(Conexion.getUrlServer(Conexion.RESERVE_SAVE), params, new AsyncHttpResponseHandler() {
             @Override

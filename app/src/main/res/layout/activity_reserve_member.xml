@@ -7,8 +7,10 @@
     tools:context="com.umss.sistemas.tesis.hotel.activity.ReserveMemberActivity">
 
     <include layout="@layout/actionbar_toolbar" />
+    <include layout="@layout/actionbar_progress_bar"/>
 
     <ScrollView
+        android:id="@+id/scrollReserveMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -85,10 +87,6 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_date_range" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
                     <EditText
                         android:id="@+id/reserveMemberDateBorn"
                         android:layout_width="match_parent"
@@ -96,8 +94,8 @@
                         android:ems="10"
                         android:hint="@string/label_date_born"
                         android:textColor="@color/color_primary"
-                        android:inputType="date" />
-                </android.support.design.widget.TextInputLayout>
+                        android:inputType="date"
+                        android:onClick="showDateBorn"/>
 
             </LinearLayout>
 
@@ -324,6 +322,7 @@
                     android:backgroundTint="@color/color_primary"
                     android:text="@string/action_reserve"
                     android:textColor="@android:color/white"
+                    android:onClick="goReserveCheck"
                     tools:targetApi="lollipop" />
             </LinearLayout>
 

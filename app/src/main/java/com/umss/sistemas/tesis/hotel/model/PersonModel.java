@@ -4,20 +4,20 @@ import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
 public class PersonModel extends ModelParent {
     protected int idPerson;
+    protected byte sexPerson;
+    protected int pointPerson;
+    protected int numberDocument;
+    protected int numberPhone;
     protected String emailPerson;
     protected String namePerson;
     protected String nameLastPerson;
     protected String cityPerson;
     protected String countryPerson;
-    protected int pointPerson;
-    protected byte sexPerson;
     protected String addressPerson;
     protected String imgPerson;
     protected String dateBornPerson;
     protected String dateRegisterPerson;
     protected String typeDocument;
-    protected int numberDocument;
-    protected int numberPhone;
 
     public PersonModel() {
         this.idPerson = 0;

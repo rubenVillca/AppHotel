@@ -21,6 +21,7 @@ public class Conexion {
     public static final int CALENDAR = 17;
     public static final int CHECK =18;
     public static final int RESERVE_SAVE = 19;
+    public static final int MEMBER_SAVE = 20;
 
     private static String ip="http://192.168.1.36/";
     private static String dirUser="hotel/";
@@ -44,7 +45,8 @@ public class Conexion {
                                     "messages",
                                     "calendar",
                                     "check",
-                                    "reserve/save"
+                                    "reserve/save",
+                                    "member/save"
                             };
     public static String urlServer=ip+dirUser;
 

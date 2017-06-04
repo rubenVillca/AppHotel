@@ -704,6 +704,9 @@ public class HelperSQLiteInsert extends HelperParent {
                 consumeFoodModel.setPointObtain(consumeFoodObject.getInt("POINT_OBTAIN_COST_FOOD"));
                 consumeFoodModel.setPointRequired(consumeFoodObject.getInt("POINT_REQUIRED_COST_FOOD"));
                 consumeFoodModel.setUnitFood(consumeFoodObject.getInt("UNIT_CONSUME_FOOD"));
+                consumeFoodModel.setDateConsume(consumeFoodObject.getString("DATE_CONSUME_FOOD"));
+                consumeFoodModel.setTimeConsume(consumeFoodObject.getString("TIME_CONSUME_FOOD"));
+                consumeFoodModel.setState(consumeFoodObject.getInt("STATE_CONSUME_FOOD"));
 
                 consumeFoodArray.add(consumeFoodModel);
             }
@@ -1280,6 +1283,9 @@ public class HelperSQLiteInsert extends HelperParent {
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_OBTAIN, consumeFoodModel.getPointObtain());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_REQUIRED, consumeFoodModel.getPointRequired());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_UNIT_FOOD, consumeFoodModel.getUnitFood());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_DATE, consumeFoodModel.getDateConsume());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_TIME, consumeFoodModel.getTimeConsume());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_STATE, consumeFoodModel.getState());
 
             if (db.insert(DBSQLiteHelper.TABLE_CONSUME_FOOD, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");

@@ -960,6 +960,9 @@ public class HelperSQLiteObtain extends HelperParent {
         consumeFoodModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_OBTAIN)));
         consumeFoodModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_REQUIRED)));
         consumeFoodModel.setUnitFood(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_UNIT_FOOD)));
+        consumeFoodModel.setDateConsume(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_DATE)));
+        consumeFoodModel.setTimeConsume(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_TIME)));
+        consumeFoodModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_STATE)));
 
         return consumeFoodModel;
     }

@@ -17,6 +17,10 @@ public class ConsumeFoodModel extends ModelParent{
     private int pointObtain;
     private int pointRequired;
     private int unitFood;
+    private String dateConsume;
+    private String timeConsume;
+    private int state;
+    private String site;
 
     public ConsumeFoodModel() {
         this.idConsume = 0;
@@ -29,6 +33,42 @@ public class ConsumeFoodModel extends ModelParent{
         this.pointObtain = 0;
         this.pointRequired=0;
         this.unitFood = 0;
+        dateConsume="";
+        timeConsume="";
+        state=0;
+        site="";
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getDateConsume() {
+        return dateConsume;
+    }
+
+    public void setDateConsume(String dateConsume) {
+        this.dateConsume = dateConsume;
+    }
+
+    public String getTimeConsume() {
+        return timeConsume;
+    }
+
+    public void setTimeConsume(String timeConsume) {
+        this.timeConsume = timeConsume;
     }
 
     public int getIdKeyCheck() {

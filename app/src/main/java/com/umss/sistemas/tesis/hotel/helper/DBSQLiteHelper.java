@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 51;
+    public static final int DATABASE_VERSION = 52;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -243,6 +243,10 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_CONSUME_FOOD_POINT_OBTAIN = "pointObtainConsumeFood";
     static final String KEY_CONSUME_FOOD_POINT_REQUIRED = "pointRequiredConsumeFood";
     static final String KEY_CONSUME_FOOD_UNIT_FOOD = "unitFoodConsumeFood";
+    static final String KEY_CONSUME_FOOD_DATE = "dateConsumeFood";
+    static final String KEY_CONSUME_FOOD_TIME = "timeConsumeFood";
+    static final String KEY_CONSUME_FOOD_STATE = "stateConsumeFood";
+    static final String KEY_CONSUME_FOOD_SITE = "siteConsumeFood";
 
     //occupation
     static final String TABLE_OCCUPATION = "occupation";
@@ -698,6 +702,10 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_CONSUME_FOOD_DESCRIPTION_FOOD + " TEXT,"
                 + KEY_CONSUME_FOOD_POINT_OBTAIN + " INTEGER,"
                 + KEY_CONSUME_FOOD_POINT_REQUIRED + " INTEGER,"
+                + KEY_CONSUME_FOOD_DATE + " TEXT,"
+                + KEY_CONSUME_FOOD_TIME + " TEXT,"
+                + KEY_CONSUME_FOOD_STATE + " INTEGER,"
+                + KEY_CONSUME_FOOD_SITE + " TEXT,"
                 + KEY_CONSUME_FOOD_UNIT_FOOD + " INTEGER"
                 + ")";
     }

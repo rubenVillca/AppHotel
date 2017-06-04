@@ -141,4 +141,16 @@ public class CheckModel extends ModelParent {
     public void setCardTargetArrayList(ArrayList<CardModel> cardTargetArrayList) {
         this.cardTargetArrayList = cardTargetArrayList;
     }
+
+    public double getTotal() {
+        double total=0;
+        for (ConsumeFoodModel consumeFood : consumeFoodModelArrayList) {
+            total+=consumeFood.getPay()-consumeFood.getPrice();
+        }
+        for (ConsumeModel consumeService : consumeModelArrayList) {
+            total+=consumeService.getPay()-consumeService.getPrice();
+        }
+
+        return total;
+    }
 }

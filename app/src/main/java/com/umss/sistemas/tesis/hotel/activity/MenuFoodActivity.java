@@ -26,6 +26,9 @@ public class MenuFoodActivity extends ActivityParent {
     }
 
     private void setRecyclerView() {
+        helperSQLiteObtain=new HelperSQLiteObtain(this);
+        boolean isActiveCheck= !helperSQLiteObtain.getCheckModel(0, 1, 2).isEmpty();
+
         RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.foodMenuRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -34,7 +37,7 @@ public class MenuFoodActivity extends ActivityParent {
         pictureRecycler.setLayoutManager(linearLayoutManager);
 
         ArrayList<FoodMenuModel> listMenu=buildMenu();
-        FoodAdapterRecycler foodAdapter=new FoodAdapterRecycler(listMenu,R.layout.cardview_food,this);
+        FoodAdapterRecycler foodAdapter=new FoodAdapterRecycler(listMenu,R.layout.cardview_food,this,isActiveCheck);
         pictureRecycler.setAdapter(foodAdapter);
     }
 

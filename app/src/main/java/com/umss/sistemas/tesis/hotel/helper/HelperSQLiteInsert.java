@@ -634,10 +634,12 @@ public class HelperSQLiteInsert extends HelperParent {
                 JSONObject foodPriceObject = foodJSONArray.getJSONObject(j);
 
                 foodPriceModel.setIdKeyFood(foodPriceObject.getInt("ID_FOOD"));
+                foodPriceModel.setIdKeyTypeMoneyFood(foodPriceObject.getInt("ID_TYPE_MONEY"));
                 foodPriceModel.setTypeMoney(foodPriceObject.getString("NAME_TYPE_MONEY"));
                 foodPriceModel.setPrice(foodPriceObject.getDouble("PRICE_COST_FOOD"));
                 foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_OBTAIN_COST_FOOD"));
                 foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_REQUIRED_COST_FOOD"));
+                foodPriceModel.setUnit(foodPriceObject.getInt("UNIT_COST_FOOD"));
 
                 foodPriceArray.add(foodPriceModel);
             }
@@ -707,6 +709,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 consumeFoodModel.setDateConsume(consumeFoodObject.getString("DATE_CONSUME_FOOD"));
                 consumeFoodModel.setTimeConsume(consumeFoodObject.getString("TIME_CONSUME_FOOD"));
                 consumeFoodModel.setState(consumeFoodObject.getInt("STATE_CONSUME_FOOD"));
+                consumeFoodModel.setSite(consumeFoodObject.getString("SITE_CONSUME_FOOD"));
 
                 consumeFoodArray.add(consumeFoodModel);
             }
@@ -1000,8 +1003,8 @@ public class HelperSQLiteInsert extends HelperParent {
         ContentValues newRegister = new ContentValues();
 
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_PHONEHOTEL, aboutModel.getPhoneHotel());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_NAMEHOTEL, aboutModel.getNameHotel());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_PHONE_HOTEL, aboutModel.getPhoneHotel());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_NAME_HOTEL, aboutModel.getNameHotel());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_MISION, aboutModel.getMision());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_VISION, aboutModel.getVision());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
@@ -1012,12 +1015,12 @@ public class HelperSQLiteInsert extends HelperParent {
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_EMAIL, aboutModel.getEmail());
         newRegister.put(DBSQLiteHelper.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_LOGOHOTEL, aboutModel.getLogoHotel());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESSGPSX, aboutModel.getAddressGPSX());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESSGPSY, aboutModel.getAddressGPSY());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE, aboutModel.getAddressImage());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_TYPEHOTEL, aboutModel.getType());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL, aboutModel.getSiteWeb());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_LOGO_HOTEL, aboutModel.getLogoHotel());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_X, aboutModel.getAddressGPSX());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_Y, aboutModel.getAddressGPSY());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_IMAGE, aboutModel.getAddressImage());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_TYPE_HOTEL, aboutModel.getType());
+        newRegister.put(DBSQLiteHelper.KEY_ABOUT_SITE_WEB_HOTEL, aboutModel.getSiteWeb());
 
         if (db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en AboutModel");
@@ -1192,7 +1195,7 @@ public class HelperSQLiteInsert extends HelperParent {
             ContentValues foodContent = new ContentValues();
 
             foodContent.put(DBSQLiteHelper.KEY_FOOD_ID, foodModel.getId());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_IDKEYMENU, foodModel.getIdKeyMenu());
+            foodContent.put(DBSQLiteHelper.KEY_FOOD_ID_KEY_MENU, foodModel.getIdKeyMenu());
             foodContent.put(DBSQLiteHelper.KEY_FOOD_STATE, foodModel.isState() ? 1 : 0);
             foodContent.put(DBSQLiteHelper.KEY_FOOD_TYPE, foodModel.getType());
             foodContent.put(DBSQLiteHelper.KEY_FOOD_NAME, foodModel.getName());
@@ -1214,11 +1217,13 @@ public class HelperSQLiteInsert extends HelperParent {
         for (FoodPriceModel foodPriceModel : foodPriceModelArrayList) {
             ContentValues foodPriceContent = new ContentValues();
 
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD, foodPriceModel.getIdKeyFood());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_TYPEMONEY, foodPriceModel.getTypeMoney());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_FOOD, foodPriceModel.getIdKeyFood());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_TYPE_MONEY, foodPriceModel.getTypeMoney());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY, foodPriceModel.getIdKeyTypeMoneyFood());
             foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_PRICE, foodPriceModel.getPrice());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINTOBTAIN, foodPriceModel.getPointObtain());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINTREQUIRED, foodPriceModel.getPointRequired());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_OBTAIN, foodPriceModel.getPointObtain());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_REQUIRED, foodPriceModel.getPointRequired());
+            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_UNIT, foodPriceModel.getUnit());
 
             long succes = db.insert(DBSQLiteHelper.TABLE_FOOD_PRICE, null, foodPriceContent);
             if (succes == -1)
@@ -1286,6 +1291,7 @@ public class HelperSQLiteInsert extends HelperParent {
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_DATE, consumeFoodModel.getDateConsume());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_TIME, consumeFoodModel.getTimeConsume());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_STATE, consumeFoodModel.getState());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_SITE, consumeFoodModel.getSite());
 
             if (db.insert(DBSQLiteHelper.TABLE_CONSUME_FOOD, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");

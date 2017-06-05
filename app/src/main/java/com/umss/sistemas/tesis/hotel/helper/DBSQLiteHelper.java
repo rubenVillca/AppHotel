@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 52;
+    public static final int DATABASE_VERSION = 54;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -35,12 +35,12 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     //table about
     static final String TABLE_ABOUT = "About";
     static final String KEY_ABOUT_ID = "id";
-    static final String KEY_ABOUT_LOGOHOTEL = "logoHotel";
-    static final String KEY_ABOUT_ADDRESSGPSX = "addressGPSX";
-    static final String KEY_ABOUT_ADDRESSGPSY = "addressGPSY";
-    static final String KEY_ABOUT_ADDRESSIMAGE = "addressImage";
-    static final String KEY_ABOUT_NAMEHOTEL = "nameHotel";
-    static final String KEY_ABOUT_PHONEHOTEL = "phoneHotel";
+    static final String KEY_ABOUT_LOGO_HOTEL = "logoHotel";
+    static final String KEY_ABOUT_ADDRESS_GPS_X = "addressGPSX";
+    static final String KEY_ABOUT_ADDRESS_GPS_Y = "addressGPSY";
+    static final String KEY_ABOUT_ADDRESS_IMAGE = "addressImage";
+    static final String KEY_ABOUT_NAME_HOTEL = "nameHotel";
+    static final String KEY_ABOUT_PHONE_HOTEL = "phoneHotel";
     static final String KEY_ABOUT_EMAIL = "email";
     static final String KEY_ABOUT_ADDRESS = "address";
     static final String KEY_ABOUT_MISION = "mision";
@@ -51,8 +51,8 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_ABOUT_WATCHWORD = "watchWord";
     static final String KEY_ABOUT_OBJETIVE = "objetive";
     static final String KEY_ABOUT_DESCRIPTION = "description";
-    static final String KEY_ABOUT_TYPEHOTEL = "typeHotel";
-    static final String KEY_ABOUT_SITEWEBHOTEL = "siteWebHotel";
+    static final String KEY_ABOUT_TYPE_HOTEL = "typeHotel";
+    static final String KEY_ABOUT_SITE_WEB_HOTEL = "siteWebHotel";
 
     //services
     static final String TABLE_SERVICE = "service";
@@ -113,7 +113,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     //food
     static final String TABLE_FOOD = "food";
     static final String KEY_FOOD_ID = "idFood";
-    static final String KEY_FOOD_IDKEYMENU = "idKeyMenuFood";
+    static final String KEY_FOOD_ID_KEY_MENU = "idKeyMenuFood";
     static final String KEY_FOOD_NAME = "nameFood";
     static final String KEY_FOOD_STATE = "stateFood";
     static final String KEY_FOOD_TYPE = "typeFood";
@@ -131,11 +131,13 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     //price_food
     static final String TABLE_FOOD_PRICE = "foodPrice";
     static final String KEY_FOOD_PRICE_ID = "idFoodPrice";
-    static final String KEY_FOOD_PRICE_IDKEYFOOD = "idKeyFoodFoodPrice";
-    static final String KEY_FOOD_PRICE_TYPEMONEY = "typeMoneyFoodPrice";
+    static final String KEY_FOOD_PRICE_ID_KEY_FOOD = "idKeyFoodPrice";
+    static final String KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY = "idKeyTypeMoneyFoodPrice";
+    static final String KEY_FOOD_PRICE_TYPE_MONEY = "typeMoneyFoodPrice";
     static final String KEY_FOOD_PRICE_PRICE = "priceFoodPrice";
-    static final String KEY_FOOD_PRICE_POINTOBTAIN = "pointObtainFoodPrice";
-    static final String KEY_FOOD_PRICE_POINTREQUIRED = "pointRequiredFoodPrice";
+    static final String KEY_FOOD_PRICE_POINT_OBTAIN = "pointObtainFoodPrice";
+    static final String KEY_FOOD_PRICE_POINT_REQUIRED = "pointRequiredFoodPrice";
+    static final String KEY_FOOD_PRICE_UNIT = "unitFoodPrice";
 
     //check
     static final String TABLE_CHECK = "checkHotel";
@@ -376,12 +378,12 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     private String getTableAbout() {
         return "CREATE TABLE " + TABLE_ABOUT + " ( "
                 + KEY_ABOUT_ID + " INTEGER PRIMARY KEY,"
-                + KEY_ABOUT_LOGOHOTEL + " TEXT,"
-                + KEY_ABOUT_ADDRESSGPSX + " TEXT,"
-                + KEY_ABOUT_ADDRESSGPSY + " TEXT,"
-                + KEY_ABOUT_ADDRESSIMAGE + " TEXT,"
-                + KEY_ABOUT_NAMEHOTEL + " TEXT,"
-                + KEY_ABOUT_PHONEHOTEL + " TEXT,"
+                + KEY_ABOUT_LOGO_HOTEL + " TEXT,"
+                + KEY_ABOUT_ADDRESS_GPS_X + " TEXT,"
+                + KEY_ABOUT_ADDRESS_GPS_Y + " TEXT,"
+                + KEY_ABOUT_ADDRESS_IMAGE + " TEXT,"
+                + KEY_ABOUT_NAME_HOTEL + " TEXT,"
+                + KEY_ABOUT_PHONE_HOTEL + " TEXT,"
                 + KEY_ABOUT_EMAIL + " TEXT,"
                 + KEY_ABOUT_ADDRESS + " TEXT,"
                 + KEY_ABOUT_MISION + " INTEGER,"
@@ -392,8 +394,8 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_ABOUT_WATCHWORD + " TEXT,"
                 + KEY_ABOUT_OBJETIVE + " TEXT,"
                 + KEY_ABOUT_DESCRIPTION + " TEXT,"
-                + KEY_ABOUT_TYPEHOTEL + " TEXT,"
-                + KEY_ABOUT_SITEWEBHOTEL + " TEXT"
+                + KEY_ABOUT_TYPE_HOTEL + " TEXT,"
+                + KEY_ABOUT_SITE_WEB_HOTEL + " TEXT"
                 + ")";
     }
 
@@ -497,7 +499,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
         return "CREATE TABLE " + TABLE_FOOD + " ( "
                 + KEY_FOOD_MENU_ID_AUTOINCREMENT + " INTEGER PRIMARY KEY,"
                 + KEY_FOOD_ID + " INTEGER,"
-                + KEY_FOOD_IDKEYMENU + " INTEGER,"
+                + KEY_FOOD_ID_KEY_MENU + " INTEGER,"
                 + KEY_FOOD_STATE + " INTEGER,"
                 + KEY_FOOD_TYPE + " TEXT,"
                 + KEY_FOOD_NAME + " TEXT,"
@@ -528,11 +530,13 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     private String getTableFoodPrice() {
         return "CREATE TABLE " + TABLE_FOOD_PRICE + " ( "
                 + KEY_FOOD_PRICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_FOOD_PRICE_IDKEYFOOD + " INTEGER,"
-                + KEY_FOOD_PRICE_TYPEMONEY + " TEXT,"
+                + KEY_FOOD_PRICE_ID_KEY_FOOD + " INTEGER,"
+                + KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY + " INTEGER,"
+                + KEY_FOOD_PRICE_TYPE_MONEY + " TEXT,"
                 + KEY_FOOD_PRICE_PRICE + " REAL,"
-                + KEY_FOOD_PRICE_POINTOBTAIN + " INTEGER,"
-                + KEY_FOOD_PRICE_POINTREQUIRED + " INTEGER"
+                + KEY_FOOD_PRICE_POINT_OBTAIN + " INTEGER,"
+                + KEY_FOOD_PRICE_POINT_REQUIRED + " INTEGER,"
+                + KEY_FOOD_PRICE_UNIT + " INTEGER"
                 + ")";
     }
 

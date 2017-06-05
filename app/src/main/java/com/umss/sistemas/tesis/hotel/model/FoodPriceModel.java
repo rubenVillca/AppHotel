@@ -6,9 +6,11 @@ public class FoodPriceModel extends ModelParent {
     private int id;
     private int idKeyFood;
     private String typeMoney;
+    private int idKeyTypeMoneyFood;
     private double price;
     private int pointObtain;
     private int pointRequired;
+    private int unit;
 
     public FoodPriceModel() {
         this.id = 0;
@@ -17,6 +19,16 @@ public class FoodPriceModel extends ModelParent {
         this.price = 0;
         this.pointObtain = 0;
         this.pointRequired = 0;
+        this.idKeyTypeMoneyFood =0;
+        unit=0;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
     }
 
     public int getId() {
@@ -65,5 +77,13 @@ public class FoodPriceModel extends ModelParent {
 
     public void setPointRequired(int pointRequired) {
         this.pointRequired = pointRequired;
+    }
+
+    public int getIdKeyTypeMoneyFood() {
+        return idKeyTypeMoneyFood;
+    }
+
+    public void setIdKeyTypeMoneyFood(int idKeyTypeMoneyFood) {
+        this.idKeyTypeMoneyFood = idKeyTypeMoneyFood;
     }
 }

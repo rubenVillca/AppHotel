@@ -1,6 +1,7 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.FoodActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
@@ -22,11 +24,12 @@ public class FoodAdapterRecycler extends RecyclerView.Adapter<FoodAdapterRecycle
     private ArrayList<FoodModel> foodModels;
     private int resource;
     private Activity activity;
+    private boolean isActiveCheck;
 
-    public FoodAdapterRecycler(ArrayList<FoodMenuModel> foodMenuModel, int resource, Activity activity) {
+    public FoodAdapterRecycler(ArrayList<FoodMenuModel> foodMenuModel, int resource, Activity activity,boolean isActiveCheck) {
         this.resource = resource;
         this.activity = activity;
-
+        this.isActiveCheck=isActiveCheck;
         this.foodModels=new ArrayList<>();
         for (FoodMenuModel menu:foodMenuModel) {
             foodModels.addAll(menu.getFoodModelArrayList());
@@ -41,17 +44,27 @@ public class FoodAdapterRecycler extends RecyclerView.Adapter<FoodAdapterRecycle
 
     @Override
     public void onBindViewHolder(FoodViewHolder holder, int position) {
-        final FoodModel food=foodModels.get(position);
-        ArrayList<FoodPriceModel> foodPrices=food.getListFoodPriceModel();
-        holder.foodNameCardView.setText(food.getName());
-        holder.foodTypeFoodCardView.setText(food.getType());
+        final FoodModel foodModel=foodModels.get(position);
+        ArrayList<FoodPriceModel> foodPrices=foodModel.getListFoodPriceModel();
+        holder.foodNameCardView.setText(foodModel.getName());
+        holder.foodTypeFoodCardView.setText(foodModel.getType());
         if (!foodPrices.isEmpty()) {
             holder.foodTypeMoneyCardView.setText(foodPrices.get(0).getTypeMoney());
             holder.foodPriceCardView.setText(String.valueOf(foodPrices.get(0).getPrice()));
         }
 
-        String urlImage = Conexion.urlServer + food.getImage();
+        String urlImage = Conexion.urlServer + foodModel.getImage();
         Picasso.with(activity).load(urlImage).into(holder.foodPictureCardView);
+        if (isActiveCheck){
+            holder.foodPictureCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =new Intent(activity, FoodActivity.class);
+                    intent.putExtra("foodModel",foodModel);
+                    activity.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

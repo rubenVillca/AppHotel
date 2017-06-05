@@ -26,8 +26,8 @@
                 android:id="@+id/nameServiceDetailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_usernamedetail"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/textsize_usernamedetail" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,8 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/type_detail"
-                    android:textSize="@dimen/textsize_likenumberdetail"
-                    android:textColor="@color/primary_text"/>
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/textsize_likenumberdetail" />
 
                 <TextView
                     android:id="@+id/typeNameServiceDetailTextView"
@@ -49,8 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/marginleft_seconleft"
                     android:layout_marginRight="@dimen/marginleft_seconleft"
-                    android:textSize="@dimen/textsize_likenumberdetail"
-                    android:textColor="@color/primary_text"/>
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/textsize_likenumberdetail" />
             </LinearLayout>
 
             <View
@@ -65,9 +65,9 @@
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:text="@string/titledetail"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/textsize_likenumberdetail"
-                android:textStyle="bold"
-                android:textColor="@color/primary_text"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/contentServiceDetailTextView"
@@ -77,8 +77,8 @@
                 android:paddingLeft="@dimen/padding_horizontal_textcontent"
                 android:paddingRight="@dimen/padding_horizontal_textcontent"
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
-                android:textSize="@dimen/textsize_likenumberdetail"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/textsize_likenumberdetail" />
 
             <HorizontalScrollView
                 android:id="@+id/scrollhorizontal"
@@ -96,5 +96,6 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
     <include layout="@layout/actionbar_floating_button_order" />
 </android.support.design.widget.CoordinatorLayout>

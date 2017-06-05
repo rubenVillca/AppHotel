@@ -266,7 +266,7 @@ public class HelperSQLiteObtain extends HelperParent {
         ArrayList<FoodModel> listFood = new ArrayList<>();
         Cursor cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_FOOD
-                + " where " + DBSQLiteHelper.KEY_FOOD_IDKEYMENU + "=" + idMenuFood, null);
+                + " where " + DBSQLiteHelper.KEY_FOOD_ID_KEY_MENU + "=" + idMenuFood, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -290,7 +290,7 @@ public class HelperSQLiteObtain extends HelperParent {
         ArrayList<FoodPriceModel> listPriceFood = new ArrayList<>();
         Cursor cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_FOOD_PRICE
-                + " where " + DBSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD + "=" + idFood, null);
+                + " where " + DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_FOOD + "=" + idFood, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -754,12 +754,12 @@ public class HelperSQLiteObtain extends HelperParent {
         AboutModel aboutModel = new AboutModel();
 
         aboutModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ID)));
-        aboutModel.setLogoHotel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_LOGOHOTEL)));
-        aboutModel.setAddressGPSX(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESSGPSX)));
-        aboutModel.setAddressGPSY(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESSGPSY)));
-        aboutModel.setAddressImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESSIMAGE)));
-        aboutModel.setNameHotel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_NAMEHOTEL)));
-        aboutModel.setPhoneHotel(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_PHONEHOTEL)));
+        aboutModel.setLogoHotel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_LOGO_HOTEL)));
+        aboutModel.setAddressGPSX(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_X)));
+        aboutModel.setAddressGPSY(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_Y)));
+        aboutModel.setAddressImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESS_IMAGE)));
+        aboutModel.setNameHotel(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_NAME_HOTEL)));
+        aboutModel.setPhoneHotel(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_PHONE_HOTEL)));
         aboutModel.setEmail(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_EMAIL)));
         aboutModel.setAddress(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_ADDRESS)));
         aboutModel.setMision(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_MISION)));
@@ -770,8 +770,8 @@ public class HelperSQLiteObtain extends HelperParent {
         aboutModel.setWatchWord(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_WATCHWORD)));
         aboutModel.setObjetive(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_OBJETIVE)));
         aboutModel.setDescription(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_DESCRIPTION)));
-        aboutModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_TYPEHOTEL)));
-        aboutModel.setSiteWeb(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_SITEWEBHOTEL)));
+        aboutModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_TYPE_HOTEL)));
+        aboutModel.setSiteWeb(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_ABOUT_SITE_WEB_HOTEL)));
 
         return aboutModel;
     }
@@ -898,7 +898,7 @@ public class HelperSQLiteObtain extends HelperParent {
         foodModel.setImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_IMAGE)));
         foodModel.setType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_TYPE)));
         foodModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_STATE)) > 0);
-        foodModel.setIdKeyMenu(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_IDKEYMENU)));
+        foodModel.setIdKeyMenu(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_ID_KEY_MENU)));
 
         return foodModel;
     }
@@ -907,11 +907,13 @@ public class HelperSQLiteObtain extends HelperParent {
         FoodPriceModel foodPriceModel = new FoodPriceModel();
 
         foodPriceModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_ID)));
-        foodPriceModel.setIdKeyFood(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_IDKEYFOOD)));
-        foodPriceModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_TYPEMONEY)));
+        foodPriceModel.setIdKeyFood(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_FOOD)));
+        foodPriceModel.setIdKeyTypeMoneyFood(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY)));
+        foodPriceModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_TYPE_MONEY)));
         foodPriceModel.setPrice(Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_PRICE))));
-        foodPriceModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_POINTOBTAIN)));
-        foodPriceModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_POINTREQUIRED)));
+        foodPriceModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_OBTAIN)));
+        foodPriceModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_REQUIRED)));
+        foodPriceModel.setUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_FOOD_PRICE_UNIT)));
 
         return foodPriceModel;
     }
@@ -963,6 +965,7 @@ public class HelperSQLiteObtain extends HelperParent {
         consumeFoodModel.setDateConsume(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_DATE)));
         consumeFoodModel.setTimeConsume(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_TIME)));
         consumeFoodModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_STATE)));
+        consumeFoodModel.setSite(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUME_FOOD_SITE)));
 
         return consumeFoodModel;
     }

@@ -18,8 +18,10 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
+import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -103,8 +105,16 @@ public class FoodActivity extends ActivityParent {
             }
         });
 
-        String sites[] = new String[15];
-        for (int i = 0; i < 15; i++) {
+        ArrayList<OccupationModel> occupationModels=new ArrayList<>();
+        for(ConsumeModel consumeModel: checkModel.getConsumeModelArrayList()){
+            occupationModels.addAll(consumeModel.getOccupationModelArrayList());
+        }
+
+        String sites[] = new String[occupationModels.size()+20];
+        for(int i=0;i<occupationModels.size();i++){
+            sites[i] = String.valueOf("Habitación "+occupationModels.get(0).getNameRoom());
+        }
+        for (int i = occupationModels.size(); i < sites.length; i++) {
             sites[i] = String.valueOf("Mesa " + (i + 1));
         }
         spinnerSiteFood.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sites));

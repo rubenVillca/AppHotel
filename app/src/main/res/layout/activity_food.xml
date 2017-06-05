@@ -146,7 +146,7 @@
                 android:id="@+id/btnFoodPedido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/color_primary_dark"
                 android:text="Enviar"
                 android:onClick="goMenuFood"/>

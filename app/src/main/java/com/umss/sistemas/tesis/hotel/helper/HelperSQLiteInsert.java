@@ -373,14 +373,16 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 ServiceModel serviceModel = new ServiceModel();
 
-                serviceModel.setServiceId(service.getInt("id"));
-                serviceModel.setServiceReserved(service.getInt("reservable"));
-                serviceModel.setServiceName(service.getString("name"));
-                serviceModel.setServiceDescription(service.getString("description"));
-                serviceModel.setServiceType(service.getString("type"));
-                serviceModel.setServiceImage(service.getString("image"));
+                serviceModel.setId(service.getInt("ID_SERVICE"));
+                serviceModel.setName(service.getString("NAME_SERVICE"));
+                serviceModel.setReserved(service.getInt("RESERVED_SERVICE"));
+                serviceModel.setDescription(service.getString("DESCRIPTION_SERVICE"));
+                serviceModel.setImage(service.getString("IMAGE_SERVICE"));
+                serviceModel.setIdType(service.getInt("ID_TYPE_SERVICE"));
+                serviceModel.setNameType(service.getString("NAME_TYPE_SERVICE"));
+                serviceModel.setValueType(service.getInt("VALUE_TYPE_SERVICE"));
 
-                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getServiceId(), false));
+                serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getId(), false));
                 servicesModel.add(serviceModel);
             }
 
@@ -1039,12 +1041,14 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ServiceModel serviceModel : servicesModel) {
             ContentValues serviceContent = new ContentValues();
 
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_ID, serviceModel.getServiceId());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getServiceName());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_TYPE, serviceModel.getServiceType());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getServiceDescription());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getServiceImage());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getServiceReserved());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_ID, serviceModel.getId());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getName());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getDescription());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getImage());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getReserved());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_ID_TYPE, serviceModel.getIdType());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_NAME_TYPE, serviceModel.getNameType());
+            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_VALUE_TYPE, serviceModel.getValueType());
 
             if (db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");

@@ -266,13 +266,22 @@
                 android:value="com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity" />
         </activity>
         <activity android:name=".activity.ReserveVerifyActivity" />
-        <activity android:name=".activity.FoodActivity"
+        <activity
+            android:name=".activity.ConsumeFoodActivity"
             android:parentActivityName=".activity.MenuFoodActivity"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity" />
+        </activity>
+        <activity android:name=".activity.ConsumeServiceActivity"
+            android:parentActivityName=".activity.ServiceDetailActivity"
+            android:windowSoftInputMode="stateHidden"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ServiceDetailActivity" />
         </activity>
     </application>
 

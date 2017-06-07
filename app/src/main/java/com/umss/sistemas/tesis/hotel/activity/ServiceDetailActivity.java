@@ -1,9 +1,12 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.transition.Fade;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import com.umss.sistemas.tesis.hotel.table.TablePriceService;
 import java.util.ArrayList;
 
 public class ServiceDetailActivity extends ActivityParent {
+    private FloatingActionButton fab;
+    private ServiceModel serviceModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +37,36 @@ public class ServiceDetailActivity extends ActivityParent {
             getWindow().setEnterTransition(new Fade());
         }
 
-        int idService = getIdService();
-
-        initContent(idService);
+        buildData();
+        initContent();
     }
 
-    private int getIdService() {
-        Bundle bundle=getIntent().getExtras();
-        return bundle.getInt("idService");
-    }
+    private void buildData() {
+        serviceModel=(ServiceModel) getIntent().getExtras().getSerializable("serviceModel");
 
-    private void initContent(int idService) {
+        fab=(FloatingActionButton)findViewById(R.id.fabOrderService);
         helperSQLiteObtain =new HelperSQLiteObtain(this);
-        ServiceModel serviceModel= helperSQLiteObtain.getServiceModel(idService).get(0);
+
+        boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
+        if (!isChecked||serviceModel.getValueType()!=1)
+            fab.setVisibility(View.INVISIBLE);
+
+    }
+
+    private void initContent() {
         ArrayList<ServicePriceModel> servicePriceModel=serviceModel.getServicePrice();
 
         ImageView imageService=(ImageView)findViewById(R.id.imageHeaderCollapsing);
-        Picasso.with(this).load(Conexion.urlServer + serviceModel.getServiceImage()).into(imageService);
+        Picasso.with(this).load(Conexion.urlServer + serviceModel.getImage()).into(imageService);
 
         TextView nameService=(TextView)findViewById(R.id.nameServiceDetailTextView);
-        nameService.setText(serviceModel.getServiceName());
+        nameService.setText(serviceModel.getName());
 
         TextView typeService=(TextView)findViewById(R.id.typeNameServiceDetailTextView);
-        typeService.setText(serviceModel.getServiceType());
+        typeService.setText(serviceModel.getNameType());
 
         TextView descriptionService=(TextView)findViewById(R.id.contentServiceDetailTextView);
-        descriptionService.setText(serviceModel.getServiceDescription());
+        descriptionService.setText(android.text.Html.fromHtml(serviceModel.getDescription()));
 
         TablePriceService tabla = new TablePriceService(this, (TableLayout)findViewById(R.id.tablePriceService));
 
@@ -74,7 +83,21 @@ public class ServiceDetailActivity extends ActivityParent {
 
             tabla.agregarFilaTabla(elementos);
         }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goConsumeService();
+            }
+        });
     }
+
+    private void goConsumeService() {
+        Intent intent=new Intent(this,ConsumeServiceActivity.class);
+        intent.putExtra("serviceModel",serviceModel);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

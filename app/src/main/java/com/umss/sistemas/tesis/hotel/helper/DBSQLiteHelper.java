@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 54;
+    public static final int DATABASE_VERSION = 55;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -59,9 +59,11 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_SERVICE_ID = "idService";
     static final String KEY_SERVICE_NAME = "nameService";
     static final String KEY_SERVICE_DESCRIPTION = "descriptionService";
-    static final String KEY_SERVICE_TYPE = "typeService";
     static final String KEY_SERVICE_IMAGE = "imageService";
     static final String KEY_SERVICE_RESERVED = "reservedService";
+    static final String KEY_SERVICE_ID_TYPE = "idTypeService";
+    static final String KEY_SERVICE_NAME_TYPE = "typeService";
+    static final String KEY_SERVICE_VALUE_TYPE = "valueTypeService";
 
     //precio de los servicios
     static final String TABLE_PRICE_SERVICE = "price_service";
@@ -409,9 +411,11 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
                 + KEY_SERVICE_ID + " INTEGER PRIMARY KEY,"
                 + KEY_SERVICE_NAME + " TEXT,"
                 + KEY_SERVICE_DESCRIPTION + " TEXT,"
-                + KEY_SERVICE_TYPE + " TEXT,"
+                + KEY_SERVICE_NAME_TYPE + " TEXT,"
                 + KEY_SERVICE_IMAGE + " TEXT,"
-                + KEY_SERVICE_RESERVED + " INTEGER"
+                + KEY_SERVICE_RESERVED + " INTEGER,"
+                + KEY_SERVICE_ID_TYPE + " INTEGER,"
+                + KEY_SERVICE_VALUE_TYPE + " INTEGER"
                 + ")";
     }
 

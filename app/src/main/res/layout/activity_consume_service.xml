@@ -4,76 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutFoodCoordinator"
-    tools:context="com.umss.sistemas.tesis.hotel.activity.FoodActivity">
+    tools:context="com.umss.sistemas.tesis.hotel.activity.ConsumeServiceActivity">
 
-    <include layout="@layout/actionbar_toolbar_collapsing" />
+    <include layout="@layout/actionbar_toolbar" />
+
     <include layout="@layout/actionbar_progress_bar" />
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
+        android:id="@+id/scrollConsumeService"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:id="@+id/nameFoodTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/text_size_primary"
-                android:textStyle="bold" />
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/categoria"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/typeFoodTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:text="@string/label_unit"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:weightSum="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Ubicación:"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary"
-                    android:textStyle="bold" />
 
                 <Spinner
-                    android:id="@+id/spinnerSiteFood"
+                    android:id="@+id/unitSpinnerConsume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5" />
@@ -82,21 +48,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Unidades:"
+                    android:text="@string/label_time"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/text_size_primary" />
 
                 <Spinner
-                    android:id="@+id/unitSpinnerFood"
+                    android:id="@+id/timeDurationSpinnerConsumeService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5" />
@@ -105,51 +71,87 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Costo Total:"
+                    android:text="@string/label_hour_start"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/text_size_primary" />
 
-                <LinearLayout
+                <Spinner
+                    android:id="@+id/timeStartSpinnerConsumeService"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:weightSum="1">
+                    android:text="@string/label_cost_total"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
 
-                    <Spinner
-                        android:id="@+id/moneyFoodSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:textSize="@dimen/text_size_primary" />
-
-                    <TextView
-                        android:id="@+id/priceTotalFoodTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:textColor="@color/primary_text"
-                        android:textSize="@dimen/text_size_primary"
-                        android:textStyle="bold"  />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/costTotalTextViewConsume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnFoodPedido"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/color_primary_dark"
-                android:text="Enviar"
-                android:onClick="goMenuFood"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <EditText
+                    android:id="@+id/detailEditTextConsume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="8"
+                    android:gravity="top"
+                    android:hint="@string/label_detail"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSaveConsume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_primary_dark"
+                    android:text="@string/label_service"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary"
+                    android:onClick="sendConsumeService"/>
+            </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
+
 </android.support.design.widget.CoordinatorLayout>

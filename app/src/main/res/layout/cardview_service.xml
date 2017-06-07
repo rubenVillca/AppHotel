@@ -23,6 +23,19 @@
             android:transitionName="@string/transicionname_picture" />
 
         <LinearLayout
+            android:id="@+id/orderLinearLayoutService"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_progress"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -37,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name_card"
                 android:textSize="@dimen/text_size_primary"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/editTextColorWhite"/>
 
             <TextView
                 android:id="@+id/typeServiceCardView"
@@ -45,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/date_cardview_service"
                 android:textSize="@dimen/text_size_primary"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/editTextColorWhite"/>
 
         </LinearLayout>
     </FrameLayout>

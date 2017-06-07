@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.activity.FoodActivity;
+import com.umss.sistemas.tesis.hotel.activity.ConsumeFoodActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
@@ -59,7 +59,7 @@ public class FoodAdapterRecycler extends RecyclerView.Adapter<FoodAdapterRecycle
             holder.foodPictureCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent =new Intent(activity, FoodActivity.class);
+                    Intent intent =new Intent(activity, ConsumeFoodActivity.class);
                     intent.putExtra("foodModel",foodModel);
                     activity.startActivity(intent);
                 }

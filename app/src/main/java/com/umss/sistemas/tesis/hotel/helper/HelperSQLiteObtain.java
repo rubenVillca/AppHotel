@@ -122,7 +122,7 @@ public class HelperSQLiteObtain extends HelperParent {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 ServiceModel serviceModel = obtainServiceModelCursor(cursor);
-                serviceModel.setServicePrice(getServicePriceModel(serviceModel.getServiceId()));
+                serviceModel.setServicePrice(getServicePriceModel(serviceModel.getId()));
 
                 listService.add(serviceModel);
                 cursor.moveToNext();
@@ -789,12 +789,14 @@ public class HelperSQLiteObtain extends HelperParent {
     private ServiceModel obtainServiceModelCursor(Cursor cursor) {
         ServiceModel serviceModel = new ServiceModel();
 
-        serviceModel.setServiceId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_ID)));
-        serviceModel.setServiceReserved(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_RESERVED)));
-        serviceModel.setServiceName(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_NAME)));
-        serviceModel.setServiceDescription(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_DESCRIPTION)));
-        serviceModel.setServiceImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_IMAGE)));
-        serviceModel.setServiceType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_TYPE)));
+        serviceModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_ID)));
+        serviceModel.setName(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_NAME)));
+        serviceModel.setDescription(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_DESCRIPTION)));
+        serviceModel.setImage(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_IMAGE)));
+        serviceModel.setReserved(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_RESERVED)));
+        serviceModel.setIdType(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_ID_TYPE)));
+        serviceModel.setValueType(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_VALUE_TYPE)));
+        serviceModel.setNameType(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_SERVICE_NAME_TYPE)));
 
         return serviceModel;
     }

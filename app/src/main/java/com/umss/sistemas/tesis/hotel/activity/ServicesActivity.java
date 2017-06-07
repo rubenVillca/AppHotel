@@ -33,8 +33,8 @@ public class ServicesActivity extends ActivityParent {
 
         pictureRecycler.setLayoutManager(linearLayoutManager);
 
-        ServiceAdapterRecycler homeAdapter=new ServiceAdapterRecycler(buildService(),R.layout.cardview_service,this);
-        pictureRecycler.setAdapter(homeAdapter);
+        ServiceAdapterRecycler adapterRecycler=new ServiceAdapterRecycler(buildService(),R.layout.cardview_service,this);
+        pictureRecycler.setAdapter(adapterRecycler);
     }
 
     public ArrayList<ServiceModel> buildService(){

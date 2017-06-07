@@ -5,77 +5,97 @@ import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 import java.util.ArrayList;
 
 public class ServiceModel  extends ModelParent {
-    private int serviceId;
-    private int serviceReserved;
-    private String serviceImage;
-    private String serviceName;
-    private String serviceType;
-    private String serviceDescription;
+    private int id;
+    private int reserved;
+    private String name="";
+    private String image;
+    private String description;
+    private int idType;
+    private String nameType;
+    private int valueType;
     private ArrayList<ServicePriceModel> servicePrice;
 
     public ServiceModel() {
-        serviceId = 0;
-        serviceReserved = 0;
-        this.serviceImage = "";
-        this.serviceName = "";
-        this.serviceType = "";
-        serviceDescription = "";
+        id = 0;
+        name="";
+        reserved = 0;
+        this.image = "";
+        this.nameType = "";
+        description = "";
+        idType =0;
+        valueType =0;
         servicePrice=new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<ServicePriceModel> getServicePrice() {
         return servicePrice;
     }
 
+    public int getIdType() {
+        return idType;
+    }
+
+    public void setIdType(int idType) {
+        this.idType = idType;
+    }
+
+    public int getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(int valueType) {
+        this.valueType = valueType;
+    }
+
     public void setServicePrice(ArrayList<ServicePriceModel> servicePrice) {
         this.servicePrice = servicePrice;
     }
 
-    public String getServiceDescription() {
-        return serviceDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setServiceDescription(String serviceDescription) {
-        this.serviceDescription = serviceDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getServiceId() {
-        return serviceId;
+    public int getId() {
+        return id;
     }
 
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getServiceReserved() {
-        return serviceReserved;
+    public int getReserved() {
+        return reserved;
     }
 
-    public void setServiceReserved(int serviceReserved) {
-        this.serviceReserved = serviceReserved;
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
     }
 
-    public String getServiceImage() {
-        return serviceImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setServiceImage(String serviceImage) {
-        this.serviceImage = serviceImage;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getNameType() {
+        return nameType;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public void setNameType(String nameType) {
+        this.nameType = nameType;
     }
 }

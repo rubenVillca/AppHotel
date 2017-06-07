@@ -32,7 +32,7 @@ import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
-public class FoodActivity extends ActivityParent {
+public class ConsumeFoodActivity extends ActivityParent {
 
     private TextView nameFoodTextView;
     private TextView typeFoodTextView;
@@ -50,7 +50,7 @@ public class FoodActivity extends ActivityParent {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_consume_food);
         container=findViewById(R.id.layoutFoodCoordinator);
         initContent();
         getBundle();

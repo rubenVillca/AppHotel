@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,12 +23,12 @@ import java.util.ArrayList;
 
 public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterRecycler.ServiceViewHolder>{
 
-    private ArrayList<ServiceModel> servicesImage;
+    private ArrayList<ServiceModel> serviceModels;
     private int resource;
     private Activity activity;
 
-    public ServiceAdapterRecycler(ArrayList<ServiceModel> servicesImage, int resource, Activity activity) {
-        this.servicesImage = servicesImage;
+    public ServiceAdapterRecycler(ArrayList<ServiceModel> serviceModels, int resource, Activity activity) {
+        this.serviceModels = serviceModels;
         this.resource = resource;
         this.activity = activity;
     }
@@ -40,19 +41,22 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
 
     @Override
     public void onBindViewHolder(ServiceViewHolder holder, int position) {
-        ServiceModel service=servicesImage.get(position);
-        final int idService=service.getServiceId();
-        holder.serviceNameCardView.setText(service.getServiceName());
-        holder.serviceTypeCardView.setText(service.getServiceType());
+        final ServiceModel serviceModel = serviceModels.get(position);
 
-        String urlImage = Conexion.urlServer+servicesImage.get(position).getServiceImage();
+        if (serviceModel.getIdType()==1){
+            holder.orderLinearLayoutService.setVisibility(View.VISIBLE);
+        }
+        holder.serviceNameCardView.setText(serviceModel.getName());
+        holder.serviceTypeCardView.setText(serviceModel.getNameType());
+
+        String urlImage = Conexion.urlServer+ serviceModels.get(position).getImage();
         Picasso.with(activity).load(urlImage).into(holder.servicePictureCardView);
 
         holder.servicePictureCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, ServiceDetailActivity.class);
-                intent.putExtra("idService",idService);
+                intent.putExtra("serviceModel",serviceModel);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                     Explode explode=new Explode();
@@ -68,13 +72,14 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
 
     @Override
     public int getItemCount() {
-        return servicesImage.size();
+        return serviceModels.size();
     }
 
     class ServiceViewHolder extends RecyclerView.ViewHolder{
         private ImageView servicePictureCardView;
         private TextView serviceNameCardView;
         private TextView serviceTypeCardView;
+        private LinearLayout orderLinearLayoutService;
 
         private ServiceViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +87,7 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
             servicePictureCardView=(ImageView)itemView.findViewById(R.id.imageServiceCardView);
             serviceNameCardView=(TextView)itemView.findViewById(R.id.nameServiceCardView);
             serviceTypeCardView=(TextView)itemView.findViewById(R.id.typeServiceCardView);
+            orderLinearLayoutService=(LinearLayout)itemView.findViewById(R.id.orderLinearLayoutService);
         }
     }
 }

@@ -71,11 +71,9 @@
 
             <TextView
                 android:id="@+id/contentServiceDetailTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/padding_horizontal_textcontent"
-                android:paddingRight="@dimen/padding_horizontal_textcontent"
                 android:paddingTop="@dimen/paddingtop_titleimagedetail"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/textsize_likenumberdetail" />

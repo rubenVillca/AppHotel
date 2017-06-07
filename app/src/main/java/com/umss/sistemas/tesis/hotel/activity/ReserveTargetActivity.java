@@ -172,6 +172,9 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         }
     }
 
+    /**
+     * enviar dtos de la reserva al servidor y guardar la reserva
+     */
     private void goReserveSave() {
         showProgress(true);
         helperSQLiteObtain = new HelperSQLiteObtain(this);

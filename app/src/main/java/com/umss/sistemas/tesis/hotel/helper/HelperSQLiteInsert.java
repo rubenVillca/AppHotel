@@ -1249,6 +1249,7 @@ public class HelperSQLiteInsert extends HelperParent {
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUME_FOOD);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OCCUPATION);
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_RESERVE);
+        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ARTICLE);
 
         for (CheckModel checkModel : checkModels) {
             ContentValues checkContent = new ContentValues();
@@ -1422,7 +1423,7 @@ public class HelperSQLiteInsert extends HelperParent {
             contentValues.put(DBSQLiteHelper.KEY_ARTICLE_ID_KEY_CONSUM, articleModel.getIdKeyConsum());
             contentValues.put(DBSQLiteHelper.KEY_ARTICLE_NAME, articleModel.getName());
             contentValues.put(DBSQLiteHelper.KEY_ARTICLE_DESCRIPTION, articleModel.getDescription());
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_IS_ACTIVE, articleModel.isActive());
+            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_IS_ACTIVE, articleModel.isActive()?1:0);
 
             if (db.insert(DBSQLiteHelper.TABLE_ARTICLE, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");

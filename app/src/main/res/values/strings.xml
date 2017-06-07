@@ -152,6 +152,7 @@
     <string name="label_detail">Detalle</string>
     <string name="label_cost_total">Costo total</string>
     <string name="label_hour_start">Hora de inicial</string>
+    <string name="action_title_update">Actualizar</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

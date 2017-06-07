@@ -30,8 +30,6 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     private EditText emailInput;
     private EditText passText, passText2, nameText, appText, phoneText;
     private RadioButton sexRadioH, sexRadioM;
-    private View mLoginFormView;
-    private View mProgressView;
     private String email;
     private String pass;
     private String pass2;
@@ -53,8 +51,6 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     }
 
     private void getDataView() {
-        //mLoginFormView = findViewById(R.id.register_form);
-        //mProgressView = findViewById(R.id.register_progress);
         emailInput = (EditText) findViewById(R.id.email);
         passText = (EditText) findViewById(R.id.passwordCreateAccout);
         passText2 = (EditText) findViewById(R.id.repeatPassword);

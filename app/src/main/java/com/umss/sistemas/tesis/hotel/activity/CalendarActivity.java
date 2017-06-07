@@ -38,7 +38,6 @@ public class CalendarActivity extends ActivityParent {
 
     public ArrayList<ActivityModel> buildCalendar() {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
-
         return helperSQLiteObtain.getActivityModel(0);
     }
 }

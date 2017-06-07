@@ -36,21 +36,38 @@ public class ActivityParent extends AppCompatActivity {
 
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        container.setVisibility(show ? View.GONE : View.VISIBLE);
-        container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                container.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
+        if (show) {
+            container.setVisibility(show ? View.GONE : View.VISIBLE);
+            container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    container.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
 
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        }else{
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+            container.setVisibility(show ? View.GONE : View.VISIBLE);
+            container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    container.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+        }
     }
 
     /**

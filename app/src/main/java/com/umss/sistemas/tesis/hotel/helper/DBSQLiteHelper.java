@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 55;
+    public static final int DATABASE_VERSION = 56;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -176,11 +176,12 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
 
     //article
     static final String TABLE_ARTICLE = "article";
+    private static final String KEY_ARTICLE_ID_PRIMARY = "idPrimaryKeyArticle";
     static final String KEY_ARTICLE_ID = "idArticle";
-    static final String KEY_ARTICLE_ID_KEY_CONSUM = "idkeyconsumArticle";
+    static final String KEY_ARTICLE_ID_KEY_CONSUM = "idKeyConsumeArticle";
     static final String KEY_ARTICLE_NAME = "nameArticle";
     static final String KEY_ARTICLE_DESCRIPTION = "descriptionArticle";
-    static final String KEY_ARTICLE_IS_ACTIVE = "isactiveArticle";
+    static final String KEY_ARTICLE_IS_ACTIVE = "isActiveArticle";
 
     //cardTarget
     static final String TABLE_CARD = "cardTarget";
@@ -598,7 +599,8 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      */
     private String getTableArticle() {
         return "CREATE TABLE " + TABLE_ARTICLE + " ( "
-                + KEY_ARTICLE_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ARTICLE_ID_PRIMARY + " INTEGER PRIMARY KEY,"
+                + KEY_ARTICLE_ID + " INTEGER,"
                 + KEY_ARTICLE_ID_KEY_CONSUM + " INTEGER,"
                 + KEY_ARTICLE_NAME + " TEXT,"
                 + KEY_ARTICLE_DESCRIPTION + " TEXT,"

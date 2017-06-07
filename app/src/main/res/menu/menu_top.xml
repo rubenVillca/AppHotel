@@ -3,9 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.ContainerActivity">
+    <item android:id="@+id/action_sync"
+        android:title="@string/action_title_update"
+        android:icon="@drawable/ic_refresh"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_title_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         app:showAsAction="never" />
     <item android:id="@+id/action_frequently"
         android:title="@string/action_title_frequently"

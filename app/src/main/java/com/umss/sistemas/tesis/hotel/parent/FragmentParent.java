@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
@@ -22,14 +21,8 @@ import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
-import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
 
@@ -37,8 +30,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     protected HelperSQLiteObtain helperSQLiteObtain;
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
-    private AsyncHttpClient client;
-    private RequestParams params;
     protected ActivityParent containerActivity;
 
     /**
@@ -80,439 +71,42 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
         helperSQLiteObtain = new HelperSQLiteObtain(getContext());
-        client = new AsyncHttpClient();
-        params = new RequestParams();
 
         switch (v.getId()) {
             case R.id.fab:
-                goMessages();
+                goMessageActivity();
                 break;
             case R.id.imageOffer:
-                goOffer();
+                goOfferActivity();
                 break;
             case R.id.imageSiteTour:
-                goSiteTour();
+                goSiteTourActivity();
                 break;
             case R.id.imageService:
-                goService();
+                goServiceActivity();
                 break;
             case R.id.imageAboutHotel:
-                goAbout();
+                goAboutActivity();
                 break;
             case R.id.imageReserve:
-                goReserveVerify();
+                goReserveVerifyActivity();
                 break;
             case R.id.imageLocationMap:
-                goLocation();
+                goLocationActivity();
                 break;
             case R.id.imageActivity:
-                goCalendar();
+                goCalendarActivity();
                 break;
             case R.id.imageServiceFood:
-                goServiceFood();
+                goServiceFoodActivity();
                 break;
             case R.id.imageHistory:
-                goHistory();
+                goHistoryActivity();
                 break;
             case R.id.imageConsum:
-                goConsume();
+                goConsumeActivity();
                 break;
         }
-    }
-
-    //****************************************GO****************************************************
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Check
-     */
-    private void goReserveVerify() {
-        containerActivity.showProgress(true);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goReserveVerifyActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goReserveVerifyActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Check
-     */
-    private void goConsume() {
-        containerActivity.showProgress(true);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goConsumeActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goConsumeActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Check
-     */
-    private void goHistory() {
-        containerActivity.showProgress(true);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goHistoryActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goHistoryActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Calendar
-     */
-    private void goCalendar() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.CALENDAR), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCalendar(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goCalendarActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goCalendarActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Messages
-     */
-    private void goMessages() {
-        containerActivity.showProgress(true);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.MESSAGES), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpMessages(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goMessageActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goMessageActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tablaMenuFood
-     */
-    private void goServiceFood() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.FOOD_MENU), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpFoodMenu(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goServiceFoodActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goServiceFoodActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla offer
-     */
-    private void goOffer() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.OFFER), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpOffer(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goOfferActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                goOfferActivity();
-                containerActivity.showProgress(false);
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla about
-     */
-    private void goAbout() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpAbout(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goAboutActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goAboutActivity();
-                containerActivity.showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla service
-     */
-    private void goService() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpService(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goServiceActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goServiceActivity();
-                containerActivity.showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla location
-     */
-    private void goLocation() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpAbout(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goLocationActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goLocationActivity();
-                containerActivity.showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
-
-
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla siteTour y siteToutImage
-     */
-    private void goSiteTour() {
-        containerActivity.showProgress(true);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.SITES), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpSiteTour(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                goSiteTourActivity();
-                containerActivity.showProgress(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                goSiteTourActivity();
-                containerActivity.showProgress(false);
-                System.out.println("Servidor no disponible");
-            }
-        });
-
     }
 
     //*************************************GO_ACTIVITY**********************************************

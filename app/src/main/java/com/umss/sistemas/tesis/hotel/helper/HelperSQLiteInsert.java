@@ -689,7 +689,6 @@ public class HelperSQLiteInsert extends HelperParent {
 
     private ArrayList<ConsumeFoodModel> getConsumeFoodModelJSON(JSONObject obj) {
         ArrayList<ConsumeFoodModel> consumeFoodArray = new ArrayList<>();
-
         try {
             JSONArray consumeFoodJSONArray = obj.getJSONArray("consumeFood");
 
@@ -1531,6 +1530,27 @@ public class HelperSQLiteInsert extends HelperParent {
      * cerrar session del usuario, cambiar el estado de la tabla logout
      */
     public void logoutAction() {
-        db.execSQL("UPDATE " + DBSQLiteHelper.TABLE_LOGIN + " SET " + DBSQLiteHelper.KEY_LOGIN_STATE + "=0");
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_LOGIN);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_PERSON);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ABOUT);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SERVICE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_PRICE_SERVICE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SITE_TOUR);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OFFER);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD_MENU);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD_PRICE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CHECK);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUM);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ARTICLE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CARD);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_MEMBER);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_MESSAGE);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ACTIVITY);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FREQUENTLY);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUME_FOOD);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OCCUPATION);
+        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_RESERVE);
     }
 }

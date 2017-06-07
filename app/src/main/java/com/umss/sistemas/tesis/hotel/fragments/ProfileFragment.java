@@ -90,7 +90,7 @@ public class ProfileFragment extends FragmentParent {
     }
 
     private void showContentProfile(View view) {
-        PersonModel profile = helperSQLiteObtain.getPersonModel(0);
+        PersonModel profile = helperSQLiteObtain.getPersonModel(helperSQLiteObtain.getLoginModel().getIdPerson());
         showDataProfile(profile, view);
         imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
@@ -115,7 +115,7 @@ public class ProfileFragment extends FragmentParent {
      */
     private void showDataProfile(PersonModel profile, View view) {
         TextView nameUser = (TextView) view.findViewById(R.id.userNameProfile);
-        nameUser.setText(profile.getNamePerson() + " " + profile.getNameLastPerson());
+        nameUser.setText(profile.getNamePerson()+"\n"+profile.getNameLastPerson());
 
         TextView name = (TextView) view.findViewById(R.id.profileNamePerson);
         name.setText(profile.getNamePerson());

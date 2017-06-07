@@ -25,22 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/marginTop_profile"
                 android:paddingTop="@dimen/paddingtop_profile">
-
 
                 <TextView
                     android:id="@+id/userNameProfile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_card"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/textsize_usernameprofile"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                    android:gravity="center"
+                    android:textSize="@dimen/textsize_usernameprofile" />
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar

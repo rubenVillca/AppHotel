@@ -746,7 +746,9 @@ public class HelperSQLiteObtain extends HelperParent {
         personModel.setCountryPerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_COUNTRY)));
         personModel.setSexPerson((byte) cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_SEX)));
         personModel.setImgPerson(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_IMG_PERSON)));
-
+        personModel.setTypeDocument(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT)));
+        personModel.setNumberDocument(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT)));
+        personModel.setNumberPhone(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NUMBER_PHONE)));
         return personModel;
     }
 

@@ -3,21 +3,21 @@ package com.umss.sistemas.tesis.hotel.model;
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
 public class PersonModel extends ModelParent {
-    protected int idPerson;
-    protected byte sexPerson;
-    protected int pointPerson;
-    protected int numberDocument;
-    protected int numberPhone;
-    protected String emailPerson;
-    protected String namePerson;
-    protected String nameLastPerson;
-    protected String cityPerson;
-    protected String countryPerson;
-    protected String addressPerson;
-    protected String imgPerson;
-    protected String dateBornPerson;
-    protected String dateRegisterPerson;
-    protected String typeDocument;
+    private int idPerson;
+    private byte sexPerson;
+    private int pointPerson;
+    private int numberDocument;
+    private int numberPhone;
+    private String emailPerson;
+    private String namePerson;
+    private String nameLastPerson;
+    private String cityPerson;
+    private String countryPerson;
+    private String addressPerson;
+    private String imgPerson;
+    private String dateBornPerson;
+    private String dateRegisterPerson;
+    private String typeDocument;
 
     public PersonModel() {
         this.idPerson = 0;

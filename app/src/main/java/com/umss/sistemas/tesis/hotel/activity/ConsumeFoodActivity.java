@@ -46,6 +46,7 @@ public class ConsumeFoodActivity extends ActivityParent {
     private CheckModel checkModel;
     private FoodModel foodModel;
     private FoodPriceModel foodPriceModelMin;
+    private int idPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class ConsumeFoodActivity extends ActivityParent {
         getBundle();
         super.showToolBar(foodModel.getName(), true);
         updateContent();
+        updateTotalCost();
     }
 
     private void getBundle() {
@@ -63,6 +65,7 @@ public class ConsumeFoodActivity extends ActivityParent {
         typeMoneyHashMap = new HashMap<>();
         helperSQLiteObtain = new HelperSQLiteObtain(this);
 
+        idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
         ArrayList<CheckModel> checkModelArrayList = helperSQLiteObtain.getCheckModel(0, 1, 2);
         if (!checkModelArrayList.isEmpty())
             checkModel = checkModelArrayList.get(0);
@@ -135,7 +138,7 @@ public class ConsumeFoodActivity extends ActivityParent {
 
             }
         });
-        updateTotalCost();
+
     }
 
     private void updateTotalCost() {
@@ -151,7 +154,7 @@ public class ConsumeFoodActivity extends ActivityParent {
             }
         }
         if (foodPriceModelMin != null)
-            priceTotalFoodTextView.setText(String.valueOf(foodPriceModelMin.getPrice() * (unit/foodPriceModelMin.getUnit())));
+            priceTotalFoodTextView.setText(String.valueOf(foodPriceModelMin.getPrice() * (1.0*unit/foodPriceModelMin.getUnit())));
     }
 
     public void goMenuFood(View view) {
@@ -162,11 +165,12 @@ public class ConsumeFoodActivity extends ActivityParent {
         params.put("android", "android");
 
         params.put("idFood", foodModel.getId());
+        params.put("idPerson", idPerson);
         params.put("idCheck", checkModel.getId());
         params.put("idTypeMoney",foodPriceModelMin.getIdKeyTypeMoneyFood());
         params.put("price",foodPriceModelMin.getPrice());
         params.put("unit",foodPriceModelMin.getUnit());
-        params.put("pointObtain",foodPriceModelMin.getPointObtain());
+            params.put("pointObtain",foodPriceModelMin.getPointObtain());
         params.put("pointRequired",foodPriceModelMin.getPointRequired());
         params.put("unitTotal",unitSpinnerFood.getSelectedItem().toString());
         params.put("priceTotal",priceTotalFoodTextView.getText());

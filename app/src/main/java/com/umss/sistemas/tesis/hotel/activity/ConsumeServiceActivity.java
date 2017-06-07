@@ -34,6 +34,7 @@ public class ConsumeServiceActivity extends ActivityParent {
     private ServiceModel serviceModel;
     private ServicePriceModel servicePriceModelMin;
     private int idCheck;
+    private int idPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +45,14 @@ public class ConsumeServiceActivity extends ActivityParent {
 
         initVar();
         initContent();
+        updateCost();
     }
 
     private void initVar() {
         serviceModel = (ServiceModel) getIntent().getExtras().getSerializable("serviceModel");
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         idCheck = helperSQLiteObtain.getCheckModel(0, 1, 2).get(0).getId();
+        idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
     }
 
     private void initContent() {
@@ -99,9 +102,6 @@ public class ConsumeServiceActivity extends ActivityParent {
 
         detailEditTextConsume = (EditText) findViewById(R.id.detailEditTextConsume);
         costTotalTextViewConsume = (TextView) findViewById(R.id.costTotalTextViewConsume);
-
-        updateCost();
-
     }
 
     /**
@@ -121,7 +121,7 @@ public class ConsumeServiceActivity extends ActivityParent {
             }
         }
         if (servicePriceModelMin != null)
-            costTotalTextViewConsume.setText(String.valueOf(servicePriceModelMin.getServicePricePrice() * (unit/servicePriceModelMin.getServicePriceUnit())));
+            costTotalTextViewConsume.setText(String.valueOf(servicePriceModelMin.getServicePricePrice() * (1.0*unit/servicePriceModelMin.getServicePriceUnit())));
     }
 
     public void sendConsumeService(View view) {
@@ -130,9 +130,11 @@ public class ConsumeServiceActivity extends ActivityParent {
         RequestParams params = new RequestParams();
 
         params.put("android", "android");
-
+        params.put("idPerson",idPerson);
         params.put("idCheck", idCheck);
         params.put("idCost",servicePriceModelMin.getServicePriceId());
+        params.put("pointObtain",servicePriceModelMin.getServicePricePointObtain());
+        params.put("pointRequired",servicePriceModelMin.getServicePricePointRequired());
         params.put("idService", serviceModel.getId());
         params.put("unit", unitSpinnerConsume.getSelectedItem().toString());
         params.put("duration", timeDurationSpinnerConsume.getSelectedItem().toString());

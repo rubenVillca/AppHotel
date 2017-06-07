@@ -640,7 +640,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 foodPriceModel.setTypeMoney(foodPriceObject.getString("NAME_TYPE_MONEY"));
                 foodPriceModel.setPrice(foodPriceObject.getDouble("PRICE_COST_FOOD"));
                 foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_OBTAIN_COST_FOOD"));
-                foodPriceModel.setPointObtain(foodPriceObject.getInt("POINT_REQUIRED_COST_FOOD"));
+                foodPriceModel.setPointRequired(foodPriceObject.getInt("POINT_REQUIRED_COST_FOOD"));
                 foodPriceModel.setUnit(foodPriceObject.getInt("UNIT_COST_FOOD"));
 
                 foodPriceArray.add(foodPriceModel);

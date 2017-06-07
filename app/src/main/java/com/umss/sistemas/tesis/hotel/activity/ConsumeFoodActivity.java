@@ -170,7 +170,7 @@ public class ConsumeFoodActivity extends ActivityParent {
         params.put("idTypeMoney",foodPriceModelMin.getIdKeyTypeMoneyFood());
         params.put("price",foodPriceModelMin.getPrice());
         params.put("unit",foodPriceModelMin.getUnit());
-            params.put("pointObtain",foodPriceModelMin.getPointObtain());
+        params.put("pointObtain",foodPriceModelMin.getPointObtain());
         params.put("pointRequired",foodPriceModelMin.getPointRequired());
         params.put("unitTotal",unitSpinnerFood.getSelectedItem().toString());
         params.put("priceTotal",priceTotalFoodTextView.getText());

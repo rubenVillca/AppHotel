@@ -25,8 +25,10 @@ public class Conexion {
     public static final int FOOD_MENU_INSERT = 21;
     public static final int CONSUME_SERVICE = 22;
 
-    private static String ip = "http://192.168.1.36/";
-    private static String dirUser = "hotel/";
+    /*private static String ip = "http://192.168.1.40/";
+    private static String dirUser = "hotel/";*/
+    private static String ip = "http://hoteltesis.esy.es/";
+    private static String dirUser = "";
     private static String[] pagina = {
             "login",
             "createAccount",

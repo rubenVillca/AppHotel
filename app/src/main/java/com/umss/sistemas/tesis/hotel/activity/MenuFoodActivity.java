@@ -43,7 +43,6 @@ public class MenuFoodActivity extends ActivityParent {
 
     public ArrayList<FoodMenuModel> buildMenu(){
         helperSQLiteObtain =new HelperSQLiteObtain(this);
-
         return helperSQLiteObtain.getFoodMenuModel(0);
     }
 }

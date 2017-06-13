@@ -33,7 +33,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class ContainerActivity extends ActivityParent {
     private int idPerson;
-    private double progressSync;
+    private int progressSync;
     private ProgressBar progressBarAdvanced;
 
     @Override
@@ -41,11 +41,11 @@ public class ContainerActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
         container = findViewById(R.id.container);
-        progressBarAdvanced=(ProgressBar)findViewById(R.id.progressBarAdvanced);
+        progressBarAdvanced = (ProgressBar) findViewById(R.id.progressBarAdvanced);
         helperSQLiteObtain = new HelperSQLiteObtain(this);
 
-        obtainDataBundle();
         setActionBottomBar();
+        obtainDataBundle();
     }
 
     private void obtainDataBundle() {
@@ -151,9 +151,48 @@ public class ContainerActivity extends ActivityParent {
     }
 
     private void updateProgressSync() {
-        progressSync += 1.0*100 / 13;
-        progressBarAdvanced.setProgress((int) progressSync);
-        if (progressSync >= 100) {
+        progressSync += 1;
+        switch (progressSync) {
+            case 1:
+                syncFrequently();
+                break;
+            case 2:
+                syncSiteTour();
+                break;
+            case 3:
+                syncLocation();
+                break;
+            case 4:
+                syncConsume();
+                break;
+            case 5:
+                syncHistory();
+                break;
+            case 6:
+                syncCalendar();
+                break;
+            case 7:
+                syncMessages();
+                break;
+            case 8:
+                syncServiceFood();
+                break;
+            case 9:
+                syncOffer();
+                break;
+            case 10:
+                syncAbout();
+                break;
+            case 11:
+                syncService();
+                break;
+            case 12:
+                syncCheck();
+                break;
+        }
+
+        progressBarAdvanced.setProgress((int) (1.0 * 100 * progressSync / 13));
+        if (progressSync == 13) {
             showProgress(false);
             progressBarAdvanced.setVisibility(View.INVISIBLE);
         }
@@ -164,24 +203,12 @@ public class ContainerActivity extends ActivityParent {
      */
     private void syncSQLite() {
         progressSync = 0;
-        progressBarAdvanced.setProgress((int) progressSync);
+        progressBarAdvanced.setProgress(progressSync);
         progressBarAdvanced.setVisibility(View.VISIBLE);
         showProgress(true);
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
         syncProfile();
-        syncFrequently();
-        syncSiteTour();
-        syncLocation();
-        syncConsume();
-        syncHistory();
-        syncCalendar();
-        syncMessages();
-        syncServiceFood();
-        syncOffer();
-        syncAbout();
-        syncService();
-        syncCheck();
     }
 
     private void syncFrequently() {

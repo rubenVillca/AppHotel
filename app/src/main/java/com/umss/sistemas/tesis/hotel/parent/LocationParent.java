@@ -56,8 +56,7 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
 
     @Override
     public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(this, "Espere un momento.",
-                "Buscando ruta..!", true);
+        progressDialog = ProgressDialog.show(this, "Espere un momento.", "Buscando ruta..!", true);
 
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
@@ -74,10 +73,6 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
         if (polylinePaths != null) {
             for (Polyline polyline : polylinePaths) {
                 polyline.remove();
-            }
-
-            if (polylinePaths.isEmpty()){
-                Toast.makeText(this, "Ruta no encontrada", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -112,6 +107,9 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
 
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(ruta.startLocation, zoomMap);
             mMap.animateCamera(cameraUpdate);
+        }
+        if (polylinePaths.isEmpty()){
+            Toast.makeText(this, "Ruta no encontrada", Toast.LENGTH_LONG).show();
         }
     }
 }

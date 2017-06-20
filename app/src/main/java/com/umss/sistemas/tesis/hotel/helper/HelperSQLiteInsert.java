@@ -931,7 +931,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 frequentlyModel.setNameInquest(frequentlyObject.getString("NAME_INQUEST"));
                 frequentlyModel.setQuestion(frequentlyObject.getString("DESCRIPTION_QUESTION"));
                 frequentlyModel.setResponse(frequentlyObject.getString("DESCRIPTION_RESPONSE"));
-                frequentlyModel.setTypeInquest(frequentlyObject.getInt("VALUE_STATE_INQUEST"));//no necesario
+                frequentlyModel.setTypeInquest(frequentlyObject.getInt("VALUE_STATE_INQUEST"));
                 frequentlyModel.setActive(frequentlyObject.getInt("ACTIVE_QUESTION") > 0);
 
                 frequentlyModelArrayList.add(frequentlyModel);
@@ -1278,7 +1278,7 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param consumeFoodModelArrayList:lista de alimentos consumidos
      */
-    private void insertConsumeFoodSQLite(ArrayList<ConsumeFoodModel> consumeFoodModelArrayList) {
+    public void insertConsumeFoodSQLite(ArrayList<ConsumeFoodModel> consumeFoodModelArrayList) {
         for (ConsumeFoodModel consumeFoodModel : consumeFoodModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
@@ -1552,5 +1552,10 @@ public class HelperSQLiteInsert extends HelperParent {
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUME_FOOD);
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OCCUPATION);
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_RESERVE);
+    }
+
+    public void insetConsumeFood(int id, CharSequence text, int i, int idKeyTypeMoneyFood, String name, String description, int pointObtain, int pointRequired, int i1, String s, int unit) {
+        String query="";
+        db.execSQL(query);
     }
 }

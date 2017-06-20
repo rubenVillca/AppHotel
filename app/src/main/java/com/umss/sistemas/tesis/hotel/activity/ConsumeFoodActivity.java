@@ -18,6 +18,7 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
@@ -28,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
@@ -184,6 +187,26 @@ public class ConsumeFoodActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
+                        ConsumeFoodModel consumeFoodModel=new ConsumeFoodModel();
+
+                        consumeFoodModel.setIdKeyCheck(checkModel.getId());
+                        consumeFoodModel.setPrice(Double.parseDouble((String) priceTotalFoodTextView.getText()));
+                        consumeFoodModel.setPay(0);
+                        consumeFoodModel.setTypeMoney(foodPriceModelMin.getTypeMoney());
+                        consumeFoodModel.setNameFood(foodModel.getName());
+                        consumeFoodModel.setDescriptionFood(foodModel.getDescription());
+                        consumeFoodModel.setPointObtain(foodPriceModelMin.getPointObtain());
+                        consumeFoodModel.setPointRequired(foodPriceModelMin.getPointRequired());
+                        consumeFoodModel.setDateConsume(new Date().toString());
+                        consumeFoodModel.setTimeConsume(Calendar.getInstance().getTime().toString());
+                        consumeFoodModel.setSite(spinnerSiteFood.getSelectedItem().toString());
+                        consumeFoodModel.setState(0);
+                        consumeFoodModel.setUnitFood(Integer.parseInt(unitSpinnerFood.getSelectedItem().toString()));
+
+                        ArrayList<ConsumeFoodModel> arrayList=new ArrayList<>();
+                        arrayList.add(consumeFoodModel);
+                        helperSQLiteInsert.insertConsumeFoodSQLite(arrayList);
+
                         goMenuFoodActivity();
                         showMessaje("Pedido enviado");
                     } catch (JSONException e) {

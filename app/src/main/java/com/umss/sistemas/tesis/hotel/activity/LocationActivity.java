@@ -99,7 +99,7 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
-            myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            myLocationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
             mMap.setMyLocationEnabled(true);
         }

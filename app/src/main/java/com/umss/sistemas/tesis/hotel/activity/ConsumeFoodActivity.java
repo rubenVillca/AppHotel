@@ -197,8 +197,8 @@ public class ConsumeFoodActivity extends ActivityParent {
                         consumeFoodModel.setDescriptionFood(foodModel.getDescription());
                         consumeFoodModel.setPointObtain(foodPriceModelMin.getPointObtain());
                         consumeFoodModel.setPointRequired(foodPriceModelMin.getPointRequired());
-                        consumeFoodModel.setDateConsume(new Date().toString());
-                        consumeFoodModel.setTimeConsume(Calendar.getInstance().getTime().toString());
+                        consumeFoodModel.setDateConsume(Calendar.getInstance().get(Calendar.YEAR)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                        consumeFoodModel.setTimeConsume(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND));
                         consumeFoodModel.setSite(spinnerSiteFood.getSelectedItem().toString());
                         consumeFoodModel.setState(0);
                         consumeFoodModel.setUnitFood(Integer.parseInt(unitSpinnerFood.getSelectedItem().toString()));

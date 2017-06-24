@@ -1281,8 +1281,8 @@ public class HelperSQLiteInsert extends HelperParent {
     public void insertConsumeFoodSQLite(ArrayList<ConsumeFoodModel> consumeFoodModelArrayList) {
         for (ConsumeFoodModel consumeFoodModel : consumeFoodModelArrayList) {
             ContentValues contentValues = new ContentValues();
-
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID, consumeFoodModel.getIdConsume());
+            if (consumeFoodModel.getIdConsume()>0)
+                contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID, consumeFoodModel.getIdConsume());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK, consumeFoodModel.getIdKeyCheck());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PRICE, consumeFoodModel.getPrice());
             contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PAY, consumeFoodModel.getPay());
@@ -1332,11 +1332,11 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param consumeModelArrayList:lista de consumos hechos por el cliente en la cuenta del check  formato JAVa
      */
-    private void insertConsumeSQLite(ArrayList<ConsumeModel> consumeModelArrayList) {
+    public void insertConsumeSQLite(ArrayList<ConsumeModel> consumeModelArrayList) {
         for (ConsumeModel consumeModel : consumeModelArrayList) {
             ContentValues contentValues = new ContentValues();
-
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeModel.getIdConsum());
+            if (consumeModel.getIdConsum()>0)
+                contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeModel.getIdConsum());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumeModel.getDateInConsum());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumeModel.getTimeInConsum());
             contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumeModel.getDateOutConsum());
@@ -1552,10 +1552,5 @@ public class HelperSQLiteInsert extends HelperParent {
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUME_FOOD);
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OCCUPATION);
         db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_RESERVE);
-    }
-
-    public void insetConsumeFood(int id, CharSequence text, int i, int idKeyTypeMoneyFood, String name, String description, int pointObtain, int pointRequired, int i1, String s, int unit) {
-        String query="";
-        db.execSQL(query);
     }
 }

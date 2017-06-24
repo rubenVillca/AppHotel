@@ -315,23 +315,31 @@ public class HelperSQLiteObtain extends HelperParent {
         if (idCheck > 0) {//para un check especifico
             cursor = db.rawQuery("select *"
                     + " from " + DBSQLiteHelper.TABLE_CHECK
-                    + " where " + DBSQLiteHelper.KEY_CHECK_ID + "=" + idCheck, null);
+                    + " where " + DBSQLiteHelper.KEY_CHECK_ID + "=" + idCheck
+                    +" ORDER BY "+DBSQLiteHelper.KEY_CHECK_ID+" DESC", null);
         } else {
             if (idStateCheck > 0) {//para los check con estado idState
                 if (idTypeCheck > 0) {
                     cursor = db.rawQuery("select *"
                             + " from " + DBSQLiteHelper.TABLE_CHECK
-                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck + " AND " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
+                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck
+                            + " AND " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck
+                            +" ORDER BY "+DBSQLiteHelper.KEY_CHECK_ID+" DESC", null);
                 } else {
                     cursor = db.rawQuery("select *"
                             + " from " + DBSQLiteHelper.TABLE_CHECK
-                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck, null);
+                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_STATE + "=" + idStateCheck
+                            +" ORDER BY "+DBSQLiteHelper.KEY_CHECK_ID+" DESC", null);
                 }
             } else {//para el historial
                 if (idTypeCheck > 0) {
-                    cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK + " where " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck, null);
+                    cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK
+                            + " where " + DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE + "=" + idTypeCheck
+                            +" ORDER BY "+DBSQLiteHelper.KEY_CHECK_ID+" DESC", null);
                 } else {
-                    cursor = db.rawQuery("select * from " + DBSQLiteHelper.TABLE_CHECK, null);
+                    cursor = db.rawQuery("select * " +
+                            "from " + DBSQLiteHelper.TABLE_CHECK
+                            +" ORDER BY "+DBSQLiteHelper.KEY_CHECK_ID+" DESC", null);
                 }
             }
         }
@@ -361,7 +369,8 @@ public class HelperSQLiteObtain extends HelperParent {
         Cursor cursor;
         cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_CONSUME_FOOD
-                + " where " + DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK + "=" + idCheck, null);
+                + " where " + DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK + "=" + idCheck
+                +" ORDER BY "+DBSQLiteHelper.KEY_CONSUME_FOOD_ID+" DESC", null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -385,7 +394,8 @@ public class HelperSQLiteObtain extends HelperParent {
         Cursor cursor;
         cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_CONSUM
-                + " where " + DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK + "=" + idCheck, null);
+                + " where " + DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK + "=" + idCheck
+                +" ORDER BY "+DBSQLiteHelper.KEY_CONSUM_ID+" DESC", null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {

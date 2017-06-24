@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 57;
+    public static final int DATABASE_VERSION = 61;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login
@@ -572,7 +572,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      */
     private String getTableConsum() {
         return "CREATE TABLE " + TABLE_CONSUM + " ( "
-                + KEY_CONSUM_ID + " INTEGER PRIMARY KEY,"
+                + KEY_CONSUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_CONSUM_DATE_START + " TEXT,"
                 + KEY_CONSUM_TIME_START + " TEXT,"
                 + KEY_CONSUM_DATE_END + " TEXT,"
@@ -703,7 +703,7 @@ public class DBSQLiteHelper extends SQLiteOpenHelper {
      */
     private String getTableConsumeFood() {
         return "CREATE TABLE " + TABLE_CONSUME_FOOD + " ( "
-                + KEY_CONSUME_FOOD_ID + " INTEGER PRIMARY KEY,"
+                + KEY_CONSUME_FOOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_CONSUME_FOOD_ID_KEY_CHECK + " INTEGER,"
                 + KEY_CONSUME_FOOD_PRICE + " REAL,"
                 + KEY_CONSUME_FOOD_PAY + " REAL,"

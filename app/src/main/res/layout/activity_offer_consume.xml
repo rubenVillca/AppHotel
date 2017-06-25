@@ -9,4 +9,149 @@
 
     <include layout="@layout/actionbar_toolbar" />
 
+    <include layout="@layout/actionbar_progress_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollConsumeOffer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/label_unit"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <Spinner
+                    android:id="@+id/unitSpinnerConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/label_time"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <Spinner
+                    android:id="@+id/timeDurationSpinnerConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/label_hour_start"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <Spinner
+                    android:id="@+id/timeStartSpinnerConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/label_cost_total"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <TextView
+                    android:id="@+id/costTotalTextViewConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary" />
+
+                <EditText
+                    android:id="@+id/detailEditTextConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="8"
+                    android:gravity="top"
+                    android:hint="@string/label_detail"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSaveConsumeOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_primary_dark"
+                    android:text="@string/label_service"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary"
+                    android:onClick="sendConsumeOffer"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

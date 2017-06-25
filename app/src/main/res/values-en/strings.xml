@@ -6,4 +6,69 @@
     <string name="hint_password">Password</string>
     <string name="login">Login</string>
     <string name="dontAccount">¿No tienes cuenta?</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_reserve">Reserve</string>
+    <string name="action_send">Send Message</string>
+    <string name="action_title_complaints">Complaints</string>
+    <string name="action_title_frequently">Frequently</string>
+    <string name="action_title_logout">Logout</string>
+    <string name="action_title_menu">Hotel</string>
+    <string name="action_title_settings">Settings</string>
+    <string name="action_title_suggestion">Suggestion</string>
+    <string name="action_title_update">Update</string>
+    <string name="activityabout_text_address">Address</string>
+    <string name="activityabout_text_datefoundation">Date foundation</string>
+    <string name="activityabout_text_description">Description</string>
+    <string name="activityabout_text_domain">Domain</string>
+    <string name="activityabout_text_email">Email</string>
+    <string name="activityabout_text_history">History</string>
+    <string name="activityabout_text_lema">Watch word</string>
+    <string name="activityabout_text_alcance">Scope</string>
+    <string name="activityabout_text_mision">Mision</string>
+    <string name="activityabout_text_name">Name hotel:</string>
+    <string name="activityabout_text_objetive">Obejetive</string>
+    <string name="activityabout_text_phone">Phone</string>
+    <string name="activityabout_text_type">Type Hotel</string>
+    <string name="activityabout_text_vision">Vision</string>
+    <string name="address_site">Address</string>
+    <string name="btn_continue_reserve">Continue</string>
+    <string name="btn_create_account">Create account</string>
+    <string name="btn_message">Messages</string>
+    <string name="cardview_food_price">0</string>
+    <string name="cardview_type_money">$</string>
+    <string name="categoria">Category</string>
+    <string name="contentTextCardView">Message</string>
+    <string name="content_profile_textView_address">Address</string>
+    <string name="content_profile_textView_city">City</string>
+    <string name="content_profile_textView_country">Country</string>
+    <string name="content_profile_textView_dateborn">Date born</string>
+    <string name="content_profile_textView_dateregister">Date register</string>
+    <string name="content_profile_textView_email">Email:</string>
+    <string name="content_profile_textView_lastname">Last name:</string>
+    <string name="content_profile_textView_name">Name(s):</string>
+    <string name="content_profile_textView_numberdocument">Number Document</string>
+    <string name="content_profile_textView_numberphone">Phone</string>
+    <string name="content_profile_textView_point">"Point "</string>
+    <string name="content_profile_textView_sex">Sex</string>
+    <string name="content_profile_textView_typedocument">Type Document</string>
+    <string name="create_here">Create Account here</string>
+    <string name="dateSendCardView">Date send</string>
+    <string name="date_cardview_service">2017-12-12</string>
+    <string name="error_field_email">Email invalid</string>
+    <string name="error_field_email_repeat">The email is repeat</string>
+    <string name="error_field_name">Name Person</string>
+    <string name="error_field_nameApp">Last name Person</string>
+    <string name="error_field_pass2">Password not repeat</string>
+    <string name="error_field_phone">Phone invalid</string>
+    <string name="error_field_required">field requied</string>
+    <string name="error_incorrect_password">Password incorrect</string>
+    <string name="error_invalid_email">Email invalid</string>
+    <string name="error_invalid_password">Email is small</string>
+    <string-array name="header_table_price_services">
+        <item>Price</item>
+        <item>Time</item>
+        <item>Unit</item>
+        <item>Point obtain</item>
+        <item>Point required</item>
+    </string-array>
 </resources>

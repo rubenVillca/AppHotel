@@ -292,6 +292,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.MessagesActivity" />
         </activity>
+        <activity
+            android:name=".activity.OfferConsumeActivity"
+            android:parentActivityName=".activity.OfferActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.OfferActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -157,6 +157,7 @@
     <string name="toolbar_tittle_message">Mensaje</string>
     <string name="titleTextMessajeCardView">Título</string>
     <string name="typeTextCardView">Tipo</string>
+    <string name="toolbar_tittle_offer_consume">Consumir Oferta</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

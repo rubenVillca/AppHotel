@@ -153,6 +153,10 @@
     <string name="label_cost_total">Costo total</string>
     <string name="label_hour_start">Hora de inicial</string>
     <string name="action_title_update">Actualizar</string>
+    <string name="contentTextCardView">Mensaje</string>
+    <string name="toolbar_tittle_message">Mensaje</string>
+    <string name="titleTextMessajeCardView">Título</string>
+    <string name="typeTextCardView">Tipo</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

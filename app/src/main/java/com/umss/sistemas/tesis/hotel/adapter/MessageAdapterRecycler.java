@@ -1,13 +1,16 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.MessageActivity;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
 
 import java.util.ArrayList;
@@ -32,11 +35,19 @@ public class MessageAdapterRecycler extends RecyclerView.Adapter<MessageAdapterR
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        MessageModel messageModel=messages.get(position);
+        final MessageModel messageModel=messages.get(position);
 
         holder.senderCardView.setText(messageModel.getEmailSender());
         holder.dateCardView.setText(messageModel.getDateRecived());
         holder.titleCardView.setText(messageModel.getTittle());
+        holder.messageLinearLayoutCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity,MessageActivity.class);
+                intent.putExtra("messageModel",messageModel);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -48,10 +59,11 @@ public class MessageAdapterRecycler extends RecyclerView.Adapter<MessageAdapterR
         private TextView senderCardView;
         private TextView dateCardView;
         private TextView titleCardView;
+        private LinearLayout messageLinearLayoutCardView;
 
         private MessageViewHolder(View itemView) {
             super(itemView);
-
+            messageLinearLayoutCardView=(LinearLayout)itemView.findViewById(R.id.messageLinearLayoutCardView);
             senderCardView=(TextView)itemView.findViewById(R.id.remitentMessageCardViewText);
             dateCardView=(TextView)itemView.findViewById(R.id.dateMessageCardViewText);
             titleCardView=(TextView)itemView.findViewById(R.id.titleMessageCardViewText);

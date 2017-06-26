@@ -15,6 +15,78 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <Switch
+                    android:id="@+id/switchActiveAlarm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="updateStateAlarm"
+                    android:text="@string/activar_alarma"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutAlarm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anticipación (horas)"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_size_primary" />
+
+                        <Spinner
+                            android:id="@+id/timeSpinnerAlarm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbarSize="20dp"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_size_primary" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha de alarma:"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_size_primary" />
+
+                        <TextView
+                            android:id="@+id/hourAlarmActived"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_size_primary" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

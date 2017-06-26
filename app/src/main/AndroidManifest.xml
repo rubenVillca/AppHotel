@@ -300,6 +300,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.OfferActivity" />
         </activity>
+
+        <receiver android:name=".alarm.AlarmNotificationReceiver"/>
+        <receiver android:name=".alarm.AlarmToastReceiver"/>
     </application>
 
 </manifest>

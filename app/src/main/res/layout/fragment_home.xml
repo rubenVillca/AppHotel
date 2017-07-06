@@ -30,29 +30,28 @@
                     android:layout_height="match_parent"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:weightSum="1">
-
+                    android:weightSum="3">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
                         <ImageButton
-                            android:id="@+id/imageAboutHotel"
+                            android:id="@+id/imageConsum"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_about_1"
+                            android:background="@drawable/img_service_4"
                             android:contentDescription="@string/description_logo" />
 
                         <TextView
-                            android:id="@+id/textAboutHotel"
+                            android:id="@+id/textConsum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/label_home_icon_about"
+                            android:text="@string/label_home_icon_consume"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
@@ -60,7 +59,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -77,23 +76,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_site_tour"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -116,14 +107,23 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_service"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -141,24 +141,16 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_offer"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
 
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -175,6 +167,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_reserve"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
@@ -182,7 +175,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -200,6 +193,7 @@
                             android:gravity="center"
                             android:maxLines="3"
                             android:text="@string/label_home_icon_location"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
@@ -211,12 +205,12 @@
                     android:layout_height="match_parent"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:weightSum="3">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -233,6 +227,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_activity"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
@@ -240,7 +235,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -257,23 +252,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_food"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="@dimen/padding_homefragment_icon">
 
@@ -290,35 +277,12 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/label_home_icon_history"
+                            android:textSize="@dimen/text_size_primary"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/primary_text"/>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_homefragment_icon">
-
-                        <ImageButton
-                            android:id="@+id/imageConsum"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_home_icon_heigth"
-                            android:background="@drawable/img_service_4"
-                            android:contentDescription="@string/description_logo" />
-
-                        <TextView
-                            android:id="@+id/textConsum"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/label_home_icon_consume"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/primary_text"/>
-                    </LinearLayout>
-
                 </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>

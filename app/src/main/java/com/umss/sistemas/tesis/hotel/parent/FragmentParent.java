@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
@@ -85,9 +83,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
             case R.id.imageService:
                 goServiceActivity();
                 break;
-            case R.id.imageAboutHotel:
-                goAboutActivity();
-                break;
             case R.id.imageReserve:
                 goReserveVerifyActivity();
                 break;
@@ -110,15 +105,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     //*************************************GO_ACTIVITY**********************************************
-
-    /**
-     * Cambiar de activity a AboutActivity
-     */
-    private void goAboutActivity() {
-        Intent intent = new Intent(getActivity(), AboutActivity.class);
-        startActivity(intent);
-    }
-
     /**
      * cambiar de activity a serviceActivity
      */

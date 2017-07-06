@@ -51,7 +51,7 @@
     <string name="label_home_icon_about" translatable="false">Acerca de nosotros</string>
     <string name="label_home_icon_reserve" translatable="false">Reservas</string>
     <string name="label_home_icon_location" translatable="false">Ubicación</string>
-    <string name="label_home_icon_activity" translatable="false">Actividades</string>
+    <string name="label_home_icon_activity" translatable="false">Cronograma</string>
     <string name="label_home_icon_food" translatable="false">Menú</string>
     <string name="tab_offers" translatable="false">Ofertas</string>
     <string name="tab_sites_tour" translatable="false">Lugares turisticos</string>
@@ -158,7 +158,8 @@
     <string name="titleTextMessajeCardView" translatable="false">Título</string>
     <string name="typeTextCardView" translatable="false">Tipo</string>
     <string name="toolbar_tittle_offer_consume" translatable="false">Consumir Oferta</string>
-    <string name="activar_alarma">Activar Alarma</string>
+    <string name="activar_alarma" translatable="false">Activar Alarma</string>
+    <string name="action_title_about">Acerca de nosotros</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

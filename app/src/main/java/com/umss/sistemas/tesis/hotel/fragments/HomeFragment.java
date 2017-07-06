@@ -42,9 +42,6 @@ public class HomeFragment extends FragmentParent {
         ImageView imgService=(ImageView)view.findViewById(R.id.imageService);
         imgService.setOnClickListener(this);
 
-        ImageView imgAbout=(ImageView)view.findViewById(R.id.imageAboutHotel);
-        imgAbout.setOnClickListener(this);
-
         ImageView imgReserve=(ImageView)view.findViewById(R.id.imageReserve);
         imgReserve.setOnClickListener(this);
 

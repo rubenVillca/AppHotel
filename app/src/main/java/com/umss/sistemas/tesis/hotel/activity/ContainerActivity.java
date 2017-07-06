@@ -143,6 +143,10 @@ public class ContainerActivity extends ActivityParent {
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.action_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
             case R.id.action_sync:
                 syncSQLite();
                 break;

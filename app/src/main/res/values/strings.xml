@@ -58,7 +58,7 @@
     <string name="tab_activity" translatable="false">Calendario de actividades</string>
     <string name="tab_menu_food" translatable="false">Menu</string>
     <string name="tab_about" translatable="false">Acerca de nosotros</string>
-    <string name="tab_frequently" translatable="false">Preguntas frecuentes</string>
+    <string name="tab_frequently" translatable="false">Preguntas</string>
     <string name="tab_message_new" translatable="false">Contactenos</string>
     <string name="toolbar_tittle_about" translatable="false">Acerca de nosotros</string>
     <string name="toolbar_tittle_calendar" translatable="false">Calendario de actividades</string>

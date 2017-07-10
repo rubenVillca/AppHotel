@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ServiceModel  extends ModelParent {
@@ -64,6 +65,12 @@ public class ServiceModel  extends ModelParent {
     }
 
     public void setDescription(String description) {
+        try {
+            this.description = new String(description.getBytes("ISO-8859-15"), "UTF-8");
+            // unreadable -> Ã¤Ã¶Ã¼ÃÃÃÃÃ¡Ã©Ã­Ã³ÃºÃÃÃÃÃÃ Ã¨Ã¬Ã²Ã¹ÃÃÃÃÃÃ±Ã
+        } catch (UnsupportedEncodingException e) {
+            // handle error
+        }
         this.description = description;
     }
 

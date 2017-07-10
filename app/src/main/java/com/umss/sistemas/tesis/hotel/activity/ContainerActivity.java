@@ -136,8 +136,6 @@ public class ContainerActivity extends ActivityParent {
                 intent = new Intent(this, SuggestionActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.action_frequently:
-                break;
             case R.id.action_logout:
                 helperSQLiteInsert.logoutAction();
                 intent = new Intent(this, LoginActivity.class);

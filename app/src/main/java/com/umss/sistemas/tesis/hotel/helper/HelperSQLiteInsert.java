@@ -3,6 +3,7 @@ package com.umss.sistemas.tesis.hotel.helper;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
@@ -10,12 +11,12 @@ import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
-import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
-import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
+import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
+import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
@@ -240,7 +241,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 activityModel.setDateEnd(activityObject.getString("DATE_END_ACTIVITY"));
                 activityModel.setTimeStart(activityObject.getString("TIME_START_ACTIVITY"));
                 activityModel.setTimeEnd(activityObject.getString("TIME_END_ACTIVITY"));
-                activityModel.setName(activityObject.getString("NAME_ACTIVITY"));
+                activityModel.setName(Conexion.decode(activityObject.getString("NAME_ACTIVITY")));
                 activityModel.setDescription(activityObject.getString("DESCRIPTION_ACTIVITY"));
                 activityModel.setImage(activityObject.getString("IMAGE_ACTIVITY"));
 
@@ -374,12 +375,12 @@ public class HelperSQLiteInsert extends HelperParent {
                 ServiceModel serviceModel = new ServiceModel();
 
                 serviceModel.setId(service.getInt("ID_SERVICE"));
-                serviceModel.setName(service.getString("NAME_SERVICE"));
+                serviceModel.setName(Conexion.decode(service.getString("NAME_SERVICE")));
                 serviceModel.setReserved(service.getInt("RESERVED_SERVICE"));
-                serviceModel.setDescription(service.getString("DESCRIPTION_SERVICE"));
+                serviceModel.setDescription(Conexion.decode(service.getString("DESCRIPTION_SERVICE")));
                 serviceModel.setImage(service.getString("IMAGE_SERVICE"));
                 serviceModel.setIdType(service.getInt("ID_TYPE_SERVICE"));
-                serviceModel.setNameType(service.getString("NAME_TYPE_SERVICE"));
+                serviceModel.setNameType(Conexion.decode(service.getString("NAME_TYPE_SERVICE")));
                 serviceModel.setValueType(service.getInt("VALUE_TYPE_SERVICE"));
 
                 serviceModel.setServicePrice(getServicePriceModelJSON(service, serviceModel.getId(), false));
@@ -390,7 +391,6 @@ public class HelperSQLiteInsert extends HelperParent {
             System.out.println("Error: Objeto no convertible, " + e.toString());
             e.printStackTrace();
         }
-
         return servicesModel;
     }
 
@@ -891,7 +891,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 memberModel.setIdKeyConsum(memberObject.getInt("ID_CONSUME_SERVICE"));
                 memberModel.setIdPerson(memberObject.getInt("ID_PERSON"));
-                memberModel.setEmailPerson(memberObject.getString("EMAIL_PERSON"));
+                memberModel.setEmailPerson(Conexion.decode(memberObject.getString("EMAIL_PERSON")));
                 memberModel.setNamePerson(memberObject.getString("NAME_PERSON"));
                 memberModel.setNameLastPerson(memberObject.getString("LAST_NAME_PERSON"));
                 memberModel.setSexPerson((byte) memberObject.getInt("SEX_PERSON"));
@@ -928,9 +928,9 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 frequentlyModel.setId(frequentlyObject.getInt("ID_QUESTION"));
                 frequentlyModel.setIdInquest(frequentlyObject.getInt("ID_INQUEST"));
-                frequentlyModel.setNameInquest(frequentlyObject.getString("NAME_INQUEST"));
-                frequentlyModel.setQuestion(frequentlyObject.getString("DESCRIPTION_QUESTION"));
-                frequentlyModel.setResponse(frequentlyObject.getString("DESCRIPTION_RESPONSE"));
+                frequentlyModel.setNameInquest(Conexion.decode(frequentlyObject.getString("NAME_INQUEST")));
+                frequentlyModel.setQuestion(Conexion.decode(frequentlyObject.getString("DESCRIPTION_QUESTION")));
+                frequentlyModel.setResponse(Conexion.decode(frequentlyObject.getString("DESCRIPTION_RESPONSE")));
                 frequentlyModel.setTypeInquest(frequentlyObject.getInt("VALUE_STATE_INQUEST"));
                 frequentlyModel.setActive(frequentlyObject.getInt("ACTIVE_QUESTION") > 0);
 

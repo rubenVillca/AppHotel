@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.roughike.bottombar.BottomBar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,5 +11,5 @@
     app:bb_activeTabColor="@android:color/white"
     app:bb_inActiveTabColor="@android:color/white"
     app:bb_tabXmlResource="@xml/bottombar_tabs"
-    app:bb_behavior="underNavbar"
+
     />

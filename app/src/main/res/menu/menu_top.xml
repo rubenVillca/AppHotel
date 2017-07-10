@@ -13,10 +13,6 @@
         android:title="@string/action_title_settings"
         android:orderInCategory="101"
         app:showAsAction="never" />
-    <item android:id="@+id/action_frequently"
-        android:title="@string/action_title_frequently"
-        android:orderInCategory="102"
-        app:showAsAction="never"/>
     <item android:id="@+id/action_suggestion"
         android:title="@string/action_title_suggestion"
         android:orderInCategory="104"

@@ -1,5 +1,7 @@
 package com.umss.sistemas.tesis.hotel.conexion;
 
+import java.io.UnsupportedEncodingException;
+
 public class Conexion {
     public static final int LOGIN = 0;
     public static final int CREATE_ACCOUNT = 1;
@@ -24,9 +26,6 @@ public class Conexion {
     public static final int MEMBER_SAVE = 20;
     public static final int FOOD_MENU_INSERT = 21;
     public static final int CONSUME_SERVICE = 22;
-
-    //private static String ip = "http://192.168.1.39/hotel";
-    private static String ip = "http://hoteltesis.esy.es/";
 
     private static String[] pagina = {
             "login",
@@ -53,12 +52,26 @@ public class Conexion {
             "foodMenu/update",
             "consumeService/insert"
     };
+    //private static String ip = "http://192.168.1.39/hotel";
+    private static String ip = "http://hoteltesis.esy.es/";
+    private static boolean isServer=true;
     public static String urlServer = ip ;
 
     public static String getUrlServer(int i) {
         String res = "";
         if (pagina.length >= i)
             res = urlServer + pagina[i];
+        return res;
+    }
+    public static String decode(String string){
+        String res=string;
+        if (isServer) {
+            try {
+                res = new String(string.getBytes("ISO-8859-15"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
         return res;
     }
 }

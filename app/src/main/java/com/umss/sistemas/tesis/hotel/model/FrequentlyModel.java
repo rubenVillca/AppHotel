@@ -2,6 +2,8 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by ruben on 04/05/2017
  */
@@ -54,7 +56,7 @@ public class FrequentlyModel extends ModelParent {
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.question=question;
     }
 
     public String getResponse() {
@@ -62,7 +64,7 @@ public class FrequentlyModel extends ModelParent {
     }
 
     public void setResponse(String response) {
-        this.response = response;
+        this.response=response;
     }
 
     public int getTypeInquest() {

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
@@ -19,8 +22,14 @@ import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
 
@@ -29,6 +38,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     protected String mCurrentPhotoPath;
     protected static final int REQUEST_IMAGE_CAPTURE = 1;
     protected ActivityParent containerActivity;
+    private AsyncHttpClient client;
+    private RequestParams params;
 
     /**
      * barra superior de la activity en la q esta el boton de atras y el nombre de la misma
@@ -173,8 +184,42 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a ConsumeActivity
      */
     private void goConsumeActivity() {
-        Intent intent = new Intent(getActivity(), ConsumeActivity.class);
-        startActivity(intent);
+        containerActivity.showProgress(true);
+        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+
+        client = new AsyncHttpClient();
+        params = new RequestParams();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                Intent intent = new Intent(getActivity(), ConsumeActivity.class);
+                startActivity(intent);
+                containerActivity.showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                Intent intent = new Intent(getActivity(), ConsumeActivity.class);
+                startActivity(intent);
+                containerActivity.showProgress(false);
+            }
+        });
     }
 
     /**

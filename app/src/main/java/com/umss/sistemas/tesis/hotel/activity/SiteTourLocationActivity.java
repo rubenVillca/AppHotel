@@ -100,9 +100,10 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeUpdate, 0, locListener);
             myLocationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (myLocationGPS==null){
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
                 myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
             mMap.setMyLocationEnabled(true);

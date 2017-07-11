@@ -71,4 +71,5 @@
         <item>Point obtain</item>
         <item>Point required</item>
     </string-array>
+    <string name="action_title_about">About</string>
 </resources>

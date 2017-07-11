@@ -37,10 +37,23 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:layout_margin="0dp">
+                    <ImageView
+                        android:id="@+id/imageReserveList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_reserve"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -70,6 +83,12 @@
                             android:layout_width="27dp"
                             android:layout_height="27dp"
                             android:background="@drawable/ic_plus" />
+
+                        <ImageView
+                            android:id="@+id/btnMinusReserveCardView"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:background="@drawable/ic_cancel" />
                     </LinearLayout>
                 </LinearLayout>
 

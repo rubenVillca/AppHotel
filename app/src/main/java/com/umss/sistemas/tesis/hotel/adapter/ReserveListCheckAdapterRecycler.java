@@ -12,11 +12,16 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity;
+import com.umss.sistemas.tesis.hotel.conexion.Conexion;
+import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ServiceModel;
+import com.umss.sistemas.tesis.hotel.parent.HelperParent;
 
 import java.util.ArrayList;
 
@@ -41,6 +46,11 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     @Override
     public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
         final CheckModel checkModel = checkModels.get(position);
+        HelperSQLiteObtain helperParent=new HelperSQLiteObtain(activity);
+        ArrayList<ServiceModel> serviceModelArrayList=helperParent.getServiceModel(checkModel.getConsumeModelArrayList().get(0).getIdKeyService());
+        ServiceModel serviceModel = serviceModelArrayList.get(0);
+
+        Picasso.with(activity).load(Conexion.urlServer+serviceModel.getImage()).into(holder.imageReserveList);
 
         holder.checkReserveInTextView.setText(checkModel.getDateIn() + " " + checkModel.getTimeIn());
         holder.checkReserveOutTextView.setText(checkModel.getDateEnd() + " " + checkModel.getTimeEnd());
@@ -48,6 +58,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         for (CardModel cardModel: checkModel.getCardTargetArrayList()) {
             isVerify=cardModel.isValid();
         }
+
         holder.checkReserveVerifyTarget.setText(isVerify?"Verificado":"Pendiente");
         holder.checkReserveState.setText(checkModel.getNameState());
         double priceTotal = 0;
@@ -100,10 +111,12 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         TextView checkReserveVerifyTarget;
         TextView checkReserveState;
         ImageView btnPlusReserveCardView;
+        ImageView imageReserveList;
 
         private CheckReserveViewHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.consumeReserveRecyclerView);
+            imageReserveList=(ImageView)itemView.findViewById(R.id.imageReserveList);
             checkReserveInTextView = (TextView) itemView.findViewById(R.id.checkReserveInTextView);
             checkReserveOutTextView = (TextView) itemView.findViewById(R.id.checkReserveOutTextView);
             checkReserveCostTotal = (TextView) itemView.findViewById(R.id.checkReserveCostTotal);

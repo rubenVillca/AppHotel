@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ServiceModel  extends ModelParent {
     private int id;
     private int reserved;
-    private String name="";
+    private String name;
     private String image;
     private String description;
     private int idType;

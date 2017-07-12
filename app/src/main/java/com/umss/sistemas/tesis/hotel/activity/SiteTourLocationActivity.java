@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
@@ -136,12 +135,12 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
 
         @Override
         public void onProviderEnabled(String s) {
-            Toast.makeText(SiteTourLocationActivity.this, s + " Habilitado", Toast.LENGTH_LONG).show();
+            Toast.makeText(SiteTourLocationActivity.this, s + " Habilitado", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onProviderDisabled(String s) {
-            Toast.makeText(SiteTourLocationActivity.this, s + " Deshabilitado", Toast.LENGTH_LONG).show();
+            Toast.makeText(SiteTourLocationActivity.this, s + " Deshabilitado", Toast.LENGTH_SHORT).show();
 
         }
     };

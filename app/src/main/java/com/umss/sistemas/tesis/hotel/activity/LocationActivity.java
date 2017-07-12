@@ -104,8 +104,6 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
                 myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
-
-
             mMap.setMyLocationEnabled(true);
         }
 

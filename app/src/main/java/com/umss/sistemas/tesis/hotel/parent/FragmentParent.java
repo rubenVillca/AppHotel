@@ -128,6 +128,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a locationActivity
      */
     private void goLocationActivity() {
+        containerActivity.showProgress(true);
         Intent intent = new Intent(getActivity(), LocationActivity.class);
         startActivity(intent);
     }

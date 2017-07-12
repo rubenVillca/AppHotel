@@ -32,7 +32,7 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
     protected CameraUpdate cameraUpdate;
 
     protected static final int zoomMap = 16;
-    protected static final int timeUpdate = 50;
+    protected static final int timeUpdate = 200;
 
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();

@@ -36,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.text.Html.fromHtml;
+
 public class HelperSQLiteInsert extends HelperParent {
     public HelperSQLiteInsert(Context context) {
         super(context);
@@ -328,28 +330,30 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param obj: datos recividos del web server, objeto Acerca de
      * @return AboutModel: modelo de la about convertido en objeto
      */
+    @SuppressWarnings("deprecation")
     private AboutModel getAboutModelJSON(JSONObject obj) {
         AboutModel aboutModel = new AboutModel();
         try {
-            aboutModel.setId(1);
-            aboutModel.setPhoneHotel(obj.getInt("phoneHotel"));
-            aboutModel.setNameHotel(obj.getString("nameHotel"));
-            aboutModel.setMision(obj.getString("mision"));
-            aboutModel.setVision(obj.getString("vision"));
-            aboutModel.setAddress(obj.getString("address"));
-            aboutModel.setScope(obj.getString("scope"));
-            aboutModel.setHistory(obj.getString("history"));
-            aboutModel.setFundation(obj.getString("fundation"));
-            aboutModel.setWatchWord(obj.getString("watchWord"));
-            aboutModel.setObjetive(obj.getString("objetive"));
-            aboutModel.setEmail(obj.getString("email"));
-            aboutModel.setDescription(obj.getString("description"));
-            aboutModel.setLogoHotel(obj.getString("logoHotel"));
-            aboutModel.setAddressGPSX(obj.getString("addressGPSX"));
-            aboutModel.setAddressGPSY(obj.getString("addressGPSY"));
-            aboutModel.setAddressImage(obj.getString("addressImage"));
-            aboutModel.setType(obj.getString("typeHotel"));
-            aboutModel.setSiteWeb(obj.getString("siteWeb"));
+            JSONObject objectAbout = obj.getJSONObject("hotel");
+            aboutModel.setId(objectAbout.getInt("ID_HOTEL"));
+            aboutModel.setPhoneHotel(objectAbout.getInt("PHONE_HOTEL"));
+            aboutModel.setNameHotel(objectAbout.getString("NAME_HOTEL"));
+            aboutModel.setMision(String.valueOf(fromHtml(objectAbout.getString("MISSION_HOTEL"))));
+            aboutModel.setVision(String.valueOf(fromHtml(objectAbout.getString("VISION_HOTEL"))));
+            aboutModel.setAddress(String.valueOf(fromHtml(objectAbout.getString("ADDRESS_HOTEL"))));
+            aboutModel.setScope(String.valueOf(fromHtml(objectAbout.getString("SCOPE_HOTEL"))));
+            aboutModel.setHistory(String.valueOf(fromHtml(objectAbout.getString("HISTORY_HOTEL"))));
+            aboutModel.setFundation(objectAbout.getString("DATE_FOUNDATION_HOTEL"));
+            aboutModel.setWatchWord(String.valueOf(fromHtml(objectAbout.getString("WATCHWORD_HOTEL"))));
+            aboutModel.setObjetive(String.valueOf(fromHtml(objectAbout.getString("OBJECTIVE_HOTEL"))));
+            aboutModel.setEmail(objectAbout.getString("EMAIL_HOTEL"));
+            aboutModel.setDescription(String.valueOf(fromHtml(objectAbout.getString("DESCRIPTION_HOTEL"))));
+            aboutModel.setLogoHotel(objectAbout.getString("LOGO_HOTEL"));
+            aboutModel.setAddressGPSX(objectAbout.getString("ADDRESS_GPS_X_HOTEL"));
+            aboutModel.setAddressGPSY(objectAbout.getString("ADDRESS_GPS_Y_HOTEL"));
+            aboutModel.setAddressImage(objectAbout.getString("ADDRESS_IMAGE_HOTEL"));
+            aboutModel.setType(objectAbout.getString("NAME_TYPE_HOTEL"));
+            aboutModel.setSiteWeb(objectAbout.getString("DOMINIO_HOTEL"));
         } catch (JSONException e) {
             System.out.println("Datos no legibles");
         }

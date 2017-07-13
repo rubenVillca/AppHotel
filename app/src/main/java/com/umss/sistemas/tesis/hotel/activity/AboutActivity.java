@@ -22,6 +22,7 @@ public class AboutActivity extends ActivityParent {
     }
 
     private void showContentAbout(AboutModel about) {
+
         TextView phone=((TextView)findViewById(R.id.aboutHotelPhone));
         phone.setText(String.valueOf(about.getPhoneHotel()));
 

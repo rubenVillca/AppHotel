@@ -160,6 +160,8 @@
     <string name="toolbar_tittle_offer_consume" translatable="false">Consumir Oferta</string>
     <string name="activar_alarma" translatable="false">Activar Alarma</string>
     <string name="action_title_about">Acerca de nosotros</string>
+    <string name="loginFaceBook">Iniciar con Facebook</string>
+    <string name="loginGoogle">Iniciar con Google</string>
     <string-array name="header_table_price_services">
         <item>Precio</item>
         <item>Tiempo</item>

@@ -224,6 +224,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     /**
+     *
      * cambiar de activity a ReserveSearchActivity
      */
     private void goReserveVerifyActivity() {
@@ -231,5 +232,4 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         startActivity(intent);
         getActivity().finish();
     }
-
 }

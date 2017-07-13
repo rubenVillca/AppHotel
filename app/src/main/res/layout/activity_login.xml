@@ -19,8 +19,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
             android:padding="16dp">
 
             <ImageView
@@ -35,8 +35,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
+            android:layout_height="0dp"
+            android:layout_weight="0.75"
             android:fillViewport="true">
 
             <LinearLayout
@@ -79,6 +79,28 @@
                     android:onClick="goContainerActivity"
                     android:text="@string/login"
                     android:theme="@style/RaisedButtonDark" />
+
+                <Button
+                    android:id="@+id/loginFacebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:onClick="goContainerActivity"
+                    android:text="@string/loginFaceBook"
+                    android:theme="@style/RaisedButtonDark"
+                    tools:targetApi="lollipop" />
+
+                <Button
+                    android:id="@+id/loginGoogle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@android:color/holo_red_light"
+                    android:onClick="goContainerActivity"
+                    android:text="@string/loginGoogle"
+                    android:theme="@style/RaisedButtonDark"
+                    tools:targetApi="lollipop" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

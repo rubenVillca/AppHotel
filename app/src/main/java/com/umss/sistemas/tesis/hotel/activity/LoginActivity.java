@@ -1,10 +1,12 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -49,6 +51,10 @@ public class LoginActivity extends ActivityParent {
      * @param view:activity login
      */
     public void goContainerActivity(View view) {
+        //ocultar teclado
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
         boolean cancel = isValidLogin();
         if (!cancel) {
             iniciarSession();
@@ -99,6 +105,7 @@ public class LoginActivity extends ActivityParent {
                             break;
                         default:
                             helperSQLiteInsert.syncUpLogin(idPerson, passText, 1);
+                            showProgress(false);
                             goHomeFragment(idPerson);
                             showMessaje("Ha iniciado Sesion");
                             break;

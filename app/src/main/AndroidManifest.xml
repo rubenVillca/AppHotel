@@ -58,7 +58,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.LoginActivity" />
         </activity>
-        <activity android:name=".activity.ContainerActivity" />
+        <activity android:name=".activity.ContainerActivity"
+            android:icon="@drawable/ic_logo"/>
         <activity
             android:name=".activity.ServiceDetailActivity"
             android:parentActivityName=".activity.ServicesActivity"

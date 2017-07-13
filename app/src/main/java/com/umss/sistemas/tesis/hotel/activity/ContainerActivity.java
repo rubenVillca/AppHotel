@@ -26,6 +26,7 @@ import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -162,39 +163,36 @@ public class ContainerActivity extends ActivityParent {
                 syncSiteTour();
                 break;
             case 3:
-                syncLocation();
-                break;
-            case 4:
                 syncConsume();
                 break;
-            case 5:
+            case 4:
                 syncHistory();
                 break;
-            case 6:
+            case 5:
                 syncCalendar();
                 break;
-            case 7:
+            case 6:
                 syncMessages();
                 break;
-            case 8:
+            case 7:
                 syncServiceFood();
                 break;
-            case 9:
+            case 8:
                 syncOffer();
                 break;
-            case 10:
+            case 9:
                 syncAbout();
                 break;
-            case 11:
+            case 10:
                 syncService();
                 break;
-            case 12:
+            case 11:
                 syncCheck();
                 break;
         }
 
-        progressBarAdvanced.setProgress((int) (1.0 * 100 * progressSync / 13));
-        if (progressSync == 13) {
+        progressBarAdvanced.setProgress((int) (1.0 * 100 * progressSync / 12));
+        if (progressSync == 12) {
             showProgress(false);
             progressBarAdvanced.setVisibility(View.INVISIBLE);
         }
@@ -309,40 +307,6 @@ public class ContainerActivity extends ActivityParent {
             }
         });
 
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla location
-     */
-    private void syncLocation() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpAbout(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                updateProgressSync();
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                updateProgressSync();
-            }
-        });
     }
 
     /**

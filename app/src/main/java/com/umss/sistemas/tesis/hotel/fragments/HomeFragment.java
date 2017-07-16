@@ -60,5 +60,4 @@ public class HomeFragment extends FragmentParent {
         ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
         imgConsum.setOnClickListener(this);
     }
-
 }

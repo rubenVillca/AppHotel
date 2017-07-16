@@ -74,4 +74,5 @@
     <string name="action_title_about">About</string>
     <string name="loginFaceBook">Iniciar con Facebook</string>
     <string name="loginGoogle">Iniciar con Google</string>
+    <string name="facebook_app_id">1371468996240000</string>
 </resources>

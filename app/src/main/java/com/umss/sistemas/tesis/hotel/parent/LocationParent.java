@@ -1,6 +1,7 @@
 package com.umss.sistemas.tesis.hotel.parent;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinderListener;
 import com.umss.sistemas.tesis.hotel.util.Route;
 
@@ -114,5 +116,11 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
         if (polylinePaths.isEmpty()){
             Toast.makeText(this, "Ruta no encontrada", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override//boton de atras del teclado
+    public void onBackPressed() {
+        Intent intent=new Intent(this, ContainerActivity.class);
+        startActivity(intent);
     }
 }

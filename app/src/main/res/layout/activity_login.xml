@@ -80,17 +80,13 @@
                     android:text="@string/login"
                     android:theme="@style/RaisedButtonDark" />
 
-                <Button
-                    android:id="@+id/loginFacebook"
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:backgroundTint="@android:color/holo_blue_dark"
-                    android:onClick="goContainerActivity"
-                    android:text="@string/loginFaceBook"
-                    android:theme="@style/RaisedButtonDark"
-                    tools:targetApi="lollipop" />
-
+                    android:layout_centerInParent="true"
+                    />
                 <Button
                     android:id="@+id/loginGoogle"
                     android:layout_width="match_parent"

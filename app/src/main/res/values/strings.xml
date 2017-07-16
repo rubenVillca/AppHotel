@@ -169,4 +169,5 @@
         <item>Puntos a ganar</item>
         <item>Puntos necesarios</item>
     </string-array>
+    <string name="facebook_app_id">1371468996240000</string>
 </resources>

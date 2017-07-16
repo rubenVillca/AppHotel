@@ -98,7 +98,6 @@ public class AboutModel extends ModelParent {
     }
 
     public void setVision(String vision) {
-
         this.vision = vision;
     }
 

@@ -122,7 +122,6 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
         }
     }
 
-
     LocationListener locListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -144,5 +143,4 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
 
         }
     };
-
 }

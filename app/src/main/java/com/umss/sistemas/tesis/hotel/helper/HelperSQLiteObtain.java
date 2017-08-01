@@ -9,7 +9,7 @@ import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
@@ -22,7 +22,7 @@ import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.HelperParent;
@@ -134,18 +134,18 @@ public class HelperSQLiteObtain extends HelperParent {
     /**
      * Obtener de la base de datos SQLite la lista de precios de un servicio
      *
-     * @return List<ServicePriceModel>: lista de precios de un servicio
+     * @return List<ServicePriceDetailModel>: lista de precios de un servicio
      */
-    private ArrayList<ServicePriceModel> getServicePriceModel(int idService) {
+    private ArrayList<ServicePriceDetailModel> getServicePriceModel(int idService) {
         Cursor cursor = db.rawQuery("select * "
                 + "from " + DBSQLiteHelper.TABLE_PRICE_SERVICE
                 + " where " + DBSQLiteHelper.KEY_PRICE_SERVICE_KEY + "=" + idService, null);
 
-        ArrayList<ServicePriceModel> listPrice = new ArrayList<>();
+        ArrayList<ServicePriceDetailModel> listPrice = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ServicePriceModel servicePriceModel = obtainServicePriceModelCursor(cursor);
-                listPrice.add(servicePriceModel);
+                ServicePriceDetailModel servicePriceDetailModel = obtainServicePriceModelCursor(cursor);
+                listPrice.add(servicePriceDetailModel);
                 cursor.moveToNext();
             }
 
@@ -218,7 +218,7 @@ public class HelperSQLiteObtain extends HelperParent {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 OfferModel offerModel = obtainOfferModelCursor(cursor);
-                offerModel.setServicePriceModel(getServicePriceModel(offerModel.getIdKeyService()));
+                offerModel.setServicePriceDetailModel(getServicePriceModel(offerModel.getIdKeyService()));
 
                 listOfferModel.add(offerModel);
                 cursor.moveToNext();
@@ -348,7 +348,7 @@ public class HelperSQLiteObtain extends HelperParent {
             while (!cursor.isAfterLast()) {
                 CheckModel checkModel = obtainCheckModelCursor(cursor);
                 checkModel.setCardTargetArrayList(getCardModel(checkModel.getId()));
-                checkModel.setConsumeModelArrayList(getConsumeModel(checkModel.getId()));
+                checkModel.setConsumeServiceModelArrayList(getConsumeModel(checkModel.getId()));
                 checkModel.setConsumeFoodModelArrayList(getConsumeFoodModel(checkModel.getId()));
                 listCheckModel.add(checkModel);
 
@@ -387,10 +387,10 @@ public class HelperSQLiteObtain extends HelperParent {
      * obtener de la base de datos SQLite la lista de consumos de in check
      *
      * @param idCheck: id de registro
-     * @return ArrayList<ConsumeModel>: lista de consumos de un check
+     * @return ArrayList<ConsumeServiceModel>: lista de consumos de un check
      */
-    private ArrayList<ConsumeModel> getConsumeModel(int idCheck) {
-        ArrayList<ConsumeModel> listConsumeModel = new ArrayList<>();
+    private ArrayList<ConsumeServiceModel> getConsumeModel(int idCheck) {
+        ArrayList<ConsumeServiceModel> listConsumeServiceModel = new ArrayList<>();
         Cursor cursor;
         cursor = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_CONSUM
@@ -399,18 +399,18 @@ public class HelperSQLiteObtain extends HelperParent {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ConsumeModel consumeModel = obtainConsumeModelCursor(cursor);
-                consumeModel.setArticleModel(getArticleModel(consumeModel.getIdConsum()));
-                consumeModel.setMemberModelArrayList(getMemberModel(consumeModel.getIdConsum()));
-                consumeModel.setOccupationModelArrayList(getOccupationModel(consumeModel.getIdConsum()));
-                consumeModel.setReserveModelArrayList(getReserveModel(consumeModel.getIdConsum()));
+                ConsumeServiceModel consumeServiceModel = obtainConsumeModelCursor(cursor);
+                consumeServiceModel.setArticleModel(getArticleModel(consumeServiceModel.getIdConsum()));
+                consumeServiceModel.setMemberModelArrayList(getMemberModel(consumeServiceModel.getIdConsum()));
+                consumeServiceModel.setOccupationModelArrayList(getOccupationModel(consumeServiceModel.getIdConsum()));
+                consumeServiceModel.setReserveModelArrayList(getReserveModel(consumeServiceModel.getIdConsum()));
 
-                listConsumeModel.add(consumeModel);
+                listConsumeServiceModel.add(consumeServiceModel);
 
                 cursor.moveToNext();
             }
         }
-        return listConsumeModel;
+        return listConsumeServiceModel;
     }
 
     /**
@@ -701,28 +701,28 @@ public class HelperSQLiteObtain extends HelperParent {
         return memberModel;
     }
 
-    private ConsumeModel obtainConsumeModelCursor(Cursor cursor) {
-        ConsumeModel consumeModel = new ConsumeModel();
+    private ConsumeServiceModel obtainConsumeModelCursor(Cursor cursor) {
+        ConsumeServiceModel consumeServiceModel = new ConsumeServiceModel();
 
-        consumeModel.setIdConsum(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID)));
-        consumeModel.setDateInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_START)));
-        consumeModel.setTimeInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_START)));
-        consumeModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
-        consumeModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
-        consumeModel.setNameService(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE)));
-        consumeModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY)));
-        consumeModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
-        consumeModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
-        consumeModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);
-        consumeModel.setIdKeyService(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE)));
-        consumeModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK)));
-        consumeModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN)));
-        consumeModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED)));
-        consumeModel.setnDay(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_DAY)));
-        consumeModel.setnHour(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_HOUR)));
-        consumeModel.setUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_UNIT)));
+        consumeServiceModel.setIdConsum(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID)));
+        consumeServiceModel.setDateInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_START)));
+        consumeServiceModel.setTimeInConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_START)));
+        consumeServiceModel.setDateOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_DATE_END)));
+        consumeServiceModel.setTimeOutConsum(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_TIME_END)));
+        consumeServiceModel.setNameService(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE)));
+        consumeServiceModel.setTypeMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY)));
+        consumeServiceModel.setPrice(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PRICE)));
+        consumeServiceModel.setPay(cursor.getDouble(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_PAY)));
+        consumeServiceModel.setState(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_STATE)) > 0);
+        consumeServiceModel.setIdKeyService(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE)));
+        consumeServiceModel.setIdKeyCheck(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK)));
+        consumeServiceModel.setPointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN)));
+        consumeServiceModel.setPointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED)));
+        consumeServiceModel.setnDay(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_DAY)));
+        consumeServiceModel.setnHour(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_HOUR)));
+        consumeServiceModel.setUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_CONSUM_N_UNIT)));
 
-        return consumeModel;
+        return consumeServiceModel;
     }
 
     private CardModel obtainCardModelCursor(Cursor cursor) {
@@ -817,21 +817,21 @@ public class HelperSQLiteObtain extends HelperParent {
      * @param cursor:base de datos SQLITE servicePrice
      * @return servicePriceModel: lista de precios de un servicio
      */
-    private ServicePriceModel obtainServicePriceModelCursor(Cursor cursor) {
-        ServicePriceModel servicePriceModel = new ServicePriceModel();
+    private ServicePriceDetailModel obtainServicePriceModelCursor(Cursor cursor) {
+        ServicePriceDetailModel servicePriceDetailModel = new ServicePriceDetailModel();
 
-        servicePriceModel.setServicePriceId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_ID)));
-        servicePriceModel.setServicePriceKey(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_KEY)));
-        servicePriceModel.setServicePriceNameMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY)));
-        servicePriceModel.setServicePriceUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_UNIT)));
-        servicePriceModel.setServicePriceDay(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_DAY)));
-        servicePriceModel.setServicePriceHour(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_HOUR)));
-        servicePriceModel.setServicePricePrice(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_PRICE)));
-        servicePriceModel.setServicePricePointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN)));
-        servicePriceModel.setServicePricePointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED)));
-        servicePriceModel.setServicePriceIsOffer(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER)) == 1);
+        servicePriceDetailModel.setServicePriceId(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_ID)));
+        servicePriceDetailModel.setServicePriceKey(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_KEY)));
+        servicePriceDetailModel.setServicePriceNameMoney(cursor.getString(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY)));
+        servicePriceDetailModel.setServicePriceUnit(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_UNIT)));
+        servicePriceDetailModel.setServicePriceDay(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_DAY)));
+        servicePriceDetailModel.setServicePriceHour(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_HOUR)));
+        servicePriceDetailModel.setServicePricePrice(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_PRICE)));
+        servicePriceDetailModel.setServicePricePointObtain(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN)));
+        servicePriceDetailModel.setServicePricePointRequired(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED)));
+        servicePriceDetailModel.setServicePriceIsOffer(cursor.getInt(cursor.getColumnIndex(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER)) == 1);
 
-        return servicePriceModel;
+        return servicePriceDetailModel;
     }
 
     private SiteTourModel obtainSiteTourModelCursor(Cursor cursor) {

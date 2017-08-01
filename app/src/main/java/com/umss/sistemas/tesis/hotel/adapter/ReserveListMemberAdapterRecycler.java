@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveMemberActivity;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 
 public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<ReserveListMemberAdapterRecycler.MemberReserveViewHolder> {
 
-    private ConsumeModel consumeModel;
+    private ConsumeServiceModel consumeServiceModel;
     private int resource;
     private Activity activity;
 
-    public ReserveListMemberAdapterRecycler(ConsumeModel consumeModel, int resource, Activity activity) {
-        this.consumeModel = consumeModel;
+    public ReserveListMemberAdapterRecycler(ConsumeServiceModel consumeServiceModel, int resource, Activity activity) {
+        this.consumeServiceModel = consumeServiceModel;
         this.resource = resource;
         this.activity = activity;
     }
@@ -34,7 +34,7 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
     @Override
     public void onBindViewHolder(MemberReserveViewHolder holder, int position) {
-        final MemberModel memberModel=consumeModel.getMemberModelArrayList().get(position);
+        final MemberModel memberModel= consumeServiceModel.getMemberModelArrayList().get(position);
         holder.memberReserveTextView.setText(String.valueOf(" "+(position + 1)+": "));
         holder.memberNameReserveTextView.setText(memberModel.getNamePerson() +" "+memberModel.getNameLastPerson());
 
@@ -42,7 +42,7 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ReserveMemberActivity.class);
-                intent.putExtra("idConsume",consumeModel.getIdConsum());
+                intent.putExtra("idConsume", consumeServiceModel.getIdConsum());
                 intent.putExtra("member",memberModel);
                 activity.startActivity(intent);
             }
@@ -51,7 +51,7 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
     @Override
     public int getItemCount() {
-        return consumeModel.getMemberModelArrayList().size();
+        return consumeServiceModel.getMemberModelArrayList().size();
     }
 
     class MemberReserveViewHolder extends RecyclerView.ViewHolder {

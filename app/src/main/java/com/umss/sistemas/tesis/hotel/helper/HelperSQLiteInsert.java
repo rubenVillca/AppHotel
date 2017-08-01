@@ -10,7 +10,7 @@ import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
@@ -21,11 +21,11 @@ import com.umss.sistemas.tesis.hotel.model.MessageModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.HelperParent;
@@ -183,7 +183,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 reserveSearchModel.setImageTypeRoom(roomAvailableObject.getString("IMAGE_ROOM_MODEL"));
                 reserveSearchModel.setNameTypeRoom(roomAvailableObject.getString("NAME_ROOM_MODEL"));
                 reserveSearchModel.setDescriptionTypeRoom(roomAvailableObject.getString("DESCRIPTION_ROOM_MODEL"));
-                reserveSearchModel.setPriceServiceModels(getPriceRoomModel(roomAvailableObject));
+                reserveSearchModel.setServicePriceConsumeModels(getPriceRoomModel(roomAvailableObject));
 
                 reserveSearchModels.add(reserveSearchModel);
             }
@@ -194,15 +194,15 @@ public class HelperSQLiteInsert extends HelperParent {
         return reserveSearchModels;
     }
 
-    private ArrayList<PriceServiceModel> getPriceRoomModel(JSONObject obj) {
-        ArrayList<PriceServiceModel> priceServiceModels = new ArrayList<>();
+    private ArrayList<ServicePriceConsumeModel> getPriceRoomModel(JSONObject obj) {
+        ArrayList<ServicePriceConsumeModel> servicePriceConsumeModels = new ArrayList<>();
         try {
             JSONArray priceRoomJSONArray = obj.getJSONArray("list_cost");
 
             for (int i = 0; i < priceRoomJSONArray.length(); i++) {
                 JSONObject roomAvailableObject = priceRoomJSONArray.getJSONObject(i);
 
-                PriceServiceModel priceRoomModel = new PriceServiceModel();
+                ServicePriceConsumeModel priceRoomModel = new ServicePriceConsumeModel();
 
                 priceRoomModel.setUnitHour(roomAvailableObject.getInt("UNIT_HOUR_COST_SERVICE"));
                 priceRoomModel.setUnitDay(roomAvailableObject.getInt("UNIT_DAY_COST_SERVICE"));
@@ -213,12 +213,12 @@ public class HelperSQLiteInsert extends HelperParent {
                 priceRoomModel.setPriceService(roomAvailableObject.getInt("PRICE_COST_SERVICE"));
                 priceRoomModel.setUnitService(roomAvailableObject.getInt("UNIT_COST_SERVICE"));
 
-                priceServiceModels.add(priceRoomModel);
+                servicePriceConsumeModels.add(priceRoomModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return priceServiceModels;
+        return servicePriceConsumeModels;
     }
 
     /**
@@ -405,29 +405,29 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param idService:idKeyService   del servicioPrice
      * @return ArrayList<SiteTourImageModel>:lista de precios del idService
      */
-    private ArrayList<ServicePriceModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService, boolean isOffer) {
-        ArrayList<ServicePriceModel> priceServiceArray = new ArrayList<>();
+    private ArrayList<ServicePriceDetailModel> getServicePriceModelJSON(JSONObject priceServiceObject, int idService, boolean isOffer) {
+        ArrayList<ServicePriceDetailModel> priceServiceArray = new ArrayList<>();
 
         try {
             JSONArray priceServices = priceServiceObject.getJSONArray("prices");
 
             for (int j = 0; j < priceServices.length(); j++) {
-                ServicePriceModel servicePriceModel = new ServicePriceModel();
+                ServicePriceDetailModel servicePriceDetailModel = new ServicePriceDetailModel();
 
                 JSONObject priceObject = priceServices.getJSONObject(j);
 
-                servicePriceModel.setServicePriceId(priceObject.getInt("ID_COST_SERVICE"));
-                servicePriceModel.setServicePriceKey(idService);
-                servicePriceModel.setServicePriceNameMoney(priceObject.getString("NAME_TYPE_MONEY"));
-                servicePriceModel.setServicePriceUnit(priceObject.getInt("UNIT_COST_SERVICE"));
-                servicePriceModel.setServicePriceDay(priceObject.getInt("UNIT_DAY_COST_SERVICE"));
-                servicePriceModel.setServicePriceHour(priceObject.getInt("UNIT_HOUR_COST_SERVICE"));
-                servicePriceModel.setServicePricePrice(Double.parseDouble(priceObject.getString("PRICE_COST_SERVICE")));
-                servicePriceModel.setServicePricePointObtain(priceObject.getInt("POINT_OBTAIN_COST_SERVICE"));
-                servicePriceModel.setServicePricePointRequired(priceObject.getInt("POINT_REQUIRED_COST_SERVICE"));
-                servicePriceModel.setServicePriceIsOffer(isOffer);
+                servicePriceDetailModel.setServicePriceId(priceObject.getInt("ID_COST_SERVICE"));
+                servicePriceDetailModel.setServicePriceKey(idService);
+                servicePriceDetailModel.setServicePriceNameMoney(priceObject.getString("NAME_TYPE_MONEY"));
+                servicePriceDetailModel.setServicePriceUnit(priceObject.getInt("UNIT_COST_SERVICE"));
+                servicePriceDetailModel.setServicePriceDay(priceObject.getInt("UNIT_DAY_COST_SERVICE"));
+                servicePriceDetailModel.setServicePriceHour(priceObject.getInt("UNIT_HOUR_COST_SERVICE"));
+                servicePriceDetailModel.setServicePricePrice(Double.parseDouble(priceObject.getString("PRICE_COST_SERVICE")));
+                servicePriceDetailModel.setServicePricePointObtain(priceObject.getInt("POINT_OBTAIN_COST_SERVICE"));
+                servicePriceDetailModel.setServicePricePointRequired(priceObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+                servicePriceDetailModel.setServicePriceIsOffer(isOffer);
 
-                priceServiceArray.add(servicePriceModel);
+                priceServiceArray.add(servicePriceDetailModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -539,8 +539,8 @@ public class HelperSQLiteInsert extends HelperParent {
                 offerModel.setNameType(result.getString("NAME_TYPE_SERVICE"));
                 offerModel.setDescriptionType(result.getString("DESCRIPTION_TYPE_SERVICE"));
 
-                ArrayList<ServicePriceModel> prices = getServicePriceModelJSON(result, offerModel.getIdKeyService(), true);
-                offerModel.setServicePriceModel(prices);
+                ArrayList<ServicePriceDetailModel> prices = getServicePriceModelJSON(result, offerModel.getIdKeyService(), true);
+                offerModel.setServicePriceDetailModel(prices);
 
                 offerListModel.add(offerModel);
             }
@@ -679,7 +679,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 checkModel.setTimeEnd(checkObject.getString("TIME_END_CHECK"));
 
                 checkModel.setCardTargetArrayList(getCardModelJSON(checkObject));
-                checkModel.setConsumeModelArrayList(getConsumeModelJSON(checkObject));
+                checkModel.setConsumeServiceModelArrayList(getConsumeModelJSON(checkObject));
                 checkModel.setConsumeFoodModelArrayList(getConsumeFoodModelJSON(checkObject));
 
                 checkArray.add(checkModel);
@@ -756,41 +756,41 @@ public class HelperSQLiteInsert extends HelperParent {
         return cardArray;
     }
 
-    private ArrayList<ConsumeModel> getConsumeModelJSON(JSONObject obj) {
-        ArrayList<ConsumeModel> consumArray = new ArrayList<>();
+    private ArrayList<ConsumeServiceModel> getConsumeModelJSON(JSONObject obj) {
+        ArrayList<ConsumeServiceModel> consumArray = new ArrayList<>();
 
         try {
             JSONArray consumJSONArray = obj.getJSONArray("consum");
 
             for (int j = 0; j < consumJSONArray.length(); j++) {
-                ConsumeModel consumeModel = new ConsumeModel();
+                ConsumeServiceModel consumeServiceModel = new ConsumeServiceModel();
 
                 JSONObject consumObject = consumJSONArray.getJSONObject(j);
 
-                consumeModel.setIdConsum(consumObject.getInt("ID_CONSUME_SERVICE"));
-                consumeModel.setIdKeyCheck(consumObject.getInt("ID_CHECK"));
-                consumeModel.setIdKeyService(consumObject.getInt("ID_SERVICE"));
-                consumeModel.setPrice(consumObject.getDouble("PRICE_CONSUME_SERVICE"));
-                consumeModel.setPay(consumObject.getDouble("PAY_CONSUME_SERVICE"));
-                consumeModel.setDateInConsum(consumObject.getString("DATE_START_CONSUME_SERVICE"));
-                consumeModel.setTimeInConsum(consumObject.getString("TIME_START_CONSUME_SERVICE"));
-                consumeModel.setDateOutConsum(consumObject.getString("DATE_END_CONSUME_SERVICE"));
-                consumeModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
-                consumeModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE") > 0);
-                consumeModel.setNameService(consumObject.getString("NAME_SERVICE"));
-                consumeModel.setTypeMoney(consumObject.getString("NAME_TYPE_MONEY"));
-                consumeModel.setPointObtain(consumObject.getInt("POINT_OBTAIN_COST_SERVICE"));
-                consumeModel.setPointRequired(consumObject.getInt("POINT_REQUIRED_COST_SERVICE"));
-                consumeModel.setnDay(consumObject.getInt("UNIT_DAY_COST_SERVICE"));
-                consumeModel.setnHour(consumObject.getInt("UNIT_HOUR_COST_SERVICE"));
-                consumeModel.setUnit(consumObject.getInt("UNIT_CONSUME_SERVICE"));
+                consumeServiceModel.setIdConsum(consumObject.getInt("ID_CONSUME_SERVICE"));
+                consumeServiceModel.setIdKeyCheck(consumObject.getInt("ID_CHECK"));
+                consumeServiceModel.setIdKeyService(consumObject.getInt("ID_SERVICE"));
+                consumeServiceModel.setPrice(consumObject.getDouble("PRICE_CONSUME_SERVICE"));
+                consumeServiceModel.setPay(consumObject.getDouble("PAY_CONSUME_SERVICE"));
+                consumeServiceModel.setDateInConsum(consumObject.getString("DATE_START_CONSUME_SERVICE"));
+                consumeServiceModel.setTimeInConsum(consumObject.getString("TIME_START_CONSUME_SERVICE"));
+                consumeServiceModel.setDateOutConsum(consumObject.getString("DATE_END_CONSUME_SERVICE"));
+                consumeServiceModel.setTimeOutConsum(consumObject.getString("TIME_END_CONSUME_SERVICE"));
+                consumeServiceModel.setState(consumObject.getInt("ACTIVE_CONSUME_SERVICE") > 0);
+                consumeServiceModel.setNameService(consumObject.getString("NAME_SERVICE"));
+                consumeServiceModel.setTypeMoney(consumObject.getString("NAME_TYPE_MONEY"));
+                consumeServiceModel.setPointObtain(consumObject.getInt("POINT_OBTAIN_COST_SERVICE"));
+                consumeServiceModel.setPointRequired(consumObject.getInt("POINT_REQUIRED_COST_SERVICE"));
+                consumeServiceModel.setnDay(consumObject.getInt("UNIT_DAY_COST_SERVICE"));
+                consumeServiceModel.setnHour(consumObject.getInt("UNIT_HOUR_COST_SERVICE"));
+                consumeServiceModel.setUnit(consumObject.getInt("UNIT_CONSUME_SERVICE"));
 
-                consumeModel.setMemberModelArrayList(getMemberModelJSON(consumObject));
-                consumeModel.setArticleModel(getArticleModelJSON(consumObject));
-                consumeModel.setOccupationModelArrayList(getOccupationModelJSON(consumObject));
-                consumeModel.setReserveModelArrayList(getReserveModelJSON(consumObject));
+                consumeServiceModel.setMemberModelArrayList(getMemberModelJSON(consumObject));
+                consumeServiceModel.setArticleModel(getArticleModelJSON(consumObject));
+                consumeServiceModel.setOccupationModelArrayList(getOccupationModelJSON(consumObject));
+                consumeServiceModel.setReserveModelArrayList(getReserveModelJSON(consumObject));
 
-                consumArray.add(consumeModel);
+                consumArray.add(consumeServiceModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1065,20 +1065,20 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param servicesPriceModel: lista de precios de servicios
      */
-    private void insertServicePriceSQLite(ArrayList<ServicePriceModel> servicesPriceModel) {
-        for (ServicePriceModel servicePriceModel : servicesPriceModel) {
+    private void insertServicePriceSQLite(ArrayList<ServicePriceDetailModel> servicesPriceModel) {
+        for (ServicePriceDetailModel servicePriceDetailModel : servicesPriceModel) {
             ContentValues serviceContent = new ContentValues();
 
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceModel.getServicePriceId());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceModel.getServicePriceKey());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceModel.getServicePriceDay());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceModel.getServicePriceHour());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceModel.getServicePriceNameMoney());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceModel.getServicePricePrice());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceModel.getServicePriceUnit());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceModel.getServicePricePointObtain());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceModel.getServicePricePointRequired());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceModel.isServicePriceIsOffer() ? 1 : 0));
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceDetailModel.getServicePriceId());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceDetailModel.getServicePriceKey());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceDetailModel.getServicePriceDay());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceDetailModel.getServicePriceHour());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceDetailModel.getServicePriceNameMoney());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceDetailModel.getServicePricePrice());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceDetailModel.getServicePriceUnit());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceDetailModel.getServicePricePointObtain());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceDetailModel.getServicePricePointRequired());
+            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceDetailModel.isServicePriceIsOffer() ? 1 : 0));
             if (db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
         }
@@ -1160,7 +1160,7 @@ public class HelperSQLiteInsert extends HelperParent {
             if (db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en OfferModel");
 
-            insertServicePriceSQLite(offer.getServicePriceModel());
+            insertServicePriceSQLite(offer.getServicePriceDetailModel());
         }
     }
 
@@ -1272,7 +1272,7 @@ public class HelperSQLiteInsert extends HelperParent {
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
             insertTargetSQLite(checkModel.getCardTargetArrayList());
-            insertConsumeSQLite(checkModel.getConsumeModelArrayList());
+            insertConsumeSQLite(checkModel.getConsumeServiceModelArrayList());
             insertConsumeFoodSQLite(checkModel.getConsumeFoodModelArrayList());
         }
     }
@@ -1334,37 +1334,37 @@ public class HelperSQLiteInsert extends HelperParent {
     /**
      * guardar registro consumos del huesped en la base de datos SQLIte
      *
-     * @param consumeModelArrayList:lista de consumos hechos por el cliente en la cuenta del check  formato JAVa
+     * @param consumeServiceModelArrayList:lista de consumos hechos por el cliente en la cuenta del check  formato JAVa
      */
-    public void insertConsumeSQLite(ArrayList<ConsumeModel> consumeModelArrayList) {
-        for (ConsumeModel consumeModel : consumeModelArrayList) {
+    public void insertConsumeSQLite(ArrayList<ConsumeServiceModel> consumeServiceModelArrayList) {
+        for (ConsumeServiceModel consumeServiceModel : consumeServiceModelArrayList) {
             ContentValues contentValues = new ContentValues();
-            if (consumeModel.getIdConsum()>0)
-                contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeModel.getIdConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumeModel.getDateInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumeModel.getTimeInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumeModel.getDateOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_END, consumeModel.getTimeOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PRICE, consumeModel.getPrice());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PAY, consumeModel.getPay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumeModel.isState());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumeModel.getIdKeyService());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE, consumeModel.getNameService());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY, consumeModel.getTypeMoney());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumeModel.getIdKeyCheck());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN, consumeModel.getPointObtain());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED, consumeModel.getPointRequired());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_DAY, consumeModel.getnDay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_HOUR, consumeModel.getnHour());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_UNIT, consumeModel.getUnit());
+            if (consumeServiceModel.getIdConsum()>0)
+                contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeServiceModel.getIdConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumeServiceModel.getDateInConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumeServiceModel.getTimeInConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumeServiceModel.getDateOutConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_END, consumeServiceModel.getTimeOutConsum());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PRICE, consumeServiceModel.getPrice());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PAY, consumeServiceModel.getPay());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumeServiceModel.isState());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumeServiceModel.getIdKeyService());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE, consumeServiceModel.getNameService());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY, consumeServiceModel.getTypeMoney());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumeServiceModel.getIdKeyCheck());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN, consumeServiceModel.getPointObtain());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED, consumeServiceModel.getPointRequired());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_DAY, consumeServiceModel.getnDay());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_HOUR, consumeServiceModel.getnHour());
+            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_UNIT, consumeServiceModel.getUnit());
 
             if (db.insert(DBSQLiteHelper.TABLE_CONSUM, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
-            insertArticleSQLite(consumeModel.getArticleModel());
-            insertMemberSQLite(consumeModel.getMemberModelArrayList());
-            insertOccupationSQLite(consumeModel.getOccupationModelArrayList());
-            insertReserveSQLite(consumeModel.getReserveModelArrayList());
+            insertArticleSQLite(consumeServiceModel.getArticleModel());
+            insertMemberSQLite(consumeServiceModel.getMemberModelArrayList());
+            insertOccupationSQLite(consumeServiceModel.getOccupationModelArrayList());
+            insertReserveSQLite(consumeServiceModel.getReserveModelArrayList());
         }
     }
 

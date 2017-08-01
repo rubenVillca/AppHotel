@@ -8,17 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
-import com.umss.sistemas.tesis.hotel.model.ReserveModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 
 public class ReserveListTypeRoomAdapterRecycler extends RecyclerView.Adapter<ReserveListTypeRoomAdapterRecycler.TypeRoomReserveViewHolder>{
 
-    private ConsumeModel consumeModels;
+    private ConsumeServiceModel consumeServiceModels;
     private int resource;
     private Activity activity;
 
-    public ReserveListTypeRoomAdapterRecycler(ConsumeModel consumeModels, int resource, Activity activity) {
-        this.consumeModels = consumeModels;
+    public ReserveListTypeRoomAdapterRecycler(ConsumeServiceModel consumeServiceModels, int resource, Activity activity) {
+        this.consumeServiceModels = consumeServiceModels;
         this.resource = resource;
         this.activity = activity;
     }
@@ -35,13 +34,13 @@ public class ReserveListTypeRoomAdapterRecycler extends RecyclerView.Adapter<Res
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListRoomAdapterRecycler adapterRecycler = new ReserveListRoomAdapterRecycler(consumeModels, R.layout.cardview_reserve_list_room, activity);
+        ReserveListRoomAdapterRecycler adapterRecycler = new ReserveListRoomAdapterRecycler(consumeServiceModels, R.layout.cardview_reserve_list_room, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 
     @Override
     public int getItemCount() {
-        return consumeModels.getReserveModelArrayList().size();
+        return consumeServiceModels.getReserveModelArrayList().size();
     }
 
     class TypeRoomReserveViewHolder extends RecyclerView.ViewHolder{

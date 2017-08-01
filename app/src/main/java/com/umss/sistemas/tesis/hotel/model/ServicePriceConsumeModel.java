@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by ruben on 25/05/2017
  */
 
-public class PriceServiceModel extends ModelParent {
+public class ServicePriceConsumeModel extends ModelParent {
     private int pointObtain;
     private int pointRequired;
     private int idKeyCost;
@@ -18,7 +18,7 @@ public class PriceServiceModel extends ModelParent {
     private int unitHour;
     private int unitDay;
 
-    public PriceServiceModel() {
+    public ServicePriceConsumeModel() {
         this.idKeyCost = 0;
         this.nameTypeMoney = "";
         this.priceService = 0;

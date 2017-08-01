@@ -6,21 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 
 import java.util.ArrayList;
 
 public class ReserveListConsumeAdapterRecycler extends RecyclerView.Adapter<ReserveListConsumeAdapterRecycler.ConsumeReserveViewHolder>{
 
-    private ArrayList<ConsumeModel> consumeModels;
+    private ArrayList<ConsumeServiceModel> consumeServiceModels;
     private int resource;
     private Activity activity;
 
-    public ReserveListConsumeAdapterRecycler(ArrayList<ConsumeModel> consumeModels, int resource, Activity activity) {
-        this.consumeModels = consumeModels;
+    public ReserveListConsumeAdapterRecycler(ArrayList<ConsumeServiceModel> consumeServiceModels, int resource, Activity activity) {
+        this.consumeServiceModels = consumeServiceModels;
         this.resource = resource;
         this.activity = activity;
     }
@@ -33,17 +32,17 @@ public class ReserveListConsumeAdapterRecycler extends RecyclerView.Adapter<Rese
 
     @Override
     public void onBindViewHolder(ConsumeReserveViewHolder holder, int position) {
-        ConsumeModel consumeModel = consumeModels.get(position);
+        ConsumeServiceModel consumeServiceModel = consumeServiceModels.get(position);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListTypeRoomAdapterRecycler adapterRecycler = new ReserveListTypeRoomAdapterRecycler(consumeModel, R.layout.cardview_reserve_list_type_room, activity);
+        ReserveListTypeRoomAdapterRecycler adapterRecycler = new ReserveListTypeRoomAdapterRecycler(consumeServiceModel, R.layout.cardview_reserve_list_type_room, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 
     @Override
     public int getItemCount() {
-        return consumeModels.size();
+        return consumeServiceModels.size();
     }
 
     class ConsumeReserveViewHolder extends RecyclerView.ViewHolder{

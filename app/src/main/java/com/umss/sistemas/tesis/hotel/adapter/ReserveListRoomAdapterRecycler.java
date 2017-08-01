@@ -9,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
-import com.umss.sistemas.tesis.hotel.model.ReserveModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 
 public class ReserveListRoomAdapterRecycler extends RecyclerView.Adapter<ReserveListRoomAdapterRecycler.RoomReserveViewHolder>{
 
-    private ConsumeModel consumeModel;
+    private ConsumeServiceModel consumeServiceModel;
     private int resource;
     private Activity activity;
 
-    public ReserveListRoomAdapterRecycler(ConsumeModel consumeModel, int resource, Activity activity) {
-        this.consumeModel = consumeModel;
+    public ReserveListRoomAdapterRecycler(ConsumeServiceModel consumeServiceModel, int resource, Activity activity) {
+        this.consumeServiceModel = consumeServiceModel;
         this.resource = resource;
         this.activity = activity;
     }
@@ -32,18 +31,18 @@ public class ReserveListRoomAdapterRecycler extends RecyclerView.Adapter<Reserve
 
     @Override
     public void onBindViewHolder(RoomReserveViewHolder holder, int position) {
-        holder.consumeReserveRoom.setText(consumeModel.getNameService());
+        holder.consumeReserveRoom.setText(consumeServiceModel.getNameService());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListMemberAdapterRecycler adapterRecycler = new ReserveListMemberAdapterRecycler(consumeModel, R.layout.cardview_reserve_list_member, activity);
+        ReserveListMemberAdapterRecycler adapterRecycler = new ReserveListMemberAdapterRecycler(consumeServiceModel, R.layout.cardview_reserve_list_member, activity);
         holder.recyclerView.setAdapter(adapterRecycler);
     }
 
     @Override
     public int getItemCount() {
-        return consumeModel.getReserveModelArrayList().size();
+        return consumeServiceModel.getReserveModelArrayList().size();
     }
 
     class RoomReserveViewHolder extends RecyclerView.ViewHolder{

@@ -14,7 +14,7 @@ public class ServiceModel  extends ModelParent {
     private int idType;
     private String nameType;
     private int valueType;
-    private ArrayList<ServicePriceModel> servicePrice;
+    private ArrayList<ServicePriceDetailModel> servicePrice;
 
     public ServiceModel() {
         id = 0;
@@ -36,7 +36,7 @@ public class ServiceModel  extends ModelParent {
         this.name = name;
     }
 
-    public ArrayList<ServicePriceModel> getServicePrice() {
+    public ArrayList<ServicePriceDetailModel> getServicePrice() {
         return servicePrice;
     }
 
@@ -56,7 +56,7 @@ public class ServiceModel  extends ModelParent {
         this.valueType = valueType;
     }
 
-    public void setServicePrice(ArrayList<ServicePriceModel> servicePrice) {
+    public void setServicePrice(ArrayList<ServicePriceDetailModel> servicePrice) {
         this.servicePrice = servicePrice;
     }
 

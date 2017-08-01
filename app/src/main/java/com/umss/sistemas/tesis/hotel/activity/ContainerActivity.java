@@ -217,7 +217,8 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.FREQUENTLY), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.getUrlServer(Conexion.FREQUENTLY), params,
+                new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -234,7 +235,8 @@ public class ContainerActivity extends ActivityParent {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers,
+                                  byte[] responseBody, Throwable error) {
                 updateProgressSync();
                 System.out.println("Servidor no esta disponible");
             }

@@ -19,7 +19,7 @@ public class CheckModel extends ModelParent {
     private String dateEnd;
     private String timeEnd;
     private ArrayList<CardModel> cardTargetArrayList;
-    private ArrayList<ConsumeModel> consumeModelArrayList;
+    private ArrayList<ConsumeServiceModel> consumeServiceModelArrayList;
     private ArrayList<ConsumeFoodModel> consumeFoodModelArrayList;
 
     public CheckModel() {
@@ -34,7 +34,7 @@ public class CheckModel extends ModelParent {
         dateEnd="";
         timeEnd="";
         cardTargetArrayList=new ArrayList<>();
-        consumeModelArrayList = new ArrayList<>();
+        consumeServiceModelArrayList = new ArrayList<>();
         consumeFoodModelArrayList=new ArrayList<>();
     }
 
@@ -70,12 +70,12 @@ public class CheckModel extends ModelParent {
         this.consumeFoodModelArrayList = consumeFoodModelArrayList;
     }
 
-    public ArrayList<ConsumeModel> getConsumeModelArrayList() {
-        return consumeModelArrayList;
+    public ArrayList<ConsumeServiceModel> getConsumeServiceModelArrayList() {
+        return consumeServiceModelArrayList;
     }
 
-    public void setConsumeModelArrayList(ArrayList<ConsumeModel> consumeModelArrayList) {
-        this.consumeModelArrayList = consumeModelArrayList;
+    public void setConsumeServiceModelArrayList(ArrayList<ConsumeServiceModel> consumeServiceModelArrayList) {
+        this.consumeServiceModelArrayList = consumeServiceModelArrayList;
     }
 
     public int getId() {
@@ -147,7 +147,7 @@ public class CheckModel extends ModelParent {
         for (ConsumeFoodModel consumeFood : consumeFoodModelArrayList) {
             total+=consumeFood.getPay()-consumeFood.getPrice();
         }
-        for (ConsumeModel consumeService : consumeModelArrayList) {
+        for (ConsumeServiceModel consumeService : consumeServiceModelArrayList) {
             total+=consumeService.getPay()-consumeService.getPrice();
         }
 

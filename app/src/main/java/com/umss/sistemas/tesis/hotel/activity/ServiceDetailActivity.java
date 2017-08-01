@@ -16,7 +16,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.table.TablePriceService;
 
@@ -54,7 +54,7 @@ public class ServiceDetailActivity extends ActivityParent {
     }
 
     private void initContent() {
-        ArrayList<ServicePriceModel> servicePriceModel=serviceModel.getServicePrice();
+        ArrayList<ServicePriceDetailModel> servicePriceDetailModel =serviceModel.getServicePrice();
 
         ImageView imageService=(ImageView)findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + serviceModel.getImage()).into(imageService);
@@ -72,7 +72,7 @@ public class ServiceDetailActivity extends ActivityParent {
 
         tabla.agregarCabecera(R.array.header_table_price_services);
 
-        for(ServicePriceModel price: servicePriceModel){
+        for(ServicePriceDetailModel price: servicePriceDetailModel){
             ArrayList<String> elementos = new ArrayList<>();
 
             elementos.add("("+price.getServicePriceNameMoney()+") "+price.getServicePricePrice());

@@ -18,7 +18,7 @@ public class OfferModel  extends ModelParent {
     private String image;
     private String nameType;
     private String descriptionType;
-    private ArrayList<ServicePriceModel> servicePriceModel;
+    private ArrayList<ServicePriceDetailModel> servicePriceDetailModel;
 
     public OfferModel() {
         this.id = 0;
@@ -33,15 +33,15 @@ public class OfferModel  extends ModelParent {
         this.image="";
         this.nameType="";
         this.descriptionType="";
-        this.servicePriceModel=new ArrayList<>();
+        this.servicePriceDetailModel =new ArrayList<>();
     }
 
-    public ArrayList<ServicePriceModel> getServicePriceModel() {
-        return servicePriceModel;
+    public ArrayList<ServicePriceDetailModel> getServicePriceDetailModel() {
+        return servicePriceDetailModel;
     }
 
-    public void setServicePriceModel(ArrayList<ServicePriceModel> servicePriceModel) {
-        this.servicePriceModel = servicePriceModel;
+    public void setServicePriceDetailModel(ArrayList<ServicePriceDetailModel> servicePriceDetailModel) {
+        this.servicePriceDetailModel = servicePriceDetailModel;
     }
 
     public String getDescriptionType() {

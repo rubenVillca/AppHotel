@@ -2,7 +2,6 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +19,7 @@ public class ReserveSearchModel extends ModelParent {
     private String descriptionTypeRoom;
     private String nameService;
     private String imageTypeRoom;
-    private ArrayList<PriceServiceModel> priceServiceModels;
+    private ArrayList<ServicePriceConsumeModel> servicePriceConsumeModels;
 
     public ReserveSearchModel() {
         this.idTypeRoom = 0;
@@ -33,15 +32,15 @@ public class ReserveSearchModel extends ModelParent {
         this.idService = 0;
         this.nameService = "";
         this.imageTypeRoom = "";
-        this.priceServiceModels=new ArrayList<>();
+        this.servicePriceConsumeModels =new ArrayList<>();
     }
 
-    public ArrayList<PriceServiceModel> getPriceServiceModels() {
-        return priceServiceModels;
+    public ArrayList<ServicePriceConsumeModel> getServicePriceConsumeModels() {
+        return servicePriceConsumeModels;
     }
 
-    public void setPriceServiceModels(ArrayList<PriceServiceModel> priceServiceModels) {
-        this.priceServiceModels = priceServiceModels;
+    public void setServicePriceConsumeModels(ArrayList<ServicePriceConsumeModel> servicePriceConsumeModels) {
+        this.servicePriceConsumeModels = servicePriceConsumeModels;
     }
 
     public int getIdTypeRoom() {

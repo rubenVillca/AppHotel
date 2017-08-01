@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveTargetActivity;
-import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ import java.util.Date;
 
 public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<ReserveSelectPriceAdapterRecycler.PriceServiceViewHolder> {
 
-    private ArrayList<PriceServiceModel> priceServiceModels;
+    private ArrayList<ServicePriceConsumeModel> servicePriceConsumeModels;
     private int resource;
     private Activity activity;
     private int idCheck;
@@ -37,8 +37,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     private int unitRoomFree;
     private int idTypeRoom;
 
-    public ReserveSelectPriceAdapterRecycler(ArrayList<PriceServiceModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom, int idTypeRoom, boolean isMember, int idCheck) {
-        this.priceServiceModels = priceService;
+    public ReserveSelectPriceAdapterRecycler(ArrayList<ServicePriceConsumeModel> priceService, int resource, Activity activity, int nAdult, int nBoy, String dateIn, String timeIn, String dateOut, String timeOut, int unitRoom, int idTypeRoom, boolean isMember, int idCheck) {
+        this.servicePriceConsumeModels = priceService;
         this.resource = resource;
         this.activity = activity;
         this.nAdult = nAdult;
@@ -63,18 +63,18 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     public void onBindViewHolder(final PriceServiceViewHolder holder, int position) {
         int timeSelected = getTimeSelected();
 
-        final PriceServiceModel priceServiceModel = priceServiceModels.get(position);
+        final ServicePriceConsumeModel servicePriceConsumeModel = servicePriceConsumeModels.get(position);
 
-        holder.priceNameCardView.setText(String.valueOf(priceServiceModel.getPriceService() + " " + priceServiceModel.getNameTypeMoney()));
+        holder.priceNameCardView.setText(String.valueOf(servicePriceConsumeModel.getPriceService() + " " + servicePriceConsumeModel.getNameTypeMoney()));
 
-        int timeUnit = priceServiceModel.getUnitHour() + priceServiceModel.getUnitDay() * 24;
+        int timeUnit = servicePriceConsumeModel.getUnitHour() + servicePriceConsumeModel.getUnitDay() * 24;
         holder.timeUnitCardView.setText(String.valueOf(timeUnit + " Horas"));
 
         String resTimeDayText=timeSelected/24>0?timeSelected/24 +" Días":"";
         String resTimeHour=timeSelected%24>0?timeSelected%24+" Horas":"";
         holder.timeSelectedCardView.setText(String.valueOf(resTimeDayText + (resTimeHour.isEmpty()?"":" ,"+resTimeHour)));
-        final double priceSelect = timeSelected * priceServiceModel.getPriceService() / timeUnit;
-        holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + priceServiceModel.getNameTypeMoney()));
+        final double priceSelect = timeSelected * servicePriceConsumeModel.getPriceService() / timeUnit;
+        holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + servicePriceConsumeModel.getNameTypeMoney()));
 
         String valores[] = new String[unitRoomFree];
         for (int i = 0; i < unitRoomFree; i++) {
@@ -84,7 +84,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         holder.spinnerCardView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int positionSpin, long id) {
-                holder.priceEstimatedCardView.setText(String.valueOf((positionSpin + 1) * priceServiceModel.getPriceService()));
+                holder.priceEstimatedCardView.setText(String.valueOf((positionSpin + 1) * servicePriceConsumeModel.getPriceService()));
             }
 
             @Override
@@ -101,7 +101,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
 
                 intent.putExtra("idCheck", idCheck);
                 intent.putExtra("isMember", isMember);
-                intent.putExtra("priceServiceModel", priceServiceModel);
+                intent.putExtra("servicePriceConsumeModel", servicePriceConsumeModel);
                 intent.putExtra("idTypeRoom", String.valueOf(idTypeRoom));
                 intent.putExtra("nRoom", String.valueOf(holder.spinnerCardView.getSelectedItem().toString()));
                 intent.putExtra("nAdult", String.valueOf(nAdult));
@@ -152,7 +152,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
 
     @Override
     public int getItemCount() {
-        return priceServiceModels.size();
+        return servicePriceConsumeModels.size();
     }
 
     class PriceServiceViewHolder extends RecyclerView.ViewHolder {

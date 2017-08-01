@@ -14,7 +14,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.text.ParseException;
@@ -65,7 +65,7 @@ public class OfferActivity extends ActivityParent {
     }
 
     private void chargeContent() {
-        ServicePriceModel listPrice =offerModel.getServicePriceModel().get(0);
+        ServicePriceDetailModel listPrice =offerModel.getServicePriceDetailModel().get(0);
 
         ImageView imageOffer=(ImageView)findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + offerModel.getImage()).into(imageOffer);

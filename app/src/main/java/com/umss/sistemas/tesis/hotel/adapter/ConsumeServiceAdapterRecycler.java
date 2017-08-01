@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 
 
 import java.text.ParseException;
@@ -19,12 +19,12 @@ import java.util.Date;
 
 public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeServiceAdapterRecycler.ConsumeServiceViewHolder> {
 
-    private ArrayList<ConsumeModel> consumeModelArray;
+    private ArrayList<ConsumeServiceModel> consumeServiceModelArray;
     private int resource;
     private Activity activity;
 
-    public ConsumeServiceAdapterRecycler(ArrayList<ConsumeModel> consumeModel, int resource, Activity activity) {
-        this.consumeModelArray = consumeModel;
+    public ConsumeServiceAdapterRecycler(ArrayList<ConsumeServiceModel> consumeServiceModel, int resource, Activity activity) {
+        this.consumeServiceModelArray = consumeServiceModel;
         this.resource = resource;
         this.activity = activity;
     }
@@ -37,20 +37,20 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
 
     @Override
     public void onBindViewHolder(ConsumeServiceViewHolder holder, int position) {
-        ConsumeModel consumeModel = consumeModelArray.get(position);
+        ConsumeServiceModel consumeServiceModel = consumeServiceModelArray.get(position);
 
-        holder.priceConsumeServiceCardView.setText(String.valueOf(consumeModel.getTypeMoney() + " " + consumeModel.getPrice()));
-        holder.dateConsumeCardView.setText(consumeModel.getDateInConsum());
-        holder.timeConsumeCardView.setText(consumeModel.getTimeInConsum());
-        holder.serviceConsumeCardView.setText(consumeModel.getNameService());
+        holder.priceConsumeServiceCardView.setText(String.valueOf(consumeServiceModel.getTypeMoney() + " " + consumeServiceModel.getPrice()));
+        holder.dateConsumeCardView.setText(consumeServiceModel.getDateInConsum());
+        holder.timeConsumeCardView.setText(consumeServiceModel.getTimeInConsum());
+        holder.serviceConsumeCardView.setText(consumeServiceModel.getNameService());
 
         long dateIn = 0;
         long dateOut = 0;
         long dateToday = 0;
         try {
             SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            Date dateInParse = parseador.parse(consumeModel.getDateInConsum() + " " + consumeModel.getTimeInConsum());
-            Date dateOutParse = parseador.parse(consumeModel.getDateOutConsum() + " " + consumeModel.getTimeOutConsum());
+            Date dateInParse = parseador.parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
+            Date dateOutParse = parseador.parse(consumeServiceModel.getDateOutConsum() + " " + consumeServiceModel.getTimeOutConsum());
             Date date = new Date();
             dateIn = dateInParse.getTime();
             dateOut = dateOutParse.getTime();
@@ -73,7 +73,7 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
             state = "Reserva";
             image = R.drawable.ic_reserve;
         }
-        if (!consumeModel.isState()) {
+        if (!consumeServiceModel.isState()) {
             state = "Cancelado";
             image = R.drawable.ic_cancel;
         }
@@ -83,7 +83,7 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
 
     @Override
     public int getItemCount() {
-        return consumeModelArray.size();
+        return consumeServiceModelArray.size();
     }
 
     class ConsumeServiceViewHolder extends RecyclerView.ViewHolder {

@@ -11,7 +11,7 @@ import com.umss.sistemas.tesis.hotel.adapter.ConsumeServiceAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class HistoryActivity extends ActivityParent {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         ArrayList<CheckModel> checkModels = helperSQLiteObtain.getCheckModel(0, 0, 0);
         if (!checkModels.isEmpty()) {
-            ArrayList<ConsumeModel> consumeModels = buildService(checkModels);
+            ArrayList<ConsumeServiceModel> consumeServiceModels = buildService(checkModels);
             ArrayList<ConsumeFoodModel> foodModels = buildFood(checkModels);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -47,7 +47,7 @@ public class HistoryActivity extends ActivityParent {
             LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
             linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
             consumeServiceRecycler.setLayoutManager(linearLayoutManager2);
-            ConsumeServiceAdapterRecycler conumeAdapter = new ConsumeServiceAdapterRecycler(consumeModels, R.layout.cardview_consume_service, this);
+            ConsumeServiceAdapterRecycler conumeAdapter = new ConsumeServiceAdapterRecycler(consumeServiceModels, R.layout.cardview_consume_service, this);
             consumeServiceRecycler.setAdapter(conumeAdapter);
 
             TextView total = (TextView) findViewById(R.id.historyTotalConsume);
@@ -55,17 +55,17 @@ public class HistoryActivity extends ActivityParent {
             for (CheckModel checkModel : checkModels) {
                 totalCheck += checkModel.getTotal();
             }
-            total.setText(String.valueOf(checkModels.get(0).getConsumeModelArrayList().get(0).getTypeMoney() + " " + totalCheck));
+            total.setText(String.valueOf(checkModels.get(0).getConsumeServiceModelArrayList().get(0).getTypeMoney() + " " + totalCheck));
         }
     }
 
-    public ArrayList<ConsumeModel> buildService(ArrayList<CheckModel> checkModels) {
-        ArrayList<ConsumeModel> consumeModels = new ArrayList<>();
+    public ArrayList<ConsumeServiceModel> buildService(ArrayList<CheckModel> checkModels) {
+        ArrayList<ConsumeServiceModel> consumeServiceModels = new ArrayList<>();
         for (CheckModel checkModel : checkModels) {
-            consumeModels.addAll(checkModel.getConsumeModelArrayList());
+            consumeServiceModels.addAll(checkModel.getConsumeServiceModelArrayList());
         }
 
-        return consumeModels;
+        return consumeServiceModels;
     }
 
     public ArrayList<ConsumeFoodModel> buildFood(ArrayList<CheckModel> checkModels) {

@@ -3,7 +3,7 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
-public class ServicePriceModel  extends ModelParent {
+public class ServicePriceDetailModel extends ModelParent {
     private int servicePriceId;
     private String servicePriceNameMoney;
     private int servicePriceUnit;
@@ -15,7 +15,7 @@ public class ServicePriceModel  extends ModelParent {
     private int servicePriceKey;
     private boolean servicePriceIsOffer;
 
-    public ServicePriceModel() {
+    public ServicePriceDetailModel() {
         this.servicePriceId = 0;
         this.servicePriceNameMoney = "";
         this.servicePriceUnit = 0;

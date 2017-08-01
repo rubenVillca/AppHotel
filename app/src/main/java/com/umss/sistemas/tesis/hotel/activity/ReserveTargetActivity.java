@@ -18,7 +18,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
-import com.umss.sistemas.tesis.hotel.model.PriceServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -29,7 +29,7 @@ import java.util.Calendar;
 import cz.msebera.android.httpclient.Header;
 
 public class ReserveTargetActivity extends ActivityParent implements View.OnClickListener {
-    private PriceServiceModel priceServiceModel;
+    private ServicePriceConsumeModel servicePriceConsumeModel;
     private boolean isMember;
     private int idCheck;
     private int nRoom;
@@ -69,7 +69,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     private void builtBundle() {
         isMember =getIntent().getExtras().getBoolean("isMember");
         idCheck =getIntent().getExtras().getInt("idCheck");
-        priceServiceModel = (PriceServiceModel) getIntent().getExtras().getSerializable("priceServiceModel");
+        servicePriceConsumeModel = (ServicePriceConsumeModel) getIntent().getExtras().getSerializable("servicePriceConsumeModel");
         priceEstimated=Double.parseDouble(getIntent().getExtras().getString("priceEstimated"));
         idTypeRoom = Integer.parseInt(getIntent().getExtras().getString("idTypeRoom"));
         nRoom = Integer.parseInt(getIntent().getExtras().getString("nRoom"));
@@ -188,9 +188,9 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("idCheck", idCheck);
         params.put("isMember", isMember?idPerson:0);
         params.put("idPerson", idPerson);
-        params.put("idCost", priceServiceModel.getIdKeyCost());
+        params.put("idCost", servicePriceConsumeModel.getIdKeyCost());
         params.put("priceEstimated",priceEstimated);
-        params.put("nameTypeMoney",priceServiceModel.getNameTypeMoney());
+        params.put("nameTypeMoney", servicePriceConsumeModel.getNameTypeMoney());
         params.put("idTypeRoom", idTypeRoom);
         params.put("nRoom", nRoom);
         params.put("nAdult", nAdult);

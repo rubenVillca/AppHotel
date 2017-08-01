@@ -19,7 +19,7 @@ import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.FoodModel;
 import com.umss.sistemas.tesis.hotel.model.FoodPriceModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
@@ -30,7 +30,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
@@ -112,8 +111,8 @@ public class ConsumeFoodActivity extends ActivityParent {
         });
 
         ArrayList<OccupationModel> occupationModels=new ArrayList<>();
-        for(ConsumeModel consumeModel: checkModel.getConsumeModelArrayList()){
-            occupationModels.addAll(consumeModel.getOccupationModelArrayList());
+        for(ConsumeServiceModel consumeServiceModel : checkModel.getConsumeServiceModelArrayList()){
+            occupationModels.addAll(consumeServiceModel.getOccupationModelArrayList());
         }
 
         String sites[] = new String[occupationModels.size()+20];

@@ -4,7 +4,7 @@ import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
 import java.util.ArrayList;
 
-public class ConsumeModel extends ModelParent {
+public class ConsumeServiceModel extends ModelParent {
     private int idConsum;
     private String dateInConsum;
     private String timeInConsum;
@@ -28,7 +28,7 @@ public class ConsumeModel extends ModelParent {
     private ArrayList<ReserveModel> reserveModelArrayList;
     private ArrayList<OccupationModel> occupationModelArrayList;
 
-    public ConsumeModel() {
+    public ConsumeServiceModel() {
         idConsum=0;
         dateInConsum="";
         timeInConsum="";

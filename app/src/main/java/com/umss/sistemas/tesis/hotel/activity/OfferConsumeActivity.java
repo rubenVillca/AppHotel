@@ -19,12 +19,12 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -45,7 +45,7 @@ public class OfferConsumeActivity extends ActivityParent {
     private Spinner timeStartSpinnerConsume;
     private EditText detailEditTextConsume;
     private TextView costTotalTextViewConsume;
-    private ServicePriceModel servicePriceModelMin;
+    private ServicePriceDetailModel servicePriceDetailModelMin;
     private int idCheck;
     private int idPerson;
     @Override
@@ -123,21 +123,21 @@ public class OfferConsumeActivity extends ActivityParent {
 
     private void updateCost() {
         int unit = Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString());
-        servicePriceModelMin =null;
-        for (ServicePriceModel servicePriceModel : offerModel.getServicePriceModel()) {
-            if (servicePriceModelMin == null) {
-                servicePriceModelMin = servicePriceModel;
+        servicePriceDetailModelMin =null;
+        for (ServicePriceDetailModel servicePriceDetailModel : offerModel.getServicePriceDetailModel()) {
+            if (servicePriceDetailModelMin == null) {
+                servicePriceDetailModelMin = servicePriceDetailModel;
             }
-            if ((unit%servicePriceModel.getServicePriceUnit()) == 0) {
-                if ((servicePriceModel.getServicePricePrice() / servicePriceModel.getServicePriceUnit()) <
-                        (servicePriceModelMin.getServicePricePrice() / servicePriceModelMin.getServicePriceUnit()))
-                    servicePriceModelMin = servicePriceModel;
+            if ((unit% servicePriceDetailModel.getServicePriceUnit()) == 0) {
+                if ((servicePriceDetailModel.getServicePricePrice() / servicePriceDetailModel.getServicePriceUnit()) <
+                        (servicePriceDetailModelMin.getServicePricePrice() / servicePriceDetailModelMin.getServicePriceUnit()))
+                    servicePriceDetailModelMin = servicePriceDetailModel;
             }
         }
         double unitTime= 1.0*(Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString()))/
-                (servicePriceModelMin.getServicePriceDay()*24*60+servicePriceModelMin.getServicePriceHour()*60);
-        if (servicePriceModelMin != null)
-            costTotalTextViewConsume.setText(String.valueOf(servicePriceModelMin.getServicePricePrice() * (1.0*unit/servicePriceModelMin.getServicePriceUnit())*unitTime));
+                (servicePriceDetailModelMin.getServicePriceDay()*24*60+ servicePriceDetailModelMin.getServicePriceHour()*60);
+        if (servicePriceDetailModelMin != null)
+            costTotalTextViewConsume.setText(String.valueOf(servicePriceDetailModelMin.getServicePricePrice() * (1.0*unit/ servicePriceDetailModelMin.getServicePriceUnit())*unitTime));
     }
 
     public void sendConsumeOffer(View view) {
@@ -150,9 +150,9 @@ public class OfferConsumeActivity extends ActivityParent {
         params.put("android", "android");
         params.put("idPerson",idPerson);
         params.put("idCheck", idCheck);
-        params.put("idCost",servicePriceModelMin.getServicePriceId());
-        params.put("pointObtain",servicePriceModelMin.getServicePricePointObtain());
-        params.put("pointRequired",servicePriceModelMin.getServicePricePointRequired());
+        params.put("idCost", servicePriceDetailModelMin.getServicePriceId());
+        params.put("pointObtain", servicePriceDetailModelMin.getServicePricePointObtain());
+        params.put("pointRequired", servicePriceDetailModelMin.getServicePricePointRequired());
         params.put("idService", offerModel.getIdKeyService());
         params.put("unit", unitSpinnerConsume.getSelectedItem().toString());
         params.put("duration", timeDurationSpinnerConsume.getSelectedItem().toString());
@@ -167,39 +167,39 @@ public class OfferConsumeActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<ConsumeModel> listConsumeService=new ArrayList<>();
+                        ArrayList<ConsumeServiceModel> listConsumeService=new ArrayList<>();
 
-                        ConsumeModel consumeModel=new ConsumeModel();
-                        consumeModel.setReserveModelArrayList(new ArrayList<ReserveModel>());
-                        consumeModel.setOccupationModelArrayList(new ArrayList<OccupationModel>());
-                        consumeModel.setTypeMoney(servicePriceModelMin.getServicePriceNameMoney());
-                        consumeModel.setState(true);
-                        consumeModel.setPay(0);
-                        consumeModel.setMemberModelArrayList(new ArrayList<MemberModel>());
-                        consumeModel.setIdKeyCheck(idCheck);
-                        consumeModel.setIdKeyService(offerModel.getIdKeyService());
-                        consumeModel.setDateInConsum(Calendar.getInstance().get(Calendar.YEAR)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                        consumeModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
-                        consumeModel.setDateOutConsum(consumeModel.getDateInConsum());
+                        ConsumeServiceModel consumeServiceModel =new ConsumeServiceModel();
+                        consumeServiceModel.setReserveModelArrayList(new ArrayList<ReserveModel>());
+                        consumeServiceModel.setOccupationModelArrayList(new ArrayList<OccupationModel>());
+                        consumeServiceModel.setTypeMoney(servicePriceDetailModelMin.getServicePriceNameMoney());
+                        consumeServiceModel.setState(true);
+                        consumeServiceModel.setPay(0);
+                        consumeServiceModel.setMemberModelArrayList(new ArrayList<MemberModel>());
+                        consumeServiceModel.setIdKeyCheck(idCheck);
+                        consumeServiceModel.setIdKeyService(offerModel.getIdKeyService());
+                        consumeServiceModel.setDateInConsum(Calendar.getInstance().get(Calendar.YEAR)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                        consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
+                        consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
                         try {
                             Date hora1 = null;
-                            hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeModel.getDateInConsum()+ " "+consumeModel.getTimeInConsum());
+                            hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
                             long lantes = hora1.getTime();
                             long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString())*60);
-                            consumeModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));
+                            consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        consumeModel.setPrice(servicePriceModelMin.getServicePricePrice()*Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
-                        consumeModel.setArticleModel(new ArrayList<ArticleModel>());
-                        consumeModel.setNameService(offerModel.getName());
-                        consumeModel.setPointObtain(servicePriceModelMin.getServicePricePointObtain());
-                        consumeModel.setPointRequired(servicePriceModelMin.getServicePricePointRequired());
-                        consumeModel.setnDay(servicePriceModelMin.getServicePriceDay());
-                        consumeModel.setnHour(servicePriceModelMin.getServicePriceHour());
-                        consumeModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
+                        consumeServiceModel.setPrice(servicePriceDetailModelMin.getServicePricePrice()*Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
+                        consumeServiceModel.setArticleModel(new ArrayList<ArticleModel>());
+                        consumeServiceModel.setNameService(offerModel.getName());
+                        consumeServiceModel.setPointObtain(servicePriceDetailModelMin.getServicePricePointObtain());
+                        consumeServiceModel.setPointRequired(servicePriceDetailModelMin.getServicePricePointRequired());
+                        consumeServiceModel.setnDay(servicePriceDetailModelMin.getServicePriceDay());
+                        consumeServiceModel.setnHour(servicePriceDetailModelMin.getServicePriceHour());
+                        consumeServiceModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
 
-                        listConsumeService.add(consumeModel);
+                        listConsumeService.add(consumeServiceModel);
                         helperSQLiteInsert.insertConsumeSQLite(listConsumeService);
                         goConsumeActivity();
                     } catch (JSONException e) {

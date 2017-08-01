@@ -19,9 +19,8 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
-import com.umss.sistemas.tesis.hotel.model.ConsumeModel;
+import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
-import com.umss.sistemas.tesis.hotel.parent.HelperParent;
 
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
         final CheckModel checkModel = checkModels.get(position);
         HelperSQLiteObtain helperParent=new HelperSQLiteObtain(activity);
-        ArrayList<ServiceModel> serviceModelArrayList=helperParent.getServiceModel(checkModel.getConsumeModelArrayList().get(0).getIdKeyService());
+        ArrayList<ServiceModel> serviceModelArrayList=helperParent.getServiceModel(checkModel.getConsumeServiceModelArrayList().get(0).getIdKeyService());
         ServiceModel serviceModel = serviceModelArrayList.get(0);
 
         Picasso.with(activity).load(Conexion.urlServer+serviceModel.getImage()).into(holder.imageReserveList);
@@ -64,10 +63,10 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         double priceTotal = 0;
         double depositTotal = 0;
         String typeMoney = "$";
-        for (ConsumeModel consumeModel : checkModel.getConsumeModelArrayList()) {
-            priceTotal += consumeModel.getPrice();
-            depositTotal += consumeModel.getPay();
-            typeMoney = consumeModel.getTypeMoney();
+        for (ConsumeServiceModel consumeServiceModel : checkModel.getConsumeServiceModelArrayList()) {
+            priceTotal += consumeServiceModel.getPrice();
+            depositTotal += consumeServiceModel.getPay();
+            typeMoney = consumeServiceModel.getTypeMoney();
         }
 
         holder.checkReserveCostTotal.setText(String.valueOf(typeMoney + " " + priceTotal));
@@ -85,7 +84,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListConsumeAdapterRecycler siteTourAdapter = new ReserveListConsumeAdapterRecycler(checkModel.getConsumeModelArrayList(), R.layout.cardview_reserve_list_consume, activity);
+        ReserveListConsumeAdapterRecycler siteTourAdapter = new ReserveListConsumeAdapterRecycler(checkModel.getConsumeServiceModelArrayList(), R.layout.cardview_reserve_list_consume, activity);
         holder.recyclerView.setAdapter(siteTourAdapter);
 
         setFadeAnimation(holder.itemView);

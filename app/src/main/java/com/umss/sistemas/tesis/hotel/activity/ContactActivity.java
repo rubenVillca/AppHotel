@@ -1,6 +1,5 @@
-package com.umss.sistemas.tesis.hotel.fragments;
+package com.umss.sistemas.tesis.hotel.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -28,33 +26,27 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ContactFragment extends FragmentParent {
+public class ContactActivity extends ActivityParent {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_message_send, container, false);
-        super.showToolBar(getResources().getString(R.string.tab_message_new), false, view);
-        super.showFloatingButtonMessage(view);
-        setSpinner(view);
-        showButtonMessage(view);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contact);
 
-        return view;
+        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
+        setSpinner();
     }
 
     /**
      * cargar lista de tipos de usuarios en el spinner
-     *
-     * @param view:actividad en ejecucion
      */
-    private void setSpinner(View view) {
+    private void setSpinner() {
         String[] valores = {"Administrador", "Recepcionista"};
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.contactSpinner);
-        spinner.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, valores));
+        Spinner spinner = (Spinner) findViewById(R.id.contactSpinner);
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valores));
     }
 
     private void showButtonMessage(final View view) {
@@ -94,7 +86,7 @@ public class ContactFragment extends FragmentParent {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        helperSQLiteObtain = new HelperSQLiteObtain(getContext());
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
         int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
 
         params.put("message", messsage);
@@ -117,7 +109,7 @@ public class ContactFragment extends FragmentParent {
                     }
 
                     if (idMessage > 0) {
-                        Intent intent = new Intent(getActivity(), ContainerActivity.class);
+                        Intent intent = new Intent(ContactActivity.this, ContainerActivity.class);
                         startActivity(intent);
                         showMessage("Mensaje Enviado");
                     }
@@ -140,6 +132,6 @@ public class ContactFragment extends FragmentParent {
     }
 
     private void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        super.showMessaje(message);
     }
 }

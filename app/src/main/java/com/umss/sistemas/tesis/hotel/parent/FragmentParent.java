@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -14,15 +13,18 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
 import com.umss.sistemas.tesis.hotel.activity.ConsumeActivity;
+import com.umss.sistemas.tesis.hotel.activity.FrequentlyActivity;
 import com.umss.sistemas.tesis.hotel.activity.HistoryActivity;
 import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
 import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
 import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
+import com.umss.sistemas.tesis.hotel.activity.ProfileActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
+import com.umss.sistemas.tesis.hotel.activity.ContactActivity;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 
@@ -35,8 +37,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     protected HelperSQLiteInsert helperSQLiteInsert;
     protected HelperSQLiteObtain helperSQLiteObtain;
-    protected String mCurrentPhotoPath;
-    protected static final int REQUEST_IMAGE_CAPTURE = 1;
+
     protected ActivityParent containerActivity;
     private AsyncHttpClient client;
     private RequestParams params;
@@ -46,12 +47,9 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      *
      * @param tittle:   nombre de la actividad
      * @param upButton: estado del boton true se se ve
-     * @param view:     Activity en la q se muestra el boton
      */
     @SuppressWarnings("ConstantConditions")
-    protected void showToolBar(String tittle, boolean upButton, View view) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+    protected void showToolBar(String tittle, boolean upButton) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(tittle);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
@@ -63,7 +61,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     protected void showFloatingButtonMessage(View view) {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        //fab.setOnClickListener(this);
     }
 
     @Override
@@ -76,7 +74,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         containerActivity = (ActivityParent) getActivity();
-        containerActivity.container = getActivity().findViewById(R.id.container);
+        containerActivity.container = getActivity().findViewById(R.id.viewpager);
 
         helperSQLiteInsert = new HelperSQLiteInsert(getContext());
         helperSQLiteObtain = new HelperSQLiteObtain(getContext());
@@ -112,7 +110,40 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
             case R.id.imageConsum:
                 goConsumeActivity();
                 break;
+            case R.id.imageProfile:
+                goProfileActivity();
+                break;
+            case R.id.imageAbout:
+                goAboutActivity();
+                break;
+            case R.id.imageFrequently:
+                goFrequentlyActivity();
+                break;
+            case R.id.imageContact:
+                goContactActivity();
+                break;
         }
+    }
+
+    private void goContactActivity() {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        startActivity(intent);
+    }
+
+    private void goFrequentlyActivity() {
+        Intent intent = new Intent(getActivity(), FrequentlyActivity.class);
+        startActivity(intent);
+    }
+
+    private void goAboutActivity() {
+        Intent intent = new Intent(getActivity(), AboutActivity.class);
+        startActivity(intent);
+    }
+
+    private void goProfileActivity() {
+        containerActivity.showProgress(true);
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        startActivity(intent);
     }
 
     //*************************************GO_ACTIVITY**********************************************

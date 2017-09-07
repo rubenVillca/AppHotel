@@ -52,7 +52,7 @@
     <string name="label_home_icon_reserve" translatable="false">Reservas</string>
     <string name="label_home_icon_location" translatable="false">Ubicación</string>
     <string name="label_home_icon_activity" translatable="false">Cronograma</string>
-    <string name="label_home_icon_food" translatable="false">Menú</string>
+    <string name="label_home_icon_food" translatable="false">Alimentos</string>
     <string name="tab_offers" translatable="false">Ofertas</string>
     <string name="tab_sites_tour" translatable="false">Lugares turisticos</string>
     <string name="tab_activity" translatable="false">Calendario de actividades</string>
@@ -170,4 +170,11 @@
         <item>Puntos necesarios</item>
     </string-array>
     <string name="facebook_app_id">1371468996240000</string>
+    <string name="title_hotel">Hotel</string>
+    <string name="label_home_icon_profile">Perfil</string>
+    <string name="label_home_icon_message">Mensajes</string>
+    <string name="label_home_icon_frequently">Preguntas frecuentes</string>
+    <string name="label_home_icon_message_send">Enviar mensaje</string>
+    <string name="toolbar_tittle_frequently">Preguntas Frecuentes</string>
+    <string name="toolbar_tittle_contact">Contactenos</string>
 </resources>

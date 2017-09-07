@@ -52,9 +52,9 @@ public class Conexion {
             "foodMenu/update",
             "consumeService/insert"
     };
-    //private static String ip = "http://192.168.1.34/hotel/";
-    private static String ip = "http://hoteltesis.esy.es/";
-    private static boolean isServer=true;
+    private static String ip = "http://192.168.1.35/hotel/";
+    //private static String ip = "http://hoteltesis.esy.es/";
+    private static boolean isServer=false;
     public static String urlServer = ip ;
 
     public static String getUrlServer(int i) {

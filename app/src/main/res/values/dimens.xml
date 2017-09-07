@@ -35,8 +35,8 @@
     <dimen name="limitY_usernametoolbarprofile">-160dp</dimen>
     <dimen name="margintoptargety_usernametoolbarprofile">15dp</dimen>
     <dimen name="sizeButtomLikeService">25dp</dimen>
-    <dimen name="padding_homefragment_icon">5dp</dimen>
-    <dimen name="dimen_home_icon_heigth">100dp</dimen>
+    <dimen name="padding_homefragment_icon">10dp</dimen>
+    <dimen name="dimen_home_icon_heigth">80dp</dimen>
     <dimen name="paddingtop_profile">200dp</dimen>
     <dimen name="marginTop_profile">20dp</dimen>
     <dimen name="fragment_profile_paddingwidth">3dp</dimen>
@@ -54,4 +54,5 @@
     <dimen name="height_card_activity">90dp</dimen>
     <dimen name="text_size_title_card">18sp</dimen>
     <dimen name="textsize_room_select">15sp</dimen>
+    <dimen name="text_size_primary_home">20sp</dimen>
 </resources>

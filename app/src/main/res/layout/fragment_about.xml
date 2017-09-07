@@ -1,5 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -22,47 +21,20 @@
                 android:padding="@dimen/padding_homefragment_icon">
 
                 <ImageButton
-                    android:id="@+id/imageSiteTour"
+                    android:id="@+id/imageProfile"
                     android:layout_width="@dimen/dimen_home_icon_heigth"
                     android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_turismo_1"
+                    android:background="@drawable/img_profile"
                     android:contentDescription="@string/description_logo" />
 
                 <TextView
-                    android:id="@+id/textSiteTour"
+                    android:id="@+id/textProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_site_tour"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary_home" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_homefragment_icon">
-
-
-                <ImageButton
-                    android:id="@+id/imageService"
-                    android:layout_width="@dimen/dimen_home_icon_heigth"
-                    android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_service_1"
-                    android:contentDescription="@string/description_logo" />
-
-                <TextView
-                    android:id="@+id/textService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_service"
+                    android:text="@string/label_home_icon_profile"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_primary_home" />
@@ -75,49 +47,20 @@
                 android:padding="@dimen/padding_homefragment_icon">
 
                 <ImageButton
-                    android:id="@+id/imageOffer"
+                    android:id="@+id/imageHistory"
                     android:layout_width="@dimen/dimen_home_icon_heigth"
                     android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_offer_3"
+                    android:background="@drawable/img_history_3"
                     android:contentDescription="@string/description_logo" />
 
-
                 <TextView
-                    android:id="@+id/textOffer"
+                    android:id="@+id/textHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_offer"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_size_primary_home" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_homefragment_icon">
-
-                <ImageButton
-                    android:id="@+id/imageLocationMap"
-                    android:layout_width="@dimen/dimen_home_icon_heigth"
-                    android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_maps_4"
-                    android:contentDescription="@string/description_logo" />
-
-                <TextView
-                    android:id="@+id/textLocationMap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_location"
+                    android:text="@string/label_home_icon_history"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_primary_home" />
@@ -130,28 +73,79 @@
                 android:padding="@dimen/padding_homefragment_icon">
 
                 <ImageButton
-                    android:id="@+id/imageActivity"
+                    android:id="@+id/imageAbout"
                     android:layout_width="@dimen/dimen_home_icon_heigth"
                     android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_calendar_1"
+                    android:background="@drawable/img_about_1"
                     android:contentDescription="@string/description_logo" />
 
                 <TextView
-                    android:id="@+id/textActivity"
+                    android:id="@+id/textAbout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_activity"
+                    android:text="@string/label_home_icon_about"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_primary_home" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_homefragment_icon">
+
+                <ImageButton
+                    android:id="@+id/imageFrequently"
+                    android:layout_width="@dimen/dimen_home_icon_heigth"
+                    android:layout_height="@dimen/dimen_home_icon_heigth"
+                    android:background="@drawable/img_question"
+                    android:contentDescription="@string/description_logo" />
+
+                <TextView
+                    android:id="@+id/textFrequently"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="25dp"
+                    android:text="@string/label_home_icon_frequently"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary_home" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_homefragment_icon">
+
+                <ImageButton
+                    android:id="@+id/imageContact"
+                    android:layout_width="@dimen/dimen_home_icon_heigth"
+                    android:layout_height="@dimen/dimen_home_icon_heigth"
+                    android:background="@drawable/img_message"
+                    android:contentDescription="@string/description_logo" />
+
+                <TextView
+                    android:id="@+id/textContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="25dp"
+                    android:text="@string/label_home_icon_message_send"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary_home" />
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

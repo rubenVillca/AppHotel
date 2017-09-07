@@ -2,8 +2,12 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,23 +16,20 @@ import android.widget.ProgressBar;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.fragments.ContactFragment;
-import com.umss.sistemas.tesis.hotel.fragments.FrequentlyFragment;
+import com.umss.sistemas.tesis.hotel.fragments.AboutFragment;
+import com.umss.sistemas.tesis.hotel.fragments.ConsumeFragment;
 import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
-import com.umss.sistemas.tesis.hotel.fragments.ProfileFragment;
-import com.umss.sistemas.tesis.hotel.fragments.SearchFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
-import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -41,12 +42,31 @@ public class ContainerActivity extends ActivityParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-        container = findViewById(R.id.container);
+        container=findViewById(R.id.layoutContainerActivity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Setting ViewPager for each Tabs
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
         progressBarAdvanced = (ProgressBar) findViewById(R.id.progressBarAdvanced);
         helperSQLiteObtain = new HelperSQLiteObtain(this);
 
-        setActionBottomBar();
         obtainDataBundle();
+    }
+
+    // Add Fragments to Tabs
+    private void setupViewPager(ViewPager viewPager) {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(new HomeFragment(), "Lista");
+        adapter.addFragment(new ConsumeFragment(),"Consumo");
+        adapter.addFragment(new AboutFragment(), "Acerca de ..");
+        viewPager.setAdapter(adapter);
     }
 
     private void obtainDataBundle() {
@@ -59,58 +79,9 @@ public class ContainerActivity extends ActivityParent {
         }
     }
 
-    /**
-     * carga el menu principal de la app en la parte inferior
-     */
-    private void setActionBottomBar() {
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottombar);
-        bottomBar.setDefaultTab(R.id.tabHome);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                switch (tabId) {
-                    case R.id.tabHome:
-                        goFragment(new HomeFragment());
-                        break;
-                    case R.id.tabProfile:
-                        goProfileFragment();
-                        break;
-                    case R.id.tabSearch:
-                        goFragment(new SearchFragment());
-                        break;
-                    case R.id.tabMessajeSend:
-                        goFragment(new ContactFragment());
-                        break;
-                    case R.id.tabFrequently:
-                        goFrequentlyFragment();
-                        break;
-                }
-            }
-        });
-    }
-
-    private void goProfileFragment() {
-        goFragment(new ProfileFragment());
-    }
-
-    private void goFrequentlyFragment() {
-        goFragment(new FrequentlyFragment());
-    }
-
-    private void goFragment(FragmentParent fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
-
     @Override//boton de atras del teclado
     public void onBackPressed() {
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
     }
 
     @Override
@@ -151,6 +122,35 @@ public class ContainerActivity extends ActivityParent {
                 break;
         }
         return true;
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
     private void updateProgressSync() {
@@ -219,28 +219,28 @@ public class ContainerActivity extends ActivityParent {
 
         client.post(Conexion.getUrlServer(Conexion.FREQUENTLY), params,
                 new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpFrequently(obj);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+                            try {
+                                JSONObject obj = new JSONObject(new String(responseBody));
+                                helperSQLiteInsert.syncUpFrequently(obj);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            System.out.println("Servidor no disponible");
+                        }
+                        updateProgressSync();
                     }
-                } else {
-                    System.out.println("Servidor no disponible");
-                }
-                updateProgressSync();
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] responseBody, Throwable error) {
-                updateProgressSync();
-                System.out.println("Servidor no esta disponible");
-            }
-        });
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers,
+                                          byte[] responseBody, Throwable error) {
+                        updateProgressSync();
+                        System.out.println("Servidor no esta disponible");
+                    }
+                });
     }
 
     /**

@@ -2,7 +2,6 @@ package com.umss.sistemas.tesis.hotel.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,14 @@ import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends FragmentParent {
+public class ConsumeFragment extends FragmentParent {
 
-    public HomeFragment() {}
+    public ConsumeFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
+        View view=inflater.inflate(R.layout.fragment_consume, container, false);
 
         super.showToolBar(getResources().getString(R.string.title_hotel), false);
         super.showFloatingButtonMessage(view);
@@ -34,20 +33,14 @@ public class HomeFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        ImageView imgOffer=(ImageView)view.findViewById(R.id.imageOffer);
-        imgOffer.setOnClickListener(this);
 
-        ImageView imgSiteTour=(ImageView)view.findViewById(R.id.imageSiteTour);
-        imgSiteTour.setOnClickListener(this);
+        ImageView imgReserve=(ImageView)view.findViewById(R.id.imageReserve);
+        imgReserve.setOnClickListener(this);
 
-        ImageView imgService=(ImageView)view.findViewById(R.id.imageService);
-        imgService.setOnClickListener(this);
+        ImageView imgFoodMenu=(ImageView)view.findViewById(R.id.imageServiceFood);
+        imgFoodMenu.setOnClickListener(this);
 
-        ImageView imgLocation=(ImageView)view.findViewById(R.id.imageLocationMap);
-        imgLocation.setOnClickListener(this);
-
-        ImageView imgActivity=(ImageView)view.findViewById(R.id.imageActivity);
-        imgActivity.setOnClickListener(this);
-
+        ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
+        imgConsum.setOnClickListener(this);
     }
 }

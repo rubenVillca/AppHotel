@@ -7,11 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="false" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,6 +14,11 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
@@ -35,7 +35,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,8 +61,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.LoginActivity" />
         </activity>
-        <activity android:name=".activity.ContainerActivity"
-            android:icon="@drawable/ic_logo"/>
+        <activity
+            android:name=".activity.ContainerActivity"
+            android:icon="@drawable/ic_logo" />
         <activity
             android:name=".activity.ServiceDetailActivity"
             android:parentActivityName=".activity.ServicesActivity"
@@ -301,9 +305,33 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.umss.sistemas.tesis.hotel.activity.OfferActivity" />
         </activity>
+        <activity
+            android:name=".activity.FrequentlyActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ContactActivity"
+            android:parentActivityName=".activity.ContainerActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.umss.sistemas.tesis.hotel.activity.ContainerActivity" />
+        </activity>
 
-        <receiver android:name=".alarm.AlarmNotificationReceiver"/>
-        <receiver android:name=".alarm.AlarmToastReceiver"/>
+        <receiver android:name=".alarm.AlarmNotificationReceiver" />
+        <receiver android:name=".alarm.AlarmToastReceiver" />
     </application>
 
 </manifest>

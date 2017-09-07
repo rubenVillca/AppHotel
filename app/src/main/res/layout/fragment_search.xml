@@ -6,10 +6,5 @@
     android:fitsSystemWindows="true"
     tools:context="com.umss.sistemas.tesis.hotel.fragments.SearchFragment">
 
-    <include layout="@layout/actionbar_toolbar"/>
-
-
-
-    <include layout="@layout/actionbar_floating_button_message"/>
 
 </android.support.design.widget.CoordinatorLayout>

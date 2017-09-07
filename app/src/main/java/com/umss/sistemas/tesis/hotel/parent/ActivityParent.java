@@ -29,6 +29,7 @@ public class ActivityParent extends AppCompatActivity {
 
     /**
      * muestra el progress bar mientras carga el activity
+     *
      * @param show:estado del progressBar
      */
     protected void showProgress(final boolean show) {
@@ -52,7 +53,7 @@ public class ActivityParent extends AppCompatActivity {
                     progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
-        }else{
+        } else {
             progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
             progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
@@ -72,6 +73,7 @@ public class ActivityParent extends AppCompatActivity {
 
     /**
      * mostrar mensajes en Toast
+     *
      * @param m:mensaje
      */
     protected void showMessaje(String m) {
@@ -81,10 +83,10 @@ public class ActivityParent extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (helperSQLiteInsert !=null) {
+        if (helperSQLiteInsert != null) {
             helperSQLiteInsert.destroy();
         }
-        if (helperSQLiteObtain!=null) {
+        if (helperSQLiteObtain != null) {
             helperSQLiteObtain.destroy();
         }
     }

@@ -1,4 +1,4 @@
-package com.umss.sistemas.tesis.hotel.fragments;
+package com.umss.sistemas.tesis.hotel.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,11 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +15,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
+import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,25 +26,24 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProfileFragment extends FragmentParent {
+public class ProfileActivity extends ActivityParent {
+    protected String mCurrentPhotoPath;
+    protected static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private CircleImageView imgProfile;
 
-    public ProfileFragment() {}
+    public ProfileActivity() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        super.showToolBar("", false, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
-        helperSQLiteObtain =new HelperSQLiteObtain(getContext());
-        showContentProfile(view);
-        showImageCamera(view);
+        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        showToolBar("", true);
 
-        return view;
+        showContentProfile();
+        showImageCamera();
     }
 
     /**
@@ -56,7 +51,7 @@ public class ProfileFragment extends FragmentParent {
      */
     public void goCameraActivity(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+        if (intent.resolveActivity(this.getPackageManager()) != null) {
 
             File photoFile = null;
             try {
@@ -65,7 +60,7 @@ public class ProfileFragment extends FragmentParent {
                 e.printStackTrace();
             }
             if (photoFile != null) {
-                Uri photoUri = FileProvider.getUriForFile(getActivity(), "com.umss.sistemas.tesis.hotel", photoFile);
+                Uri photoUri = FileProvider.getUriForFile(this, "com.umss.sistemas.tesis.hotel", photoFile);
 
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
@@ -82,24 +77,24 @@ public class ProfileFragment extends FragmentParent {
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFilename = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(imageFilename, ".jpg", storageDir);
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
-    private void showContentProfile(View view) {
+    private void showContentProfile() {
         PersonModel profile = helperSQLiteObtain.getPersonModel(helperSQLiteObtain.getLoginModel().getIdPerson());
-        showDataProfile(profile, view);
-        imgProfile = (CircleImageView) view.findViewById(R.id.imgCircleProfile);
+        showDataProfile(profile);
+        imgProfile = (CircleImageView) findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
-            Picasso.with(getActivity()).load(Conexion.urlServer + profile.getImgPerson()).into(imgProfile);
+            Picasso.with(this).load(Conexion.urlServer + profile.getImgPerson()).into(imgProfile);
         }
     }
 
-    private void showImageCamera(View view) {
-        ImageView imgCamera = (ImageView) view.findViewById(R.id.imgProfileCamera);
+    private void showImageCamera() {
+        ImageView imgCamera = (ImageView) findViewById(R.id.imgProfileCamera);
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,59 +108,58 @@ public class ProfileFragment extends FragmentParent {
      *
      * @param profile: perfil del usuario
      */
-    private void showDataProfile(PersonModel profile, View view) {
-        TextView nameUser = (TextView) view.findViewById(R.id.userNameProfile);
+    private void showDataProfile(PersonModel profile) {
+        TextView nameUser = (TextView) findViewById(R.id.userNameProfile);
         nameUser.setText(profile.getNamePerson()+"\n"+profile.getNameLastPerson());
 
-        TextView name = (TextView) view.findViewById(R.id.profileNamePerson);
+        TextView name = (TextView) findViewById(R.id.profileNamePerson);
         name.setText(profile.getNamePerson());
 
-        TextView nameLast = (TextView) view.findViewById(R.id.profileLastNamePerson);
+        TextView nameLast = (TextView) findViewById(R.id.profileLastNamePerson);
         nameLast.setText(profile.getNameLastPerson());
 
-        TextView email = (TextView) view.findViewById(R.id.profileEmailPerson);
+        TextView email = (TextView) findViewById(R.id.profileEmailPerson);
         email.setText(profile.getEmailPerson());
 
-        TextView point = (TextView) view.findViewById(R.id.profilePointPerson);
+        TextView point = (TextView) findViewById(R.id.profilePointPerson);
         point.setText(String.valueOf(profile.getPointPerson()));
 
-        TextView address = (TextView) view.findViewById(R.id.profileAddressPerson);
+        TextView address = (TextView) findViewById(R.id.profileAddressPerson);
         address.setText(profile.getAddressPerson());
 
-        TextView city = (TextView) view.findViewById(R.id.profileCityPerson);
+        TextView city = (TextView) findViewById(R.id.profileCityPerson);
         city.setText(profile.getCityPerson());
 
-        TextView country = (TextView) view.findViewById(R.id.profileCountryPerson);
+        TextView country = (TextView) findViewById(R.id.profileCountryPerson);
         country.setText(profile.getCountryPerson());
 
-        TextView sex = (TextView) view.findViewById(R.id.profileSexPerson);
+        TextView sex = (TextView) findViewById(R.id.profileSexPerson);
         sex.setText(profile.getSexPerson() == 1 ? "Hombre" : "Mujer");
 
-        TextView dateBorn = (TextView) view.findViewById(R.id.profileDateBornPerson);
+        TextView dateBorn = (TextView) findViewById(R.id.profileDateBornPerson);
         dateBorn.setText(profile.getDateBornPerson());
 
-        TextView dateRegister = (TextView) view.findViewById(R.id.profileDateRegisterPerson);
+        TextView dateRegister = (TextView) findViewById(R.id.profileDateRegisterPerson);
         dateRegister.setText(profile.getDateRegisterPerson());
 
-        TextView typeDocument = (TextView) view.findViewById(R.id.profileTypeDocumentPerson);
+        TextView typeDocument = (TextView) findViewById(R.id.profileTypeDocumentPerson);
         typeDocument.setText(profile.getTypeDocument());
 
-        TextView numberDocument = (TextView) view.findViewById(R.id.profileNumberDocumentPerson);
+        TextView numberDocument = (TextView) findViewById(R.id.profileNumberDocumentPerson);
         numberDocument.setText(String.valueOf(profile.getNumberDocument()));
 
-        TextView numberPhone = (TextView) view.findViewById(R.id.profileNumberPhonePerson);
+        TextView numberPhone = (TextView) findViewById(R.id.profileNumberPhonePerson);
         numberPhone.setText(String.valueOf(profile.getNumberPhone()));
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        getActivity();
-        if (requestCode == FragmentParent.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
 
-            Picasso.with(getActivity()).load(mCurrentPhotoPath).into(imgProfile);
+            Picasso.with(this).load(mCurrentPhotoPath).into(imgProfile);
             addPictureToGalery();
-            Toast.makeText(getActivity(), "Guradado en: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Guradado en: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -175,6 +169,6 @@ public class ProfileFragment extends FragmentParent {
 
         Uri contentUri = Uri.fromFile(newFile);
         intent.setData(contentUri);
-        getActivity().sendBroadcast(intent);
+        sendBroadcast(intent);
     }
 }

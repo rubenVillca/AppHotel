@@ -16,21 +16,20 @@ import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
  */
 public class SearchFragment extends FragmentParent {
 
+    public SearchFragment() {
 
-    public SearchFragment() {}
-
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_search, container, false);
-        super.showToolBar(getResources().getString(R.string.tab_search),false,view);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        super.showToolBar(getResources().getString(R.string.title_hotel), false);
         super.showFloatingButtonMessage(view);
 
-        helperSQLiteInsert =new HelperSQLiteInsert(getContext());
+        helperSQLiteInsert = new HelperSQLiteInsert(getContext());
 
         return view;
     }
-
 }

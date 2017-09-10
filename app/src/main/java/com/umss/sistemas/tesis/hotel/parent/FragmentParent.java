@@ -1,10 +1,14 @@
 package com.umss.sistemas.tesis.hotel.parent;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -13,6 +17,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
 import com.umss.sistemas.tesis.hotel.activity.ConsumeActivity;
+import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
 import com.umss.sistemas.tesis.hotel.activity.FrequentlyActivity;
 import com.umss.sistemas.tesis.hotel.activity.HistoryActivity;
 import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
@@ -42,6 +47,12 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     private AsyncHttpClient client;
     private RequestParams params;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     /**
      * barra superior de la activity en la q esta el boton de atras y el nombre de la misma
      *
@@ -54,15 +65,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
 
-    /**
-     * boton flotante para acceder a los mensajes recibidos
-     *
-     * @param view: actividad en la estar el boton de mensaje
-     */
-    protected void showFloatingButtonMessage(View view) {
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        //fab.setOnClickListener(this);
-    }
 
     @Override
     public void onDestroy() {
@@ -80,9 +82,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         helperSQLiteObtain = new HelperSQLiteObtain(getContext());
 
         switch (v.getId()) {
-            case R.id.fab:
-                goMessageActivity();
-                break;
             case R.id.imageOffer:
                 goOfferActivity();
                 break;
@@ -141,7 +140,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
     }
 
     private void goProfileActivity() {
-        containerActivity.showProgress(true);
         Intent intent = new Intent(getActivity(), ProfileActivity.class);
         startActivity(intent);
     }

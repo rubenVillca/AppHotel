@@ -24,7 +24,6 @@ public class HomeFragment extends FragmentParent {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
 
         super.showToolBar(getResources().getString(R.string.title_hotel), false);
-        super.showFloatingButtonMessage(view);
         setActionIcon(view);
         return view;
     }

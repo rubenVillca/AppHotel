@@ -2,6 +2,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,7 +43,7 @@ public class ContainerActivity extends ActivityParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-        container=findViewById(R.id.layoutContainerActivity);
+        container = findViewById(R.id.layoutContainerActivity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,7 +65,7 @@ public class ContainerActivity extends ActivityParent {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "Lista");
-        adapter.addFragment(new ConsumeFragment(),"Consumo");
+        adapter.addFragment(new ConsumeFragment(), "Consumo");
         adapter.addFragment(new AboutFragment(), "Acerca de ..");
         viewPager.setAdapter(adapter);
     }
@@ -77,11 +78,12 @@ public class ContainerActivity extends ActivityParent {
         } else {
             idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
         }
+        showProgress(false);
     }
 
     @Override//boton de atras del teclado
     public void onBackPressed() {
-        //moveTaskToBack(true);
+        //moveTaskToBack(true);//minimizar app
     }
 
     @Override
@@ -123,6 +125,23 @@ public class ContainerActivity extends ActivityParent {
         }
         return true;
     }
+
+    /**
+     * boton flotante para acceder a los mensajes recibidos
+     *
+     * @param view: actividad en la estar el boton de mensaje
+     */
+    public void goMessage(View view) {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContainerActivity.this, MessagesActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

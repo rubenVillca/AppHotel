@@ -1,58 +1,68 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_primary_light"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context="com.umss.sistemas.tesis.hotel.activity.ContactActivity">
 
-    <ScrollView
+    <include layout="@layout/actionbar_toolbar" />
+
+    <LinearLayout
         android:id="@+id/message_form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/color_primary_light"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_horizontal_fragment">
+            android:layout_height="wrap_content">
 
-            <Spinner
-                android:id="@+id/contactSpinner"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dialog" />
+                android:orientation="vertical"
+                android:padding="@dimen/padding_horizontal_fragment">
 
-            <EditText
-                android:id="@+id/contactTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Titulo del mensaje"
-                android:textColor="@color/color_primary" />
+                <Spinner
+                    android:id="@+id/contactSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dialog" />
 
-            <EditText
-                android:id="@+id/contactEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:enabled="true"
-                android:gravity="top"
-                android:hint="Mensaje"
-                android:inputType="textMultiLine"
-                android:lines="8"
-                android:minHeight="250dp"
-                android:scrollHorizontally="false"
-                android:scrollbars="vertical"
-                android:textColor="@color/color_primary" />
+                <EditText
+                    android:id="@+id/contactTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Titulo del mensaje"
+                    android:textColor="@color/color_primary" />
 
-            <Button
-                android:id="@+id/btnContactSend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_primary_dark"
-                android:text="@string/action_send" />
-        </LinearLayout>
-    </ScrollView>
+                <EditText
+                    android:id="@+id/contactEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:enabled="true"
+                    android:gravity="top"
+                    android:hint="Mensaje"
+                    android:inputType="textMultiLine"
+                    android:lines="8"
+                    android:minHeight="250dp"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/color_primary" />
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/btnContactSend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_primary_dark"
+                    android:text="@string/action_send" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

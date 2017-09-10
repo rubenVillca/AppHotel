@@ -33,7 +33,7 @@ public class ContactActivity extends ActivityParent {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
+        container=findViewById(R.id.message_form);
         helperSQLiteObtain =new HelperSQLiteObtain(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
         setSpinner();

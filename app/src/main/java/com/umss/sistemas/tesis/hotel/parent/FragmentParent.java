@@ -82,43 +82,43 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         helperSQLiteObtain = new HelperSQLiteObtain(getContext());
 
         switch (v.getId()) {
-            case R.id.imageOffer:
+            case R.id.layoutOffer:
                 goOfferActivity();
                 break;
-            case R.id.imageSiteTour:
+            case R.id.layoutSiteTour:
                 goSiteTourActivity();
                 break;
-            case R.id.imageService:
+            case R.id.layoutService:
                 goServiceActivity();
                 break;
-            case R.id.imageReserve:
+            case R.id.layoutReserve:
                 goReserveVerifyActivity();
                 break;
-            case R.id.imageLocationMap:
+            case R.id.layoutLocationMap:
                 goLocationActivity();
                 break;
-            case R.id.imageActivity:
+            case R.id.layoutActivity:
                 goCalendarActivity();
                 break;
-            case R.id.imageServiceFood:
+            case R.id.layoutServiceFood:
                 goServiceFoodActivity();
                 break;
-            case R.id.imageHistory:
+            case R.id.layoutHistory:
                 goHistoryActivity();
                 break;
-            case R.id.imageConsum:
+            case R.id.layoutConsum:
                 goConsumeActivity();
                 break;
-            case R.id.imageProfile:
+            case R.id.layoutProfile:
                 goProfileActivity();
                 break;
-            case R.id.imageAbout:
+            case R.id.layoutAbout:
                 goAboutActivity();
                 break;
-            case R.id.imageFrequently:
+            case R.id.layoutFrequently:
                 goFrequentlyActivity();
                 break;
-            case R.id.imageContact:
+            case R.id.layoutContact:
                 goContactActivity();
                 break;
         }

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
@@ -32,19 +32,19 @@ public class AboutFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        ImageView imgHistory=(ImageView)view.findViewById(R.id.imageHistory);
+        LinearLayout imgHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
         imgHistory.setOnClickListener(this);
 
-        ImageView imgProfile=(ImageView)view.findViewById(R.id.imageProfile);
+        LinearLayout imgProfile=(LinearLayout)view.findViewById(R.id.layoutProfile);
         imgProfile.setOnClickListener(this);
 
-        ImageView imgAbout=(ImageView)view.findViewById(R.id.imageAbout);
+        LinearLayout imgAbout=(LinearLayout)view.findViewById(R.id.layoutAbout);
         imgAbout.setOnClickListener(this);
 
-        ImageView imgFrequently=(ImageView)view.findViewById(R.id.imageFrequently);
+        LinearLayout imgFrequently=(LinearLayout)view.findViewById(R.id.layoutFrequently);
         imgFrequently.setOnClickListener(this);
 
-        ImageView imgContact=(ImageView)view.findViewById(R.id.imageContact);
+        LinearLayout imgContact=(LinearLayout)view.findViewById(R.id.layoutContact);
         imgContact.setOnClickListener(this);
     }
 }

@@ -15,6 +15,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layoutSiteTour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -41,6 +42,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -68,6 +70,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -96,6 +99,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutLocationMap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -123,6 +127,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

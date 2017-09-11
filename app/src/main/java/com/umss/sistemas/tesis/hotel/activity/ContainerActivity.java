@@ -25,6 +25,7 @@ import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
+import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +46,7 @@ public class ContainerActivity extends ActivityParent {
         setContentView(R.layout.activity_container);
         container = findViewById(R.id.layoutContainerActivity);
 
+        //cabecera de la app
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,6 +54,7 @@ public class ContainerActivity extends ActivityParent {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        //pestanas de la app
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 

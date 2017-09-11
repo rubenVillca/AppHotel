@@ -2,11 +2,10 @@ package com.umss.sistemas.tesis.hotel.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
@@ -33,20 +32,21 @@ public class HomeFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        ImageView imgOffer=(ImageView)view.findViewById(R.id.imageOffer);
-        imgOffer.setOnClickListener(this);
 
-        ImageView imgSiteTour=(ImageView)view.findViewById(R.id.imageSiteTour);
-        imgSiteTour.setOnClickListener(this);
+        LinearLayout layoutOffer=(LinearLayout)view.findViewById(R.id.layoutOffer);
+        layoutOffer.setOnClickListener(this);
 
-        ImageView imgService=(ImageView)view.findViewById(R.id.imageService);
-        imgService.setOnClickListener(this);
+        LinearLayout layoutSiteTour=(LinearLayout)view.findViewById(R.id.layoutSiteTour);
+        layoutSiteTour.setOnClickListener(this);
 
-        ImageView imgLocation=(ImageView)view.findViewById(R.id.imageLocationMap);
-        imgLocation.setOnClickListener(this);
+        LinearLayout layoutService=(LinearLayout)view.findViewById(R.id.layoutService);
+        layoutService.setOnClickListener(this);
 
-        ImageView imgActivity=(ImageView)view.findViewById(R.id.imageActivity);
-        imgActivity.setOnClickListener(this);
+        LinearLayout layoutLocation=(LinearLayout)view.findViewById(R.id.layoutLocationMap);
+        layoutLocation.setOnClickListener(this);
+
+        LinearLayout layoutActivity=(LinearLayout)view.findViewById(R.id.layoutActivity);
+        layoutActivity.setOnClickListener(this);
 
     }
 }

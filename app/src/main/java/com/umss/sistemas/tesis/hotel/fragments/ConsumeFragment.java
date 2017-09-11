@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
@@ -33,13 +33,13 @@ public class ConsumeFragment extends FragmentParent {
      */
     private void setActionIcon(View view) {
 
-        ImageView imgReserve=(ImageView)view.findViewById(R.id.imageReserve);
+        LinearLayout imgReserve=(LinearLayout)view.findViewById(R.id.layoutReserve);
         imgReserve.setOnClickListener(this);
 
-        ImageView imgFoodMenu=(ImageView)view.findViewById(R.id.imageServiceFood);
+        LinearLayout imgFoodMenu=(LinearLayout)view.findViewById(R.id.layoutServiceFood);
         imgFoodMenu.setOnClickListener(this);
 
-        ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
+        LinearLayout imgConsum=(LinearLayout)view.findViewById(R.id.layoutConsum);
         imgConsum.setOnClickListener(this);
     }
 }

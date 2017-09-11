@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
+import android.widget.ImageView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ public class AboutFragment extends FragmentParent {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the image for this fragment
         View view=inflater.inflate(R.layout.fragment_about, container, false);
 
         super.showToolBar(getResources().getString(R.string.title_hotel), false);
@@ -32,19 +33,35 @@ public class AboutFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        LinearLayout imgHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
-        imgHistory.setOnClickListener(this);
+        ImageView imageHistory=(ImageView)view.findViewById(R.id.imageHistory);
+        imageHistory.setOnClickListener(this);
 
-        LinearLayout imgProfile=(LinearLayout)view.findViewById(R.id.layoutProfile);
-        imgProfile.setOnClickListener(this);
+        ImageView imageProfile=(ImageView)view.findViewById(R.id.imageProfile);
+        imageProfile.setOnClickListener(this);
 
-        LinearLayout imgAbout=(LinearLayout)view.findViewById(R.id.layoutAbout);
-        imgAbout.setOnClickListener(this);
+        ImageView imageAbout=(ImageView)view.findViewById(R.id.imageAbout);
+        imageAbout.setOnClickListener(this);
 
-        LinearLayout imgFrequently=(LinearLayout)view.findViewById(R.id.layoutFrequently);
-        imgFrequently.setOnClickListener(this);
+        ImageView imageFrequently=(ImageView)view.findViewById(R.id.imageFrequently);
+        imageFrequently.setOnClickListener(this);
 
-        LinearLayout imgContact=(LinearLayout)view.findViewById(R.id.layoutContact);
-        imgContact.setOnClickListener(this);
+        ImageView imageContact=(ImageView)view.findViewById(R.id.imageContact);
+        imageContact.setOnClickListener(this);
+
+        //layout
+        LinearLayout layoutHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
+        layoutHistory.setOnClickListener(this);
+
+        LinearLayout layoutProfile=(LinearLayout)view.findViewById(R.id.layoutProfile);
+        layoutProfile.setOnClickListener(this);
+
+        LinearLayout layoutAbout=(LinearLayout)view.findViewById(R.id.layoutAbout);
+        layoutAbout.setOnClickListener(this);
+
+        LinearLayout layoutFrequently=(LinearLayout)view.findViewById(R.id.layoutFrequently);
+        layoutFrequently.setOnClickListener(this);
+
+        LinearLayout layoutContact=(LinearLayout)view.findViewById(R.id.layoutContact);
+        layoutContact.setOnClickListener(this);
     }
 }

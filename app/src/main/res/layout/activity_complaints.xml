@@ -37,7 +37,7 @@
                     android:inputType="textMultiLine"
                     android:lines="8"
                     android:gravity="top"
-                    android:hint="Mensaje"
+                    android:hint="@string/label_message"
                     android:minHeight="250dp"
                     android:scrollHorizontally="false"
                     android:textColor="@color/color_primary"
@@ -47,8 +47,9 @@
                     android:id="@+id/btnComplaintsSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_primary_dark"
-                    android:text="@string/action_send" />
+                    android:backgroundTint="@color/color_primary_dark"
+                    android:text="@string/action_send"
+                    tools:targetApi="lollipop" />
             </LinearLayout>
         </ScrollView>
 

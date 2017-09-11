@@ -39,17 +39,19 @@
                     android:minHeight="250dp"
                     android:lines="8"
                     android:gravity="top"
-                    android:hint="Sugerencia"
+                    android:hint="@string/label_suggestion"
                     android:textColor="@color/color_primary"
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"/>
 
                 <Button
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/action_send"
-                    android:background="@color/color_primary_dark"
-                    android:id="@+id/btnSuggestionSend" />
+                    android:layout_marginTop="@dimen/margin_create_account"
+                    android:backgroundTint="@color/color_primary_dark"
+                    android:id="@+id/btnSuggestionSend"
+                    tools:targetApi="lollipop" />
             </LinearLayout>
         </ScrollView>
 

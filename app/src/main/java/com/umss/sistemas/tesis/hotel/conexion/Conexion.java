@@ -54,7 +54,7 @@ public class Conexion {
             "consumeService/insert",
             "profile/upload"
     };
-    private static String ip = "http://192.168.1.35/hotel/";
+    private static String ip = "http://192.168.1.36/hotel/";
     //private static String ip = "http://hoteltesis.esy.es/";
     private static boolean isServer=false;
     public static String urlServer = ip ;

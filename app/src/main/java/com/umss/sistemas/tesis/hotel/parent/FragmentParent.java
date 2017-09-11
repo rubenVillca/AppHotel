@@ -3,7 +3,6 @@ package com.umss.sistemas.tesis.hotel.parent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.AboutActivity;
 import com.umss.sistemas.tesis.hotel.activity.CalendarActivity;
 import com.umss.sistemas.tesis.hotel.activity.ConsumeActivity;
-import com.umss.sistemas.tesis.hotel.activity.ContainerActivity;
+import com.umss.sistemas.tesis.hotel.activity.ContactActivity;
 import com.umss.sistemas.tesis.hotel.activity.FrequentlyActivity;
 import com.umss.sistemas.tesis.hotel.activity.HistoryActivity;
 import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
@@ -29,7 +28,6 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.activity.ContactActivity;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 
@@ -188,14 +186,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     private void goOfferActivity() {
         Intent intent = new Intent(getActivity(), OffersActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * cambiar de activity a messageActivity
-     */
-    private void goMessageActivity() {
-        Intent intent = new Intent(getActivity(), MessagesActivity.class);
         startActivity(intent);
     }
 

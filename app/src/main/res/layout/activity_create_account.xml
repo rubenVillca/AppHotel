@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/email"
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/personName"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/personLastName"
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/numberPhone"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/passwordCreateAccout"
@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditTextBlack"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/repeatPassword"
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_create_accout">
+                android:layout_marginTop="@dimen/margin_create_account">
 
                 <TextView
                     android:id="@+id/textViewSex"
@@ -144,7 +144,7 @@
                 android:id="@+id/btnCreateAcount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_create_accout"
+                android:layout_marginTop="@dimen/margin_create_account"
                 android:background="@color/color_primary"
                 android:text="@string/btn_create_account"/>
         </LinearLayout>

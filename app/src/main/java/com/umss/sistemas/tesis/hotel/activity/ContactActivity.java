@@ -2,15 +2,11 @@ package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -19,7 +15,6 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
-import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +28,8 @@ public class ContactActivity extends ActivityParent {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        container=findViewById(R.id.message_form);
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        container = findViewById(R.id.message_form);
+        helperSQLiteObtain = new HelperSQLiteObtain(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
         setSpinner();
     }
@@ -43,10 +38,13 @@ public class ContactActivity extends ActivityParent {
      * cargar lista de tipos de usuarios en el spinner
      */
     private void setSpinner() {
-        String[] valores = {"Administrador", "Recepcionista"};
-
         Spinner spinner = (Spinner) findViewById(R.id.contactSpinner);
-        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valores));
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.rol_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
     }
 
     private void showButtonMessage(final View view) {
@@ -91,9 +89,9 @@ public class ContactActivity extends ActivityParent {
 
         params.put("message", messsage);
         params.put("tittle", title);
-        params.put("android", "android");
         params.put("receiver", receiver);
         params.put("idPerson", idPerson);
+        params.put("android", "android");
 
         client.post(Conexion.getUrlServer(Conexion.CONTACT), params, new AsyncHttpResponseHandler() {
             @Override

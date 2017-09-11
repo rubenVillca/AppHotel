@@ -31,25 +31,27 @@
                     android:id="@+id/contactSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dropdown" />
 
                 <EditText
                     android:id="@+id/contactTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Titulo del mensaje"
+                    android:layout_marginTop="@dimen/margin_create_account"
+                    android:hint="@string/label_title_message"
                     android:textColor="@color/color_primary" />
 
                 <EditText
                     android:id="@+id/contactEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_create_account"
                     android:background="@android:color/white"
                     android:enabled="true"
                     android:gravity="top"
-                    android:hint="Mensaje"
+                    android:hint="@string/label_message"
                     android:inputType="textMultiLine"
-                    android:lines="8"
+                    android:lines="5"
                     android:minHeight="250dp"
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"
@@ -59,8 +61,10 @@
                     android:id="@+id/btnContactSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_primary_dark"
-                    android:text="@string/action_send" />
+                    android:layout_marginTop="@dimen/margin_create_account"
+                    android:backgroundTint="@color/color_primary_dark"
+                    android:text="@string/action_send"
+                    tools:targetApi="lollipop" />
             </LinearLayout>
         </ScrollView>
 

@@ -177,4 +177,7 @@
     <string name="label_home_icon_message_send">Enviar mensaje</string>
     <string name="toolbar_tittle_frequently">Preguntas Frecuentes</string>
     <string name="toolbar_tittle_contact">Contactenos</string>
+    <string name="label_message">Mensaje</string>
+    <string name="label_title_message">Titulo del mensaje</string>
+    <string name="label_suggestion">Sugerencia</string>
 </resources>

@@ -32,6 +32,7 @@ public class ContactActivity extends ActivityParent {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
         setSpinner();
+        showButtonMessage();
     }
 
     /**
@@ -47,18 +48,18 @@ public class ContactActivity extends ActivityParent {
         spinner.setAdapter(adapter);
     }
 
-    private void showButtonMessage(final View view) {
-        Button button = (Button) view.findViewById(R.id.btnContactSend);
+    private void showButtonMessage() {
+        Button button = (Button) findViewById(R.id.btnContactSend);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = (EditText) view.findViewById(R.id.contactEditText);
+                EditText editText = (EditText) findViewById(R.id.contactEditText);
                 String messsage = editText.getText().toString();
 
-                EditText titleMessage = (EditText) view.findViewById(R.id.contactTitle);
+                EditText titleMessage = (EditText) findViewById(R.id.contactTitle);
                 String title = titleMessage.getText().toString();
 
-                Spinner spin = (Spinner) view.findViewById(R.id.contactSpinner);
+                Spinner spin = (Spinner) findViewById(R.id.contactSpinner);
                 String receiver = spin.getSelectedItem().toString();
                 receiver = receiver.equals("Administrador") ? "admin" : "recepcion";
 
@@ -68,7 +69,6 @@ public class ContactActivity extends ActivityParent {
                     editText.setError("Ingrese un titulo y un contenido");
                     titleMessage.setError("Ingrese un titulo y un contenido");
                 }
-
             }
         });
     }

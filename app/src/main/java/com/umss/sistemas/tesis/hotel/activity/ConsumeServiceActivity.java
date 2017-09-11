@@ -53,10 +53,11 @@ public class ConsumeServiceActivity extends ActivityParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consume_service);
-        super.showToolBar("Soliciar servicio", true);
-        container=findViewById(R.id.scrollConsumeService);
-
         initVar();
+
+        super.showToolBar(serviceModel.getName(), true);
+        container = findViewById(R.id.scrollConsumeService);
+
         initContent();
         updateCost();
     }
@@ -65,13 +66,13 @@ public class ConsumeServiceActivity extends ActivityParent {
         serviceModel = (ServiceModel) getIntent().getExtras().getSerializable("serviceModel");
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         idCheck = helperSQLiteObtain.getCheckModel(0, 1, 2).get(0).getId();
-        idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
+        idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
     }
 
     private void initContent() {
         String[] valueUnit = new String[10];
-        for (int i = 0; i< valueUnit.length; i++){
-            valueUnit[i]=String.valueOf(i+1);
+        for (int i = 0; i < valueUnit.length; i++) {
+            valueUnit[i] = String.valueOf(i + 1);
         }
 
         unitSpinnerConsume = (Spinner) findViewById(R.id.unitSpinnerConsume);
@@ -88,7 +89,7 @@ public class ConsumeServiceActivity extends ActivityParent {
             }
         });
 
-        String[] valueDuration = {"30","60","90","120","150","180"};
+        String[] valueDuration = {"30", "60", "90", "120", "150", "180"};
         timeDurationSpinnerConsume = (Spinner) findViewById(R.id.timeDurationSpinnerConsumeService);
         timeDurationSpinnerConsume.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valueDuration));
         timeDurationSpinnerConsume.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -106,9 +107,9 @@ public class ConsumeServiceActivity extends ActivityParent {
         String[] valueTime = new String[36];
         for (int i = 0; i < valueTime.length; i++) {
             if (i % 2 == 0)
-                valueTime[i] = String.valueOf(((5+i) / 2) + ":00");
+                valueTime[i] = String.valueOf(((5 + i) / 2) + ":00");
             else
-                valueTime[i] = String.valueOf(((5+i) / 2) + ":30");
+                valueTime[i] = String.valueOf(((5 + i) / 2) + ":30");
         }
         timeStartSpinnerConsume = (Spinner) findViewById(R.id.timeStartSpinnerConsumeService);
         timeStartSpinnerConsume.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valueTime));
@@ -123,32 +124,32 @@ public class ConsumeServiceActivity extends ActivityParent {
      */
     private void updateCost() {
         int unit = Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString());
-        servicePriceDetailModelMin =null;
+        servicePriceDetailModelMin = null;
         for (ServicePriceDetailModel servicePriceDetailModel : serviceModel.getServicePrice()) {
             if (servicePriceDetailModelMin == null) {
                 servicePriceDetailModelMin = servicePriceDetailModel;
             }
-            if ((unit% servicePriceDetailModel.getServicePriceUnit()) == 0) {
+            if ((unit % servicePriceDetailModel.getServicePriceUnit()) == 0) {
                 if ((servicePriceDetailModel.getServicePricePrice() / servicePriceDetailModel.getServicePriceUnit()) <
                         (servicePriceDetailModelMin.getServicePricePrice() / servicePriceDetailModelMin.getServicePriceUnit()))
                     servicePriceDetailModelMin = servicePriceDetailModel;
             }
         }
-        double unitTime= 1.0*(Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString()))/
-                (servicePriceDetailModelMin.getServicePriceDay()*24*60+ servicePriceDetailModelMin.getServicePriceHour()*60);
+        double unitTime = 1.0 * (Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString())) /
+                (servicePriceDetailModelMin.getServicePriceDay() * 24 * 60 + servicePriceDetailModelMin.getServicePriceHour() * 60);
         if (servicePriceDetailModelMin != null)
-            costTotalTextViewConsume.setText(String.valueOf(servicePriceDetailModelMin.getServicePricePrice() * (1.0*unit/ servicePriceDetailModelMin.getServicePriceUnit())*unitTime));
+            costTotalTextViewConsume.setText(String.valueOf(servicePriceDetailModelMin.getServicePricePrice() * (1.0 * unit / servicePriceDetailModelMin.getServicePriceUnit()) * unitTime));
     }
 
     public void sendConsumeService(View view) {
-        helperSQLiteInsert=new HelperSQLiteInsert(this);
+        helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
         params.put("android", "android");
-        params.put("idPerson",idPerson);
+        params.put("idPerson", idPerson);
         params.put("idCheck", idCheck);
         params.put("idCost", servicePriceDetailModelMin.getServicePriceId());
         params.put("pointObtain", servicePriceDetailModelMin.getServicePricePointObtain());
@@ -165,47 +166,48 @@ public class ConsumeServiceActivity extends ActivityParent {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
+                    /*try {
+                        JSONObject obj = new JSONObject(new String(responseBody));*/
+                    ArrayList<ConsumeServiceModel> listConsumeService = new ArrayList<>();
+
+                    ConsumeServiceModel consumeServiceModel = new ConsumeServiceModel();
+                    consumeServiceModel.setReserveModelArrayList(new ArrayList<ReserveModel>());
+                    consumeServiceModel.setOccupationModelArrayList(new ArrayList<OccupationModel>());
+                    consumeServiceModel.setTypeMoney(servicePriceDetailModelMin.getServicePriceNameMoney());
+                    consumeServiceModel.setState(true);
+                    consumeServiceModel.setPay(0);
+                    consumeServiceModel.setMemberModelArrayList(new ArrayList<MemberModel>());
+                    consumeServiceModel.setIdKeyCheck(idCheck);
+                    consumeServiceModel.setIdKeyService(serviceModel.getId());
+                    consumeServiceModel.setDateInConsum(Calendar.getInstance().get(Calendar.YEAR) + "-" + Calendar.getInstance().get(Calendar.MONTH) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
+                    consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
                     try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<ConsumeServiceModel> listConsumeService=new ArrayList<>();
-
-                        ConsumeServiceModel consumeServiceModel =new ConsumeServiceModel();
-                        consumeServiceModel.setReserveModelArrayList(new ArrayList<ReserveModel>());
-                        consumeServiceModel.setOccupationModelArrayList(new ArrayList<OccupationModel>());
-                        consumeServiceModel.setTypeMoney(servicePriceDetailModelMin.getServicePriceNameMoney());
-                        consumeServiceModel.setState(true);
-                        consumeServiceModel.setPay(0);
-                        consumeServiceModel.setMemberModelArrayList(new ArrayList<MemberModel>());
-                        consumeServiceModel.setIdKeyCheck(idCheck);
-                        consumeServiceModel.setIdKeyService(serviceModel.getId());
-                        consumeServiceModel.setDateInConsum(Calendar.getInstance().get(Calendar.YEAR)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                        consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
-                        consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
-                        try {
-                            Date hora1 = null;
-                            hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
-                            long lantes = hora1.getTime();
-                            long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString())*60);
-                            consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        consumeServiceModel.setPrice(servicePriceDetailModelMin.getServicePricePrice()*Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
-                        consumeServiceModel.setArticleModel(new ArrayList<ArticleModel>());
-                        consumeServiceModel.setNameService(serviceModel.getName());
-                        consumeServiceModel.setPointObtain(servicePriceDetailModelMin.getServicePricePointObtain());
-                        consumeServiceModel.setPointRequired(servicePriceDetailModelMin.getServicePricePointRequired());
-                        consumeServiceModel.setnDay(servicePriceDetailModelMin.getServicePriceDay());
-                        consumeServiceModel.setnHour(servicePriceDetailModelMin.getServicePriceHour());
-                        consumeServiceModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
-
-                        listConsumeService.add(consumeServiceModel);
-                        helperSQLiteInsert.insertConsumeSQLite(listConsumeService);
-                        goConsumeActivity();
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
+                        Date hora1 = null;
+                        hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
+                        long lantes = hora1.getTime();
+                        long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString()) * 60);
+                        consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    consumeServiceModel.setPrice(servicePriceDetailModelMin.getServicePricePrice() * Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
+                    consumeServiceModel.setArticleModel(new ArrayList<ArticleModel>());
+                    consumeServiceModel.setNameService(serviceModel.getName());
+                    consumeServiceModel.setPointObtain(servicePriceDetailModelMin.getServicePricePointObtain());
+                    consumeServiceModel.setPointRequired(servicePriceDetailModelMin.getServicePricePointRequired());
+                    consumeServiceModel.setnDay(servicePriceDetailModelMin.getServicePriceDay());
+                    consumeServiceModel.setnHour(servicePriceDetailModelMin.getServicePriceHour());
+                    consumeServiceModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
+
+                    listConsumeService.add(consumeServiceModel);
+                    helperSQLiteInsert.insertConsumeSQLite(listConsumeService);
+                    showMessaje("Consumo registrado");
+                    goServicesActivity();
+                    /*} catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }*/
                 } else {
                     System.out.println("Modo Offline");
                 }
@@ -220,8 +222,8 @@ public class ConsumeServiceActivity extends ActivityParent {
         });
     }
 
-    private void goConsumeActivity() {
-        Intent intent = new Intent(this, ConsumeActivity.class);
+    private void goServicesActivity() {
+        Intent intent = new Intent(this, ServicesActivity.class);
         startActivity(intent);
     }
 
@@ -229,6 +231,7 @@ public class ConsumeServiceActivity extends ActivityParent {
     public void onBackPressed() {
         finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

@@ -160,7 +160,7 @@ public class OfferConsumeActivity extends ActivityParent {
         params.put("detail", detailEditTextConsume.getText().toString());
         params.put("costTotal", costTotalTextViewConsume.getText());
 
-        client.post(Conexion.getUrlServer(Conexion.CONSUME_SERVICE), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CONSUME_SERVICE, params, new AsyncHttpResponseHandler() {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

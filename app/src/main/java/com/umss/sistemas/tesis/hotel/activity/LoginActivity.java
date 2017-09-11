@@ -76,7 +76,7 @@ public class LoginActivity extends ActivityParent {
         params.put("pass", passText);
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.LOGIN), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.LOGIN, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

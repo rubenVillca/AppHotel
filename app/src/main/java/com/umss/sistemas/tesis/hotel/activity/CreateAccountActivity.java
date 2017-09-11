@@ -102,7 +102,7 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
         params.put("phone", phone);
         params.put("sex", sexH);
 
-        client.post(Conexion.getUrlServer(Conexion.CREATE_ACCOUNT), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CREATE_ACCOUNT, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

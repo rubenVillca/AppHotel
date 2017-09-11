@@ -137,7 +137,7 @@ public class ReserveMemberActivity extends ActivityParent {
         params.put("dateRegisterPerson", memberModel.getDateRegisterPerson());
         params.put("typeDocument", memberModel.getTypeDocument());
 
-        client.post(Conexion.getUrlServer(Conexion.MEMBER_SAVE), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.MEMBER_SAVE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

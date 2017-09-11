@@ -120,7 +120,7 @@ public class SettingActivity extends ActivityParent {
                 showMessaje("No tiene reservas activas");
             }
         }else {
-            linearLayout.setVisibility(View.INVISIBLE);
+            linearLayout.setVisibility(View.GONE);
         }
     }
 }

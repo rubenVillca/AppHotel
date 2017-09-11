@@ -93,7 +93,7 @@ public class ContactActivity extends ActivityParent {
         params.put("idPerson", idPerson);
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.CONTACT), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CONTACT, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

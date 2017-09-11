@@ -49,7 +49,7 @@ public class ServiceDetailActivity extends ActivityParent {
 
         boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
         if (!isChecked||serviceModel.getValueType()!=1)
-            fab.setVisibility(View.INVISIBLE);
+            fab.setVisibility(View.GONE);
 
     }
 

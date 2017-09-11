@@ -202,7 +202,7 @@ public class ProfileActivity extends ActivityParent {
             System.out.println("No se pudo enviar la imagen");
         }
         params.put("android", "android");
-        client.post(Conexion.getUrlServer(Conexion.PROFILE_UPLOAD), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.PROFILE_UPLOAD, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 //System.out.println("ruta imagen: " + new String(responseBody));

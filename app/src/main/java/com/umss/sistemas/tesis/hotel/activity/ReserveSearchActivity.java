@@ -148,7 +148,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
     private void chargeDateReserve() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
-        linearLayout.setVisibility(View.INVISIBLE);
+        linearLayout.setVisibility(View.GONE);
 
         SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");
         SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy");
@@ -231,7 +231,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
-        client.post(Conexion.getUrlServer(Conexion.RESERVE), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.RESERVE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

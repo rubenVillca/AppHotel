@@ -226,7 +226,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         params.put("android", "android");
         params.put("idPerson", idPerson);
 
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

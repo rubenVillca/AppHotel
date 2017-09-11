@@ -50,6 +50,13 @@ public class ContainerActivity extends ActivityParent {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*getSupportActionBar().setHomeButtonEnabled(true);//icono en el toolbar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_logo);
+        getSupportActionBar().setDisplayShowTitleEnabled(true); //optional*/
+
+
         // Setting ViewPager for each Tabs
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -146,7 +153,7 @@ public class ContainerActivity extends ActivityParent {
     }
 
 
-    static class Adapter extends FragmentPagerAdapter {
+    private static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -185,38 +192,32 @@ public class ContainerActivity extends ActivityParent {
                 syncSiteTour();
                 break;
             case 3:
-                syncConsume();
-                break;
-            case 4:
-                syncHistory();
-                break;
-            case 5:
                 syncCalendar();
                 break;
-            case 6:
+            case 4:
                 syncMessages();
                 break;
-            case 7:
+            case 5:
                 syncServiceFood();
                 break;
-            case 8:
+            case 6:
                 syncOffer();
                 break;
-            case 9:
+            case 7:
                 syncAbout();
                 break;
-            case 10:
+            case 8:
                 syncService();
                 break;
-            case 11:
+            case 9:
                 syncCheck();
                 break;
         }
 
-        progressBarAdvanced.setProgress((int) (1.0 * 100 * progressSync / 12));
-        if (progressSync == 12) {
+        progressBarAdvanced.setProgress((int) (1.0 * 100 * progressSync / 10));
+        if (progressSync == 10) {
             showProgress(false);
-            progressBarAdvanced.setVisibility(View.INVISIBLE);
+            progressBarAdvanced.setVisibility(View.GONE);
         }
     }
 
@@ -233,14 +234,50 @@ public class ContainerActivity extends ActivityParent {
         syncProfile();
     }
 
+    /**
+     * Conectar con el webServer y sincronizar la tabla profile
+     */
+    private void syncProfile() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("idPerson", idPerson);
+        params.put("android", "android");
+
+        client.post(Conexion.PROFILE, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        helperSQLiteInsert.syncUpPerson(obj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Servidor no disponible");
+                }
+                updateProgressSync();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no esta disponible");
+                updateProgressSync();
+            }
+        });
+    }
+
+    /**
+     * Conectar con el webServer y sincronizar las preguntas frecuentes
+     */
     private void syncFrequently() {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.FREQUENTLY), params,
-                new AsyncHttpResponseHandler() {
+        client.post(Conexion.FREQUENTLY, params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         if (statusCode == 200) {
@@ -266,40 +303,6 @@ public class ContainerActivity extends ActivityParent {
     }
 
     /**
-     * Conectar con el webServer y sincronizar la tabla profile
-     */
-    private void syncProfile() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("idPerson", idPerson);
-        params.put("android", "android");
-
-        client.post(Conexion.getUrlServer(Conexion.PROFILE), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpPerson(obj);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Servidor no disponible");
-                }
-                updateProgressSync();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no esta disponible");
-                updateProgressSync();
-            }
-        });
-    }
-
-    /**
      * Conectar con el webServer y sincronizar la tabla siteTour y siteToutImage
      */
     private void syncSiteTour() {
@@ -307,7 +310,7 @@ public class ContainerActivity extends ActivityParent {
         RequestParams params = new RequestParams();
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.SITES), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.SITES, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -334,76 +337,6 @@ public class ContainerActivity extends ActivityParent {
     }
 
     /**
-     * Conectar con el webServer y sincronizar la tabla Check
-     */
-    private void syncConsume() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                updateProgressSync();
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                updateProgressSync();
-            }
-        });
-    }
-
-    /**
-     * Conectar con el webServer y sincronizar la tabla Check
-     */
-    private void syncHistory() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-                updateProgressSync();
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                updateProgressSync();
-            }
-        });
-    }
-
-    /**
      * Conectar con el webServer y sincronizar la tabla Calendar
      */
     private void syncCalendar() {
@@ -412,7 +345,7 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.CALENDAR), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CALENDAR, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -447,7 +380,7 @@ public class ContainerActivity extends ActivityParent {
         params.put("android", "android");
         params.put("idPerson", idPerson);
 
-        client.post(Conexion.getUrlServer(Conexion.MESSAGES), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.MESSAGES, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -481,7 +414,7 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.FOOD_MENU), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.FOOD_MENU, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -515,7 +448,7 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.OFFER), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.OFFER, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -550,7 +483,7 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.INFO), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.INFO, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -584,7 +517,7 @@ public class ContainerActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        client.post(Conexion.getUrlServer(Conexion.SERVICE), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.SERVICE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
@@ -620,7 +553,7 @@ public class ContainerActivity extends ActivityParent {
         params.put("android", "android");
         params.put("idPerson", idPerson);
 
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

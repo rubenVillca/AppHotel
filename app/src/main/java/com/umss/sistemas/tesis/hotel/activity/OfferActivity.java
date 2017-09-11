@@ -53,7 +53,7 @@ public class OfferActivity extends ActivityParent {
             Date dateFinish=simpleDateFormat.parse(offerModel.getDateFin());
 
             if (!isChecked||(dateToday.before(dateInit))||dateFinish.before(dateToday))
-                fab.setVisibility(View.INVISIBLE);
+                fab.setVisibility(View.GONE);
         } catch (ParseException e) {
             e.printStackTrace();
         }

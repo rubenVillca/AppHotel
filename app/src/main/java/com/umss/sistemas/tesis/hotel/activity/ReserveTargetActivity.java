@@ -207,7 +207,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
             params.put("typeTarget", String.valueOf(spinnerType.getSelectedItemPosition() + 1));
         }
 
-        client.post(Conexion.getUrlServer(Conexion.RESERVE_SAVE), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.RESERVE_SAVE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 int isReserve = 0;
@@ -250,7 +250,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("android", "android");
         params.put("idPerson", idPerson);
 
-        client.post(Conexion.getUrlServer(Conexion.CHECK), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

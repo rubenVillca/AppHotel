@@ -59,7 +59,7 @@ public class SuggestionActivity extends ActivityParent implements View.OnClickLi
         params.put("android","android");
         params.put("idPerson",idPerson);
 
-        client.post(Conexion.getUrlServer(Conexion.SUGGESTION), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.SUGGESTION, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

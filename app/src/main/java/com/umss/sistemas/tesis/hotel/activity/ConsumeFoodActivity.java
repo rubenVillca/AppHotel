@@ -180,7 +180,7 @@ public class ConsumeFoodActivity extends ActivityParent {
 
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
-        client.post(Conexion.getUrlServer(Conexion.FOOD_MENU_INSERT), params, new AsyncHttpResponseHandler() {
+        client.post(Conexion.FOOD_MENU_INSERT, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {

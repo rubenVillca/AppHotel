@@ -26,6 +26,7 @@ public class Conexion {
     public static final int MEMBER_SAVE = 20;
     public static final int FOOD_MENU_INSERT = 21;
     public static final int CONSUME_SERVICE = 22;
+    public static final int PROFILE_UPLOAD=23;
 
     private static String[] pagina = {
             "login",
@@ -50,7 +51,8 @@ public class Conexion {
             "reserve/save",
             "member/save",
             "foodMenu/update",
-            "consumeService/insert"
+            "consumeService/insert",
+            "profile/upload"
     };
     private static String ip = "http://192.168.1.35/hotel/";
     //private static String ip = "http://hoteltesis.esy.es/";

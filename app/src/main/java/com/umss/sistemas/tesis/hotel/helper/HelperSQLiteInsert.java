@@ -972,7 +972,7 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param personModel: objeto a ingresar a la base dedd atos sqlite
      */
-    private void insertPersonSQLite(PersonModel personModel) {
+    public void insertPersonSQLite(PersonModel personModel) {
         db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + personModel.getIdPerson());
 
         ContentValues newRegister = new ContentValues();

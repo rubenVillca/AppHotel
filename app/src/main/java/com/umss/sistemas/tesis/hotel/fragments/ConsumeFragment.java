@@ -43,6 +43,12 @@ public class ConsumeFragment extends FragmentParent {
         ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
         imgConsum.setOnClickListener(this);
 
+        ImageView imageHistory=(ImageView)view.findViewById(R.id.imageHistory);
+        imageHistory.setOnClickListener(this);
+
+        LinearLayout layoutHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
+        layoutHistory.setOnClickListener(this);
+
         LinearLayout layoutReserve=(LinearLayout)view.findViewById(R.id.layoutReserve);
         layoutReserve.setOnClickListener(this);
 

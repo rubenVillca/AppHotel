@@ -43,6 +43,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutServiceFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_homefragment_icon">
+
+                <ImageButton
+                    android:id="@+id/imageServiceFood"
+                    android:layout_width="@dimen/dimen_home_icon_heigth"
+                    android:layout_height="@dimen/dimen_home_icon_heigth"
+                    android:background="@drawable/img_food_3"
+                    android:contentDescription="@string/description_logo" />
+
+                <TextView
+                    android:id="@+id/textServiceFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="25dp"
+                    android:text="@string/label_home_icon_food"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_primary_home" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/layoutReserve"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,32 +97,31 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutServiceFood"
+                android:id="@+id/layoutHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/padding_homefragment_icon">
 
                 <ImageButton
-                    android:id="@+id/imageServiceFood"
+                    android:id="@+id/imageHistory"
                     android:layout_width="@dimen/dimen_home_icon_heigth"
                     android:layout_height="@dimen/dimen_home_icon_heigth"
-                    android:background="@drawable/img_food_3"
+                    android:background="@drawable/img_history_3"
                     android:contentDescription="@string/description_logo" />
 
                 <TextView
-                    android:id="@+id/textServiceFood"
+                    android:id="@+id/textHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="25dp"
-                    android:text="@string/label_home_icon_food"
+                    android:text="@string/label_home_icon_history"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_primary_home" />
             </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>

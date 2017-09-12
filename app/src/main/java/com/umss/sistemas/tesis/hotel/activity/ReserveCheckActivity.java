@@ -44,10 +44,12 @@ public class ReserveCheckActivity extends ActivityParent {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         ArrayList<CheckModel> checkModelActive= helperSQLiteObtain.getCheckModel(0,1,1);
         ArrayList<CheckModel> checkModelPending= helperSQLiteObtain.getCheckModel(0,3,1);
+        ArrayList<CheckModel> checkModelProcess= helperSQLiteObtain.getCheckModel(0,7,1);
 
         ArrayList<CheckModel> checkModels=new ArrayList<>();
         checkModels.addAll(checkModelActive);
         checkModels.addAll(checkModelPending);
+        checkModels.addAll(checkModelProcess);
 
         return  checkModels;
     }

@@ -33,9 +33,6 @@ public class AboutFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        ImageView imageHistory=(ImageView)view.findViewById(R.id.imageHistory);
-        imageHistory.setOnClickListener(this);
-
         ImageView imageProfile=(ImageView)view.findViewById(R.id.imageProfile);
         imageProfile.setOnClickListener(this);
 
@@ -49,9 +46,6 @@ public class AboutFragment extends FragmentParent {
         imageContact.setOnClickListener(this);
 
         //layout
-        LinearLayout layoutHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
-        layoutHistory.setOnClickListener(this);
-
         LinearLayout layoutProfile=(LinearLayout)view.findViewById(R.id.layoutProfile);
         layoutProfile.setOnClickListener(this);
 

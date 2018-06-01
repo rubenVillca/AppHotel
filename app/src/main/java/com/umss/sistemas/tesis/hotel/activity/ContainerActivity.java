@@ -108,29 +108,29 @@ public class ContainerActivity extends ActivityParent {
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
         switch (item.getItemId()) {
+            case R.id.action_sync:
+                syncSQLite();
+                break;
             case R.id.action_settings:
                 intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.action_complaints:
-                intent = new Intent(this, ComplaintsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.action_suggestion:
                 intent = new Intent(this, SuggestionActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.action_logout:
-                helperSQLiteInsert.logoutAction();
-                intent = new Intent(this, LoginActivity.class);
+            case R.id.action_complaints:
+                intent = new Intent(this, ComplaintsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.action_about:
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.action_sync:
-                syncSQLite();
+            case R.id.action_logout:
+                helperSQLiteInsert.logoutAction();
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
@@ -333,7 +333,6 @@ public class ContainerActivity extends ActivityParent {
                 updateProgressSync();
             }
         });
-
     }
 
     /**

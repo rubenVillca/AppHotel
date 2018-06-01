@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.SiteTourAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -26,7 +25,7 @@ public class SitesTourActivity extends ActivityParent {
     }
 
     private void adapterRecyclerView() {
-        RecyclerView pictureRecycler = (RecyclerView) findViewById(R.id.siteTourRecyclerView);
+        RecyclerView pictureRecycler = findViewById(R.id.siteTourRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

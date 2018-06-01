@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.parent;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import com.umss.sistemas.tesis.hotel.util.Route;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressLint("Registered")
 public class LocationParent extends ActivityParent implements DirectionFinderListener {
     protected GoogleMap mMap;
 
@@ -34,7 +36,7 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
     protected CameraUpdate cameraUpdate;
 
     protected static final int zoomMap = 16;
-    protected static final int timeUpdate = 200;
+    protected static final int timeUpdate = 500;
 
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();

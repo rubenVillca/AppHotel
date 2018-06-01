@@ -170,6 +170,8 @@
         <item>Puntos necesarios</item>
     </string-array>
     <string name="facebook_app_id">1371468996240000</string>
+    <string name="fb_login_protocol_scheme">fb1371468996240000</string>
+
     <string name="title_hotel">Hotel</string>
     <string name="label_home_icon_profile">Perfil</string>
     <string name="label_home_icon_message">Mensajes</string>

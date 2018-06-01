@@ -3,9 +3,10 @@ package com.umss.sistemas.tesis.hotel.conexion;
 import java.io.UnsupportedEncodingException;
 
 public class Conexion {
-    //private static String ip = "http://192.168.1.36/hotel/";
-    private static String ip = "http://hoteltesis.esy.es/";
-    private static boolean isServer = true;
+    private static String ip = "http://192.168.1.9/hotel/";
+    //private static String ip = "http://192.168.1.44/hotel/";
+    //private static String ip = "http://hoteltesis.esy.es/";
+    private static boolean isServer = false;
     public static String urlServer = ip;
 
     public static final String LOGIN = ip + "login";
@@ -16,11 +17,8 @@ public class Conexion {
     public static final String SUGGESTION = ip +"suggestion";
     public static final String CONTACT = ip +"contact";
     public static final String RESERVE = ip +"reserve";
-    public static final String HISTORY = ip +"history";
-    public static final String MENU_BAR = ip +"menu_bar";
     public static final String OFFER = ip + "offer";
     public static final String SERVICE = ip + "service";
-    public static final String IMAGE = ip + "img";
     public static final String SITES = ip + "sites";
     public static final String FREQUENTLY = ip + "frequently";
     public static final String FOOD_MENU = ip + "foodMenu";

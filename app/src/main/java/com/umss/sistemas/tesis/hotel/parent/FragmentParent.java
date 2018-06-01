@@ -21,7 +21,6 @@ import com.umss.sistemas.tesis.hotel.activity.FrequentlyActivity;
 import com.umss.sistemas.tesis.hotel.activity.HistoryActivity;
 import com.umss.sistemas.tesis.hotel.activity.LocationActivity;
 import com.umss.sistemas.tesis.hotel.activity.MenuFoodActivity;
-import com.umss.sistemas.tesis.hotel.activity.MessagesActivity;
 import com.umss.sistemas.tesis.hotel.activity.OffersActivity;
 import com.umss.sistemas.tesis.hotel.activity.ProfileActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;

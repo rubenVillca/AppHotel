@@ -7,8 +7,12 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.appevents.AppEventsConstants;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,6 +37,13 @@ public class LoginActivity extends ActivityParent {
 
         container = findViewById(R.id.containerLogin);
         helperSQLiteInsert = new HelperSQLiteInsert(this);
+
+        FacebookSdk.sdkInitialize(this);
+        AppEventsLogger.activateApp(this);
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        //loginButton.registerCallback(callbackManeger,);
     }
 
     /**

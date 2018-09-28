@@ -86,4 +86,9 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,SitesTourActivity.class);
+        startActivity(intent);
+    }
 }

@@ -3,8 +3,8 @@ package com.umss.sistemas.tesis.hotel.conexion;
 import java.io.UnsupportedEncodingException;
 
 public class Conexion {
-    private static String ip = "http://192.168.1.9/hotel/";
-    //private static String ip = "http://192.168.1.44/hotel/";
+    //private static String ip = "http://192.168.1.9/hotel/";
+    private static String ip = "http://192.168.1.2/hotel/";
     //private static String ip = "http://hoteltesis.esy.es/";
     private static boolean isServer = false;
     public static String urlServer = ip;

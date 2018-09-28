@@ -151,7 +151,7 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param obj: objeto JSON con los datos del modelo FrequenltyModel
      */
     public void syncUpFrequently(JSONObject obj) {
-        ArrayList<FrequentlyModel> frequentlyModelArrayList = getFrequentlyJSON(obj);
+        ArrayList<FrequentlyModel> frequentlyModelArrayList = getFrequentlyModelJSON(obj);
         insertFrequenltySQLite(frequentlyModelArrayList);
     }
 
@@ -455,9 +455,9 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 siteTourModel.setIdSite(sitesObject.getInt("id"));
                 siteTourModel.setStateSite(sitesObject.getInt("state"));
-                siteTourModel.setNameSite(sitesObject.getString("name"));
-                siteTourModel.setDescriptionSite(sitesObject.getString("description"));
-                siteTourModel.setAddressSite(sitesObject.getString("address"));
+                siteTourModel.setNameSite(Conexion.decode(sitesObject.getString("name")));
+                siteTourModel.setDescriptionSite(Conexion.decode(sitesObject.getString("description")));
+                siteTourModel.setAddressSite(Conexion.decode(sitesObject.getString("address")));
                 siteTourModel.setGpsLatitudeSite(Float.parseFloat(sitesObject.getString("gpsX")));
                 siteTourModel.setGpsLongitudeSite(Float.parseFloat(sitesObject.getString("gpsY")));
 
@@ -494,8 +494,8 @@ public class HelperSQLiteInsert extends HelperParent {
                 JSONObject imgObject = imagesSitesTour.getJSONObject(j);
 
                 siteTourImageModel.setIdSiteTourImage(imgObject.getInt("ID_IMAGE_SITE"));
-                siteTourImageModel.setNameSiteTourImage(imgObject.getString("NAME_IMAGE_SITE"));
-                siteTourImageModel.setDescriptionSiteTourImage(imgObject.getString("DESCRIPTION_IMAGE_SITE"));
+                siteTourImageModel.setNameSiteTourImage(Conexion.decode(imgObject.getString("NAME_IMAGE_SITE")));
+                siteTourImageModel.setDescriptionSiteTourImage(Conexion.decode(imgObject.getString("DESCRIPTION_IMAGE_SITE")));
                 siteTourImageModel.setAddressSiteTour(imgObject.getString("IMAGE_SITE"));
                 siteTourImageModel.setStateSiteTourImage(imgObject.getInt("STATE_IMAGE_SITE"));
                 siteTourImageModel.setIdSiteTour(idSiteTourModel);
@@ -919,7 +919,7 @@ public class HelperSQLiteInsert extends HelperParent {
         return memberArray;
     }
 
-    private ArrayList<FrequentlyModel> getFrequentlyJSON(JSONObject obj) {
+    private ArrayList<FrequentlyModel> getFrequentlyModelJSON(JSONObject obj) {
         ArrayList<FrequentlyModel> frequentlyModelArrayList = new ArrayList<>();
 
         try {

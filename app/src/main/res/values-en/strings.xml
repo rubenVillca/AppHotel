@@ -75,4 +75,8 @@
     <string name="loginFaceBook">Iniciar con Facebook</string>
     <string name="loginGoogle">Iniciar con Google</string>
     <string name="facebook_app_id">1371468996240000</string>
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="hint_person_name" translatable="false">Name</string>
+    <string name="hint_person_last_name" translatable="false">Last name</string>
+    <string name="hint_repeat_password" translatable="false">Repeat password</string>
 </resources>

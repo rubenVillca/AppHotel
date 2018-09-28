@@ -6,10 +6,10 @@
     <string name="login">Ingresar</string>
     <string name="dontAccount">¿No tienes cuenta?, </string>
     <string name="create_here">Crea una aqui</string>
-    <string name="hint_email" translatable="false">Correo Electronico</string>
-    <string name="hint_person_name" translatable="false">Nombre</string>
-    <string name="hint_person_last_name" translatable="false">Apellidos</string>
-    <string name="hint_repeat_password" translatable="false">Repetir Contraseña</string>
+    <string name="hint_email">Correo Electronico</string>
+    <string name="hint_person_name">Nombre</string>
+    <string name="hint_person_last_name">Apellidos</string>
+    <string name="hint_repeat_password">Repetir Contraseña</string>
     <string name="hint_number_phone" translatable="false">Número de teléfono</string>
     <string name="label_sex" translatable="false">Sexo:</string>
     <string name="label_sex_woman" translatable="false">Mujer</string>
@@ -170,16 +170,16 @@
         <item>Puntos necesarios</item>
     </string-array>
     <string name="facebook_app_id">1371468996240000</string>
-    <string name="fb_login_protocol_scheme">fb1371468996240000</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1371468996240000</string>
 
-    <string name="title_hotel">Hotel</string>
-    <string name="label_home_icon_profile">Perfil</string>
-    <string name="label_home_icon_message">Mensajes</string>
-    <string name="label_home_icon_frequently">Preguntas frecuentes</string>
-    <string name="label_home_icon_message_send">Enviar mensaje</string>
-    <string name="toolbar_tittle_frequently">Preguntas Frecuentes</string>
-    <string name="toolbar_tittle_contact">Contactenos</string>
-    <string name="label_message">Mensaje</string>
-    <string name="label_title_message">Titulo del mensaje</string>
-    <string name="label_suggestion">Sugerencia</string>
+    <string name="title_hotel" translatable="false">Hotel</string>
+    <string name="label_home_icon_profile" translatable="false">Perfil</string>
+    <string name="label_home_icon_message" translatable="false">Mensajes</string>
+    <string name="label_home_icon_frequently" translatable="false">Preguntas frecuentes</string>
+    <string name="label_home_icon_message_send" translatable="false">Enviar mensaje</string>
+    <string name="toolbar_tittle_frequently" translatable="false">Preguntas Frecuentes</string>
+    <string name="toolbar_tittle_contact" translatable="false">Contactenos</string>
+    <string name="label_message" translatable="false">Mensaje</string>
+    <string name="label_title_message" translatable="false">Titulo del mensaje</string>
+    <string name="label_suggestion" translatable="false">Sugerencia</string>
 </resources>

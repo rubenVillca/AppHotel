@@ -28,14 +28,14 @@ public class SuggestionActivity extends ActivityParent implements View.OnClickLi
 
         showToolBar(getResources().getString(R.string.toolbar_tittle_suggestion), true);
         container=findViewById(R.id.layoutSuggestionActivity);
-        Button button = (Button) findViewById(R.id.btnSuggestionSend);
+        Button button = findViewById(R.id.btnSuggestionSend);
         button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnSuggestionSend) {
-            TextView edit = (TextView) findViewById(R.id.suggestionEditText);
+            TextView edit = findViewById(R.id.suggestionEditText);
             String text = edit.getText().toString();
 
             sendSuggestion(text);

@@ -1,6 +1,7 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -63,7 +65,9 @@ public class ConsumeFoodActivity extends ActivityParent {
     }
 
     private void getBundle() {
-        foodModel = (FoodModel) getIntent().getExtras().getSerializable("foodModel");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            foodModel = (FoodModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("foodModel");
+        }
         typeMoneyHashMap = new HashMap<>();
         helperSQLiteObtain = new HelperSQLiteObtain(this);
 
@@ -83,13 +87,13 @@ public class ConsumeFoodActivity extends ActivityParent {
     }
 
     private void initContent() {
-        nameFoodTextView = (TextView) findViewById(R.id.nameFoodTextView);
-        typeFoodTextView = (TextView) findViewById(R.id.typeFoodTextView);
-        moneyFoodSpinner = (Spinner) findViewById(R.id.moneyFoodSpinner);
-        priceTotalFoodTextView = (TextView) findViewById(R.id.priceTotalFoodTextView);
-        spinnerSiteFood = (Spinner) findViewById(R.id.spinnerSiteFood);
-        unitSpinnerFood = (Spinner) findViewById(R.id.unitSpinnerFood);
-        imageView = (ImageView) findViewById(R.id.imageHeaderCollapsing);
+        nameFoodTextView = findViewById(R.id.nameFoodTextView);
+        typeFoodTextView = findViewById(R.id.typeFoodTextView);
+        moneyFoodSpinner = findViewById(R.id.moneyFoodSpinner);
+        priceTotalFoodTextView = findViewById(R.id.priceTotalFoodTextView);
+        spinnerSiteFood = findViewById(R.id.spinnerSiteFood);
+        unitSpinnerFood = findViewById(R.id.unitSpinnerFood);
+        imageView = findViewById(R.id.imageHeaderCollapsing);
     }
 
     private void updateContent() {

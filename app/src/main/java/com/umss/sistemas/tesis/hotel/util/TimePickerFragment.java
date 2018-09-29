@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.util;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         Calendar c = Calendar.getInstance();
         try {
             c.setTime(formatter.parse(String.valueOf(textViewTime.getText())));

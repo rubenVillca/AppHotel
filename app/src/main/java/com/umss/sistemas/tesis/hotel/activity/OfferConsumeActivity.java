@@ -63,7 +63,9 @@ public class OfferConsumeActivity extends ActivityParent {
 
     private void initValues() {
         Bundle bundle=getIntent().getExtras();
-        offerModel=(OfferModel) bundle.getSerializable("offerModel");
+        if (bundle != null) {
+            offerModel=(OfferModel) bundle.getSerializable("offerModel");
+        }
     }
 
     private void initVar() {
@@ -78,7 +80,7 @@ public class OfferConsumeActivity extends ActivityParent {
             valueUnit[i]=String.valueOf(i+1);
         }
 
-        unitSpinnerConsume = (Spinner) findViewById(R.id.unitSpinnerConsumeOffer);
+        unitSpinnerConsume = findViewById(R.id.unitSpinnerConsumeOffer);
         unitSpinnerConsume.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valueUnit));
         unitSpinnerConsume.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,7 +95,7 @@ public class OfferConsumeActivity extends ActivityParent {
         });
 
         String[] valueDuration = {"30","60","90","120","150","180"};
-        timeDurationSpinnerConsume = (Spinner) findViewById(R.id.timeDurationSpinnerConsumeOffer);
+        timeDurationSpinnerConsume = findViewById(R.id.timeDurationSpinnerConsumeOffer);
         timeDurationSpinnerConsume.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valueDuration));
         timeDurationSpinnerConsume.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -114,11 +116,11 @@ public class OfferConsumeActivity extends ActivityParent {
             else
                 valueTime[i] = String.valueOf(((5+i) / 2) + ":30");
         }
-        timeStartSpinnerConsume = (Spinner) findViewById(R.id.timeStartSpinnerConsumeOffer);
+        timeStartSpinnerConsume = findViewById(R.id.timeStartSpinnerConsumeOffer);
         timeStartSpinnerConsume.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valueTime));
 
-        detailEditTextConsume = (EditText) findViewById(R.id.detailEditTextConsumeOffer);
-        costTotalTextViewConsume = (TextView) findViewById(R.id.costTotalTextViewConsumeOffer);
+        detailEditTextConsume = findViewById(R.id.detailEditTextConsumeOffer);
+        costTotalTextViewConsume = findViewById(R.id.costTotalTextViewConsumeOffer);
     }
 
     private void updateCost() {
@@ -182,8 +184,7 @@ public class OfferConsumeActivity extends ActivityParent {
                         consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
                         consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
                         try {
-                            Date hora1 = null;
-                            hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
+                            Date hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
                             long lantes = hora1.getTime();
                             long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString())*60);
                             consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));

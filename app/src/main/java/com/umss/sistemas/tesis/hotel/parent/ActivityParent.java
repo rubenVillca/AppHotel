@@ -2,6 +2,8 @@ package com.umss.sistemas.tesis.hotel.parent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +14,9 @@ import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 
+import java.util.Objects;
+
+@SuppressLint("Registered")
 public class ActivityParent extends AppCompatActivity {
     protected HelperSQLiteInsert helperSQLiteInsert;
     protected HelperSQLiteObtain helperSQLiteObtain;
@@ -20,11 +25,13 @@ public class ActivityParent extends AppCompatActivity {
     protected View container;
 
     protected void showToolBar(String tittle, boolean upButton) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(tittle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
-        getSupportActionBar().setDisplayShowHomeEnabled(upButton);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setTitle(tittle);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(upButton);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(upButton);
+        }
     }
 
     /**
@@ -33,39 +40,39 @@ public class ActivityParent extends AppCompatActivity {
      * @param show:estado del progressBar
      */
     protected void showProgress(final boolean show) {
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         if (show) {
-            container.setVisibility(show ? View.GONE : View.VISIBLE);
-            container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            container.setVisibility(View.GONE);
+            container.animate().setDuration(shortAnimTime).alpha(0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    container.setVisibility(show ? View.GONE : View.VISIBLE);
+                    container.setVisibility(View.GONE);
                 }
             });
 
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-            progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             });
         } else {
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-            progressBar.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            progressBar.setVisibility(View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             });
-            container.setVisibility(show ? View.GONE : View.VISIBLE);
-            container.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            container.setVisibility(View.VISIBLE);
+            container.animate().setDuration(shortAnimTime).alpha(1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    container.setVisibility(show ? View.GONE : View.VISIBLE);
+                    container.setVisibility(View.VISIBLE);
                 }
             });
         }

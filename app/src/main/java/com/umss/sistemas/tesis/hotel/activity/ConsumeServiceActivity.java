@@ -183,8 +183,7 @@ public class ConsumeServiceActivity extends ActivityParent {
                     consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
                     consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
                     try {
-                        Date hora1 = null;
-                        hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
+                        Date hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
                         long lantes = hora1.getTime();
                         long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString()) * 60);
                         consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));

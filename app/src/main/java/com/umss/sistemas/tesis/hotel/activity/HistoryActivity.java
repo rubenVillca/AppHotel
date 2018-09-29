@@ -53,7 +53,7 @@ public class HistoryActivity extends ActivityParent {
             TextView total = (TextView) findViewById(R.id.historyTotalConsume);
             double totalCheck = 0;
             for (CheckModel checkModel : checkModels) {
-                totalCheck += checkModel.getTotal();
+                totalCheck += checkModel.getTotalPay();
             }
             total.setText(String.valueOf(checkModels.get(0).getConsumeServiceModelArrayList().get(0).getTypeMoney() + " " + totalCheck));
         }

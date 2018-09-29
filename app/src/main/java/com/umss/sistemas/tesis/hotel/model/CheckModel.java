@@ -153,4 +153,16 @@ public class CheckModel extends ModelParent {
 
         return total;
     }
+
+    public double getTotalPay() {
+        double total=0;
+        for (ConsumeFoodModel consumeFood : consumeFoodModelArrayList) {
+            total+=consumeFood.getPay();
+        }
+        for (ConsumeServiceModel consumeService : consumeServiceModelArrayList) {
+            total+=consumeService.getPay();
+        }
+
+        return total;
+    }
 }

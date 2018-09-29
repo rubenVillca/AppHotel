@@ -62,7 +62,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
 
-
     @Override
     public void onDestroy() {
         if (helperSQLiteInsert != null)

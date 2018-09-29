@@ -255,14 +255,14 @@ public class ContainerActivity extends ActivityParent {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("Servidor no disponible");
+                    System.out.println("Servidor no disponible, informacion de perfil de usuario no actualizada");
                 }
                 updateProgressSync();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no esta disponible");
+                System.out.println("Servidor no esta disponible informacion de perfil dee usuario no actualizda");
                 updateProgressSync();
             }
         });
@@ -288,7 +288,7 @@ public class ContainerActivity extends ActivityParent {
                                 e.printStackTrace();
                             }
                         } else {
-                            System.out.println("Servidor no disponible");
+                            System.out.println("Servidor no disponible, preguntas frecuentes no actualizadas");
                         }
                         updateProgressSync();
                     }
@@ -329,7 +329,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, lugares turistics no actualizadas");
                 updateProgressSync();
             }
         });
@@ -363,7 +363,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, actividades no actualizadas");
                 updateProgressSync();
             }
         });
@@ -398,7 +398,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, bandeja de mensajes no actualizada");
                 updateProgressSync();
             }
         });
@@ -432,7 +432,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, menu de alimentos no actualizada");
                 updateProgressSync();
             }
         });
@@ -467,7 +467,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, offertas no actualizadas");
                 updateProgressSync();
             }
         });
@@ -501,7 +501,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, informacion de hotel no actualizada");
                 updateProgressSync();
             }
         });
@@ -536,7 +536,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, informacion de servicio no actualizada");
                 updateProgressSync();
             }
         });
@@ -571,7 +571,7 @@ public class ContainerActivity extends ActivityParent {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                System.out.println("Servidor no disponible, informacion de check no disponible");
                 updateProgressSync();
             }
         });

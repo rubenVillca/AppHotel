@@ -1211,7 +1211,7 @@ public class HelperSQLiteInsert extends HelperParent {
 
             long succes = db.insert(DBSQLiteHelper.TABLE_FOOD, null, foodContent);
             if (succes == -1)
-                System.out.println("Ocurrio un error al inserar la consulta FoodModel");
+                System.out.println("Ocurrio un error al insertar la consulta FoodModel");
         }
     }
 

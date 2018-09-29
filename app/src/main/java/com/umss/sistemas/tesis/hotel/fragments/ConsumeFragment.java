@@ -34,28 +34,28 @@ public class ConsumeFragment extends FragmentParent {
      */
     private void setActionIcon(View view) {
 
-        ImageView imgReserve=(ImageView)view.findViewById(R.id.imageReserve);
+        ImageView imgReserve= view.findViewById(R.id.imageReserve);
         imgReserve.setOnClickListener(this);
 
-        ImageView imgFoodMenu=(ImageView)view.findViewById(R.id.imageServiceFood);
+        ImageView imgFoodMenu= view.findViewById(R.id.imageServiceFood);
         imgFoodMenu.setOnClickListener(this);
 
-        ImageView imgConsum=(ImageView)view.findViewById(R.id.imageConsum);
+        ImageView imgConsum= view.findViewById(R.id.imageConsum);
         imgConsum.setOnClickListener(this);
 
-        ImageView imageHistory=(ImageView)view.findViewById(R.id.imageHistory);
+        ImageView imageHistory= view.findViewById(R.id.imageHistory);
         imageHistory.setOnClickListener(this);
 
-        LinearLayout layoutHistory=(LinearLayout)view.findViewById(R.id.layoutHistory);
+        LinearLayout layoutHistory= view.findViewById(R.id.layoutHistory);
         layoutHistory.setOnClickListener(this);
 
-        LinearLayout layoutReserve=(LinearLayout)view.findViewById(R.id.layoutReserve);
+        LinearLayout layoutReserve= view.findViewById(R.id.layoutReserve);
         layoutReserve.setOnClickListener(this);
 
-        LinearLayout layoutFoodMenu=(LinearLayout)view.findViewById(R.id.layoutServiceFood);
+        LinearLayout layoutFoodMenu= view.findViewById(R.id.layoutServiceFood);
         layoutFoodMenu.setOnClickListener(this);
 
-        LinearLayout layoutConsum=(LinearLayout)view.findViewById(R.id.layoutConsum);
+        LinearLayout layoutConsum= view.findViewById(R.id.layoutConsum);
         layoutConsum.setOnClickListener(this);
     }
 }

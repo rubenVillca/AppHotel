@@ -249,7 +249,7 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
                 Integer.parseInt(n.trim());
                 res = true;
             } catch (NumberFormatException nfe) {
-                res = false;
+                System.out.println("No es un numero");
             }
         }
         return res;

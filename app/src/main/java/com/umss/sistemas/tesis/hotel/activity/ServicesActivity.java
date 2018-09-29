@@ -25,7 +25,7 @@ public class ServicesActivity extends ActivityParent {
     }
 
     private void setRecyclerView() {
-        RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.serviceRecyclerView);
+        RecyclerView pictureRecycler= findViewById(R.id.serviceRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

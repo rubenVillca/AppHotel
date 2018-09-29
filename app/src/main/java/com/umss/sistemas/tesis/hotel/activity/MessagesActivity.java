@@ -25,7 +25,7 @@ public class MessagesActivity extends ActivityParent {
     }
 
     private void adapterRecycler() {
-        RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.messagesRecyclerView);
+        RecyclerView pictureRecycler= findViewById(R.id.messagesRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -79,9 +79,9 @@ public class OfferAdapterRecycler extends RecyclerView.Adapter<OfferAdapterRecyc
         private OfferViewHolder(View itemView) {
             super(itemView);
 
-            offerPictureCardView=(ImageView)itemView.findViewById(R.id.imageOfferCardView);
-            offerNameCardView=(TextView)itemView.findViewById(R.id.nameOfferCardView);
-            offernameServiceCardView=(TextView)itemView.findViewById(R.id.nameTypeOfferCardView);
+            offerPictureCardView= itemView.findViewById(R.id.imageOfferCardView);
+            offerNameCardView= itemView.findViewById(R.id.nameOfferCardView);
+            offernameServiceCardView= itemView.findViewById(R.id.nameTypeOfferCardView);
         }
     }
 }

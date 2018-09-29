@@ -114,15 +114,15 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
 
         private CheckReserveViewHolder(View itemView) {
             super(itemView);
-            recyclerView = (RecyclerView) itemView.findViewById(R.id.consumeReserveRecyclerView);
-            imageReserveList=(ImageView)itemView.findViewById(R.id.imageReserveList);
-            checkReserveInTextView = (TextView) itemView.findViewById(R.id.checkReserveInTextView);
-            checkReserveOutTextView = (TextView) itemView.findViewById(R.id.checkReserveOutTextView);
-            checkReserveCostTotal = (TextView) itemView.findViewById(R.id.checkReserveCostTotal);
-            checkReserveDeposit = (TextView) itemView.findViewById(R.id.checkReserveDeposit);
-            checkReserveVerifyTarget = (TextView) itemView.findViewById(R.id.checkReserveVerifyTarget);
-            checkReserveState = (TextView)itemView.findViewById(R.id.checkReserveState);
-            btnPlusReserveCardView = (ImageView) itemView.findViewById(R.id.btnPlusReserveCardView);
+            recyclerView = itemView.findViewById(R.id.consumeReserveRecyclerView);
+            imageReserveList= itemView.findViewById(R.id.imageReserveList);
+            checkReserveInTextView = itemView.findViewById(R.id.checkReserveInTextView);
+            checkReserveOutTextView = itemView.findViewById(R.id.checkReserveOutTextView);
+            checkReserveCostTotal = itemView.findViewById(R.id.checkReserveCostTotal);
+            checkReserveDeposit = itemView.findViewById(R.id.checkReserveDeposit);
+            checkReserveVerifyTarget = itemView.findViewById(R.id.checkReserveVerifyTarget);
+            checkReserveState = itemView.findViewById(R.id.checkReserveState);
+            btnPlusReserveCardView = itemView.findViewById(R.id.btnPlusReserveCardView);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +48,7 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
         long dateOut = 0;
         long dateToday = 0;
         try {
-            SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date dateInParse = parseador.parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
             Date dateOutParse = parseador.parse(consumeServiceModel.getDateOutConsum() + " " + consumeServiceModel.getTimeOutConsum());
             Date date = new Date();
@@ -98,12 +98,12 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
         private ConsumeServiceViewHolder(View itemView) {
             super(itemView);
 
-            priceConsumeServiceCardView = (TextView) itemView.findViewById(R.id.priceConsumeServiceCardView);
-            dateConsumeCardView = (TextView) itemView.findViewById(R.id.dateConsumeServiceCardView);
-            timeConsumeCardView = (TextView) itemView.findViewById(R.id.timeConsumeServiceCardView);
-            serviceConsumeCardView = (TextView) itemView.findViewById(R.id.serviceConsumeServiceCardView);
-            stateConsumeCardView = (TextView) itemView.findViewById(R.id.stateConsumeServiceCardView);
-            imageConsumeCardView = (ImageView) itemView.findViewById(R.id.imageConsumeServiceCardView);
+            priceConsumeServiceCardView = itemView.findViewById(R.id.priceConsumeServiceCardView);
+            dateConsumeCardView = itemView.findViewById(R.id.dateConsumeServiceCardView);
+            timeConsumeCardView = itemView.findViewById(R.id.timeConsumeServiceCardView);
+            serviceConsumeCardView = itemView.findViewById(R.id.serviceConsumeServiceCardView);
+            stateConsumeCardView = itemView.findViewById(R.id.stateConsumeServiceCardView);
+            imageConsumeCardView = itemView.findViewById(R.id.imageConsumeServiceCardView);
         }
     }
 }

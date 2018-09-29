@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -111,8 +112,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
                 intent.putExtra("timeOut", String.valueOf(timeOut));
 
                 try {
-                    SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
-                    SimpleDateFormat formateador = new SimpleDateFormat("yy/MM/dd");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("yy/MM/dd");
 
                     Date dateInParse = parseador.parse(dateIn);
                     intent.putExtra("dateIn", formateador.format(dateInParse));
@@ -136,7 +137,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
     private int getTimeSelected() {
         int timeSelect = 0;
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm");
             Date dateInFormat = formatter.parse(dateIn + " " + timeIn);
             Date dateOutFormat = formatter.parse(dateOut + " " + timeOut);
 
@@ -166,12 +167,12 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         private PriceServiceViewHolder(View itemView) {
             super(itemView);
 
-            priceNameCardView = (TextView) itemView.findViewById(R.id.priceUnitPriceServiceCardView);
-            priceEstimatedCardView = (TextView) itemView.findViewById(R.id.priceEstimadedPriceServiceCardView);
-            timeUnitCardView = (TextView) itemView.findViewById(R.id.timeUnitPriceServiceCardView);
-            timeSelectedCardView = (TextView) itemView.findViewById(R.id.timeSelectedPriceServiceCardView);
-            spinnerCardView = (Spinner) itemView.findViewById(R.id.nRoomPriceServiceCardView);
-            buttonCardView = (Button) itemView.findViewById(R.id.btnPriceServiceCardView);
+            priceNameCardView = itemView.findViewById(R.id.priceUnitPriceServiceCardView);
+            priceEstimatedCardView = itemView.findViewById(R.id.priceEstimadedPriceServiceCardView);
+            timeUnitCardView = itemView.findViewById(R.id.timeUnitPriceServiceCardView);
+            timeSelectedCardView = itemView.findViewById(R.id.timeSelectedPriceServiceCardView);
+            spinnerCardView = itemView.findViewById(R.id.nRoomPriceServiceCardView);
+            buttonCardView = itemView.findViewById(R.id.btnPriceServiceCardView);
         }
     }
 }

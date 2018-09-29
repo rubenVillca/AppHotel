@@ -84,10 +84,10 @@ public class ServiceAdapterRecycler extends RecyclerView.Adapter<ServiceAdapterR
         private ServiceViewHolder(View itemView) {
             super(itemView);
 
-            servicePictureCardView=(ImageView)itemView.findViewById(R.id.imageServiceCardView);
-            serviceNameCardView=(TextView)itemView.findViewById(R.id.nameServiceCardView);
-            serviceTypeCardView=(TextView)itemView.findViewById(R.id.typeServiceCardView);
-            orderLinearLayoutService=(LinearLayout)itemView.findViewById(R.id.orderLinearLayoutService);
+            servicePictureCardView= itemView.findViewById(R.id.imageServiceCardView);
+            serviceNameCardView= itemView.findViewById(R.id.nameServiceCardView);
+            serviceTypeCardView= itemView.findViewById(R.id.typeServiceCardView);
+            orderLinearLayoutService= itemView.findViewById(R.id.orderLinearLayoutService);
         }
     }
 }

@@ -67,13 +67,13 @@ public class ActivityAdapterRecycler extends RecyclerView.Adapter<ActivityAdapte
         private ActivityViewHolder(View itemView) {
             super(itemView);
 
-            nameCardView = (TextView) itemView.findViewById(R.id.nameActivityCardView);
-            dateStartCardView = (TextView) itemView.findViewById(R.id.dateStartActivityCardViewText);
-            timeStartCardView = (TextView) itemView.findViewById(R.id.timeStartActivityCardViewText);
-            dateEndCardView = (TextView) itemView.findViewById(R.id.dateEndActivityCardViewText);
-            timeEndCardView = (TextView) itemView.findViewById(R.id.timeEndActivityCardViewText);
-            descriptionCardView = (TextView) itemView.findViewById(R.id.descriptionActivityCardViewText);
-            imageCardView = (ImageView) itemView.findViewById(R.id.imageActivityCardView);
+            nameCardView = itemView.findViewById(R.id.nameActivityCardView);
+            dateStartCardView = itemView.findViewById(R.id.dateStartActivityCardViewText);
+            timeStartCardView = itemView.findViewById(R.id.timeStartActivityCardViewText);
+            dateEndCardView = itemView.findViewById(R.id.dateEndActivityCardViewText);
+            timeEndCardView = itemView.findViewById(R.id.timeEndActivityCardViewText);
+            descriptionCardView = itemView.findViewById(R.id.descriptionActivityCardViewText);
+            imageCardView = itemView.findViewById(R.id.imageActivityCardView);
         }
     }
 }

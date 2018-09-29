@@ -31,7 +31,7 @@ public class ServiceProfile {
      */
     public LoginModel getLoginModel() {
         LoginModel loginModel = new LoginModel();
-        Cursor cursor = db.rawQuery("select * from " + DBSQLite.TABLE_LOGIN, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBSQLite.TABLE_LOGIN, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 loginModel = obtainLoginModelCursor(cursor);

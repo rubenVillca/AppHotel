@@ -49,7 +49,7 @@ public class ReserveListConsumeAdapterRecycler extends RecyclerView.Adapter<Rese
         RecyclerView recyclerView;
         private ConsumeReserveViewHolder(View itemView) {
             super(itemView);
-            recyclerView=(RecyclerView)itemView.findViewById(R.id.typeRoomReserveRecyclerView);
+            recyclerView= itemView.findViewById(R.id.typeRoomReserveRecyclerView);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -152,8 +153,8 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         LinearLayout linearLayout = findViewById(R.id.contentLayoutReserveSearch);
         linearLayout.setVisibility(View.GONE);
 
-        SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");
-        SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy");
         try {
 
             Date dateInParse = parseador.parse(checkModel.getDateIn());

@@ -29,7 +29,7 @@ public class ReserveCheckActivity extends ActivityParent {
     }
 
     private void adapterRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.checkReserveRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.checkReserveRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

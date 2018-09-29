@@ -50,8 +50,8 @@ public class ReserveListRoomAdapterRecycler extends RecyclerView.Adapter<Reserve
         TextView consumeReserveRoom;
         private RoomReserveViewHolder(View itemView) {
             super(itemView);
-            recyclerView=(RecyclerView)itemView.findViewById(R.id.memberReserveRecyclerView);
-            consumeReserveRoom=(TextView)itemView.findViewById(R.id.nameReserveTypeRoom);
+            recyclerView= itemView.findViewById(R.id.memberReserveRecyclerView);
+            consumeReserveRoom= itemView.findViewById(R.id.nameReserveTypeRoom);
         }
     }
 }

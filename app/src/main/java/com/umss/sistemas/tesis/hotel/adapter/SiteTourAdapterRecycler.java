@@ -80,9 +80,9 @@ public class SiteTourAdapterRecycler extends RecyclerView.Adapter<SiteTourAdapte
         private SiteTourViewHolder(View itemView) {
             super(itemView);
 
-            siteTourPictureCardView=(ImageView)itemView.findViewById(R.id.imageSiteTourCardView);
-            siteTourNameCardView=(TextView)itemView.findViewById(R.id.nameSiteTourCardView);
-            siteTourAddressCardView=(TextView)itemView.findViewById(R.id.addressSiteTourCardView);
+            siteTourPictureCardView= itemView.findViewById(R.id.imageSiteTourCardView);
+            siteTourNameCardView= itemView.findViewById(R.id.nameSiteTourCardView);
+            siteTourAddressCardView= itemView.findViewById(R.id.addressSiteTourCardView);
         }
     }
 }

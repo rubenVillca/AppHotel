@@ -34,34 +34,34 @@ public class HomeFragment extends FragmentParent {
      */
     private void setActionIcon(View view) {
 
-        ImageView imageOffer=(ImageView)view.findViewById(R.id.imageOffer);
+        ImageView imageOffer= view.findViewById(R.id.imageOffer);
         imageOffer.setOnClickListener(this);
 
-        ImageView imageSiteTour=(ImageView)view.findViewById(R.id.imageSiteTour);
+        ImageView imageSiteTour= view.findViewById(R.id.imageSiteTour);
         imageSiteTour.setOnClickListener(this);
 
-        ImageView imageService=(ImageView)view.findViewById(R.id.imageService);
+        ImageView imageService= view.findViewById(R.id.imageService);
         imageService.setOnClickListener(this);
 
-        ImageView imageLocation=(ImageView)view.findViewById(R.id.imageLocationMap);
+        ImageView imageLocation= view.findViewById(R.id.imageLocationMap);
         imageLocation.setOnClickListener(this);
 
-        ImageView imageActivity=(ImageView)view.findViewById(R.id.imageActivity);
+        ImageView imageActivity= view.findViewById(R.id.imageActivity);
         imageActivity.setOnClickListener(this);
 
-        LinearLayout layoutOffer=(LinearLayout)view.findViewById(R.id.layoutOffer);
+        LinearLayout layoutOffer= view.findViewById(R.id.layoutOffer);
         layoutOffer.setOnClickListener(this);
 
-        LinearLayout layoutSiteTour=(LinearLayout)view.findViewById(R.id.layoutSiteTour);
+        LinearLayout layoutSiteTour= view.findViewById(R.id.layoutSiteTour);
         layoutSiteTour.setOnClickListener(this);
 
-        LinearLayout layoutService=(LinearLayout)view.findViewById(R.id.layoutService);
+        LinearLayout layoutService= view.findViewById(R.id.layoutService);
         layoutService.setOnClickListener(this);
 
-        LinearLayout layoutLocation=(LinearLayout)view.findViewById(R.id.layoutLocationMap);
+        LinearLayout layoutLocation= view.findViewById(R.id.layoutLocationMap);
         layoutLocation.setOnClickListener(this);
 
-        LinearLayout layoutActivity=(LinearLayout)view.findViewById(R.id.layoutActivity);
+        LinearLayout layoutActivity= view.findViewById(R.id.layoutActivity);
         layoutActivity.setOnClickListener(this);
     }
 }

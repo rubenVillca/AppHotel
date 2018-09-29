@@ -45,7 +45,7 @@ public class ContainerActivity extends ActivityParent {
         container = findViewById(R.id.layoutContainerActivity);
 
         //cabecera de la app
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /*getSupportActionBar().setHomeButtonEnabled(true);//icono en el toolbar
@@ -56,14 +56,14 @@ public class ContainerActivity extends ActivityParent {
 
 
         // Setting ViewPager for each Tabs
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         //pestanas de la app
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        progressBarAdvanced = (ProgressBar) findViewById(R.id.progressBarAdvanced);
+        progressBarAdvanced = findViewById(R.id.progressBarAdvanced);
         services = new Services(this);
 
         obtainDataBundle();
@@ -139,7 +139,7 @@ public class ContainerActivity extends ActivityParent {
      * @param view: actividad en la estar el boton de mensaje
      */
     public void goMessage(View view) {
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +168,7 @@ public class ContainerActivity extends ActivityParent {
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        private void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

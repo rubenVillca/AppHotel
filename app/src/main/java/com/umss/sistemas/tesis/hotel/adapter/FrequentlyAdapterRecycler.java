@@ -52,9 +52,9 @@ public class FrequentlyAdapterRecycler extends RecyclerView.Adapter<FrequentlyAd
         private FrequentlyViewHolder(View itemView) {
             super(itemView);
 
-            nQuestionCardView =(TextView)itemView.findViewById(R.id.nQuestionCardView);
-            questionCardView =(TextView)itemView.findViewById(R.id.questionCardView);
-            responseCardView =(TextView)itemView.findViewById(R.id.responseCardViewText);
+            nQuestionCardView = itemView.findViewById(R.id.nQuestionCardView);
+            questionCardView = itemView.findViewById(R.id.questionCardView);
+            responseCardView = itemView.findViewById(R.id.responseCardViewText);
         }
     }
 }

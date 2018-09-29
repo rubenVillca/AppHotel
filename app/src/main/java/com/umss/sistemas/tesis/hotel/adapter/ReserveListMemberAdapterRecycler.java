@@ -61,9 +61,9 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
         private MemberReserveViewHolder(View itemView) {
             super(itemView);
-            memberReserveTextView = (TextView) itemView.findViewById(R.id.memberReserveTextView);
-            memberNameReserveTextView =(TextView)itemView.findViewById(R.id.memberNameReserveTextView);
-            btnEditCardViewReserveMember = (ImageView) itemView.findViewById(R.id.btnEditCardViewReserveMember);
+            memberReserveTextView = itemView.findViewById(R.id.memberReserveTextView);
+            memberNameReserveTextView = itemView.findViewById(R.id.memberNameReserveTextView);
+            btnEditCardViewReserveMember = itemView.findViewById(R.id.btnEditCardViewReserveMember);
         }
     }
 }

@@ -28,7 +28,7 @@ public class MenuFoodActivity extends ActivityParent {
         services =new Services(this);
         boolean isActiveCheck= !services.getCheckModel(0, 1, 2).isEmpty();
 
-        RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.foodMenuRecyclerView);
+        RecyclerView pictureRecycler= findViewById(R.id.foodMenuRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

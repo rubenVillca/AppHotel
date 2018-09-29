@@ -29,7 +29,7 @@ public class FrequentlyActivity extends ActivityParent {
      * cargar lista de preguntas frecuentes a la vista de la app
      */
     private void adapterRecyclerView() {
-        RecyclerView frequenltyRecycler = (RecyclerView)findViewById(R.id.frequentlyRecyclerView);
+        RecyclerView frequenltyRecycler = findViewById(R.id.frequentlyRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

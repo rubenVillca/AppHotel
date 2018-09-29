@@ -1,11 +1,11 @@
 package com.umss.sistemas.tesis.hotel.fragments;
 
-import android.widget.ImageView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.umss.sistemas.tesis.hotel.R;
@@ -33,29 +33,29 @@ public class AboutFragment extends FragmentParent {
      * @param view: activity principal que se esta mostrando
      */
     private void setActionIcon(View view) {
-        ImageView imageProfile=(ImageView)view.findViewById(R.id.imageProfile);
+        ImageView imageProfile= view.findViewById(R.id.imageProfile);
         imageProfile.setOnClickListener(this);
 
-        ImageView imageAbout=(ImageView)view.findViewById(R.id.imageAbout);
+        ImageView imageAbout= view.findViewById(R.id.imageAbout);
         imageAbout.setOnClickListener(this);
 
-        ImageView imageFrequently=(ImageView)view.findViewById(R.id.imageFrequently);
+        ImageView imageFrequently= view.findViewById(R.id.imageFrequently);
         imageFrequently.setOnClickListener(this);
 
-        ImageView imageContact=(ImageView)view.findViewById(R.id.imageContact);
+        ImageView imageContact= view.findViewById(R.id.imageContact);
         imageContact.setOnClickListener(this);
 
         //layout
-        LinearLayout layoutProfile=(LinearLayout)view.findViewById(R.id.layoutProfile);
+        LinearLayout layoutProfile= view.findViewById(R.id.layoutProfile);
         layoutProfile.setOnClickListener(this);
 
-        LinearLayout layoutAbout=(LinearLayout)view.findViewById(R.id.layoutAbout);
+        LinearLayout layoutAbout= view.findViewById(R.id.layoutAbout);
         layoutAbout.setOnClickListener(this);
 
-        LinearLayout layoutFrequently=(LinearLayout)view.findViewById(R.id.layoutFrequently);
+        LinearLayout layoutFrequently= view.findViewById(R.id.layoutFrequently);
         layoutFrequently.setOnClickListener(this);
 
-        LinearLayout layoutContact=(LinearLayout)view.findViewById(R.id.layoutContact);
+        LinearLayout layoutContact= view.findViewById(R.id.layoutContact);
         layoutContact.setOnClickListener(this);
     }
 }

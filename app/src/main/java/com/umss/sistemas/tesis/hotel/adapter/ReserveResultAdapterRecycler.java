@@ -111,9 +111,9 @@ public class ReserveResultAdapterRecycler extends RecyclerView.Adapter<ReserveRe
         private AvailableRoomViewHolder(View itemView) {
             super(itemView);
 
-            nameTypeRoomCardView = (TextView) itemView.findViewById(R.id.nameTypeRoomCardView);
-            priceCardView = (TextView) itemView.findViewById(R.id.nRoomFreeCardViewText);
-            imageCardView = (ImageView) itemView.findViewById(R.id.imageAvailableRoomCardView);
+            nameTypeRoomCardView = itemView.findViewById(R.id.nameTypeRoomCardView);
+            priceCardView = itemView.findViewById(R.id.nRoomFreeCardViewText);
+            imageCardView = itemView.findViewById(R.id.imageAvailableRoomCardView);
         }
     }
 }

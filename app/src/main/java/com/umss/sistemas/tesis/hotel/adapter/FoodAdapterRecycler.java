@@ -82,12 +82,12 @@ public class FoodAdapterRecycler extends RecyclerView.Adapter<FoodAdapterRecycle
         private FoodViewHolder(View itemView) {
             super(itemView);
 
-            foodPictureCardView=(ImageView)itemView.findViewById(R.id.imageFoodCardView);
-            foodNameCardView=(TextView)itemView.findViewById(R.id.nameFoodCardView);
-            foodTypeFoodCardView=(TextView)itemView.findViewById(R.id.typeFoodCardView);
+            foodPictureCardView= itemView.findViewById(R.id.imageFoodCardView);
+            foodNameCardView= itemView.findViewById(R.id.nameFoodCardView);
+            foodTypeFoodCardView= itemView.findViewById(R.id.typeFoodCardView);
 
-            foodTypeMoneyCardView=(TextView)itemView.findViewById(R.id.moneyFoodCardView);
-            foodPriceCardView=(TextView)itemView.findViewById(R.id.priceFoodCardView);
+            foodTypeMoneyCardView= itemView.findViewById(R.id.moneyFoodCardView);
+            foodPriceCardView= itemView.findViewById(R.id.priceFoodCardView);
         }
     }
 }

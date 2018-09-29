@@ -63,10 +63,10 @@ public class MessageAdapterRecycler extends RecyclerView.Adapter<MessageAdapterR
 
         private MessageViewHolder(View itemView) {
             super(itemView);
-            messageLinearLayoutCardView=(LinearLayout)itemView.findViewById(R.id.messageLinearLayoutCardView);
-            senderCardView=(TextView)itemView.findViewById(R.id.remitentMessageCardViewText);
-            dateCardView=(TextView)itemView.findViewById(R.id.dateMessageCardViewText);
-            titleCardView=(TextView)itemView.findViewById(R.id.titleMessageCardViewText);
+            messageLinearLayoutCardView= itemView.findViewById(R.id.messageLinearLayoutCardView);
+            senderCardView= itemView.findViewById(R.id.remitentMessageCardViewText);
+            dateCardView= itemView.findViewById(R.id.dateMessageCardViewText);
+            titleCardView= itemView.findViewById(R.id.titleMessageCardViewText);
         }
     }
 }

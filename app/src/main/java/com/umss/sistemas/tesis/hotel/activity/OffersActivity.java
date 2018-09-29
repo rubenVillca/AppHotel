@@ -23,7 +23,7 @@ public class OffersActivity extends ActivityParent {
         setRecyclerView();
     }
     private void setRecyclerView() {
-        RecyclerView pictureRecycler=(RecyclerView)findViewById(R.id.offerRecyclerView);
+        RecyclerView pictureRecycler= findViewById(R.id.offerRecyclerView);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -35,7 +35,6 @@ public class OffersActivity extends ActivityParent {
     }
     public ArrayList<OfferModel> buildOffer(){
         services =new Services(this);
-        ArrayList<OfferModel> offerList= services.getOfferModel(0);
-        return offerList;
+        return services.getOfferModel(0);
     }
 }

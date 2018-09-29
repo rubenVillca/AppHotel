@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ActivityAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -25,7 +25,7 @@ public class CalendarActivity extends ActivityParent {
     }
 
     private void adapterRecyclerView() {
-        RecyclerView pictureRecycler = (RecyclerView) findViewById(R.id.calendarRecyclerView);
+        RecyclerView pictureRecycler = findViewById(R.id.calendarRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -37,7 +37,7 @@ public class CalendarActivity extends ActivityParent {
     }
 
     public ArrayList<ActivityModel> buildCalendar() {
-        serviceGet = new ServiceGet(this);
-        return serviceGet.getActivityModel(0);
+        services = new Services(this);
+        return services.getActivityModel(0);
     }
 }

@@ -11,7 +11,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -29,14 +29,14 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
         showToolBar(getResources().getString(R.string.toolbar_tittle_complaints), true);
         container=findViewById(R.id.layoutComplaintActivity);
 
-        Button button = (Button) findViewById(R.id.btnComplaintsSend);
+        Button button = findViewById(R.id.btnComplaintsSend);
         button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnComplaintsSend) {
-            TextView edit = (TextView) findViewById(R.id.complaintsEditText);
+            TextView edit = findViewById(R.id.complaintsEditText);
             String text = edit.getText().toString();
 
             sendComplaints(text);
@@ -50,8 +50,8 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
      */
     private void sendComplaints(String text) {
         showProgress(true);
-        serviceGet =new ServiceGet(this);
-        int idPerson= serviceGet.getLoginModel().getIdPerson();
+        services =new Services(this);
+        int idPerson= services.getLoginModel().getIdPerson();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();

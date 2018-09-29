@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,8 +19,7 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
-import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -50,7 +50,7 @@ public class ProfileActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        serviceGet = new ServiceGet(this);
+        services = new Services(this);
         showToolBar("", true);
 
         showImageCamera();
@@ -86,7 +86,7 @@ public class ProfileActivity extends ActivityParent {
      * @throws IOException:control de errores
      */
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String imageFilename = timeStamp + "_";
         File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -97,16 +97,16 @@ public class ProfileActivity extends ActivityParent {
     }
 
     private void showContentProfile() {
-        PersonModel profile = serviceGet.getPersonModel(serviceGet.getLoginModel().getIdPerson());
+        PersonModel profile = services.getPersonModel(services.getLoginModel().getIdPerson());
         showDataProfile(profile);
-        imgProfile = (CircleImageView) findViewById(R.id.imgCircleProfile);
+        imgProfile = findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
             Picasso.with(this).load(Conexion.urlServer + profile.getImgPerson()).into(imgProfile);
         }
     }
 
     private void showImageCamera() {
-        ImageView imgCamera = (ImageView) findViewById(R.id.imgProfileCamera);
+        ImageView imgCamera = findViewById(R.id.imgProfileCamera);
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,46 +121,46 @@ public class ProfileActivity extends ActivityParent {
      * @param profile: perfil del usuario
      */
     private void showDataProfile(PersonModel profile) {
-        TextView nameUser = (TextView) findViewById(R.id.userNameProfile);
+        TextView nameUser = findViewById(R.id.userNameProfile);
         nameUser.setText(profile.getNamePerson() + "\n" + profile.getNameLastPerson());
 
-        TextView name = (TextView) findViewById(R.id.profileNamePerson);
+        TextView name = findViewById(R.id.profileNamePerson);
         name.setText(profile.getNamePerson());
 
-        TextView nameLast = (TextView) findViewById(R.id.profileLastNamePerson);
+        TextView nameLast = findViewById(R.id.profileLastNamePerson);
         nameLast.setText(profile.getNameLastPerson());
 
-        TextView email = (TextView) findViewById(R.id.profileEmailPerson);
+        TextView email = findViewById(R.id.profileEmailPerson);
         email.setText(profile.getEmailPerson());
 
-        TextView point = (TextView) findViewById(R.id.profilePointPerson);
+        TextView point = findViewById(R.id.profilePointPerson);
         point.setText(String.valueOf(profile.getPointPerson()));
 
-        TextView address = (TextView) findViewById(R.id.profileAddressPerson);
+        TextView address = findViewById(R.id.profileAddressPerson);
         address.setText(profile.getAddressPerson());
 
-        TextView city = (TextView) findViewById(R.id.profileCityPerson);
+        TextView city = findViewById(R.id.profileCityPerson);
         city.setText(profile.getCityPerson());
 
-        TextView country = (TextView) findViewById(R.id.profileCountryPerson);
+        TextView country = findViewById(R.id.profileCountryPerson);
         country.setText(profile.getCountryPerson());
 
-        TextView sex = (TextView) findViewById(R.id.profileSexPerson);
+        TextView sex = findViewById(R.id.profileSexPerson);
         sex.setText(profile.getSexPerson() == 1 ? "Hombre" : "Mujer");
 
-        TextView dateBorn = (TextView) findViewById(R.id.profileDateBornPerson);
+        TextView dateBorn = findViewById(R.id.profileDateBornPerson);
         dateBorn.setText(profile.getDateBornPerson());
 
-        TextView dateRegister = (TextView) findViewById(R.id.profileDateRegisterPerson);
+        TextView dateRegister = findViewById(R.id.profileDateRegisterPerson);
         dateRegister.setText(profile.getDateRegisterPerson());
 
-        TextView typeDocument = (TextView) findViewById(R.id.profileTypeDocumentPerson);
+        TextView typeDocument = findViewById(R.id.profileTypeDocumentPerson);
         typeDocument.setText(profile.getTypeDocument());
 
-        TextView numberDocument = (TextView) findViewById(R.id.profileNumberDocumentPerson);
+        TextView numberDocument = findViewById(R.id.profileNumberDocumentPerson);
         numberDocument.setText(String.valueOf(profile.getNumberDocument()));
 
-        TextView numberPhone = (TextView) findViewById(R.id.profileNumberPhonePerson);
+        TextView numberPhone = findViewById(R.id.profileNumberPhonePerson);
         numberPhone.setText(String.valueOf(profile.getNumberPhone()));
 
     }
@@ -189,8 +189,8 @@ public class ProfileActivity extends ActivityParent {
      * Conectar con el webServer y sincronizar la tabla profile
      */
     private void subirFoto() {
-        ServiceInsert =new ServiceInsert(this);
-        PersonModel profile = serviceGet.getPersonModel(serviceGet.getLoginModel().getIdPerson());
+        services =new Services(this);
+        PersonModel profile = services.getPersonModel(services.getLoginModel().getIdPerson());
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -208,7 +208,7 @@ public class ProfileActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ServiceInsert.syncUpPerson(obj);
+                        services.syncUpPerson(obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

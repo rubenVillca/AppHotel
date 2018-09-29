@@ -13,7 +13,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -29,7 +29,7 @@ public class ContactActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         container = findViewById(R.id.message_form);
-        serviceGet = new ServiceGet(this);
+        services = new Services(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
         setSpinner();
         showButtonMessage();
@@ -39,7 +39,7 @@ public class ContactActivity extends ActivityParent {
      * cargar lista de tipos de usuarios en el spinner
      */
     private void setSpinner() {
-        Spinner spinner = (Spinner) findViewById(R.id.contactSpinner);
+        Spinner spinner = findViewById(R.id.contactSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.rol_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -49,17 +49,17 @@ public class ContactActivity extends ActivityParent {
     }
 
     private void showButtonMessage() {
-        Button button = (Button) findViewById(R.id.btnContactSend);
+        Button button = findViewById(R.id.btnContactSend);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = (EditText) findViewById(R.id.contactEditText);
+                EditText editText = findViewById(R.id.contactEditText);
                 String messsage = editText.getText().toString();
 
-                EditText titleMessage = (EditText) findViewById(R.id.contactTitle);
+                EditText titleMessage = findViewById(R.id.contactTitle);
                 String title = titleMessage.getText().toString();
 
-                Spinner spin = (Spinner) findViewById(R.id.contactSpinner);
+                Spinner spin = findViewById(R.id.contactSpinner);
                 String receiver = spin.getSelectedItem().toString();
                 receiver = receiver.equals("Administrador") ? "admin" : "recepcion";
 
@@ -84,8 +84,8 @@ public class ContactActivity extends ActivityParent {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        serviceGet = new ServiceGet(this);
-        int idPerson = serviceGet.getLoginModel().getIdPerson();
+        services = new Services(this);
+        int idPerson = services.getLoginModel().getIdPerson();
 
         params.put("message", messsage);
         params.put("tittle", title);

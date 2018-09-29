@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.FrequentlyAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -19,7 +19,7 @@ public class FrequentlyActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frequently);
 
-        serviceGet =new ServiceGet(this);
+        services =new Services(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_frequently), true);
         adapterRecyclerView();
 
@@ -41,7 +41,7 @@ public class FrequentlyActivity extends ActivityParent {
     }
 
     public ArrayList<FrequentlyModel> buildFrequently(){
-        return serviceGet.getFrequentlyModel(0);
+        return services.getFrequentlyModel(0);
     }
 
 }

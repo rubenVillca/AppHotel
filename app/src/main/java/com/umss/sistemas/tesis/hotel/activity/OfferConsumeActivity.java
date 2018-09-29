@@ -16,8 +16,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
-import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
@@ -69,9 +68,9 @@ public class OfferConsumeActivity extends ActivityParent {
     }
 
     private void initVar() {
-        serviceGet = new ServiceGet(this);
-        idCheck = serviceGet.getCheckModel(0, 1, 2).get(0).getId();
-        idPerson= serviceGet.getLoginModel().getIdPerson();
+        services = new Services(this);
+        idCheck = services.getCheckModel(0, 1, 2).get(0).getId();
+        idPerson= services.getLoginModel().getIdPerson();
     }
 
     private void initContent() {
@@ -143,7 +142,7 @@ public class OfferConsumeActivity extends ActivityParent {
     }
 
     public void sendConsumeOffer(View view) {
-        ServiceInsert =new ServiceInsert(this);
+        services =new Services(this);
 
         showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -201,7 +200,7 @@ public class OfferConsumeActivity extends ActivityParent {
                         consumeServiceModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
 
                         listConsumeService.add(consumeServiceModel);
-                        ServiceInsert.insertConsumeSQLite(listConsumeService);
+                        services.insertConsumeSQLite(listConsumeService);
                         goConsumeActivity();
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");

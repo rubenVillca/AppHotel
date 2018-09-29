@@ -14,7 +14,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -51,15 +51,15 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     }
 
     private void getDataView() {
-        emailInput = (EditText) findViewById(R.id.email);
-        passText = (EditText) findViewById(R.id.passwordCreateAccout);
-        passText2 = (EditText) findViewById(R.id.repeatPassword);
-        nameText = (EditText) findViewById(R.id.personName);
-        appText = (EditText) findViewById(R.id.personLastName);
-        phoneText = (EditText) findViewById(R.id.numberPhone);
-        sexRadioH = (RadioButton) findViewById(R.id.radioButtonH);
-        sexRadioM = (RadioButton) findViewById(R.id.radioButtonM);
-        btnRegistrar = (Button) findViewById(R.id.btnCreateAcount);
+        emailInput = findViewById(R.id.email);
+        passText = findViewById(R.id.passwordCreateAccout);
+        passText2 = findViewById(R.id.repeatPassword);
+        nameText = findViewById(R.id.personName);
+        appText = findViewById(R.id.personLastName);
+        phoneText = findViewById(R.id.numberPhone);
+        sexRadioH = findViewById(R.id.radioButtonH);
+        sexRadioM = findViewById(R.id.radioButtonM);
+        btnRegistrar = findViewById(R.id.btnCreateAcount);
         btnRegistrar.setOnClickListener(this);
     }
 
@@ -133,11 +133,11 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     }
 
     private void iniciarSession(int idPerson) {
-        ServiceInsert =new ServiceInsert(this);
+        Services services =new Services(this);
 
         if (idPerson > 0) {
             showMessaje("Usuario registrado exitosamente");
-            ServiceInsert.syncUpLogin(idPerson, pass, 1);
+            services.syncUpLogin(idPerson, pass, 1);
             goHomeContainer(idPerson);
         }
         if (idPerson == -1) {

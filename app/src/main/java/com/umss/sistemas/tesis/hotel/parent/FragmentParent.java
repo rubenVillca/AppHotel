@@ -27,8 +27,7 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
-import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
+import com.umss.sistemas.tesis.hotel.helper.Services;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,9 +35,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
-
-    protected ServiceInsert ServiceInsert;
-    protected ServiceGet serviceGet;
+    protected Services services;
 
     protected ActivityParent containerActivity;
     private AsyncHttpClient client;
@@ -64,8 +61,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (ServiceInsert != null)
-            ServiceInsert.destroy();
+        if (services != null)
+            services.destroy();
         super.onDestroy();
     }
 
@@ -74,8 +71,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         containerActivity = (ActivityParent) getActivity();
         containerActivity.container = getActivity().findViewById(R.id.viewpager);
 
-        ServiceInsert = new ServiceInsert(getContext());
-        serviceGet = new ServiceGet(getContext());
+        services = new Services(getContext());
 
         switch (v.getId()) {
             case R.id.imageOffer:
@@ -216,7 +212,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     private void goConsumeActivity() {
         containerActivity.showProgress(true);
-        int idPerson = serviceGet.getLoginModel().getIdPerson();
+        int idPerson = services.getLoginModel().getIdPerson();
 
         client = new AsyncHttpClient();
         params = new RequestParams();
@@ -230,7 +226,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ServiceInsert.syncUpCheck(obj);
+                        services.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

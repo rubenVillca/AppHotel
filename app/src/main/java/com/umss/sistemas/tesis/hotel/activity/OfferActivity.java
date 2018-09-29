@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -42,9 +42,9 @@ public class OfferActivity extends ActivityParent {
 
     private void initValues(int idOffer) {
         fab = findViewById(R.id.fabOrderService);
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
-        offerModel= helperSQLiteObtain.getOfferModel(idOffer).get(0);
-        boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
+        serviceGet =new ServiceGet(this);
+        offerModel= serviceGet.getOfferModel(idOffer).get(0);
+        boolean isChecked= serviceGet.getCheckModel(0,1,2).size()>0;
 
         //varificar si la fecha de la oferta es valida para utilizarla
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");

@@ -13,8 +13,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
@@ -105,8 +105,8 @@ public class ReserveMemberActivity extends ActivityParent {
      */
     public void goReserveCheck(View view) {
         showProgress(true);
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        serviceGet = new ServiceGet(this);
+        ServiceInsert = new ServiceInsert(this);
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd");

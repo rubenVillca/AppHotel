@@ -16,8 +16,8 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -69,10 +69,10 @@ public class ConsumeFoodActivity extends ActivityParent {
             foodModel = (FoodModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("foodModel");
         }
         typeMoneyHashMap = new HashMap<>();
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        serviceGet = new ServiceGet(this);
 
-        idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
-        ArrayList<CheckModel> checkModelArrayList = helperSQLiteObtain.getCheckModel(0, 1, 2);
+        idPerson= serviceGet.getLoginModel().getIdPerson();
+        ArrayList<CheckModel> checkModelArrayList = serviceGet.getCheckModel(0, 1, 2);
         if (!checkModelArrayList.isEmpty())
             checkModel = checkModelArrayList.get(0);
         else
@@ -182,7 +182,7 @@ public class ConsumeFoodActivity extends ActivityParent {
         params.put("priceTotal",priceTotalFoodTextView.getText());
         params.put("site",spinnerSiteFood.getSelectedItem().toString());
 
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        ServiceInsert = new ServiceInsert(this);
 
         client.post(Conexion.FOOD_MENU_INSERT, params, new AsyncHttpResponseHandler() {
             @Override
@@ -208,7 +208,7 @@ public class ConsumeFoodActivity extends ActivityParent {
 
                         ArrayList<ConsumeFoodModel> arrayList=new ArrayList<>();
                         arrayList.add(consumeFoodModel);
-                        helperSQLiteInsert.insertConsumeFoodSQLite(arrayList);
+                        ServiceInsert.insertConsumeFoodSQLite(arrayList);
 
                         goMenuFoodActivity();
                         showMessaje("Pedido enviado");

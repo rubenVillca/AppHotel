@@ -11,7 +11,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -52,8 +52,8 @@ public class SuggestionActivity extends ActivityParent implements View.OnClickLi
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        helperSQLiteObtain=new HelperSQLiteObtain(this);
-        int idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
+        serviceGet =new ServiceGet(this);
+        int idPerson= serviceGet.getLoginModel().getIdPerson();
 
         params.put("message",text);
         params.put("android","android");

@@ -16,8 +16,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.ArticleModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
@@ -69,9 +69,9 @@ public class OfferConsumeActivity extends ActivityParent {
     }
 
     private void initVar() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        idCheck = helperSQLiteObtain.getCheckModel(0, 1, 2).get(0).getId();
-        idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
+        serviceGet = new ServiceGet(this);
+        idCheck = serviceGet.getCheckModel(0, 1, 2).get(0).getId();
+        idPerson= serviceGet.getLoginModel().getIdPerson();
     }
 
     private void initContent() {
@@ -143,7 +143,7 @@ public class OfferConsumeActivity extends ActivityParent {
     }
 
     public void sendConsumeOffer(View view) {
-        helperSQLiteInsert=new HelperSQLiteInsert(this);
+        ServiceInsert =new ServiceInsert(this);
 
         showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -201,7 +201,7 @@ public class OfferConsumeActivity extends ActivityParent {
                         consumeServiceModel.setUnit(Integer.parseInt(unitSpinnerConsume.getSelectedItem().toString()));
 
                         listConsumeService.add(consumeServiceModel);
-                        helperSQLiteInsert.insertConsumeSQLite(listConsumeService);
+                        ServiceInsert.insertConsumeSQLite(listConsumeService);
                         goConsumeActivity();
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ActivityAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -37,7 +37,7 @@ public class CalendarActivity extends ActivityParent {
     }
 
     public ArrayList<ActivityModel> buildCalendar() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        return helperSQLiteObtain.getActivityModel(0);
+        serviceGet = new ServiceGet(this);
+        return serviceGet.getActivityModel(0);
     }
 }

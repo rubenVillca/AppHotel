@@ -3,17 +3,17 @@ package com.umss.sistemas.tesis.hotel.parent;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.umss.sistemas.tesis.hotel.helper.DBSQLiteHelper;
+import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 
 /**
  * Created by ruben on 10/05/2017
  */
 
-public class HelperParent {
+public abstract class HelperParent {
     protected SQLiteDatabase db;
 
     public HelperParent(Context context) {
-        DBSQLiteHelper sync = new DBSQLiteHelper(context, DBSQLiteHelper.DATABASE_NAME, null, DBSQLiteHelper.DATABASE_VERSION);
+        DBSQLite sync = new DBSQLite(context, DBSQLite.DATABASE_NAME, null, DBSQLite.DATABASE_VERSION);
         db = sync.getWritableDatabase();
     }
 

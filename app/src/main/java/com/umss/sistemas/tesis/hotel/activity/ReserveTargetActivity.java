@@ -17,8 +17,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -181,9 +181,9 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      */
     private void goReserveSave() {
         showProgress(true);
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+        serviceGet = new ServiceGet(this);
+        ServiceInsert = new ServiceInsert(this);
+        int idPerson = serviceGet.getLoginModel().getIdPerson();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -246,8 +246,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      */
     private void goReserveVerify() {
         showProgress(true);
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+        serviceGet = new ServiceGet(this);
+        int idPerson = serviceGet.getLoginModel().getIdPerson();
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -260,7 +260,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
+                        ServiceInsert.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

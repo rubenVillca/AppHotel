@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class FoodModel extends ModelParent {
     private int id;
+    private int idSQL;
     private int idKeyMenu;
     private String name;
     private boolean state;
@@ -16,6 +17,7 @@ public class FoodModel extends ModelParent {
 
     public FoodModel() {
         this.id = 0;
+        this.idSQL = 0;
         this.idKeyMenu = 0;
         this.name = "";
         this.state = false;
@@ -23,6 +25,14 @@ public class FoodModel extends ModelParent {
         this.image = "";
         this.type="";
         this.listFoodPriceModel=new ArrayList<>();
+    }
+
+    public int getIdSQL() {
+        return idSQL;
+    }
+
+    public void setIdSQL(int idSQL) {
+        this.idSQL = idSQL;
     }
 
     public ArrayList<FoodPriceModel> getListFoodPriceModel() {

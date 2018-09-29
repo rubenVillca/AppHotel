@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -48,9 +48,9 @@ public class ServiceDetailActivity extends ActivityParent {
         }
 
         fab= findViewById(R.id.fabOrderService);
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        serviceGet =new ServiceGet(this);
 
-        boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
+        boolean isChecked= serviceGet.getCheckModel(0,1,2).size()>0;
         if (!isChecked||serviceModel.getValueType()!=1)
             fab.setVisibility(View.GONE);
 

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ConsumeFoodAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.adapter.ConsumeServiceAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -29,8 +29,8 @@ public class ConsumeActivity extends ActivityParent {
     }
 
     private void setRecyclerView() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        ArrayList<CheckModel> checkModels = helperSQLiteObtain.getCheckModel(0, 1, 2);
+        serviceGet = new ServiceGet(this);
+        ArrayList<CheckModel> checkModels = serviceGet.getCheckModel(0, 1, 2);
         if (!checkModels.isEmpty()) {
             ArrayList<ConsumeServiceModel> consumeServiceModels = buildService(checkModels);
             ArrayList<ConsumeFoodModel> foodModels = buildFood(checkModels);
@@ -38,19 +38,19 @@ public class ConsumeActivity extends ActivityParent {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-            RecyclerView consumeFoodRecycler = (RecyclerView) findViewById(R.id.consumeFoodRecyclerView);
+            RecyclerView consumeFoodRecycler = findViewById(R.id.consumeFoodRecyclerView);
             consumeFoodRecycler.setLayoutManager(linearLayoutManager);
             ConsumeFoodAdapterRecycler conumeFoodAdapter = new ConsumeFoodAdapterRecycler(foodModels, R.layout.cardview_consume_food);
             consumeFoodRecycler.setAdapter(conumeFoodAdapter);
 
-            RecyclerView consumeServiceRecycler = (RecyclerView) findViewById(R.id.consumeServiceRecyclerView);
+            RecyclerView consumeServiceRecycler = findViewById(R.id.consumeServiceRecyclerView);
             LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
             linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
             consumeServiceRecycler.setLayoutManager(linearLayoutManager2);
             ConsumeServiceAdapterRecycler conumeAdapter = new ConsumeServiceAdapterRecycler(consumeServiceModels, R.layout.cardview_consume_service, this);
             consumeServiceRecycler.setAdapter(conumeAdapter);
 
-            TextView total = (TextView) findViewById(R.id.totalConsume);
+            TextView total = findViewById(R.id.totalConsume);
             double totalCheck = 0;
             for (CheckModel checkModel : checkModels) {
                 totalCheck += checkModel.getTotal();

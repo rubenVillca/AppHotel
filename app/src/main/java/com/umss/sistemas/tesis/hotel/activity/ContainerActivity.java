@@ -22,8 +22,8 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.fragments.AboutFragment;
 import com.umss.sistemas.tesis.hotel.fragments.ConsumeFragment;
 import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -65,7 +65,7 @@ public class ContainerActivity extends ActivityParent {
         tabs.setupWithViewPager(viewPager);
 
         progressBarAdvanced = (ProgressBar) findViewById(R.id.progressBarAdvanced);
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        serviceGet = new ServiceGet(this);
 
         obtainDataBundle();
     }
@@ -85,7 +85,7 @@ public class ContainerActivity extends ActivityParent {
             idPerson = bundle.getInt("idPerson");
             syncSQLite();
         } else {
-            idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+            idPerson = serviceGet.getLoginModel().getIdPerson();
         }
         showProgress(false);
     }
@@ -104,7 +104,7 @@ public class ContainerActivity extends ActivityParent {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        ServiceInsert = new ServiceInsert(this);
 
         switch (item.getItemId()) {
             case R.id.action_sync:
@@ -127,7 +127,7 @@ public class ContainerActivity extends ActivityParent {
                 startActivity(intent);
                 break;
             case R.id.action_logout:
-                helperSQLiteInsert.logoutAction();
+                ServiceInsert.logoutAction();
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
@@ -229,7 +229,7 @@ public class ContainerActivity extends ActivityParent {
         progressBarAdvanced.setVisibility(View.VISIBLE);
         showProgress(true);
 
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        ServiceInsert = new ServiceInsert(this);
         syncProfile();
     }
 
@@ -249,7 +249,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpPerson(obj);
+                        ServiceInsert.syncUpPerson(obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -282,7 +282,7 @@ public class ContainerActivity extends ActivityParent {
                         if (statusCode == 200) {
                             try {
                                 JSONObject obj = new JSONObject(new String(responseBody));
-                                helperSQLiteInsert.syncUpFrequently(obj);
+                                ServiceInsert.syncUpFrequently(obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -315,7 +315,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpSiteTour(obj);
+                        ServiceInsert.syncUpSiteTour(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -349,7 +349,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCalendar(obj);
+                        ServiceInsert.syncUpCalendar(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -384,7 +384,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpMessages(obj);
+                        ServiceInsert.syncUpMessages(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -418,7 +418,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpFoodMenu(obj);
+                        ServiceInsert.syncUpFoodMenu(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -453,7 +453,7 @@ public class ContainerActivity extends ActivityParent {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpOffer(obj);
+                        ServiceInsert.syncUpOffer(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -487,7 +487,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpAbout(obj);
+                        ServiceInsert.syncUpAbout(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -522,7 +522,7 @@ public class ContainerActivity extends ActivityParent {
 
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpService(obj);
+                        ServiceInsert.syncUpService(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();
@@ -557,7 +557,7 @@ public class ContainerActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
+                        ServiceInsert.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

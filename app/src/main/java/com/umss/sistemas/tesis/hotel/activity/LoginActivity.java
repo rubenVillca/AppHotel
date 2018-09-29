@@ -16,7 +16,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -34,7 +34,7 @@ public class LoginActivity extends ActivityParent {
         setContentView(R.layout.activity_login);
 
         container = findViewById(R.id.containerLogin);
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        ServiceInsert = new ServiceInsert(this);
 
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(this);
@@ -115,7 +115,7 @@ public class LoginActivity extends ActivityParent {
                             goLoginActivity();
                             break;
                         default:
-                            helperSQLiteInsert.syncUpLogin(idPerson, passText, 1);
+                            ServiceInsert.syncUpLogin(idPerson, passText, 1);
                             showProgress(false);
                             goHomeFragment(idPerson);
                             showMessaje("Ha iniciado Sesion");

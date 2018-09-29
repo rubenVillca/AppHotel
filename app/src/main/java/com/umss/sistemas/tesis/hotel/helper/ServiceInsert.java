@@ -21,10 +21,10 @@ import com.umss.sistemas.tesis.hotel.model.MessageModel;
 import com.umss.sistemas.tesis.hotel.model.OccupationModel;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
-import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceDetailModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
@@ -38,8 +38,8 @@ import java.util.ArrayList;
 
 import static android.text.Html.fromHtml;
 
-public class HelperSQLiteInsert extends HelperParent {
-    public HelperSQLiteInsert(Context context) {
+public class ServiceInsert extends HelperParent {
+    public ServiceInsert(Context context) {
         super(context);
     }
 
@@ -571,12 +571,12 @@ public class HelperSQLiteInsert extends HelperParent {
 
                 FoodMenuModel foodMenuModel = new FoodMenuModel();
 
-                foodMenuModel.setId(foodJSONObject.getInt("ID_MENU"));
+                foodMenuModel.setIdSQL(foodJSONObject.getInt("ID_MENU"));
                 foodMenuModel.setName(foodJSONObject.getString("NAME_MENU"));
                 foodMenuModel.setDateStart(foodJSONObject.getString("DATE_START_MENU"));
                 foodMenuModel.setDateEnd(foodJSONObject.getString("DATE_END_MENU"));
 
-                ArrayList<FoodModel> foods = getFoodModelJSON(foodJSONObject, foodMenuModel.getId());
+                ArrayList<FoodModel> foods = getFoodModelJSON(foodJSONObject, foodMenuModel.getIdSQL());
                 foodMenuModel.setFoodModelArrayList(foods);
 
                 foodMenuListModel.add(foodMenuModel);
@@ -955,15 +955,15 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param loginModel: objeto a ingresar a la base de datos sqlite
      */
     private void insertLoginSQLite(LoginModel loginModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_LOGIN);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_LOGIN);
 
         ContentValues newRegister = new ContentValues();
 
-        newRegister.put(DBSQLiteHelper.KEY_LOGIN_ID_PERSON, loginModel.getIdPerson());
-        newRegister.put(DBSQLiteHelper.KEY_LOGIN_PASSWORD, loginModel.getPassword());
-        newRegister.put(DBSQLiteHelper.KEY_LOGIN_STATE, loginModel.getState());
+        newRegister.put(DBSQLite.KEY_LOGIN_ID_PERSON, loginModel.getIdPerson());
+        newRegister.put(DBSQLite.KEY_LOGIN_PASSWORD, loginModel.getPassword());
+        newRegister.put(DBSQLite.KEY_LOGIN_STATE, loginModel.getState());
 
-        if (db.insert(DBSQLiteHelper.TABLE_LOGIN, null, newRegister) == -1)
+        if (db.insert(DBSQLite.TABLE_LOGIN, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en LoginModel");
     }
 
@@ -972,28 +972,28 @@ public class HelperSQLiteInsert extends HelperParent {
      *
      * @param personModel: objeto a ingresar a la base dedd atos sqlite
      */
-    public void insertPersonSQLite(PersonModel personModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PERSON + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + personModel.getIdPerson());
+    private void insertPersonSQLite(PersonModel personModel) {
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_PERSON + " where " + DBSQLite.KEY_PERSON_ID + "=" + personModel.getIdPerson());
 
         ContentValues newRegister = new ContentValues();
 
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_ID, personModel.getIdPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_EMAIL, personModel.getEmailPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_NAME, personModel.getNamePerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_CITY, personModel.getCityPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_POINT, personModel.getPointPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_SEX, personModel.getSexPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
-        newRegister.put(DBSQLiteHelper.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
+        newRegister.put(DBSQLite.KEY_PERSON_ID, personModel.getIdPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_EMAIL, personModel.getEmailPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_NAME, personModel.getNamePerson());
+        newRegister.put(DBSQLite.KEY_PERSON_NAME_LAST, personModel.getNameLastPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_CITY, personModel.getCityPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_COUNTRY, personModel.getCountryPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_POINT, personModel.getPointPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_SEX, personModel.getSexPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_ADDRESS, personModel.getAddressPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_IMG_PERSON, personModel.getImgPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_DATE_BORN, personModel.getDateBornPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_DATE_REGISTER, personModel.getDateRegisterPerson());
+        newRegister.put(DBSQLite.KEY_PERSON_TYPE_DOCUMENT, personModel.getTypeDocument());
+        newRegister.put(DBSQLite.KEY_PERSON_NUMBER_DOCUMENT, personModel.getNumberDocument());
+        newRegister.put(DBSQLite.KEY_PERSON_NUMBER_PHONE, personModel.getNumberPhone());
 
-        if (db.insert(DBSQLiteHelper.TABLE_PERSON, null, newRegister) == -1)
+        if (db.insert(DBSQLite.TABLE_PERSON, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en PersonModel");
     }
 
@@ -1003,31 +1003,31 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param aboutModel: objeto a ingresar a la base ded datos sqlite
      */
     private void insertAboutSQLite(AboutModel aboutModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ABOUT);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_ABOUT);
 
         ContentValues newRegister = new ContentValues();
 
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ID, aboutModel.getId());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_PHONE_HOTEL, aboutModel.getPhoneHotel());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_NAME_HOTEL, aboutModel.getNameHotel());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_MISION, aboutModel.getMision());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_VISION, aboutModel.getVision());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_SCOPE, aboutModel.getScope());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_HISTORY, aboutModel.getHistory());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_FUNDATION, aboutModel.getFundation());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_WATCHWORD, aboutModel.getWatchWord());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_EMAIL, aboutModel.getEmail());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_LOGO_HOTEL, aboutModel.getLogoHotel());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_X, aboutModel.getAddressGPSX());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_GPS_Y, aboutModel.getAddressGPSY());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_ADDRESS_IMAGE, aboutModel.getAddressImage());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_TYPE_HOTEL, aboutModel.getType());
-        newRegister.put(DBSQLiteHelper.KEY_ABOUT_SITE_WEB_HOTEL, aboutModel.getSiteWeb());
+        newRegister.put(DBSQLite.KEY_ABOUT_ID, aboutModel.getId());
+        newRegister.put(DBSQLite.KEY_ABOUT_PHONE_HOTEL, aboutModel.getPhoneHotel());
+        newRegister.put(DBSQLite.KEY_ABOUT_NAME_HOTEL, aboutModel.getNameHotel());
+        newRegister.put(DBSQLite.KEY_ABOUT_MISION, aboutModel.getMision());
+        newRegister.put(DBSQLite.KEY_ABOUT_VISION, aboutModel.getVision());
+        newRegister.put(DBSQLite.KEY_ABOUT_ADDRESS, aboutModel.getAddress());
+        newRegister.put(DBSQLite.KEY_ABOUT_SCOPE, aboutModel.getScope());
+        newRegister.put(DBSQLite.KEY_ABOUT_HISTORY, aboutModel.getHistory());
+        newRegister.put(DBSQLite.KEY_ABOUT_FUNDATION, aboutModel.getFundation());
+        newRegister.put(DBSQLite.KEY_ABOUT_WATCHWORD, aboutModel.getWatchWord());
+        newRegister.put(DBSQLite.KEY_ABOUT_OBJETIVE, aboutModel.getObjetive());
+        newRegister.put(DBSQLite.KEY_ABOUT_EMAIL, aboutModel.getEmail());
+        newRegister.put(DBSQLite.KEY_ABOUT_DESCRIPTION, aboutModel.getDescription());
+        newRegister.put(DBSQLite.KEY_ABOUT_LOGO_HOTEL, aboutModel.getLogoHotel());
+        newRegister.put(DBSQLite.KEY_ABOUT_ADDRESS_GPS_X, aboutModel.getAddressGPSX());
+        newRegister.put(DBSQLite.KEY_ABOUT_ADDRESS_GPS_Y, aboutModel.getAddressGPSY());
+        newRegister.put(DBSQLite.KEY_ABOUT_ADDRESS_IMAGE, aboutModel.getAddressImage());
+        newRegister.put(DBSQLite.KEY_ABOUT_TYPE_HOTEL, aboutModel.getType());
+        newRegister.put(DBSQLite.KEY_ABOUT_SITE_WEB_HOTEL, aboutModel.getSiteWeb());
 
-        if (db.insert(DBSQLiteHelper.TABLE_ABOUT, null, newRegister) == -1)
+        if (db.insert(DBSQLite.TABLE_ABOUT, null, newRegister) == -1)
             System.out.println("Ocurrio un error al inserar la consulta en AboutModel");
     }
 
@@ -1037,23 +1037,23 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param servicesModel: lista de servicios
      */
     private void insertServiceSQLite(ArrayList<ServiceModel> servicesModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PRICE_SERVICE
-                + " WHERE " + DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=0");
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_SERVICE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_PRICE_SERVICE
+                + " WHERE " + DBSQLite.KEY_PRICE_SERVICE_IS_OFFER + "=0");
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_SERVICE);
 
         for (ServiceModel serviceModel : servicesModel) {
             ContentValues serviceContent = new ContentValues();
 
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_ID, serviceModel.getId());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_NAME, serviceModel.getName());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_DESCRIPTION, serviceModel.getDescription());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_IMAGE, serviceModel.getImage());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_RESERVED, serviceModel.getReserved());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_ID_TYPE, serviceModel.getIdType());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_NAME_TYPE, serviceModel.getNameType());
-            serviceContent.put(DBSQLiteHelper.KEY_SERVICE_VALUE_TYPE, serviceModel.getValueType());
+            serviceContent.put(DBSQLite.KEY_SERVICE_ID, serviceModel.getId());
+            serviceContent.put(DBSQLite.KEY_SERVICE_NAME, serviceModel.getName());
+            serviceContent.put(DBSQLite.KEY_SERVICE_DESCRIPTION, serviceModel.getDescription());
+            serviceContent.put(DBSQLite.KEY_SERVICE_IMAGE, serviceModel.getImage());
+            serviceContent.put(DBSQLite.KEY_SERVICE_RESERVED, serviceModel.getReserved());
+            serviceContent.put(DBSQLite.KEY_SERVICE_ID_TYPE, serviceModel.getIdType());
+            serviceContent.put(DBSQLite.KEY_SERVICE_NAME_TYPE, serviceModel.getNameType());
+            serviceContent.put(DBSQLite.KEY_SERVICE_VALUE_TYPE, serviceModel.getValueType());
 
-            if (db.insert(DBSQLiteHelper.TABLE_SERVICE, null, serviceContent) == -1)
+            if (db.insert(DBSQLite.TABLE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
 
             insertServicePriceSQLite(serviceModel.getServicePrice());
@@ -1069,17 +1069,17 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ServicePriceDetailModel servicePriceDetailModel : servicesPriceModel) {
             ContentValues serviceContent = new ContentValues();
 
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_ID, servicePriceDetailModel.getServicePriceId());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_KEY, servicePriceDetailModel.getServicePriceKey());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_DAY, servicePriceDetailModel.getServicePriceDay());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_HOUR, servicePriceDetailModel.getServicePriceHour());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceDetailModel.getServicePriceNameMoney());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_PRICE, servicePriceDetailModel.getServicePricePrice());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_UNIT, servicePriceDetailModel.getServicePriceUnit());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceDetailModel.getServicePricePointObtain());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceDetailModel.getServicePricePointRequired());
-            serviceContent.put(DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceDetailModel.isServicePriceIsOffer() ? 1 : 0));
-            if (db.insert(DBSQLiteHelper.TABLE_PRICE_SERVICE, null, serviceContent) == -1)
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_ID, servicePriceDetailModel.getServicePriceId());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_KEY, servicePriceDetailModel.getServicePriceKey());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_DAY, servicePriceDetailModel.getServicePriceDay());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_HOUR, servicePriceDetailModel.getServicePriceHour());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_NAME_MONEY, servicePriceDetailModel.getServicePriceNameMoney());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_PRICE, servicePriceDetailModel.getServicePricePrice());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_UNIT, servicePriceDetailModel.getServicePriceUnit());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_POINT_OBTAIN, servicePriceDetailModel.getServicePricePointObtain());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_POINT_REQUIRED, servicePriceDetailModel.getServicePricePointRequired());
+            serviceContent.put(DBSQLite.KEY_PRICE_SERVICE_IS_OFFER, String.valueOf(servicePriceDetailModel.isServicePriceIsOffer() ? 1 : 0));
+            if (db.insert(DBSQLite.TABLE_PRICE_SERVICE, null, serviceContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en ServiceModel");
         }
     }
@@ -1090,23 +1090,23 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param sitesTourModel: lista de lugares turisticos
      */
     private void insertSiteTourSQLite(ArrayList<SiteTourModel> sitesTourModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_SITE_TOUR);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_SITE_TOUR);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_SITE_TOUR_IMAGE);
 
         for (SiteTourModel siteTourModel : sitesTourModel) {
             ContentValues siteTourContent = new ContentValues();
 
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_ID, siteTourModel.getIdSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_NAME, siteTourModel.getNameSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_DESCRIPTION, siteTourModel.getDescriptionSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_STATE, siteTourModel.getStateSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_ADDRESS, siteTourModel.getAddressSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_GPS_X, siteTourModel.getGpsLatitudeSite());
-            siteTourContent.put(DBSQLiteHelper.KEY_SITE_TOUR_GPS_Y, siteTourModel.getGpsLongitudeSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_ID, siteTourModel.getIdSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_NAME, siteTourModel.getNameSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_DESCRIPTION, siteTourModel.getDescriptionSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_STATE, siteTourModel.getStateSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_ADDRESS, siteTourModel.getAddressSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_GPS_X, siteTourModel.getGpsLatitudeSite());
+            siteTourContent.put(DBSQLite.KEY_SITE_TOUR_GPS_Y, siteTourModel.getGpsLongitudeSite());
 
             insertSiteTourImageSQLite(siteTourModel);
 
-            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR, null, siteTourContent) == -1)
+            if (db.insert(DBSQLite.TABLE_SITE_TOUR, null, siteTourContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en SiteTourModel");
         }
     }
@@ -1120,15 +1120,15 @@ public class HelperSQLiteInsert extends HelperParent {
         for (SiteTourImageModel siteImage : siteTourModel.getImagesSite()) {
             ContentValues siteTourImageContent = new ContentValues();
 
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID, siteImage.getIdSiteTourImage());
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_STATE, siteImage.getStateSiteTourImage());
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_NAME, siteImage.getNameSiteTourImage());
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_DESCRIPTION, siteImage.getDescriptionSiteTourImage());
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ADDRESS, siteImage.getAddressSiteTour());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_ID, siteImage.getIdSiteTourImage());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_STATE, siteImage.getStateSiteTourImage());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_NAME, siteImage.getNameSiteTourImage());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_DESCRIPTION, siteImage.getDescriptionSiteTourImage());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_ADDRESS, siteImage.getAddressSiteTour());
 
-            siteTourImageContent.put(DBSQLiteHelper.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
+            siteTourImageContent.put(DBSQLite.KEY_SITE_TOUR_IMAGE_ID_KEY, siteTourModel.getIdSite());
 
-            if (db.insert(DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent) == -1)
+            if (db.insert(DBSQLite.TABLE_SITE_TOUR_IMAGE, null, siteTourImageContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en SiteTourImageModel");
         }
     }
@@ -1139,25 +1139,25 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param offerModel:lista offertas
      */
     private void insertOfferSQLite(ArrayList<OfferModel> offerModel) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_PRICE_SERVICE + " WHERE " + DBSQLiteHelper.KEY_PRICE_SERVICE_IS_OFFER + "=1");
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OFFER);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_PRICE_SERVICE + " WHERE " + DBSQLite.KEY_PRICE_SERVICE_IS_OFFER + "=1");
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_OFFER);
         for (OfferModel offer : offerModel) {
             ContentValues offerContent = new ContentValues();
 
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_ID, offer.getId());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_STATE, offer.getState());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_NAME, offer.getName());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_DESCRIPTION, offer.getDescription());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_DATE_INI, offer.getDateIni());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_TIME_INI, offer.getTimeIni());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_DATE_FIN, offer.getDateFin());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_TIME_FIN, offer.getTimeFin());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_ID_KEY_SERVICE, offer.getIdKeyService());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_IMAGE, offer.getImage());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_NAME_TYPE, offer.getNameType());
-            offerContent.put(DBSQLiteHelper.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
+            offerContent.put(DBSQLite.KEY_OFFER_ID, offer.getId());
+            offerContent.put(DBSQLite.KEY_OFFER_STATE, offer.getState());
+            offerContent.put(DBSQLite.KEY_OFFER_NAME, offer.getName());
+            offerContent.put(DBSQLite.KEY_OFFER_DESCRIPTION, offer.getDescription());
+            offerContent.put(DBSQLite.KEY_OFFER_DATE_INI, offer.getDateIni());
+            offerContent.put(DBSQLite.KEY_OFFER_TIME_INI, offer.getTimeIni());
+            offerContent.put(DBSQLite.KEY_OFFER_DATE_FIN, offer.getDateFin());
+            offerContent.put(DBSQLite.KEY_OFFER_TIME_FIN, offer.getTimeFin());
+            offerContent.put(DBSQLite.KEY_OFFER_ID_KEY_SERVICE, offer.getIdKeyService());
+            offerContent.put(DBSQLite.KEY_OFFER_IMAGE, offer.getImage());
+            offerContent.put(DBSQLite.KEY_OFFER_NAME_TYPE, offer.getNameType());
+            offerContent.put(DBSQLite.KEY_OFFER_DESCRIPTION_TYPE, offer.getDescriptionType());
 
-            if (db.insert(DBSQLiteHelper.TABLE_OFFER, null, offerContent) == -1)
+            if (db.insert(DBSQLite.TABLE_OFFER, null, offerContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en OfferModel");
 
             insertServicePriceSQLite(offer.getServicePriceDetailModel());
@@ -1170,21 +1170,21 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param foodMenuModels:lista menus de comida
      */
     private void insertFoodMenuSQLite(ArrayList<FoodMenuModel> foodMenuModels) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_FOOD);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_FOOD_MENU);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_FOOD_PRICE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_FOOD);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_FOOD_MENU);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_FOOD_PRICE);
 
         for (FoodMenuModel foodMenuModel : foodMenuModels) {
             insertFoodSQLite(foodMenuModel.getFoodModelArrayList());
 
             ContentValues foodMenuContent = new ContentValues();
 
-            foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_ID, foodMenuModel.getId());
-            foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_NAME, foodMenuModel.getName());
-            foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
-            foodMenuContent.put(DBSQLiteHelper.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
+            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_ID, foodMenuModel.getIdSQL());
+            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_NAME, foodMenuModel.getName());
+            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
+            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
 
-            if (db.insert(DBSQLiteHelper.TABLE_FOOD_MENU, null, foodMenuContent) == -1)
+            if (db.insert(DBSQLite.TABLE_FOOD_MENU, null, foodMenuContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta en FoodMenuModel");
 
         }
@@ -1201,15 +1201,16 @@ public class HelperSQLiteInsert extends HelperParent {
 
             ContentValues foodContent = new ContentValues();
 
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_ID, foodModel.getId());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_ID_KEY_MENU, foodModel.getIdKeyMenu());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_STATE, foodModel.isState() ? 1 : 0);
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_TYPE, foodModel.getType());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_NAME, foodModel.getName());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_DESCRIPTION, foodModel.getDescription());
-            foodContent.put(DBSQLiteHelper.KEY_FOOD_IMAGE, foodModel.getImage());
+            foodContent.put(DBSQLite.KEY_FOOD_ID_AUTOINCREMENT, foodModel.getId());
+            foodContent.put(DBSQLite.KEY_FOOD_ID_SQL, foodModel.getIdSQL());
+            foodContent.put(DBSQLite.KEY_FOOD_ID_KEY_MENU, foodModel.getIdKeyMenu());
+            foodContent.put(DBSQLite.KEY_FOOD_STATE, foodModel.isState() ? 1 : 0);
+            foodContent.put(DBSQLite.KEY_FOOD_TYPE, foodModel.getType());
+            foodContent.put(DBSQLite.KEY_FOOD_NAME, foodModel.getName());
+            foodContent.put(DBSQLite.KEY_FOOD_DESCRIPTION, foodModel.getDescription());
+            foodContent.put(DBSQLite.KEY_FOOD_IMAGE, foodModel.getImage());
 
-            long succes = db.insert(DBSQLiteHelper.TABLE_FOOD, null, foodContent);
+            long succes = db.insert(DBSQLite.TABLE_FOOD, null, foodContent);
             if (succes == -1)
                 System.out.println("Ocurrio un error al insertar la consulta FoodModel");
         }
@@ -1224,15 +1225,15 @@ public class HelperSQLiteInsert extends HelperParent {
         for (FoodPriceModel foodPriceModel : foodPriceModelArrayList) {
             ContentValues foodPriceContent = new ContentValues();
 
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_FOOD, foodPriceModel.getIdKeyFood());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_TYPE_MONEY, foodPriceModel.getTypeMoney());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY, foodPriceModel.getIdKeyTypeMoneyFood());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_PRICE, foodPriceModel.getPrice());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_OBTAIN, foodPriceModel.getPointObtain());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_POINT_REQUIRED, foodPriceModel.getPointRequired());
-            foodPriceContent.put(DBSQLiteHelper.KEY_FOOD_PRICE_UNIT, foodPriceModel.getUnit());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_ID_KEY_FOOD, foodPriceModel.getIdKeyFood());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_TYPE_MONEY, foodPriceModel.getTypeMoney());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY, foodPriceModel.getIdKeyTypeMoneyFood());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_PRICE, foodPriceModel.getPrice());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_POINT_OBTAIN, foodPriceModel.getPointObtain());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_POINT_REQUIRED, foodPriceModel.getPointRequired());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_UNIT, foodPriceModel.getUnit());
 
-            long succes = db.insert(DBSQLiteHelper.TABLE_FOOD_PRICE, null, foodPriceContent);
+            long succes = db.insert(DBSQLite.TABLE_FOOD_PRICE, null, foodPriceContent);
             if (succes == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
@@ -1244,31 +1245,31 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param checkModels:lista de registros formato JAVa
      */
     private void insertCheckSQLite(ArrayList<CheckModel> checkModels) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CHECK);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUM);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CARD);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ARTICLE);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MEMBER);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_CONSUME_FOOD);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_OCCUPATION);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_RESERVE);
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ARTICLE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_CHECK);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_CONSUM);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_CARD);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_ARTICLE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_MEMBER);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_CONSUME_FOOD);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_OCCUPATION);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_RESERVE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_ARTICLE);
 
         for (CheckModel checkModel : checkModels) {
             ContentValues checkContent = new ContentValues();
 
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_ID, checkModel.getId());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_ID_STATE, checkModel.getIdState());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_VALUE_STATE, checkModel.getValueState());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_NAME_STATE, checkModel.getNameState());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_ID_KEY_TYPE,checkModel.getIdType());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_TYPE, checkModel.getType());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_DATE_IN, checkModel.getDateIn());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_TIME_IN, checkModel.getTimeIn());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_DATE_END, checkModel.getDateEnd());
-            checkContent.put(DBSQLiteHelper.KEY_CHECK_TIME_END, checkModel.getTimeEnd());
+            checkContent.put(DBSQLite.KEY_CHECK_ID, checkModel.getId());
+            checkContent.put(DBSQLite.KEY_CHECK_ID_STATE, checkModel.getIdState());
+            checkContent.put(DBSQLite.KEY_CHECK_VALUE_STATE, checkModel.getValueState());
+            checkContent.put(DBSQLite.KEY_CHECK_NAME_STATE, checkModel.getNameState());
+            checkContent.put(DBSQLite.KEY_CHECK_ID_KEY_TYPE,checkModel.getIdType());
+            checkContent.put(DBSQLite.KEY_CHECK_TYPE, checkModel.getType());
+            checkContent.put(DBSQLite.KEY_CHECK_DATE_IN, checkModel.getDateIn());
+            checkContent.put(DBSQLite.KEY_CHECK_TIME_IN, checkModel.getTimeIn());
+            checkContent.put(DBSQLite.KEY_CHECK_DATE_END, checkModel.getDateEnd());
+            checkContent.put(DBSQLite.KEY_CHECK_TIME_END, checkModel.getTimeEnd());
 
-            if (db.insert(DBSQLiteHelper.TABLE_CHECK, null, checkContent) == -1)
+            if (db.insert(DBSQLite.TABLE_CHECK, null, checkContent) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
             insertTargetSQLite(checkModel.getCardTargetArrayList());
@@ -1286,22 +1287,22 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ConsumeFoodModel consumeFoodModel : consumeFoodModelArrayList) {
             ContentValues contentValues = new ContentValues();
             if (consumeFoodModel.getIdConsume()>0)
-                contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID, consumeFoodModel.getIdConsume());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_ID_KEY_CHECK, consumeFoodModel.getIdKeyCheck());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PRICE, consumeFoodModel.getPrice());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_PAY, consumeFoodModel.getPay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_TYPE_MONEY, consumeFoodModel.getTypeMoney());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_NAME_FOOD, consumeFoodModel.getNameFood());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_DESCRIPTION_FOOD, consumeFoodModel.getDescriptionFood());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_OBTAIN, consumeFoodModel.getPointObtain());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_POINT_REQUIRED, consumeFoodModel.getPointRequired());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_UNIT_FOOD, consumeFoodModel.getUnitFood());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_DATE, consumeFoodModel.getDateConsume());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_TIME, consumeFoodModel.getTimeConsume());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_STATE, consumeFoodModel.getState());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUME_FOOD_SITE, consumeFoodModel.getSite());
+                contentValues.put(DBSQLite.KEY_CONSUME_FOOD_ID, consumeFoodModel.getIdConsume());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_ID_KEY_CHECK, consumeFoodModel.getIdKeyCheck());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_PRICE, consumeFoodModel.getPrice());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_PAY, consumeFoodModel.getPay());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_TYPE_MONEY, consumeFoodModel.getTypeMoney());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_NAME_FOOD, consumeFoodModel.getNameFood());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_DESCRIPTION_FOOD, consumeFoodModel.getDescriptionFood());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_POINT_OBTAIN, consumeFoodModel.getPointObtain());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_POINT_REQUIRED, consumeFoodModel.getPointRequired());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_UNIT_FOOD, consumeFoodModel.getUnitFood());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_DATE, consumeFoodModel.getDateConsume());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_TIME, consumeFoodModel.getTimeConsume());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_STATE, consumeFoodModel.getState());
+            contentValues.put(DBSQLite.KEY_CONSUME_FOOD_SITE, consumeFoodModel.getSite());
 
-            if (db.insert(DBSQLiteHelper.TABLE_CONSUME_FOOD, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_CONSUME_FOOD, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
@@ -1315,18 +1316,18 @@ public class HelperSQLiteInsert extends HelperParent {
         for (CardModel cardModel : cardTargetArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_CARD_ID, cardModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_ID_KEY_CHECK, cardModel.getIdKeyCheck());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_NAME_TYPE, cardModel.getNameType());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_NUMBER, cardModel.getNumber());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_MONTH, cardModel.getMonth());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_YEAR, cardModel.getYear());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_CCV, cardModel.getCcv());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_IS_VALID, cardModel.isValid());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_TYPE_MONEY, cardModel.getTypeMoney());
-            contentValues.put(DBSQLiteHelper.KEY_CARD_DEPOSIT, cardModel.getDeposit());
+            contentValues.put(DBSQLite.KEY_CARD_ID, cardModel.getId());
+            contentValues.put(DBSQLite.KEY_CARD_ID_KEY_CHECK, cardModel.getIdKeyCheck());
+            contentValues.put(DBSQLite.KEY_CARD_NAME_TYPE, cardModel.getNameType());
+            contentValues.put(DBSQLite.KEY_CARD_NUMBER, cardModel.getNumber());
+            contentValues.put(DBSQLite.KEY_CARD_MONTH, cardModel.getMonth());
+            contentValues.put(DBSQLite.KEY_CARD_YEAR, cardModel.getYear());
+            contentValues.put(DBSQLite.KEY_CARD_CCV, cardModel.getCcv());
+            contentValues.put(DBSQLite.KEY_CARD_IS_VALID, cardModel.isValid());
+            contentValues.put(DBSQLite.KEY_CARD_TYPE_MONEY, cardModel.getTypeMoney());
+            contentValues.put(DBSQLite.KEY_CARD_DEPOSIT, cardModel.getDeposit());
 
-            if (db.insert(DBSQLiteHelper.TABLE_CARD, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_CARD, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
@@ -1340,25 +1341,25 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ConsumeServiceModel consumeServiceModel : consumeServiceModelArrayList) {
             ContentValues contentValues = new ContentValues();
             if (consumeServiceModel.getIdConsum()>0)
-                contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID, consumeServiceModel.getIdConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_START, consumeServiceModel.getDateInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_START, consumeServiceModel.getTimeInConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_DATE_END, consumeServiceModel.getDateOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_TIME_END, consumeServiceModel.getTimeOutConsum());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PRICE, consumeServiceModel.getPrice());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_PAY, consumeServiceModel.getPay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_STATE, consumeServiceModel.isState());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_SERVICE, consumeServiceModel.getIdKeyService());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_SERVICE, consumeServiceModel.getNameService());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_NAME_MONEY, consumeServiceModel.getTypeMoney());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_ID_KEY_CHECK, consumeServiceModel.getIdKeyCheck());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_OBTAIN, consumeServiceModel.getPointObtain());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_POINT_REQUIRED, consumeServiceModel.getPointRequired());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_DAY, consumeServiceModel.getnDay());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_HOUR, consumeServiceModel.getnHour());
-            contentValues.put(DBSQLiteHelper.KEY_CONSUM_N_UNIT, consumeServiceModel.getUnit());
+                contentValues.put(DBSQLite.KEY_CONSUM_ID, consumeServiceModel.getIdConsum());
+            contentValues.put(DBSQLite.KEY_CONSUM_DATE_START, consumeServiceModel.getDateInConsum());
+            contentValues.put(DBSQLite.KEY_CONSUM_TIME_START, consumeServiceModel.getTimeInConsum());
+            contentValues.put(DBSQLite.KEY_CONSUM_DATE_END, consumeServiceModel.getDateOutConsum());
+            contentValues.put(DBSQLite.KEY_CONSUM_TIME_END, consumeServiceModel.getTimeOutConsum());
+            contentValues.put(DBSQLite.KEY_CONSUM_PRICE, consumeServiceModel.getPrice());
+            contentValues.put(DBSQLite.KEY_CONSUM_PAY, consumeServiceModel.getPay());
+            contentValues.put(DBSQLite.KEY_CONSUM_STATE, consumeServiceModel.isState());
+            contentValues.put(DBSQLite.KEY_CONSUM_ID_KEY_SERVICE, consumeServiceModel.getIdKeyService());
+            contentValues.put(DBSQLite.KEY_CONSUM_NAME_SERVICE, consumeServiceModel.getNameService());
+            contentValues.put(DBSQLite.KEY_CONSUM_NAME_MONEY, consumeServiceModel.getTypeMoney());
+            contentValues.put(DBSQLite.KEY_CONSUM_ID_KEY_CHECK, consumeServiceModel.getIdKeyCheck());
+            contentValues.put(DBSQLite.KEY_CONSUM_POINT_OBTAIN, consumeServiceModel.getPointObtain());
+            contentValues.put(DBSQLite.KEY_CONSUM_POINT_REQUIRED, consumeServiceModel.getPointRequired());
+            contentValues.put(DBSQLite.KEY_CONSUM_N_DAY, consumeServiceModel.getnDay());
+            contentValues.put(DBSQLite.KEY_CONSUM_N_HOUR, consumeServiceModel.getnHour());
+            contentValues.put(DBSQLite.KEY_CONSUM_N_UNIT, consumeServiceModel.getUnit());
 
-            if (db.insert(DBSQLiteHelper.TABLE_CONSUM, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_CONSUM, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
             insertArticleSQLite(consumeServiceModel.getArticleModel());
@@ -1377,14 +1378,14 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ReserveModel reserveModel : reserveModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_ID_CONSUME, reserveModel.getIdConsume());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_NAME_ROOM_MODEL, reserveModel.getNameRoomModel());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_DESCRIPTION_ROOM_MODEL, reserveModel.getDescriptionRoomModel());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_ADULT, reserveModel.getnAdult());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_N_BOY, reserveModel.getnBoy());
-            contentValues.put(DBSQLiteHelper.KEY_RESERVE_UNIT, reserveModel.getUnit());
+            contentValues.put(DBSQLite.KEY_RESERVE_ID_CONSUME, reserveModel.getIdConsume());
+            contentValues.put(DBSQLite.KEY_RESERVE_NAME_ROOM_MODEL, reserveModel.getNameRoomModel());
+            contentValues.put(DBSQLite.KEY_RESERVE_DESCRIPTION_ROOM_MODEL, reserveModel.getDescriptionRoomModel());
+            contentValues.put(DBSQLite.KEY_RESERVE_N_ADULT, reserveModel.getnAdult());
+            contentValues.put(DBSQLite.KEY_RESERVE_N_BOY, reserveModel.getnBoy());
+            contentValues.put(DBSQLite.KEY_RESERVE_UNIT, reserveModel.getUnit());
 
-            if (db.insert(DBSQLiteHelper.TABLE_RESERVE, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_RESERVE, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
@@ -1398,17 +1399,17 @@ public class HelperSQLiteInsert extends HelperParent {
         for (OccupationModel occupationModel : occupationModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_ID_CONSUME_SERVICE, occupationModel.getIdConsumeService());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_ID_ROOM, occupationModel.getIdRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_NAME_ROOM, occupationModel.getNameRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_IMAGE_ROOM, occupationModel.getImageRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_STATE_ROOM, occupationModel.isStateRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_TYPE_ROOM, occupationModel.getTypeRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM, occupationModel.getDescriptionTypeRoom());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_N_ADULT, occupationModel.getnAdult());
-            contentValues.put(DBSQLiteHelper.KEY_OCCUPATION_N_BOY, occupationModel.getnBoy());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_ID_CONSUME_SERVICE, occupationModel.getIdConsumeService());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_ID_ROOM, occupationModel.getIdRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_NAME_ROOM, occupationModel.getNameRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_IMAGE_ROOM, occupationModel.getImageRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_STATE_ROOM, occupationModel.isStateRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_TYPE_ROOM, occupationModel.getTypeRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_DESCRIPTION_TYPE_ROOM, occupationModel.getDescriptionTypeRoom());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_N_ADULT, occupationModel.getnAdult());
+            contentValues.put(DBSQLite.KEY_OCCUPATION_N_BOY, occupationModel.getnBoy());
 
-            if (db.insert(DBSQLiteHelper.TABLE_OCCUPATION, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_OCCUPATION, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
@@ -1422,13 +1423,13 @@ public class HelperSQLiteInsert extends HelperParent {
         for (ArticleModel articleModel : articleModels) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_ID, articleModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_ID_KEY_CONSUM, articleModel.getIdKeyConsum());
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_NAME, articleModel.getName());
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_DESCRIPTION, articleModel.getDescription());
-            contentValues.put(DBSQLiteHelper.KEY_ARTICLE_IS_ACTIVE, articleModel.isActive()?1:0);
+            contentValues.put(DBSQLite.KEY_ARTICLE_ID, articleModel.getId());
+            contentValues.put(DBSQLite.KEY_ARTICLE_ID_KEY_CONSUM, articleModel.getIdKeyConsum());
+            contentValues.put(DBSQLite.KEY_ARTICLE_NAME, articleModel.getName());
+            contentValues.put(DBSQLite.KEY_ARTICLE_DESCRIPTION, articleModel.getDescription());
+            contentValues.put(DBSQLite.KEY_ARTICLE_IS_ACTIVE, articleModel.isActive()?1:0);
 
-            if (db.insert(DBSQLiteHelper.TABLE_ARTICLE, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_ARTICLE, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
     }
@@ -1442,10 +1443,10 @@ public class HelperSQLiteInsert extends HelperParent {
         for (MemberModel memberModel : memberModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_MEMBER_ID_KEY_CONSUM, memberModel.getIdKeyConsum());
-            contentValues.put(DBSQLiteHelper.KEY_MEMBER_ID_KEY_PERSON, memberModel.getIdPerson());
+            contentValues.put(DBSQLite.KEY_MEMBER_ID_KEY_CONSUM, memberModel.getIdKeyConsum());
+            contentValues.put(DBSQLite.KEY_MEMBER_ID_KEY_PERSON, memberModel.getIdPerson());
 
-            if (db.insert(DBSQLiteHelper.TABLE_MEMBER, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_MEMBER, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
 
             insertPersonSQLite(memberModel);
@@ -1458,23 +1459,23 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param messageModels: lista de mensajes recibidos
      */
     private void insertMessageSQLite(ArrayList<MessageModel> messageModels) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_MESSAGE);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_MESSAGE);
 
         for (MessageModel messageModel : messageModels) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ID, messageModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TITTLE, messageModel.getTittle());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_CONTENT, messageModel.getContent());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_DATE_RECIVED, messageModel.getDateRecived());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TIME_RECIVED, messageModel.getTimeRecived());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISREAD, messageModel.isRead());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_EMAIL_SENDER, messageModel.getEmailSender());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_NAME_SENDER, messageModel.getNameSender());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_TYPE, messageModel.getType());
-            contentValues.put(DBSQLiteHelper.KEY_MESSAGE_ISACTIVE, true);
+            contentValues.put(DBSQLite.KEY_MESSAGE_ID, messageModel.getId());
+            contentValues.put(DBSQLite.KEY_MESSAGE_TITTLE, messageModel.getTittle());
+            contentValues.put(DBSQLite.KEY_MESSAGE_CONTENT, messageModel.getContent());
+            contentValues.put(DBSQLite.KEY_MESSAGE_DATE_RECIVED, messageModel.getDateRecived());
+            contentValues.put(DBSQLite.KEY_MESSAGE_TIME_RECIVED, messageModel.getTimeRecived());
+            contentValues.put(DBSQLite.KEY_MESSAGE_ISREAD, messageModel.isRead());
+            contentValues.put(DBSQLite.KEY_MESSAGE_EMAIL_SENDER, messageModel.getEmailSender());
+            contentValues.put(DBSQLite.KEY_MESSAGE_NAME_SENDER, messageModel.getNameSender());
+            contentValues.put(DBSQLite.KEY_MESSAGE_TYPE, messageModel.getType());
+            contentValues.put(DBSQLite.KEY_MESSAGE_ISACTIVE, true);
 
-            if (db.insert(DBSQLiteHelper.TABLE_MESSAGE, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_MESSAGE, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta FoodPriceModel");
         }
 
@@ -1486,21 +1487,21 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param activityModelArrayList: lista de actividades
      */
     private void insertActivitySQLite(ArrayList<ActivityModel> activityModelArrayList) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_ACTIVITY);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_ACTIVITY);
 
         for (ActivityModel activityModel : activityModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_ID, activityModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DATE_START, activityModel.getDateStart());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DATE_END, activityModel.getDateEnd());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_TIME_START, activityModel.getTimeStart());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_TIME_END, activityModel.getTimeEnd());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_NAME, activityModel.getName());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_DESCRIPTION, activityModel.getDescription());
-            contentValues.put(DBSQLiteHelper.KEY_ACTIVITY_IMAGE, activityModel.getImage());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_ID, activityModel.getId());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_START, activityModel.getDateStart());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_END, activityModel.getDateEnd());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_START, activityModel.getTimeStart());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_END, activityModel.getTimeEnd());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_NAME, activityModel.getName());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DESCRIPTION, activityModel.getDescription());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_IMAGE, activityModel.getImage());
 
-            if (db.insert(DBSQLiteHelper.TABLE_ACTIVITY, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_ACTIVITY, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta activityModel");
         }
     }
@@ -1511,20 +1512,20 @@ public class HelperSQLiteInsert extends HelperParent {
      * @param frequentlyModelArrayList: lista de preguntas
      */
     private void insertFrequenltySQLite(ArrayList<FrequentlyModel> frequentlyModelArrayList) {
-        db.execSQL("DELETE FROM " + DBSQLiteHelper.TABLE_FREQUENTLY);
+        db.execSQL("DELETE FROM " + DBSQLite.TABLE_FREQUENTLY);
 
         for (FrequentlyModel frequentlyModel : frequentlyModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_ID, frequentlyModel.getId());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_ID_INQUEST, frequentlyModel.getIdInquest());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_NAME_INQUEST, frequentlyModel.getNameInquest());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_QUESTION, frequentlyModel.getQuestion());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_RESPONSE, frequentlyModel.getResponse());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_TYPE_INQUEST, frequentlyModel.getTypeInquest());
-            contentValues.put(DBSQLiteHelper.KEY_FREQUENTLY_IS_ACTIVE, frequentlyModel.isActive());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_ID, frequentlyModel.getId());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_ID_INQUEST, frequentlyModel.getIdInquest());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_NAME_INQUEST, frequentlyModel.getNameInquest());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_QUESTION, frequentlyModel.getQuestion());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_RESPONSE, frequentlyModel.getResponse());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_TYPE_INQUEST, frequentlyModel.getTypeInquest());
+            contentValues.put(DBSQLite.KEY_FREQUENTLY_IS_ACTIVE, frequentlyModel.isActive());
 
-            if (db.insert(DBSQLiteHelper.TABLE_FREQUENTLY, null, contentValues) == -1)
+            if (db.insert(DBSQLite.TABLE_FREQUENTLY, null, contentValues) == -1)
                 System.out.println("Ocurrio un error al inserar la consulta frequenltyModel");
         }
     }
@@ -1534,27 +1535,27 @@ public class HelperSQLiteInsert extends HelperParent {
      * cerrar session del usuario, cambiar el estado de la tabla logout
      */
     public void logoutAction() {
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_LOGIN);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_PERSON);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ABOUT);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SERVICE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_PRICE_SERVICE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SITE_TOUR);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_SITE_TOUR_IMAGE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OFFER);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD_MENU);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FOOD_PRICE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CHECK);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUM);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ARTICLE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CARD);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_MEMBER);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_MESSAGE);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_ACTIVITY);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_FREQUENTLY);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_CONSUME_FOOD);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_OCCUPATION);
-        db.execSQL("DELETE FROM "+ DBSQLiteHelper.TABLE_RESERVE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_LOGIN);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_PERSON);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_ABOUT);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_SERVICE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_PRICE_SERVICE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_SITE_TOUR);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_SITE_TOUR_IMAGE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_OFFER);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_FOOD);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_FOOD_MENU);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_FOOD_PRICE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_CHECK);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_CONSUM);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_ARTICLE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_CARD);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_MEMBER);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_MESSAGE);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_ACTIVITY);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_FREQUENTLY);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_CONSUME_FOOD);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_OCCUPATION);
+        db.execSQL("DELETE FROM "+ DBSQLite.TABLE_RESERVE);
     }
 }

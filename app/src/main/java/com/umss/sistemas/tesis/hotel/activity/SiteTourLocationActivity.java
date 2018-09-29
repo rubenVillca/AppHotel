@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
@@ -58,8 +58,8 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         if (bundle != null) {
             idSiteTour = bundle.getInt("idSiteTour");
         }
-        helperSQLiteObtain= new HelperSQLiteObtain(this);
-        siteTourModel = helperSQLiteObtain.getSiteTourModel(idSiteTour).get(0);
+        serviceGet = new ServiceGet(this);
+        siteTourModel = serviceGet.getSiteTourModel(idSiteTour).get(0);
 
         addMarker();
         verifyActiveGPS();

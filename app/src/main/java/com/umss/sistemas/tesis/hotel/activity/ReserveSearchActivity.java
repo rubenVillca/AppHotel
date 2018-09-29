@@ -19,7 +19,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -231,7 +231,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         params.put("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
         params.put("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
-        helperSQLiteInsert = new HelperSQLiteInsert(this);
+        ServiceInsert = new ServiceInsert(this);
 
         client.post(Conexion.RESERVE, params, new AsyncHttpResponseHandler() {
             @Override
@@ -239,7 +239,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<ReserveSearchModel> reserveSearchModels = helperSQLiteInsert.getRoomAvailableModel(obj);
+                        ArrayList<ReserveSearchModel> reserveSearchModels = ServiceInsert.getRoomAvailableModel(obj);
                         goReserveResultActivity(reserveSearchModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");

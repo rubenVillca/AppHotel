@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -45,8 +45,8 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     @Override
     public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
         final CheckModel checkModel = checkModels.get(position);
-        HelperSQLiteObtain helperParent=new HelperSQLiteObtain(activity);
-        ArrayList<ServiceModel> serviceModelArrayList=helperParent.getServiceModel(checkModel.getConsumeServiceModelArrayList().get(0).getIdKeyService());
+        ServiceGet serviceGet =new ServiceGet(activity);
+        ArrayList<ServiceModel> serviceModelArrayList= serviceGet.getServiceModel(checkModel.getConsumeServiceModelArrayList().get(0).getIdKeyService());
         ServiceModel serviceModel = serviceModelArrayList.get(0);
 
         Picasso.with(activity).load(Conexion.urlServer+serviceModel.getImage()).into(holder.imageReserveList);

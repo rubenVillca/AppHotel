@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.SiteTourAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -37,8 +37,8 @@ public class SitesTourActivity extends ActivityParent {
     }
 
     public ArrayList<SiteTourModel> buildSiteTour() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        serviceGet = new ServiceGet(this);
 
-        return helperSQLiteObtain.getSiteTourModel(0);
+        return serviceGet.getSiteTourModel(0);
     }
 }

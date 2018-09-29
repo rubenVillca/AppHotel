@@ -27,8 +27,8 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +37,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
 
-    protected HelperSQLiteInsert helperSQLiteInsert;
-    protected HelperSQLiteObtain helperSQLiteObtain;
+    protected ServiceInsert ServiceInsert;
+    protected ServiceGet serviceGet;
 
     protected ActivityParent containerActivity;
     private AsyncHttpClient client;
@@ -64,8 +64,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (helperSQLiteInsert != null)
-            helperSQLiteInsert.destroy();
+        if (ServiceInsert != null)
+            ServiceInsert.destroy();
         super.onDestroy();
     }
 
@@ -74,8 +74,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         containerActivity = (ActivityParent) getActivity();
         containerActivity.container = getActivity().findViewById(R.id.viewpager);
 
-        helperSQLiteInsert = new HelperSQLiteInsert(getContext());
-        helperSQLiteObtain = new HelperSQLiteObtain(getContext());
+        ServiceInsert = new ServiceInsert(getContext());
+        serviceGet = new ServiceGet(getContext());
 
         switch (v.getId()) {
             case R.id.imageOffer:
@@ -216,7 +216,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     private void goConsumeActivity() {
         containerActivity.showProgress(true);
-        int idPerson = helperSQLiteObtain.getLoginModel().getIdPerson();
+        int idPerson = serviceGet.getLoginModel().getIdPerson();
 
         client = new AsyncHttpClient();
         params = new RequestParams();
@@ -230,7 +230,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpCheck(obj);
+                        ServiceInsert.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

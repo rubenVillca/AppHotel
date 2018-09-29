@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ServiceAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -37,8 +37,8 @@ public class ServicesActivity extends ActivityParent {
     }
 
     public ArrayList<ServiceModel> buildService(){
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        serviceGet =new ServiceGet(this);
 
-        return helperSQLiteObtain.getServiceModel(0);
+        return serviceGet.getServiceModel(0);
     }
 }

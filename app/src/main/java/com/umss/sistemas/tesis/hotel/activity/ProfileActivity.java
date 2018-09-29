@@ -18,11 +18,10 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +50,7 @@ public class ProfileActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
+        serviceGet = new ServiceGet(this);
         showToolBar("", true);
 
         showImageCamera();
@@ -98,7 +97,7 @@ public class ProfileActivity extends ActivityParent {
     }
 
     private void showContentProfile() {
-        PersonModel profile = helperSQLiteObtain.getPersonModel(helperSQLiteObtain.getLoginModel().getIdPerson());
+        PersonModel profile = serviceGet.getPersonModel(serviceGet.getLoginModel().getIdPerson());
         showDataProfile(profile);
         imgProfile = (CircleImageView) findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
@@ -190,8 +189,8 @@ public class ProfileActivity extends ActivityParent {
      * Conectar con el webServer y sincronizar la tabla profile
      */
     private void subirFoto() {
-        helperSQLiteInsert=new HelperSQLiteInsert(this);
-        PersonModel profile = helperSQLiteObtain.getPersonModel(helperSQLiteObtain.getLoginModel().getIdPerson());
+        ServiceInsert =new ServiceInsert(this);
+        PersonModel profile = serviceGet.getPersonModel(serviceGet.getLoginModel().getIdPerson());
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -209,7 +208,7 @@ public class ProfileActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        helperSQLiteInsert.syncUpPerson(obj);
+                        ServiceInsert.syncUpPerson(obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

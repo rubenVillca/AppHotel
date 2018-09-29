@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.alarm.AlarmNotificationReceiver;
 import com.umss.sistemas.tesis.hotel.alarm.AlarmToastReceiver;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -65,8 +65,8 @@ public class SettingActivity extends ActivityParent {
         linearLayout= findViewById(R.id.linearLayoutAlarm);
         switchActiveReserve= findViewById(R.id.switchActiveAlarm);
 
-        helperSQLiteObtain=new HelperSQLiteObtain(this);
-        ArrayList<CheckModel> checkModels=helperSQLiteObtain.getCheckModel(0,1,1);
+        serviceGet =new ServiceGet(this);
+        ArrayList<CheckModel> checkModels= serviceGet.getCheckModel(0,1,1);
         if (checkModels.size()>0) {
             isReserve = true;
             checkModel=checkModels.get(0);

@@ -3,7 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -18,9 +18,9 @@ public class ReserveVerifyActivity extends ActivityParent {
     }
 
     private void verify() {
-        helperSQLiteObtain = new HelperSQLiteObtain(this);
-        ArrayList<CheckModel> checkModelActive = helperSQLiteObtain.getCheckModel(0, 1, 1);
-        ArrayList<CheckModel> checkModelPending = helperSQLiteObtain.getCheckModel(0, 3, 1);
+        serviceGet = new ServiceGet(this);
+        ArrayList<CheckModel> checkModelActive = serviceGet.getCheckModel(0, 1, 1);
+        ArrayList<CheckModel> checkModelPending = serviceGet.getCheckModel(0, 3, 1);
 
         ArrayList<CheckModel> checkModels=new ArrayList<>();
         checkModels.addAll(checkModelActive);

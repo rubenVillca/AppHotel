@@ -11,7 +11,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -50,8 +50,8 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
      */
     private void sendComplaints(String text) {
         showProgress(true);
-        helperSQLiteObtain=new HelperSQLiteObtain(this);
-        int idPerson=helperSQLiteObtain.getLoginModel().getIdPerson();
+        serviceGet =new ServiceGet(this);
+        int idPerson= serviceGet.getLoginModel().getIdPerson();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();

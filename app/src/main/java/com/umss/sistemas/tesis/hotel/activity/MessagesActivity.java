@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.MessageAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
+import com.umss.sistemas.tesis.hotel.helper.ServiceGet;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -37,8 +37,8 @@ public class MessagesActivity extends ActivityParent {
     }
 
     public ArrayList<MessageModel> buildSiteTour(){
-        helperSQLiteObtain =new HelperSQLiteObtain(this);
+        serviceGet =new ServiceGet(this);
 
-        return helperSQLiteObtain.getMessageModel(0);
+        return serviceGet.getMessageModel(0);
     }
 }

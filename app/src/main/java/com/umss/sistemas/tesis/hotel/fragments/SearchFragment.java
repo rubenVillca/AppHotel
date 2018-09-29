@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
+import com.umss.sistemas.tesis.hotel.helper.ServiceInsert;
 import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 /**
@@ -26,7 +26,7 @@ public class SearchFragment extends FragmentParent {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         super.showToolBar(getResources().getString(R.string.title_hotel), false);
-        helperSQLiteInsert = new HelperSQLiteInsert(getContext());
+        ServiceInsert = new ServiceInsert(getContext());
 
         return view;
     }

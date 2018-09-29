@@ -6,18 +6,18 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.text.Html.fromHtml;
 
-public class ServiceInfo {
-    private SQLiteDatabase db;
-
+public class ServiceInfo extends ServiceParent {
     public ServiceInfo(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
+
     /**
      * Lee de la base de datos de sqlite los datos del hotel
      *

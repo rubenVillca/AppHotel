@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.MessageModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,11 +14,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ServiceMessage {
-    private SQLiteDatabase db;
+public class ServiceMessage extends ServiceParent {
 
     public ServiceMessage(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
 
     /**

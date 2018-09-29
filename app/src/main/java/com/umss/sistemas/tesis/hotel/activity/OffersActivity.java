@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.OfferAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.OfferModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -34,7 +34,7 @@ public class OffersActivity extends ActivityParent {
         pictureRecycler.setAdapter(offerAdapter);
     }
     public ArrayList<OfferModel> buildOffer(){
-        services =new Services(this);
-        return services.getOfferModel(0);
+        serviceHelper =new ServiceHelper(this);
+        return serviceHelper.getOfferModel(0);
     }
 }

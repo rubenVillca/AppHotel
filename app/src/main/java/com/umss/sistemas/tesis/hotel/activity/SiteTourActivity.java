@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.SiteTourImageModel;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -63,10 +63,10 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
      * @param idSite:identificador del sitio turistico
      */
     private void chargeContent(int idSite) {
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
 
-        SiteTourModel siteTourModel = services.getSiteTourModel(idSite).get(0);
-        ArrayList<SiteTourImageModel> siteTourImageModel= services.getSiteTourImageModel(idSite);
+        SiteTourModel siteTourModel = serviceHelper.getSiteTourModel(idSite).get(0);
+        ArrayList<SiteTourImageModel> siteTourImageModel= serviceHelper.getSiteTourImageModel(idSite);
 
         viewPager= findViewById(R.id.imageViewPagerHeaderCollapsing);
 

@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ReserveListCheckAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -41,10 +41,10 @@ public class ReserveCheckActivity extends ActivityParent {
     }
 
     public ArrayList<CheckModel> buildCheckReserve() {
-        services = new Services(this);
-        ArrayList<CheckModel> checkModelActive= services.getCheckModel(0,1,1);
-        ArrayList<CheckModel> checkModelPending= services.getCheckModel(0,3,1);
-        ArrayList<CheckModel> checkModelProcess= services.getCheckModel(0,7,1);
+        serviceHelper = new ServiceHelper(this);
+        ArrayList<CheckModel> checkModelActive= serviceHelper.getCheckModel(0,1,1);
+        ArrayList<CheckModel> checkModelPending= serviceHelper.getCheckModel(0,3,1);
+        ArrayList<CheckModel> checkModelProcess= serviceHelper.getCheckModel(0,7,1);
 
         ArrayList<CheckModel> checkModels=new ArrayList<>();
         checkModels.addAll(checkModelActive);

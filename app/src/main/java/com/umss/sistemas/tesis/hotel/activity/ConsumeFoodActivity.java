@@ -16,7 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -68,10 +68,10 @@ public class ConsumeFoodActivity extends ActivityParent {
             foodModel = (FoodModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("foodModel");
         }
         typeMoneyHashMap = new HashMap<>();
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
 
-        idPerson= services.getLoginModel().getIdPerson();
-        ArrayList<CheckModel> checkModelArrayList = services.getCheckModel(0, 1, 2);
+        idPerson= serviceHelper.getLoginModel().getIdPerson();
+        ArrayList<CheckModel> checkModelArrayList = serviceHelper.getCheckModel(0, 1, 2);
         if (!checkModelArrayList.isEmpty())
             checkModel = checkModelArrayList.get(0);
         else
@@ -181,7 +181,7 @@ public class ConsumeFoodActivity extends ActivityParent {
         params.put("priceTotal",priceTotalFoodTextView.getText());
         params.put("site",spinnerSiteFood.getSelectedItem().toString());
 
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
 
         client.post(Conexion.FOOD_MENU_INSERT, params, new AsyncHttpResponseHandler() {
             @Override
@@ -207,7 +207,7 @@ public class ConsumeFoodActivity extends ActivityParent {
 
                         ArrayList<ConsumeFoodModel> arrayList=new ArrayList<>();
                         arrayList.add(consumeFoodModel);
-                        services.insertConsumeFoodSQLite(arrayList);
+                        serviceHelper.insertConsumeFoodSQLite(arrayList);
 
                         goMenuFoodActivity();
                         showMessaje("Pedido enviado");

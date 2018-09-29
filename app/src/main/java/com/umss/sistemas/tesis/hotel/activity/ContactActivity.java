@@ -13,7 +13,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -29,7 +29,7 @@ public class ContactActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         container = findViewById(R.id.message_form);
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_contact), true);
         setSpinner();
         showButtonMessage();
@@ -84,8 +84,8 @@ public class ContactActivity extends ActivityParent {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        services = new Services(this);
-        int idPerson = services.getLoginModel().getIdPerson();
+        serviceHelper = new ServiceHelper(this);
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
 
         params.put("message", messsage);
         params.put("tittle", title);

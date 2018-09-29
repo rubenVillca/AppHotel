@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.ActivityModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,43 +15,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ServiceActivity {
-    private SQLiteDatabase db;
-
+public class ServiceActivity extends ServiceParent implements ServiceInterface<ActivityModel>{
     public ServiceActivity(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
 
-    /**
-     * obtener de la base de datos la lista de actividades a realizarse en el hotel
-     *
-     * @param idActivity: id de actividad
-     * @return ArrayList<ActivityModel>:idActivity>0?lista de todas las actividades: actividad seleccionada
-     */
-    public ArrayList<ActivityModel> getActivityModel(int idActivity) {
-        ArrayList<ActivityModel> listActivityModel = new ArrayList<>();
-        Cursor cursor;
-
-        if (idActivity > 0) {
-            cursor = db.rawQuery("select *"
-                    + " from " + DBSQLite.TABLE_ACTIVITY
-                    + " where " + DBSQLite.KEY_ACTIVITY_ID + "=" + idActivity, null);
-        } else {
-            cursor = db.rawQuery("select *" + " from " + DBSQLite.TABLE_ACTIVITY, null);
-        }
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                ActivityModel activityModel = obtainActivityModelCursor(cursor);
-
-                listActivityModel.add(activityModel);
-
-                cursor.moveToNext();
-            }
-        }
-        return listActivityModel;
-    }
-
-    private ActivityModel obtainActivityModelCursor(Cursor cursor) {
+    @Override
+    public ActivityModel getModelCursor(Cursor cursor) {
         ActivityModel activityModel = new ActivityModel();
 
         activityModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_ID)));
@@ -66,22 +37,37 @@ public class ServiceActivity {
     }
 
     /**
-     * sincornizar webserve con SQLite la lista de actividades
+     * obtener de la base de datos la lista de actividades a realizarse en el hotel
      *
-     * @param obj: objeto JSON activity
+     * @param idActivity: id de actividad
+     * @return ArrayList<ActivityModel>:idActivity>0?lista de todas las actividades: actividad seleccionada
      */
-    public void syncUpCalendar(JSONObject obj) {
-        ArrayList<ActivityModel> activityModelArrayList = getActivityModelJSON(obj);
-        insertActivitySQLite(activityModelArrayList);
+    @Override
+    public ArrayList<ActivityModel> getModels(int idActivity) {
+        ArrayList<ActivityModel> listActivityModel = new ArrayList<>();
+        Cursor cursor;
+
+        if (idActivity > 0) {
+            cursor = db.rawQuery("select *"
+                    + " from " + DBSQLite.TABLE_ACTIVITY
+                    + " where " + DBSQLite.KEY_ACTIVITY_ID + "=" + idActivity, null);
+        } else {
+            cursor = db.rawQuery("select *" + " from " + DBSQLite.TABLE_ACTIVITY, null);
+        }
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ActivityModel activityModel = getModelCursor(cursor);
+
+                listActivityModel.add(activityModel);
+
+                cursor.moveToNext();
+            }
+        }
+        return listActivityModel;
     }
 
-    /**
-     * obtener la lista de actividades del hotel
-     *
-     * @param obj: objeto activity en formato JSON
-     * @return ArrayList<ActivityModel>: lista de actividades del hotel
-     */
-    private ArrayList<ActivityModel> getActivityModelJSON(JSONObject obj) {
+    @Override
+    public ArrayList<ActivityModel> getModelJSON(JSONObject obj) {
         ArrayList<ActivityModel> activityModelArrayList = new ArrayList<>();
 
         try {
@@ -111,11 +97,23 @@ public class ServiceActivity {
     }
 
     /**
+     * sincornizar webserve con SQLite la lista de actividades
+     *
+     * @param obj: objeto JSON activity
+     */
+    @Override
+    public void syncUp(JSONObject obj) {
+        ArrayList<ActivityModel> activityModelArrayList = getModelJSON(obj);
+        insertSQLite(activityModelArrayList);
+    }
+
+    /**
      * guardar en SQLite la lista de actividades del hotel
      *
      * @param activityModelArrayList: lista de actividades
      */
-    private void insertActivitySQLite(ArrayList<ActivityModel> activityModelArrayList) {
+    @Override
+    public void insertSQLite(ArrayList<ActivityModel> activityModelArrayList) {
         db.execSQL("DELETE FROM " + DBSQLite.TABLE_ACTIVITY);
 
         for (ActivityModel activityModel : activityModelArrayList) {

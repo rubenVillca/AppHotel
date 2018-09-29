@@ -39,9 +39,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.zoonref:simple-view-behavior:1.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.google.android.gms:play-services-ads:15.0.1'
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-serviceHelper-maps:15.0.1'
+    implementation 'com.google.android.gms:play-serviceHelper-ads:15.0.1'
+    implementation 'com.google.android.gms:play-serviceHelper-location:15.0.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.facebook.android:facebook-android-sdk:4.27.0'
 }

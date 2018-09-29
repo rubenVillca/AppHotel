@@ -17,7 +17,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.ServicePriceConsumeModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -180,8 +180,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      */
     private void goReserveSave() {
         showProgress(true);
-        services = new Services(this);
-        int idPerson = services.getLoginModel().getIdPerson();
+        serviceHelper = new ServiceHelper(this);
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -244,8 +244,8 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      */
     private void goReserveVerify() {
         showProgress(true);
-        services = new Services(this);
-        int idPerson = services.getLoginModel().getIdPerson();
+        serviceHelper = new ServiceHelper(this);
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -258,7 +258,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        services.syncUpCheck(obj);
+                        serviceHelper.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

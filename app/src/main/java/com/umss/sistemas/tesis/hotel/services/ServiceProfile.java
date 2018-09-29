@@ -6,12 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.LoginModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
-public class ServiceProfile {
-    private SQLiteDatabase db;
-
+public class ServiceProfile extends ServiceParent {
     public ServiceProfile(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
 
     /**
@@ -109,6 +108,4 @@ public class ServiceProfile {
         db.execSQL("DELETE FROM "+ DBSQLite.TABLE_OCCUPATION);
         db.execSQL("DELETE FROM "+ DBSQLite.TABLE_RESERVE);
     }
-
-
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -15,9 +15,9 @@ public class AboutActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        services =new Services(this);
+        serviceHelper =new ServiceHelper(this);
         showToolBar(getResources().getString(R.string.toolbar_tittle_about), true);
-        showContentAbout(services.getAboutModel());
+        showContentAbout(serviceHelper.getAboutModel());
     }
 
     private void showContentAbout(AboutModel about) {

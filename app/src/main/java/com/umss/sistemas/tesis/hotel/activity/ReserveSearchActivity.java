@@ -20,7 +20,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
@@ -232,7 +232,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         params.put("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
         params.put("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
 
         client.post(Conexion.RESERVE, params, new AsyncHttpResponseHandler() {
             @Override
@@ -240,7 +240,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        ArrayList<ReserveSearchModel> reserveSearchModels = services.getRoomAvailableModel(obj);
+                        ArrayList<ReserveSearchModel> reserveSearchModels = serviceHelper.getRoomAvailableModel(obj);
                         goReserveResultActivity(reserveSearchModels);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");

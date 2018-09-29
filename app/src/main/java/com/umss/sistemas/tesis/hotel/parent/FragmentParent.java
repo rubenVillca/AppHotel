@@ -27,7 +27,7 @@ import com.umss.sistemas.tesis.hotel.activity.ReserveVerifyActivity;
 import com.umss.sistemas.tesis.hotel.activity.ServicesActivity;
 import com.umss.sistemas.tesis.hotel.activity.SitesTourActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class FragmentParent extends Fragment implements View.OnClickListener {
-    protected Services services;
+    protected ServiceHelper serviceHelper;
 
     protected ActivityParent containerActivity;
     private AsyncHttpClient client;
@@ -61,8 +61,8 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (services != null)
-            services.destroy();
+        if (serviceHelper != null)
+            serviceHelper.destroy();
         super.onDestroy();
     }
 
@@ -71,7 +71,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         containerActivity = (ActivityParent) getActivity();
         containerActivity.container = getActivity().findViewById(R.id.viewpager);
 
-        services = new Services(getContext());
+        serviceHelper = new ServiceHelper(getContext());
 
         switch (v.getId()) {
             case R.id.imageOffer:
@@ -212,7 +212,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      */
     private void goConsumeActivity() {
         containerActivity.showProgress(true);
-        int idPerson = services.getLoginModel().getIdPerson();
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
 
         client = new AsyncHttpClient();
         params = new RequestParams();
@@ -226,7 +226,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        services.syncUpCheck(obj);
+                        serviceHelper.syncUpCheck(obj);
                     } catch (JSONException e) {
                         System.out.println("Datos recibidos incorrectos");
                         e.printStackTrace();

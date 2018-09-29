@@ -11,13 +11,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 
 import java.util.Objects;
 
 @SuppressLint("Registered")
 public class ActivityParent extends AppCompatActivity {
-    protected Services services;
+    protected ServiceHelper serviceHelper;
 
     protected ProgressBar progressBar;
     protected View container;
@@ -88,8 +88,8 @@ public class ActivityParent extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (services != null) {
-            services.destroy();
+        if (serviceHelper != null) {
+            serviceHelper.destroy();
         }
     }
 }

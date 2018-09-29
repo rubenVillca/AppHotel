@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.ConsumeFoodAdapterRecycler;
 import com.umss.sistemas.tesis.hotel.adapter.ConsumeServiceAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -29,8 +29,8 @@ public class HistoryActivity extends ActivityParent {
     }
 
     private void setRecyclerView() {
-        services = new Services(this);
-        ArrayList<CheckModel> checkModels = services.getCheckModel(0, 0, 0);
+        serviceHelper = new ServiceHelper(this);
+        ArrayList<CheckModel> checkModels = serviceHelper.getCheckModel(0, 0, 0);
         if (!checkModels.isEmpty()) {
             ArrayList<ConsumeServiceModel> consumeServiceModels = buildService(checkModels);
             ArrayList<ConsumeFoodModel> foodModels = buildFood(checkModels);

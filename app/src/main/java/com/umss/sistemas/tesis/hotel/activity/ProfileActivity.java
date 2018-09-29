@@ -19,7 +19,7 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -50,7 +50,7 @@ public class ProfileActivity extends ActivityParent {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        services = new Services(this);
+        serviceHelper = new ServiceHelper(this);
         showToolBar("", true);
 
         showImageCamera();
@@ -97,7 +97,7 @@ public class ProfileActivity extends ActivityParent {
     }
 
     private void showContentProfile() {
-        PersonModel profile = services.getPersonModel(services.getLoginModel().getIdPerson());
+        PersonModel profile = serviceHelper.getPersonModel(serviceHelper.getLoginModel().getIdPerson());
         showDataProfile(profile);
         imgProfile = findViewById(R.id.imgCircleProfile);
         if (!profile.getImgPerson().equals("")) {
@@ -189,8 +189,8 @@ public class ProfileActivity extends ActivityParent {
      * Conectar con el webServer y sincronizar la tabla profile
      */
     private void subirFoto() {
-        services =new Services(this);
-        PersonModel profile = services.getPersonModel(services.getLoginModel().getIdPerson());
+        serviceHelper =new ServiceHelper(this);
+        PersonModel profile = serviceHelper.getPersonModel(serviceHelper.getLoginModel().getIdPerson());
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -208,7 +208,7 @@ public class ProfileActivity extends ActivityParent {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        services.syncUpPerson(obj);
+                        serviceHelper.syncUpPerson(obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -54,7 +54,7 @@ public class DBSQLite extends SQLiteOpenHelper {
     public static final String KEY_ABOUT_TYPE_HOTEL = "typeHotel";
     public static final String KEY_ABOUT_SITE_WEB_HOTEL = "siteWebHotel";
 
-    //services
+    //serviceHelper
     public static final String TABLE_SERVICE = "service";
     public static final String KEY_SERVICE_ID = "idService";
     public static final String KEY_SERVICE_NAME = "nameService";

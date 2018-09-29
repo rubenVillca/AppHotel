@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.adapter.FoodAdapterRecycler;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.FoodMenuModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
@@ -25,8 +25,8 @@ public class MenuFoodActivity extends ActivityParent {
     }
 
     private void setRecyclerView() {
-        services =new Services(this);
-        boolean isActiveCheck= !services.getCheckModel(0, 1, 2).isEmpty();
+        serviceHelper =new ServiceHelper(this);
+        boolean isActiveCheck= !serviceHelper.getCheckModel(0, 1, 2).isEmpty();
 
         RecyclerView pictureRecycler= findViewById(R.id.foodMenuRecyclerView);
 
@@ -41,7 +41,7 @@ public class MenuFoodActivity extends ActivityParent {
     }
 
     public ArrayList<FoodMenuModel> buildMenu(){
-        services =new Services(this);
-        return services.getFoodMenuModel(0);
+        serviceHelper =new ServiceHelper(this);
+        return serviceHelper.getFoodMenuModel(0);
     }
 }

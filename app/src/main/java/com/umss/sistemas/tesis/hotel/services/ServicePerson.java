@@ -6,15 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.PersonModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ServicePerson {
-    private SQLiteDatabase db;
-
+public class ServicePerson extends ServiceParent {
     public ServicePerson(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
 
     /**

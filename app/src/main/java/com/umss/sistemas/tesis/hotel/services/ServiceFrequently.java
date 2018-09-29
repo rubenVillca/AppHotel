@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
 import com.umss.sistemas.tesis.hotel.model.FrequentlyModel;
+import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,11 +15,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ServiceFrequently {
-    private SQLiteDatabase db;
-
+public class ServiceFrequently extends ServiceParent {
     public ServiceFrequently(SQLiteDatabase db) {
-        this.db = db;
+        super(db);
     }
 
     /**
@@ -58,7 +57,7 @@ public class ServiceFrequently {
      */
     public void syncUpFrequently(JSONObject obj) {
         ArrayList<FrequentlyModel> frequentlyModelArrayList = getFrequentlyModelJSON(obj);
-        insertFrequenltySQLite(frequentlyModelArrayList);
+        insertFrequentlySQLite(frequentlyModelArrayList);
     }
 
     private FrequentlyModel obtainFrequentlyModelCursor(Cursor cursor) {
@@ -80,7 +79,7 @@ public class ServiceFrequently {
      *
      * @param frequentlyModelArrayList: lista de preguntas
      */
-    private void insertFrequenltySQLite(ArrayList<FrequentlyModel> frequentlyModelArrayList) {
+    private void insertFrequentlySQLite(ArrayList<FrequentlyModel> frequentlyModelArrayList) {
         db.execSQL("DELETE FROM " + DBSQLite.TABLE_FREQUENTLY);
 
         for (FrequentlyModel frequentlyModel : frequentlyModelArrayList) {

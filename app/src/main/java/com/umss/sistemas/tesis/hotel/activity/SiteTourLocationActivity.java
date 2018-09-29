@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.umss.sistemas.tesis.hotel.R;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.SiteTourModel;
 import com.umss.sistemas.tesis.hotel.parent.LocationParent;
 import com.umss.sistemas.tesis.hotel.util.DirectionFinder;
@@ -46,9 +46,9 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
      * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
+     * If Google Play serviceHelper is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * installed Google Play serviceHelper and returned to the app.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -58,8 +58,8 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
         if (bundle != null) {
             idSiteTour = bundle.getInt("idSiteTour");
         }
-        services = new Services(this);
-        siteTourModel = services.getSiteTourModel(idSiteTour).get(0);
+        serviceHelper = new ServiceHelper(this);
+        siteTourModel = serviceHelper.getSiteTourModel(idSiteTour).get(0);
 
         addMarker();
         verifyActiveGPS();

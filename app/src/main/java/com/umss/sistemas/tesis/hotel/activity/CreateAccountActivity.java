@@ -14,7 +14,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.helper.Services;
+import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import org.json.JSONException;
@@ -133,11 +133,11 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     }
 
     private void iniciarSession(int idPerson) {
-        Services services =new Services(this);
+        ServiceHelper serviceHelper =new ServiceHelper(this);
 
         if (idPerson > 0) {
             showMessaje("Usuario registrado exitosamente");
-            services.syncUpLogin(idPerson, pass, 1);
+            serviceHelper.syncUpLogin(idPerson, pass, 1);
             goHomeContainer(idPerson);
         }
         if (idPerson == -1) {

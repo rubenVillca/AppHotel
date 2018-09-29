@@ -69,38 +69,40 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
     private void buildContent() {
         Bundle bundle = getIntent().getExtras();
-        checkModel = (CheckModel) bundle.getSerializable("checkModel");
+        if (bundle != null) {
+            checkModel = (CheckModel) bundle.getSerializable("checkModel");
+        }
     }
 
     private void initContentArrow() {
-        nAdult = (TextView) findViewById(R.id.nPersonAdult);
-        ImageView btnLeftAdult = (ImageView) findViewById(R.id.btnLeftAdult);
+        nAdult = findViewById(R.id.nPersonAdult);
+        ImageView btnLeftAdult = findViewById(R.id.btnLeftAdult);
         btnLeftAdult.setOnClickListener(this);
 
-        ImageView btnRightAdult = (ImageView) findViewById(R.id.btnRightAdult);
+        ImageView btnRightAdult = findViewById(R.id.btnRightAdult);
         btnRightAdult.setOnClickListener(this);
 
-        nBoy = (TextView) findViewById(R.id.nPersonBoy);
-        ImageView btnLeftBoy = (ImageView) findViewById(R.id.btnLeftBoy);
+        nBoy = findViewById(R.id.nPersonBoy);
+        ImageView btnLeftBoy = findViewById(R.id.btnLeftBoy);
         btnLeftBoy.setOnClickListener(this);
 
-        ImageView btnRightBoy = (ImageView) findViewById(R.id.btnRightBoy);
+        ImageView btnRightBoy = findViewById(R.id.btnRightBoy);
         btnRightBoy.setOnClickListener(this);
     }
 
     private void initContentDate() {
-        isMember = (Switch)findViewById(R.id.switchButton);
+        isMember = findViewById(R.id.switchButton);
         isMember.setChecked(checkModel.getId()<1);
 
-        dayInTextViewReserve = (TextView) findViewById(R.id.dayInReserve);
-        dateInTextViewReserve = (TextView) findViewById(R.id.dateInReserve);
-        timeInSpinnerViewReserve = (Spinner) findViewById(R.id.hourInSpinnerReserveSearch);
-        typeTimeInTextViewReserve = (TextView) findViewById(R.id.typeHourInReserve);
+        dayInTextViewReserve = findViewById(R.id.dayInReserve);
+        dateInTextViewReserve = findViewById(R.id.dateInReserve);
+        timeInSpinnerViewReserve = findViewById(R.id.hourInSpinnerReserveSearch);
+        typeTimeInTextViewReserve = findViewById(R.id.typeHourInReserve);
 
-        dayOutTextViewReserve = (TextView) findViewById(R.id.dayOutReserve);
-        dateOutTextViewReserve = (TextView) findViewById(R.id.dateOutReserve);
-        timeOutSpinnerViewReserve = (Spinner) findViewById(R.id.hourOutSpinnerReserveSearch);
-        typeTimeOutTextViewReserve = (TextView) findViewById(R.id.typeHourOutReserve);
+        dayOutTextViewReserve = findViewById(R.id.dayOutReserve);
+        dateOutTextViewReserve = findViewById(R.id.dateOutReserve);
+        timeOutSpinnerViewReserve = findViewById(R.id.hourOutSpinnerReserveSearch);
+        typeTimeOutTextViewReserve = findViewById(R.id.typeHourOutReserve);
 
         String valuesHour[] = new String[24];
         for (int i = 0; i < valuesHour.length; i++) {
@@ -142,12 +144,12 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
             setDateReserve(2, 6, dayOutTextViewReserve, dateOutTextViewReserve, timeOutSpinnerViewReserve, typeTimeOutTextViewReserve);
         }
 
-        Button continueReserve = (Button) findViewById(R.id.btnContinueReserve);
+        Button continueReserve = findViewById(R.id.btnContinueReserve);
         continueReserve.setOnClickListener(this);
     }
 
     private void chargeDateReserve() {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayoutReserveSearch);
+        LinearLayout linearLayout = findViewById(R.id.contentLayoutReserveSearch);
         linearLayout.setVisibility(View.GONE);
 
         SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");

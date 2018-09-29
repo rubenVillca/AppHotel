@@ -1,12 +1,12 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -57,21 +58,23 @@ public class ReserveMemberActivity extends ActivityParent {
     }
 
     private void initContent() {
-        reserveMemberName = (EditText) findViewById(R.id.reserveMemberName);
-        reserveMemberLastName = (EditText) findViewById(R.id.reserveMemberLastName);
-        reserveMemberDateBorn = (EditText) findViewById(R.id.reserveMemberDateBorn);
-        reserveMemberPhone = (EditText) findViewById(R.id.reserveMemberPhone);
-        reserveMemberDocument = (EditText) findViewById(R.id.reserveMemberDocument);
-        reserveMemberEmail = (EditText) findViewById(R.id.reserveMemberEmail);
-        reserveMemberAddress = (EditText) findViewById(R.id.reserveMemberAddress);
-        reserveMemberRadioHombre = (RadioButton) findViewById(R.id.reserveMemberRadioHombre);
-        reserveMemberRadioMujer = (RadioButton) findViewById(R.id.reserveMemberRadioMujer);
-        reserveMemberCity = (EditText) findViewById(R.id.reserveMemberCity);
-        reserveMemberCountry = (EditText) findViewById(R.id.reserveMemberCountry);
+        reserveMemberName = findViewById(R.id.reserveMemberName);
+        reserveMemberLastName = findViewById(R.id.reserveMemberLastName);
+        reserveMemberDateBorn = findViewById(R.id.reserveMemberDateBorn);
+        reserveMemberPhone = findViewById(R.id.reserveMemberPhone);
+        reserveMemberDocument = findViewById(R.id.reserveMemberDocument);
+        reserveMemberEmail = findViewById(R.id.reserveMemberEmail);
+        reserveMemberAddress = findViewById(R.id.reserveMemberAddress);
+        reserveMemberRadioHombre = findViewById(R.id.reserveMemberRadioHombre);
+        reserveMemberRadioMujer = findViewById(R.id.reserveMemberRadioMujer);
+        reserveMemberCity = findViewById(R.id.reserveMemberCity);
+        reserveMemberCountry = findViewById(R.id.reserveMemberCountry);
     }
 
     private void updateBundle() {
-        memberModel = (MemberModel) getIntent().getExtras().getSerializable("member");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            memberModel = (MemberModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("member");
+        }
     }
 
     private void updateContent() {
@@ -105,8 +108,8 @@ public class ReserveMemberActivity extends ActivityParent {
         helperSQLiteObtain = new HelperSQLiteObtain(this);
         helperSQLiteInsert = new HelperSQLiteInsert(this);
 
-        SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
-        SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd");
 
         Date dateInParse = new Date();
         try {

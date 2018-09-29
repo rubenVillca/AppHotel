@@ -25,7 +25,6 @@ import com.umss.sistemas.tesis.hotel.fragments.HomeFragment;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteInsert;
 import com.umss.sistemas.tesis.hotel.helper.HelperSQLiteObtain;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
-import com.umss.sistemas.tesis.hotel.parent.FragmentParent;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,13 +41,13 @@ public class OfferActivity extends ActivityParent {
     }
 
     private void initValues(int idOffer) {
-        fab = (FloatingActionButton) findViewById(R.id.fabOrderService);
+        fab = findViewById(R.id.fabOrderService);
         helperSQLiteObtain =new HelperSQLiteObtain(this);
         offerModel= helperSQLiteObtain.getOfferModel(idOffer).get(0);
         boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
 
         //varificar si la fecha de la oferta es valida para utilizarla
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         Date dateToday=new Date();
         try {
             Date dateInit=simpleDateFormat.parse(offerModel.getDateIni());
@@ -61,31 +62,35 @@ public class OfferActivity extends ActivityParent {
 
     private int getIdOffer() {
         Bundle bundle=getIntent().getExtras();
-        return bundle.getInt("idOffer");
+        int res=0;
+        if (bundle != null) {
+            res= bundle.getInt("idOffer");
+        }
+        return res;
     }
 
     private void chargeContent() {
         ServicePriceDetailModel listPrice =offerModel.getServicePriceDetailModel().get(0);
 
-        ImageView imageOffer=(ImageView)findViewById(R.id.imageHeaderCollapsing);
+        ImageView imageOffer= findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + offerModel.getImage()).into(imageOffer);
 
-        TextView nameOffer=(TextView)findViewById(R.id.nameOfferTextView);
+        TextView nameOffer= findViewById(R.id.nameOfferTextView);
         nameOffer.setText(offerModel.getName());
 
-        TextView typeOffer=(TextView)findViewById(R.id.nameTypeOfferTextView);
+        TextView typeOffer= findViewById(R.id.nameTypeOfferTextView);
         typeOffer.setText(offerModel.getNameType());
 
-        TextView descriptionOffer=(TextView)findViewById(R.id.descriptionOfferTextView);
+        TextView descriptionOffer= findViewById(R.id.descriptionOfferTextView);
         descriptionOffer.setText(android.text.Html.fromHtml(offerModel.getDescription()).toString());
 
-        TextView typeMoney=(TextView)findViewById(R.id.typeMoneyOfferTextView);
+        TextView typeMoney= findViewById(R.id.typeMoneyOfferTextView);
         typeMoney.setText(listPrice.getServicePriceNameMoney());
 
-        TextView priceOffer=(TextView)findViewById(R.id.priceOfferTextView);
+        TextView priceOffer= findViewById(R.id.priceOfferTextView);
         priceOffer.setText(String.valueOf(listPrice.getServicePricePrice()));
 
-        TextView timeOffer=(TextView)findViewById(R.id.timeOfferTextView);
+        TextView timeOffer= findViewById(R.id.timeOfferTextView);
         String hourTotal=String.valueOf(listPrice.getServicePriceHour()+listPrice.getServicePriceDay()*24)+" Horas";
         timeOffer.setText(hourTotal);
 

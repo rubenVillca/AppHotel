@@ -1,7 +1,5 @@
 package com.umss.sistemas.tesis.hotel.model;
 
-import java.io.Serializable;
-
 /**
  * Created by ruben on 08/05/2017
  */

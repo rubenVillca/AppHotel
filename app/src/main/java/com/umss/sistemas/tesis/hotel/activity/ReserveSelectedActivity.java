@@ -16,6 +16,8 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
+import java.util.Objects;
+
 public class ReserveSelectedActivity extends ActivityParent {
 
     private ReserveSearchModel reserveSearchModel;
@@ -44,36 +46,38 @@ public class ReserveSelectedActivity extends ActivityParent {
         setRecyclerView();
     }
     private void buildBundle() {
-        idCheck= getIntent().getExtras().getInt("idCheck");
-        nAdult = getIntent().getExtras().getInt("nAdult");
-        nBoy = getIntent().getExtras().getInt("nBoy");
-        isMember = getIntent().getExtras().getBoolean("isMember");
-        dateIn = getIntent().getExtras().getString("dateIn");
-        dateOut = getIntent().getExtras().getString("dateOut");
-        timeIn = getIntent().getExtras().getString("timeIn");
-        timeOut = getIntent().getExtras().getString("timeOut");
-        reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("reserveSearchModel");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            idCheck= Objects.requireNonNull(getIntent().getExtras()).getInt("idCheck");
+            nAdult = getIntent().getExtras().getInt("nAdult");
+            nBoy = getIntent().getExtras().getInt("nBoy");
+            isMember = getIntent().getExtras().getBoolean("isMember");
+            dateIn = getIntent().getExtras().getString("dateIn");
+            dateOut = getIntent().getExtras().getString("dateOut");
+            timeIn = getIntent().getExtras().getString("timeIn");
+            timeOut = getIntent().getExtras().getString("timeOut");
+            reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("reserveSearchModel");
+        }
     }
 
     public void initContent() {
-        TextView nAdultTextView = (TextView) findViewById(R.id.nPersonAdultReserve);
+        TextView nAdultTextView = findViewById(R.id.nPersonAdultReserve);
         nAdultTextView.setText(String.valueOf(nAdult + " Adultos"));
 
-        TextView nBoytTextView = (TextView) findViewById(R.id.nPersonBoyReserve);
+        TextView nBoytTextView = findViewById(R.id.nPersonBoyReserve);
         nBoytTextView.setText(String.valueOf(nBoy + " Niños"));
 
-        TextView dateInTextView = (TextView) findViewById(R.id.dateTimeInReserve);
+        TextView dateInTextView = findViewById(R.id.dateTimeInReserve);
         dateInTextView.setText(String.valueOf(dateIn + "\n" + timeIn + " Horas"));
 
-        TextView dateOutTextView = (TextView) findViewById(R.id.dateTimeOutReserve);
+        TextView dateOutTextView = findViewById(R.id.dateTimeOutReserve);
         dateOutTextView.setText(String.valueOf(dateOut + "\n" + timeOut + " Horas"));
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageHeaderCollapsing);
+        ImageView imageView = findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer+ reserveSearchModel.getImageTypeRoom()).into(imageView);
     }
 
     private void setRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.priceRoomRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.priceRoomRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

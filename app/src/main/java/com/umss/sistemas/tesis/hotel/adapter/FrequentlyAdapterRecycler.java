@@ -32,11 +32,11 @@ public class FrequentlyAdapterRecycler extends RecyclerView.Adapter<FrequentlyAd
 
     @Override
     public void onBindViewHolder(FrequentlyViewHolder holder, int position) {
-        FrequentlyModel frequenltyModel = frequentlyList.get(position);
+        FrequentlyModel frequentlyModel = frequentlyList.get(position);
 
         holder.nQuestionCardView.setText(position+1+".- ");
-        holder.questionCardView.setText(frequenltyModel.getQuestion());
-        holder.responseCardView.setText(android.text.Html.fromHtml(frequenltyModel.getResponse()).toString());
+        holder.questionCardView.setText(frequentlyModel.getQuestion());
+        holder.responseCardView.setText(android.text.Html.fromHtml(frequentlyModel.getResponse()).toString());
     }
 
     @Override

@@ -20,24 +20,26 @@ public class MessageActivity extends ActivityParent {
     }
 
     private void initContent() {
-        TextView remitentMessageActivityText=(TextView) findViewById(R.id.remitentMessageActivityText);
+        TextView remitentMessageActivityText= findViewById(R.id.remitentMessageActivityText);
         remitentMessageActivityText.setText(messageModel.getEmailSender());
 
-        TextView dateMessageActivityText=(TextView)findViewById(R.id.dateMessageActivityText);
+        TextView dateMessageActivityText= findViewById(R.id.dateMessageActivityText);
         dateMessageActivityText.setText(messageModel.getDateRecived()+" "+messageModel.getTimeRecived());
 
-        TextView titleMessageActivityText=(TextView)findViewById(R.id.titleMessageActivityText);
+        TextView titleMessageActivityText= findViewById(R.id.titleMessageActivityText);
         titleMessageActivityText.setText(messageModel.getTittle());
 
-        TextView typeMessageActivityText=(TextView)findViewById(R.id.typeMessageActivityText);
+        TextView typeMessageActivityText= findViewById(R.id.typeMessageActivityText);
         typeMessageActivityText.setText(messageModel.getType());
 
-        TextView contentMessageActivityText=(TextView)findViewById(R.id.contentMessageActivityText);
+        TextView contentMessageActivityText= findViewById(R.id.contentMessageActivityText);
         contentMessageActivityText.setText(android.text.Html.fromHtml(messageModel.getContent()).toString());
     }
 
     private void initBundle() {
         Bundle bundle=getIntent().getExtras();
-        messageModel= (MessageModel) bundle.getSerializable("messageModel");
+        if (bundle != null) {
+            messageModel= (MessageModel) bundle.getSerializable("messageModel");
+        }
     }
 }

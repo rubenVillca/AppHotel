@@ -676,7 +676,6 @@ public class HelperSQLiteObtain extends HelperParent {
         Cursor cursorMember = db.rawQuery("select *"
                 + " from " + DBSQLiteHelper.TABLE_PERSON
                 + " where " + DBSQLiteHelper.KEY_PERSON_ID + "=" + memberModel.getIdPerson(), null);
-
         if (cursorMember.moveToFirst()) {
             while (!cursorMember.isAfterLast()) {
                 memberModel.setNamePerson(cursorMember.getString(cursorMember.getColumnIndex(DBSQLiteHelper.KEY_PERSON_NAME)));
@@ -697,7 +696,7 @@ public class HelperSQLiteObtain extends HelperParent {
                 cursorMember.moveToNext();
             }
         }
-
+        cursorMember.close();
         return memberModel;
     }
 

@@ -1,19 +1,17 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.alarm.AlarmNotificationReceiver;
@@ -25,7 +23,6 @@ import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class SettingActivity extends ActivityParent {
@@ -56,7 +53,7 @@ public class SettingActivity extends ActivityParent {
         for (int i=0; i<valoresType.length;i++){
             valoresType[i]=String.valueOf(i+1);
         }
-        spinnerAlarm = (Spinner) findViewById(R.id.timeSpinnerAlarm);
+        spinnerAlarm = findViewById(R.id.timeSpinnerAlarm);
         spinnerAlarm.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valoresType));
         /*spinnerAlarm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,8 +62,8 @@ public class SettingActivity extends ActivityParent {
             }
         });*/
 
-        linearLayout=(LinearLayout)findViewById(R.id.linearLayoutAlarm);
-        switchActiveReserve=(Switch)findViewById(R.id.switchActiveAlarm);
+        linearLayout= findViewById(R.id.linearLayoutAlarm);
+        switchActiveReserve= findViewById(R.id.switchActiveAlarm);
 
         helperSQLiteObtain=new HelperSQLiteObtain(this);
         ArrayList<CheckModel> checkModels=helperSQLiteObtain.getCheckModel(0,1,1);
@@ -74,7 +71,7 @@ public class SettingActivity extends ActivityParent {
             isReserve = true;
             checkModel=checkModels.get(0);
         }
-        hourAlarmTextView =(TextView)findViewById(R.id.hourAlarmActived);
+        hourAlarmTextView = findViewById(R.id.hourAlarmActived);
         startAlarm(true,true);
     }
 
@@ -82,7 +79,7 @@ public class SettingActivity extends ActivityParent {
     private void startAlarm(boolean isNotification, boolean isRepeat) {
         if (isReserve) {
             hourAlarmTextView.setText(checkModel.getDateIn()+" "+checkModel.getTimeIn());
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date=new Date();
             try {
                 date=simpleDateFormat.parse(checkModel.getDateIn()+" "+checkModel.getTimeIn());
@@ -102,10 +99,12 @@ public class SettingActivity extends ActivityParent {
             }
             pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
-            if (!isRepeat)
-                manager.set(AlarmManager.RTC_WAKEUP, date.getTime() + time * 1000, pendingIntent);
-            else
-                manager.setRepeating(AlarmManager.RTC_WAKEUP, date.getTime() + time * 1000, 60 * 1000, pendingIntent);
+            if (manager!=null) {
+                if (!isRepeat)
+                    manager.set(AlarmManager.RTC_WAKEUP, date.getTime() + time * 1000, pendingIntent);
+                else
+                    manager.setRepeating(AlarmManager.RTC_WAKEUP, date.getTime() + time * 1000, 60 * 1000, pendingIntent);
+            }
         }else{
             showMessaje("No tiene reservas activas");
         }

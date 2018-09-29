@@ -34,7 +34,7 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
             getWindow().setEnterTransition(new Fade());
         }
 
-        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
+        FloatingActionButton fab= findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
         idSiteTour = getIdSiteTour();
@@ -45,7 +45,12 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
         Bundle bundle = getIntent().getExtras();
         int res=0;
         try {
-            res=bundle.getInt("idSiteTour");
+            if (bundle != null) {
+                res=bundle.getInt("idSiteTour");
+            }else{
+                Intent intent=new Intent(this,SitesTourActivity.class);
+                startActivity(intent);
+            }
         }catch (Exception e){
             Intent intent=new Intent(this,SitesTourActivity.class);
             startActivity(intent);
@@ -63,18 +68,18 @@ public class SiteTourActivity extends ActivityParent implements View.OnClickList
         SiteTourModel siteTourModel = helperSQLiteObtain.getSiteTourModel(idSite).get(0);
         ArrayList<SiteTourImageModel> siteTourImageModel= helperSQLiteObtain.getSiteTourImageModel(idSite);
 
-        viewPager=(ViewPager)findViewById(R.id.imageViewPagerHeaderCollapsing);
+        viewPager= findViewById(R.id.imageViewPagerHeaderCollapsing);
 
         customSwip=new CustomSwip(siteTourImageModel,this);
         viewPager.setAdapter(customSwip);
 
-        TextView nameSiteTour = (TextView) findViewById(R.id.nameSiteTourTextView);
+        TextView nameSiteTour = findViewById(R.id.nameSiteTourTextView);
         nameSiteTour.setText(siteTourModel.getNameSite());
 
-        TextView addressSiteTour = (TextView) findViewById(R.id.addressSiteTourlTextView);
+        TextView addressSiteTour = findViewById(R.id.addressSiteTourlTextView);
         addressSiteTour.setText(siteTourModel.getAddressSite());
 
-        TextView descriptionSiteTour = (TextView) findViewById(R.id.descriptionSiteTourTextView);
+        TextView descriptionSiteTour = findViewById(R.id.descriptionSiteTourTextView);
         descriptionSiteTour.setText(siteTourModel.getDescriptionSite());
 
     }

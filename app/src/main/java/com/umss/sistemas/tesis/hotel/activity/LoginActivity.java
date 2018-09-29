@@ -1,5 +1,4 @@
 package com.umss.sistemas.tesis.hotel.activity;
-import com.facebook.FacebookSdk;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +6,9 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.facebook.appevents.AppEventsConstants;
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
@@ -41,7 +39,7 @@ public class LoginActivity extends ActivityParent {
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(this);
 
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         //loginButton.registerCallback(callbackManeger,);
     }
@@ -64,7 +62,9 @@ public class LoginActivity extends ActivityParent {
     public void goContainerActivity(View view) {
         //ocultar teclado
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         boolean cancel = isValidLogin();
         if (!cancel) {
@@ -157,8 +157,8 @@ public class LoginActivity extends ActivityParent {
      * @return true: si el login es valido
      */
     public boolean isValidLogin() {
-        EditText login = (EditText) findViewById(R.id.userName);
-        EditText pass = (EditText) findViewById(R.id.password);
+        EditText login = findViewById(R.id.userName);
+        EditText pass = findViewById(R.id.password);
         login.setError(null);
         pass.setError(null);
 

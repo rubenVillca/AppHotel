@@ -106,12 +106,16 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
 
             if (locationManager != null) {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeUpdate, 0, locListener);
+                myLocationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                if (myLocationGPS == null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
+                    myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+            }else {
+                System.out.println("No tiene activado al GPS");
             }
-            myLocationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (myLocationGPS == null) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeUpdate, 0, locListener);
-                myLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
+
             mMap.setMyLocationEnabled(true);
         }
 

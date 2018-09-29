@@ -2,8 +2,6 @@ package com.umss.sistemas.tesis.hotel.model;
 
 import com.umss.sistemas.tesis.hotel.parent.ModelParent;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Created by ruben on 04/05/2017
  */

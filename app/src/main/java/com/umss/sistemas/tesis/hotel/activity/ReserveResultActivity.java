@@ -13,6 +13,7 @@ import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReserveResultActivity extends ActivityParent {
 
@@ -38,17 +39,22 @@ public class ReserveResultActivity extends ActivityParent {
 
     private void buildBundle() {
         Bundle bundle = getIntent().getExtras();
-        checkModel = (CheckModel) bundle.getSerializable("checkModel");
-        isMember = bundle.getBoolean("isMember");
-        nAdult = bundle.getInt("nAdult");
-        nBoy = bundle.getInt("nBoy");
-        dateIn = bundle.getString("dateIn");
-        dateOut = bundle.getString("dateOut");
-        timeIn = bundle.getString("timeIn");
-        timeOut = bundle.getString("timeOut");
+        if (bundle != null) {
+            checkModel = (CheckModel) bundle.getSerializable("checkModel");
+            isMember = bundle.getBoolean("isMember");
+            nAdult = bundle.getInt("nAdult");
+            nBoy = bundle.getInt("nBoy");
+            dateIn = bundle.getString("dateIn");
+            dateOut = bundle.getString("dateOut");
+            timeIn = bundle.getString("timeIn");
+            timeOut = bundle.getString("timeOut");
+        }
 
         reserveSearchModels = new ArrayList<>();
-        int size = getIntent().getExtras().getInt("roomAvailableSize");
+        int size = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            size = Objects.requireNonNull(getIntent().getExtras()).getInt("roomAvailableSize");
+        }
         for (int i = 0; i < size; i++) {
             ReserveSearchModel reserveSearchModel = (ReserveSearchModel) getIntent().getExtras().getSerializable("room-" + i);
             reserveSearchModels.add(reserveSearchModel);
@@ -56,7 +62,7 @@ public class ReserveResultActivity extends ActivityParent {
     }
 
     private void adapterRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.roomAvailableRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.roomAvailableRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

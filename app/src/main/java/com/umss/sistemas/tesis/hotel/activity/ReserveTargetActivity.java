@@ -3,6 +3,7 @@ package com.umss.sistemas.tesis.hotel.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -67,22 +69,24 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
     }
 
     private void builtBundle() {
-        isMember =getIntent().getExtras().getBoolean("isMember");
-        idCheck =getIntent().getExtras().getInt("idCheck");
-        servicePriceConsumeModel = (ServicePriceConsumeModel) getIntent().getExtras().getSerializable("servicePriceConsumeModel");
-        priceEstimated=Double.parseDouble(getIntent().getExtras().getString("priceEstimated"));
-        idTypeRoom = Integer.parseInt(getIntent().getExtras().getString("idTypeRoom"));
-        nRoom = Integer.parseInt(getIntent().getExtras().getString("nRoom"));
-        nAdult = Integer.parseInt(getIntent().getExtras().getString("nAdult"));
-        nBoy = Integer.parseInt(getIntent().getExtras().getString("nBoy"));
-        dateIn = getIntent().getExtras().getString("dateIn");
-        timeIn = getIntent().getExtras().getString("timeIn");
-        dateOut = getIntent().getExtras().getString("dateOut");
-        timeOut = getIntent().getExtras().getString("timeOut");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            isMember =Objects.requireNonNull(getIntent().getExtras()).getBoolean("isMember");
+            idCheck =getIntent().getExtras().getInt("idCheck");
+            servicePriceConsumeModel = (ServicePriceConsumeModel) getIntent().getExtras().getSerializable("servicePriceConsumeModel");
+            priceEstimated=Double.parseDouble(getIntent().getExtras().getString("priceEstimated"));
+            idTypeRoom = Integer.parseInt(getIntent().getExtras().getString("idTypeRoom"));
+            nRoom = Integer.parseInt(getIntent().getExtras().getString("nRoom"));
+            nAdult = Integer.parseInt(getIntent().getExtras().getString("nAdult"));
+            nBoy = Integer.parseInt(getIntent().getExtras().getString("nBoy"));
+            dateIn = getIntent().getExtras().getString("dateIn");
+            timeIn = getIntent().getExtras().getString("timeIn");
+            dateOut = getIntent().getExtras().getString("dateOut");
+            timeOut = getIntent().getExtras().getString("timeOut");
+        }
     }
 
     private void init() {
-        spinnerMonth = (Spinner) findViewById(R.id.spinnerMonthTargetReserve);
+        spinnerMonth = findViewById(R.id.spinnerMonthTargetReserve);
         String valoresMonth[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
         spinnerMonth.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valoresMonth));
 
@@ -90,20 +94,20 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         for (int i = 0; i < valoresYear.length; i++) {
             valoresYear[i] = String.valueOf(i + Calendar.getInstance().get(Calendar.YEAR));
         }
-        spinnerYear = (Spinner) findViewById(R.id.spinnerYearTargetReserve);
+        spinnerYear = findViewById(R.id.spinnerYearTargetReserve);
         spinnerYear.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valoresYear));
 
         String valoresType[] = {"Visa", "MasterCard", "PayPal"};
-        spinnerType = (Spinner) findViewById(R.id.spinnerTypeTargetReserve);
+        spinnerType = findViewById(R.id.spinnerTypeTargetReserve);
         spinnerType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, valoresType));
 
-        editTextNumberTarget = (EditText) findViewById(R.id.reserveNumberTargetReserve);
-        editTextCCV = (EditText) findViewById(R.id.reserveCCVTargetReserve);
+        editTextNumberTarget = findViewById(R.id.reserveNumberTargetReserve);
+        editTextCCV = findViewById(R.id.reserveCCVTargetReserve);
 
-        Button button = (Button) findViewById(R.id.btnContinueReserveTarget);
+        Button button = findViewById(R.id.btnContinueReserveTarget);
         button.setOnClickListener(this);
 
-        Button buttonCancel = (Button) findViewById(R.id.btnCancelReserveTarget);
+        Button buttonCancel = findViewById(R.id.btnCancelReserveTarget);
         buttonCancel.setOnClickListener(this);
     }
 

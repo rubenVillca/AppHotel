@@ -21,6 +21,7 @@ import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import com.umss.sistemas.tesis.hotel.table.TablePriceService;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ServiceDetailActivity extends ActivityParent {
     private FloatingActionButton fab;
@@ -42,9 +43,11 @@ public class ServiceDetailActivity extends ActivityParent {
     }
 
     private void buildData() {
-        serviceModel=(ServiceModel) getIntent().getExtras().getSerializable("serviceModel");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            serviceModel=(ServiceModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("serviceModel");
+        }
 
-        fab=(FloatingActionButton)findViewById(R.id.fabOrderService);
+        fab= findViewById(R.id.fabOrderService);
         helperSQLiteObtain =new HelperSQLiteObtain(this);
 
         boolean isChecked=helperSQLiteObtain.getCheckModel(0,1,2).size()>0;
@@ -56,16 +59,16 @@ public class ServiceDetailActivity extends ActivityParent {
     private void initContent() {
         ArrayList<ServicePriceDetailModel> servicePriceDetailModel =serviceModel.getServicePrice();
 
-        ImageView imageService=(ImageView)findViewById(R.id.imageHeaderCollapsing);
+        ImageView imageService= findViewById(R.id.imageHeaderCollapsing);
         Picasso.with(this).load(Conexion.urlServer + serviceModel.getImage()).into(imageService);
 
-        TextView nameService=(TextView)findViewById(R.id.nameServiceDetailTextView);
+        TextView nameService= findViewById(R.id.nameServiceDetailTextView);
         nameService.setText(serviceModel.getName());
 
-        TextView typeService=(TextView)findViewById(R.id.typeNameServiceDetailTextView);
+        TextView typeService= findViewById(R.id.typeNameServiceDetailTextView);
         typeService.setText(serviceModel.getNameType());
 
-        TextView descriptionService=(TextView)findViewById(R.id.contentServiceDetailTextView);
+        TextView descriptionService= findViewById(R.id.contentServiceDetailTextView);
         descriptionService.setText(android.text.Html.fromHtml(serviceModel.getDescription()));
 
         TablePriceService tabla = new TablePriceService(this, (TableLayout)findViewById(R.id.tablePriceService));

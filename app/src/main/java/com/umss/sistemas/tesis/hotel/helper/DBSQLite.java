@@ -125,7 +125,7 @@ public class DBSQLite extends SQLiteOpenHelper {
 
     //menu_food_Menu
     public static final String TABLE_FOOD_MENU = "foodMenu";
-    public static final String KEY_FOOD_MENU_ID_AUTOINCREMENT = "idAutoincrement";
+    //public static final String KEY_FOOD_MENU_ID_AUTOINCREMENT = "idAutoincrement";
     public static final String KEY_FOOD_MENU_ID = "idFoodMenu";
     public static final String KEY_FOOD_MENU_NAME = "nameFoodMenu";
     public static final String KEY_FOOD_MENU_DATE_START = "dateStartFoodMenu";
@@ -521,8 +521,7 @@ public class DBSQLite extends SQLiteOpenHelper {
      */
     private String getTableFoodMenu() {
         return "CREATE TABLE " + TABLE_FOOD_MENU + " ( "
-                + KEY_FOOD_MENU_ID_AUTOINCREMENT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_FOOD_MENU_ID + " INTEGER,"
+                + KEY_FOOD_MENU_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FOOD_MENU_NAME + " TEXT,"
                 + KEY_FOOD_MENU_DATE_START + " TEXT,"
                 + KEY_FOOD_MENU_DATE_END + " TEXT"

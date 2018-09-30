@@ -72,7 +72,7 @@ public class ServiceServices extends ServiceParent {
         ArrayList<ServiceModel> servicesModel = new ArrayList<>();
 
         try {
-            JSONArray servicesArray = obj.getJSONArray("serviceHelper");
+            JSONArray servicesArray = obj.getJSONArray("services");
             int limit = servicesArray.length();
 
             for (int i = 0; i < limit; i++) {

@@ -42,7 +42,7 @@ public class ServiceFoodMenu extends ServiceParent {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 FoodMenuModel foodMenuModel = obtainFoodMenuModelCursor(cursor);
-                foodMenuModel.setFoodModelArrayList(serviceFood.getFoodModel(foodMenuModel.getIdSQL()));
+                foodMenuModel.setFoodModelArrayList(serviceFood.getFoodModel(foodMenuModel.getId()));
 
                 listFoodMenu.add(foodMenuModel);
                 cursor.moveToNext();
@@ -70,8 +70,7 @@ public class ServiceFoodMenu extends ServiceParent {
     private FoodMenuModel obtainFoodMenuModelCursor(Cursor cursor) {
         FoodMenuModel foodMenuModel = new FoodMenuModel();
 
-        foodMenuModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_ID_AUTOINCREMENT)));
-        foodMenuModel.setIdSQL(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_ID)));
+        foodMenuModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_ID)));
         foodMenuModel.setName(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_NAME)));
         foodMenuModel.setDateStart(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_DATE_START)));
         foodMenuModel.setDateEnd(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_FOOD_MENU_DATE_END)));
@@ -94,7 +93,7 @@ public class ServiceFoodMenu extends ServiceParent {
 
             ContentValues foodMenuContent = new ContentValues();
 
-            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_ID, foodMenuModel.getIdSQL());
+            foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_ID, foodMenuModel.getId());
             foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_NAME, foodMenuModel.getName());
             foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_DATE_START, foodMenuModel.getDateStart());
             foodMenuContent.put(DBSQLite.KEY_FOOD_MENU_DATE_END, foodMenuModel.getDateEnd());
@@ -122,12 +121,12 @@ public class ServiceFoodMenu extends ServiceParent {
 
                 FoodMenuModel foodMenuModel = new FoodMenuModel();
 
-                foodMenuModel.setIdSQL(foodJSONObject.getInt("ID_MENU"));
+                foodMenuModel.setId(foodJSONObject.getInt("ID_MENU"));
                 foodMenuModel.setName(foodJSONObject.getString("NAME_MENU"));
                 foodMenuModel.setDateStart(foodJSONObject.getString("DATE_START_MENU"));
                 foodMenuModel.setDateEnd(foodJSONObject.getString("DATE_END_MENU"));
 
-                ArrayList<FoodModel> foods = serviceFood.getFoodModelJSON(foodJSONObject, foodMenuModel.getIdSQL());
+                ArrayList<FoodModel> foods = serviceFood.getFoodModelJSON(foodJSONObject, foodMenuModel.getId());
                 foodMenuModel.setFoodModelArrayList(foods);
 
                 foodMenuListModel.add(foodMenuModel);

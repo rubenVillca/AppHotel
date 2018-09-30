@@ -55,6 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_user_name"
+                        android:text="cliente@gmail.com"
                         android:inputType="textEmailAddress" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -68,6 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_password"
+                        android:text="admin"
                         android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 

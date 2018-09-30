@@ -46,10 +46,13 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
         final CheckModel checkModel = checkModels.get(position);
         ServiceHelper serviceHelper =new ServiceHelper(activity);
-        ArrayList<ServiceModel> serviceModelArrayList= serviceHelper.getServiceModel(checkModel.getConsumeServiceModelArrayList().get(0).getIdKeyService());
+        ArrayList<ConsumeServiceModel> consumeServiceModels=checkModel.getConsumeServiceModelArrayList();
+
+
+        ArrayList<ServiceModel> serviceModelArrayList = serviceHelper.getServiceModel(consumeServiceModels.get(0).getIdKeyService());
         ServiceModel serviceModel = serviceModelArrayList.get(0);
 
-        Picasso.with(activity).load(Conexion.urlServer+serviceModel.getImage()).into(holder.imageReserveList);
+        Picasso.with(activity).load(Conexion.urlServer + serviceModel.getImage()).into(holder.imageReserveList);
 
         holder.checkReserveInTextView.setText(checkModel.getDateIn() + " " + checkModel.getTimeIn());
         holder.checkReserveOutTextView.setText(checkModel.getDateEnd() + " " + checkModel.getTimeEnd());

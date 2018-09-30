@@ -6,7 +6,7 @@ import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
  * Created by ruben on 15/05/2017
  */
 
-public class ActivityModel extends ActivityParent {
+public class CalendarModel extends ActivityParent {
     private int id;
     private String dateStart;
     private String dateEnd;
@@ -16,7 +16,7 @@ public class ActivityModel extends ActivityParent {
     private String description;
     private String image;
 
-    public ActivityModel() {
+    public CalendarModel() {
         this.id = 0;
         this.dateStart = "";
         this.dateEnd = "";

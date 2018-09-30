@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.DBSQLite;
-import com.umss.sistemas.tesis.hotel.model.ActivityModel;
+import com.umss.sistemas.tesis.hotel.model.CalendarModel;
 import com.umss.sistemas.tesis.hotel.parent.ServiceParent;
 
 import org.json.JSONArray;
@@ -15,36 +15,36 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ServiceActivity extends ServiceParent implements ServiceInterface<ActivityModel>{
+public class ServiceActivity extends ServiceParent implements ServiceInterface<CalendarModel>{
     public ServiceActivity(SQLiteDatabase db) {
         super(db);
     }
 
     @Override
-    public ActivityModel getModelCursor(Cursor cursor) {
-        ActivityModel activityModel = new ActivityModel();
+    public CalendarModel getModelCursor(Cursor cursor) {
+        CalendarModel calendarModel = new CalendarModel();
 
-        activityModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_ID)));
-        activityModel.setDateStart(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DATE_START)));
-        activityModel.setDateEnd(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DATE_END)));
-        activityModel.setTimeStart(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_TIME_START)));
-        activityModel.setTimeEnd(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_TIME_END)));
-        activityModel.setName(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_NAME)));
-        activityModel.setDescription(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DESCRIPTION)));
-        activityModel.setImage(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_IMAGE)));
+        calendarModel.setId(cursor.getInt(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_ID)));
+        calendarModel.setDateStart(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DATE_START)));
+        calendarModel.setDateEnd(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DATE_END)));
+        calendarModel.setTimeStart(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_TIME_START)));
+        calendarModel.setTimeEnd(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_TIME_END)));
+        calendarModel.setName(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_NAME)));
+        calendarModel.setDescription(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_DESCRIPTION)));
+        calendarModel.setImage(cursor.getString(cursor.getColumnIndex(DBSQLite.KEY_ACTIVITY_IMAGE)));
 
-        return activityModel;
+        return calendarModel;
     }
 
     /**
      * obtener de la base de datos la lista de actividades a realizarse en el hotel
      *
      * @param idActivity: id de actividad
-     * @return ArrayList<ActivityModel>:idActivity>0?lista de todas las actividades: actividad seleccionada
+     * @return ArrayList<CalendarModel>:idActivity>0?lista de todas las actividades: actividad seleccionada
      */
     @Override
-    public ArrayList<ActivityModel> getModels(int idActivity) {
-        ArrayList<ActivityModel> listActivityModel = new ArrayList<>();
+    public ArrayList<CalendarModel> getModels(int idActivity) {
+        ArrayList<CalendarModel> listCalendarModel = new ArrayList<>();
         Cursor cursor;
 
         if (idActivity > 0) {
@@ -56,19 +56,19 @@ public class ServiceActivity extends ServiceParent implements ServiceInterface<A
         }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                ActivityModel activityModel = getModelCursor(cursor);
+                CalendarModel calendarModel = getModelCursor(cursor);
 
-                listActivityModel.add(activityModel);
+                listCalendarModel.add(calendarModel);
 
                 cursor.moveToNext();
             }
         }
-        return listActivityModel;
+        return listCalendarModel;
     }
 
     @Override
-    public ArrayList<ActivityModel> getModelJSON(JSONObject obj) {
-        ArrayList<ActivityModel> activityModelArrayList = new ArrayList<>();
+    public ArrayList<CalendarModel> getModelJSON(JSONObject obj) {
+        ArrayList<CalendarModel> calendarModelArrayList = new ArrayList<>();
 
         try {
             JSONArray activityJSONArray = obj.getJSONArray("calendar");
@@ -76,24 +76,24 @@ public class ServiceActivity extends ServiceParent implements ServiceInterface<A
             for (int i = 0; i < activityJSONArray.length(); i++) {
                 JSONObject activityObject = activityJSONArray.getJSONObject(i);
 
-                ActivityModel activityModel = new ActivityModel();
+                CalendarModel calendarModel = new CalendarModel();
 
-                activityModel.setId(activityObject.getInt("ID_ACTIVITY"));
-                activityModel.setDateStart(activityObject.getString("DATE_START_ACTIVITY"));
-                activityModel.setDateEnd(activityObject.getString("DATE_END_ACTIVITY"));
-                activityModel.setTimeStart(activityObject.getString("TIME_START_ACTIVITY"));
-                activityModel.setTimeEnd(activityObject.getString("TIME_END_ACTIVITY"));
-                activityModel.setName(Conexion.decode(activityObject.getString("NAME_ACTIVITY")));
-                activityModel.setDescription(activityObject.getString("DESCRIPTION_ACTIVITY"));
-                activityModel.setImage(activityObject.getString("IMAGE_ACTIVITY"));
+                calendarModel.setId(activityObject.getInt("ID_ACTIVITY"));
+                calendarModel.setDateStart(activityObject.getString("DATE_START_ACTIVITY"));
+                calendarModel.setDateEnd(activityObject.getString("DATE_END_ACTIVITY"));
+                calendarModel.setTimeStart(activityObject.getString("TIME_START_ACTIVITY"));
+                calendarModel.setTimeEnd(activityObject.getString("TIME_END_ACTIVITY"));
+                calendarModel.setName(Conexion.decode(activityObject.getString("NAME_ACTIVITY")));
+                calendarModel.setDescription(activityObject.getString("DESCRIPTION_ACTIVITY"));
+                calendarModel.setImage(activityObject.getString("IMAGE_ACTIVITY"));
 
-                activityModelArrayList.add(activityModel);
+                calendarModelArrayList.add(calendarModel);
             }
         } catch (JSONException e) {
             System.out.println("Datos no legibles");
             e.printStackTrace();
         }
-        return activityModelArrayList;
+        return calendarModelArrayList;
     }
 
     /**
@@ -103,33 +103,33 @@ public class ServiceActivity extends ServiceParent implements ServiceInterface<A
      */
     @Override
     public void syncUp(JSONObject obj) {
-        ArrayList<ActivityModel> activityModelArrayList = getModelJSON(obj);
-        insertSQLite(activityModelArrayList);
+        ArrayList<CalendarModel> calendarModelArrayList = getModelJSON(obj);
+        insertSQLite(calendarModelArrayList);
     }
 
     /**
      * guardar en SQLite la lista de actividades del hotel
      *
-     * @param activityModelArrayList: lista de actividades
+     * @param calendarModelArrayList: lista de actividades
      */
     @Override
-    public void insertSQLite(ArrayList<ActivityModel> activityModelArrayList) {
+    public void insertSQLite(ArrayList<CalendarModel> calendarModelArrayList) {
         db.execSQL("DELETE FROM " + DBSQLite.TABLE_ACTIVITY);
 
-        for (ActivityModel activityModel : activityModelArrayList) {
+        for (CalendarModel calendarModel : calendarModelArrayList) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(DBSQLite.KEY_ACTIVITY_ID, activityModel.getId());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_START, activityModel.getDateStart());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_END, activityModel.getDateEnd());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_START, activityModel.getTimeStart());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_END, activityModel.getTimeEnd());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_NAME, activityModel.getName());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_DESCRIPTION, activityModel.getDescription());
-            contentValues.put(DBSQLite.KEY_ACTIVITY_IMAGE, activityModel.getImage());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_ID, calendarModel.getId());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_START, calendarModel.getDateStart());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DATE_END, calendarModel.getDateEnd());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_START, calendarModel.getTimeStart());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_TIME_END, calendarModel.getTimeEnd());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_NAME, calendarModel.getName());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_DESCRIPTION, calendarModel.getDescription());
+            contentValues.put(DBSQLite.KEY_ACTIVITY_IMAGE, calendarModel.getImage());
 
             if (db.insert(DBSQLite.TABLE_ACTIVITY, null, contentValues) == -1)
-                System.out.println("Ocurrio un error al inserar la consulta activityModel");
+                System.out.println("Ocurrio un error al inserar la consulta calendarModel");
         }
     }
 }

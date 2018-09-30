@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.umss.sistemas.tesis.hotel.model.AboutModel;
-import com.umss.sistemas.tesis.hotel.model.ActivityModel;
+import com.umss.sistemas.tesis.hotel.model.CalendarModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeFoodModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
@@ -60,7 +60,7 @@ public class ServiceHelper{
         return servicePerson.getPersonModel(idPerson);
     }
 
-    public ArrayList<ActivityModel> getActivityModel(int idActivity) {
+    public ArrayList<CalendarModel> getActivityModel(int idActivity) {
         ServiceActivity serviceActivity = new ServiceActivity(db);
         return serviceActivity.getModels(idActivity);
     }

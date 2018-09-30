@@ -11,18 +11,18 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
-import com.umss.sistemas.tesis.hotel.model.ActivityModel;
+import com.umss.sistemas.tesis.hotel.model.CalendarModel;
 
 import java.util.ArrayList;
 
 public class ActivityAdapterRecycler extends RecyclerView.Adapter<ActivityAdapterRecycler.ActivityViewHolder> {
 
-    private ArrayList<ActivityModel> activityModelArray;
+    private ArrayList<CalendarModel> calendarModelArray;
     private int resource;
     private Activity activity;
 
-    public ActivityAdapterRecycler(ArrayList<ActivityModel> activitiesImage, int resource, Activity activity) {
-        this.activityModelArray = activitiesImage;
+    public ActivityAdapterRecycler(ArrayList<CalendarModel> activitiesImage, int resource, Activity activity) {
+        this.calendarModelArray = activitiesImage;
         this.resource = resource;
         this.activity = activity;
     }
@@ -35,23 +35,23 @@ public class ActivityAdapterRecycler extends RecyclerView.Adapter<ActivityAdapte
 
     @Override
     public void onBindViewHolder(ActivityViewHolder holder, int position) {
-        ActivityModel activityModel = activityModelArray.get(position);
+        CalendarModel calendarModel = calendarModelArray.get(position);
 
-        holder.nameCardView.setText(activityModel.getName());
-        holder.dateStartCardView.setText(activityModel.getDateStart());
-        holder.timeStartCardView.setText(activityModel.getTimeStart());
-        holder.dateEndCardView.setText(activityModel.getDateEnd());
-        holder.timeEndCardView.setText(activityModel.getTimeEnd());
-        holder.descriptionCardView.setText(activityModel.getDescription());
+        holder.nameCardView.setText(calendarModel.getName());
+        holder.dateStartCardView.setText(calendarModel.getDateStart());
+        holder.timeStartCardView.setText(calendarModel.getTimeStart());
+        holder.dateEndCardView.setText(calendarModel.getDateEnd());
+        holder.timeEndCardView.setText(calendarModel.getTimeEnd());
+        holder.descriptionCardView.setText(calendarModel.getDescription());
 
-        String urlImage = Conexion.urlServer + activityModel.getImage();
+        String urlImage = Conexion.urlServer + calendarModel.getImage();
         if (!urlImage.isEmpty())
             Picasso.with(activity).load(urlImage).into(holder.imageCardView);
     }
 
     @Override
     public int getItemCount() {
-        return activityModelArray.size();
+        return calendarModelArray.size();
     }
 
     class ActivityViewHolder extends RecyclerView.ViewHolder {

@@ -111,7 +111,7 @@ public class ServiceFood extends ServiceParent {
 
             ContentValues foodContent = new ContentValues();
 
-            foodContent.put(DBSQLite.KEY_FOOD_ID_AUTOINCREMENT, foodModel.getId());
+            //foodContent.put(DBSQLite.KEY_FOOD_ID_AUTOINCREMENT, foodModel.getId());
             foodContent.put(DBSQLite.KEY_FOOD_ID_SQL, foodModel.getIdSQL());
             foodContent.put(DBSQLite.KEY_FOOD_ID_KEY_MENU, foodModel.getIdKeyMenu());
             foodContent.put(DBSQLite.KEY_FOOD_STATE, foodModel.isState() ? 1 : 0);

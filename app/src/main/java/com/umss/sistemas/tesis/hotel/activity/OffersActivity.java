@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,5 +37,11 @@ public class OffersActivity extends ActivityParent {
     public ArrayList<OfferModel> buildOffer(){
         serviceHelper =new ServiceHelper(this);
         return serviceHelper.getOfferModel(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,ContainerActivity.class);
+        startActivity(intent);
     }
 }

@@ -110,4 +110,10 @@ public class ServiceDetailActivity extends ActivityParent {
             return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,ServiceDetailActivity.class);
+        startActivity(intent);
+    }
 }

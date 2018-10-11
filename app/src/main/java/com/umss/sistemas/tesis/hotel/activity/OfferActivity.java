@@ -29,8 +29,8 @@ public class OfferActivity extends ActivityParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
+        super.showToolBar("Oferta",true);
 
-        super.showToolBar("",true);
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             getWindow().setEnterTransition(new Fade());
         }
@@ -102,5 +102,11 @@ public class OfferActivity extends ActivityParent {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,OffersActivity.class);
+        startActivity(intent);
     }
 }

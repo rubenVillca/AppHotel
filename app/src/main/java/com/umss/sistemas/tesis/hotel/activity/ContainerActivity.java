@@ -91,7 +91,7 @@ public class ContainerActivity extends ActivityParent {
 
     @Override//boton de atras del teclado
     public void onBackPressed() {
-        //moveTaskToBack(true);//minimizar app
+        moveTaskToBack(true);//minimizar app
     }
 
     @Override

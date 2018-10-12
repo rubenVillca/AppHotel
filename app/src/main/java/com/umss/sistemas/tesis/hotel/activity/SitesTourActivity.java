@@ -1,5 +1,6 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,5 +41,12 @@ public class SitesTourActivity extends ActivityParent {
         serviceHelper = new ServiceHelper(this);
 
         return serviceHelper.getSiteTourModel(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,ContainerActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

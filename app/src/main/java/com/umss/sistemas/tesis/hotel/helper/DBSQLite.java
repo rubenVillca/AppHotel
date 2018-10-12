@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBSQLite extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 69;
+    public static final int DATABASE_VERSION = 70;
     public static final String DATABASE_NAME = "Hotel";
 
     //table login

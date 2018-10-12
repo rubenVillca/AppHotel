@@ -32,13 +32,13 @@ public class ServiceFoodMenu extends ServiceParent {
     public ArrayList<FoodMenuModel> getFoodMenuModel(int idFoodMenu) {
         ArrayList<FoodMenuModel> listFoodMenu = new ArrayList<>();
         Cursor cursor;
-        if (idFoodMenu > 0)
+        if (idFoodMenu > 0) {
             cursor = db.rawQuery("select *"
                     + " from " + DBSQLite.TABLE_FOOD_MENU
                     + " where " + DBSQLite.KEY_FOOD_MENU_ID + "=" + idFoodMenu, null);
-        else
+        }else {
             cursor = db.rawQuery("select * from " + DBSQLite.TABLE_FOOD_MENU, null);
-
+        }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 FoodMenuModel foodMenuModel = obtainFoodMenuModelCursor(cursor);

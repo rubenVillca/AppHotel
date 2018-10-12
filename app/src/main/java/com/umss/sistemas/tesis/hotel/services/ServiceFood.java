@@ -38,7 +38,7 @@ public class ServiceFood extends ServiceParent {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 FoodModel foodModel = obtainFoodModelCursor(cursor);
-                foodModel.setListFoodPriceModel(serviceFoodPrice.getFoodPriceModel(foodModel.getId()));
+                foodModel.setListFoodPriceModel(serviceFoodPrice.getFoodPriceModel(foodModel.getIdSQL()));
                 listFood.add(foodModel);
 
                 cursor.moveToNext();

@@ -113,7 +113,7 @@ public class ServiceDetailActivity extends ActivityParent {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,ServiceDetailActivity.class);
+        Intent intent = new Intent(this,ServicesActivity.class);
         startActivity(intent);
     }
 }

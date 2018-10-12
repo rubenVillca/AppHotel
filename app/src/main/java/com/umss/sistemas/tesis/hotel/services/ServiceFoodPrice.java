@@ -95,8 +95,8 @@ public class ServiceFoodPrice extends ServiceParent {
             ContentValues foodPriceContent = new ContentValues();
 
             foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_ID_KEY_FOOD, foodPriceModel.getIdKeyFood());
-            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_TYPE_MONEY, foodPriceModel.getTypeMoney());
             foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_ID_KEY_TYPE_MONEY, foodPriceModel.getIdKeyTypeMoneyFood());
+            foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_TYPE_MONEY, foodPriceModel.getTypeMoney());
             foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_PRICE, foodPriceModel.getPrice());
             foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_POINT_OBTAIN, foodPriceModel.getPointObtain());
             foodPriceContent.put(DBSQLite.KEY_FOOD_PRICE_POINT_REQUIRED, foodPriceModel.getPointRequired());

@@ -80,7 +80,7 @@ public class ServiceFood extends ServiceParent {
 
                 JSONObject foodObject = foodJSONArray.getJSONObject(j);
 
-                foodModel.setId(foodObject.getInt("ID_FOOD"));
+                foodModel.setIdSQL(foodObject.getInt("ID_FOOD"));
                 foodModel.setIdKeyMenu(idFoodMenuModel);
                 foodModel.setName(foodObject.getString("NAME_FOOD"));
                 foodModel.setType(foodObject.getString("NAME_TYPE_FOOD"));

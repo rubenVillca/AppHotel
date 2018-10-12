@@ -27,10 +27,14 @@ public class ServiceFoodPrice extends ServiceParent {
      */
     public ArrayList<FoodPriceModel> getFoodPriceModel(int idFood) {
         ArrayList<FoodPriceModel> listPriceFood = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select *"
-                + " from " + DBSQLite.TABLE_FOOD_PRICE
-                + " where " + DBSQLite.KEY_FOOD_PRICE_ID_KEY_FOOD + "=" + idFood, null);
-
+        Cursor cursor;
+        if (idFood>0) {
+            cursor = db.rawQuery("select *"
+                    + " from " + DBSQLite.TABLE_FOOD_PRICE
+                    + " where " + DBSQLite.KEY_FOOD_PRICE_ID_KEY_FOOD + "=" + idFood, null);
+        }else {
+            cursor = db.rawQuery("select *" + " from " + DBSQLite.TABLE_FOOD_PRICE, null);
+        }
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 FoodPriceModel foodPriceModel = obtainFoodPriceModelCursor(cursor);

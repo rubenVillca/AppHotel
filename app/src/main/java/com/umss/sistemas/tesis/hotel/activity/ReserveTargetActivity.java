@@ -227,13 +227,15 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                     System.out.println("Modo Offline");
                 }
                 if (isReserve > 0)
-                    showMessaje("Reserve realizada correctamente");
+                    showMessaje("Reserva realizada correctamente");
+                else
+                    showMessaje("No se guardo la reserva");
                 showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                showMessaje("No se pudo guardar los datos");
                 showProgress(false);
             }
         });

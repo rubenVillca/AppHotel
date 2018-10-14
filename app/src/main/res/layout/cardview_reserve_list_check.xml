@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/checkReserveCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:paddingTop="10dp"
+    android:layout_margin="8sp"
+    android:paddingTop="10sp"
     cardview:cardCornerRadius="@dimen/corner_radius_cardview">
 
     <FrameLayout
@@ -17,78 +18,87 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_primary_light"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="3sp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/divider" />
+                android:layout_marginLeft="8sp"
+                android:layout_marginBottom="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@color/divider"
+                android:layout_marginStart="8sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingLeft="8sp"
+                android:paddingRight="8sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:padding="0dp"
-                    android:layout_margin="0dp">
+                    android:padding="0sp"
+                    android:layout_margin="0sp">
+
                     <ImageView
                         android:id="@+id/imageReserveList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/image_reserve"/>
+                        android:layout_width="248sp"
+                        android:layout_height="148sp"
+                        android:src="@drawable/image_reserve"
+                        android:contentDescription="@string/description_logo" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Ingreso:"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveDateIn"
                         android:layout_gravity="center_vertical"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveInTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/primary_text"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="RtlHardcoded">
 
                         <ImageView
                             android:id="@+id/btnPlusReserveCardView"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:background="@drawable/ic_plus" />
+                            android:layout_width="27sp"
+                            android:layout_height="27sp"
+                            android:background="@drawable/ic_plus"
+                            android:contentDescription="@string/description_logo" />
 
                         <ImageView
                             android:id="@+id/btnMinusReserveCardView"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:background="@drawable/ic_cancel" />
+                            android:layout_width="27sp"
+                            android:layout_height="27sp"
+                            android:background="@drawable/ic_cancel"
+                            android:contentDescription="@string/description_logo" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -96,23 +106,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Salida:"
-                        android:textSize="18dp"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveDateOut"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveOutTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/primary_text" />
                 </LinearLayout>
 
@@ -120,23 +132,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Costo Total:"
-                        android:textSize="18dp"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveTotalPrice"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveCostTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>
@@ -145,23 +159,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Deposito:"
-                        android:textSize="18dp"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveDatePay"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveDeposit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>
@@ -170,23 +186,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Verificación Tarjeta:"
-                        android:textSize="18dp"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveTargetVerified"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveVerifyTarget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>
@@ -195,23 +213,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp">
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="3dp"
-                        android:text="Estado de la reserva:"
-                        android:textSize="18dp"
+                        android:paddingRight="3sp"
+                        android:text="@string/reserveState"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"/>
+                        android:textColor="@color/primary_text"
+                        android:paddingEnd="3sp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/checkReserveState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/primary_text"/>
 
                 </LinearLayout>

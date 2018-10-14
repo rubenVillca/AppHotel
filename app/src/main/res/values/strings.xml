@@ -182,4 +182,10 @@
     <string name="label_message" translatable="false">Mensaje</string>
     <string name="label_title_message" translatable="false">Titulo del mensaje</string>
     <string name="label_suggestion" translatable="false">Sugerencia</string>
+    <string name="reserveDateIn">Ingreso:</string>
+    <string name="reserveDateOut">Salida:</string>
+    <string name="reserveTotalPrice">Costo Total:</string>
+    <string name="reserveDatePay">Deposito:</string>
+    <string name="reserveTargetVerified">Verificación Tarjeta:</string>
+    <string name="reserveState">Estado de la reserva:</string>
 </resources>

@@ -17,6 +17,7 @@ public class Conexion {
     public static final String SUGGESTION = ip +"suggestion";
     public static final String CONTACT = ip +"contact";
     public static final String RESERVE = ip +"reserve";
+    public static final String RESERVE_CANCEL = ip +"reserve/cancel";
     public static final String OFFER = ip + "offer";
     public static final String SERVICE = ip + "service";
     public static final String SITES = ip + "sites";

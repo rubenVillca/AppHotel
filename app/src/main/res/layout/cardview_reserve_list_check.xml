@@ -94,7 +94,7 @@
                             android:contentDescription="@string/description_logo" />
 
                         <ImageView
-                            android:id="@+id/btnMinusReserveCardView"
+                            android:id="@+id/btnCancelReserveCardView"
                             android:layout_width="27sp"
                             android:layout_height="27sp"
                             android:background="@drawable/ic_cancel"

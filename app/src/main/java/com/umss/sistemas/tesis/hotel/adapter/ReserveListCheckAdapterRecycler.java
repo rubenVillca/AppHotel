@@ -11,7 +11,11 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
 import com.umss.sistemas.tesis.hotel.activity.ReserveResultActivity;
@@ -21,9 +25,15 @@ import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.CardModel;
 import com.umss.sistemas.tesis.hotel.model.CheckModel;
 import com.umss.sistemas.tesis.hotel.model.ConsumeServiceModel;
+import com.umss.sistemas.tesis.hotel.model.ReserveSearchModel;
 import com.umss.sistemas.tesis.hotel.model.ServiceModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<ReserveListCheckAdapterRecycler.CheckReserveViewHolder> {
     private final static int FADE_DURATION = 1000; // in milliseconds
@@ -44,7 +54,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
     }
 
     @Override
-    public void onBindViewHolder(CheckReserveViewHolder holder, int position) {
+    public void onBindViewHolder(CheckReserveViewHolder holder, final int position) {
         final CheckModel checkModel = checkModels.get(position);
         ServiceHelper serviceHelper =new ServiceHelper(activity);
         ArrayList<ConsumeServiceModel> consumeServiceModels=checkModel.getConsumeServiceModelArrayList();
@@ -100,7 +110,47 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
             }
         });
 
+        holder.btnCancelReserveCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+                params.put("android", "android");
+                params.put("idCheck", checkModel.getId());
 
+                client.post(Conexion.RESERVE_CANCEL, params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+                            try {
+                                JSONObject obj = new JSONObject(new String(responseBody));
+                                int i=0;
+                                for (CheckModel check: checkModels){
+                                    if (check.getId()==checkModel.getId()){
+                                        checkModels.remove(i);
+                                        notifyItemRemoved(i);
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(activity.getApplicationContext(), "Reserva eliminada", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(activity.getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(activity.getApplicationContext(), "No se detecta conexion de red", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
@@ -130,6 +180,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         TextView checkReserveVerifyTarget;
         TextView checkReserveState;
         ImageView btnPlusReserveCardView;
+        ImageView btnCancelReserveCardView;
         ImageView imageReserveList;
 
         private CheckReserveViewHolder(View itemView) {
@@ -143,6 +194,7 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
             checkReserveVerifyTarget = itemView.findViewById(R.id.checkReserveVerifyTarget);
             checkReserveState = itemView.findViewById(R.id.checkReserveState);
             btnPlusReserveCardView = itemView.findViewById(R.id.btnPlusReserveCardView);
+            btnCancelReserveCardView = itemView.findViewById(R.id.btnCancelReserveCardView);
         }
     }
 }

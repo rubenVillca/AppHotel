@@ -21,6 +21,7 @@ import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class OfferActivity extends ActivityParent {
     private OfferModel offerModel;
@@ -47,7 +48,7 @@ public class OfferActivity extends ActivityParent {
         boolean isChecked= serviceHelper.getCheckModel(0,1,2).size()>0;
 
         //varificar si la fecha de la oferta es valida para utilizarla
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
         Date dateToday=new Date();
         try {
             Date dateInit=simpleDateFormat.parse(offerModel.getDateIni());

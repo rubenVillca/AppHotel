@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by ruben on 22/05/2017
@@ -34,7 +35,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm",Locale.getDefault());
         Calendar c = Calendar.getInstance();
         try {
             c.setTime(formatter.parse(String.valueOf(textViewTime.getText())));

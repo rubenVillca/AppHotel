@@ -197,10 +197,10 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
         params.put("nRoom", nRoom);
         params.put("nAdult", nAdult);
         params.put("nBoy", nBoy);
-        params.put("dateIn", dateIn);
-        params.put("timeIn", timeIn);
-        params.put("dateOut", dateOut);
-        params.put("timeOut", timeOut);
+        params.put("dateIn", String.valueOf(dateIn));
+        params.put("timeIn", String.valueOf(timeIn));
+        params.put("dateOut", String.valueOf(dateOut));
+        params.put("timeOut", String.valueOf(timeOut));
         if (idCheck<=0) {
             params.put("numberTarget", editTextNumberTarget.getText().toString());
             params.put("ccvTarget", editTextCCV.getText().toString());

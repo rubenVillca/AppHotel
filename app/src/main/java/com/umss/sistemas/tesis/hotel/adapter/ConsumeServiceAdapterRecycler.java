@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeServiceAdapterRecycler.ConsumeServiceViewHolder> {
 
@@ -48,7 +49,7 @@ public class ConsumeServiceAdapterRecycler extends RecyclerView.Adapter<ConsumeS
         long dateOut = 0;
         long dateToday = 0;
         try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.getDefault());
             Date dateInParse = parseador.parse(consumeServiceModel.getDateInConsum() + " " + consumeServiceModel.getTimeInConsum());
             Date dateOutParse = parseador.parse(consumeServiceModel.getDateOutConsum() + " " + consumeServiceModel.getTimeOutConsum());
             Date date = new Date();

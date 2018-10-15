@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -53,7 +54,10 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
     private TextView nAdult;
     private TextView nBoy;
-
+    private DatePickerFragment datePickerFragmentIn;
+    private Calendar calendarDateIn;
+    private Calendar calendarDateOut;
+    private DatePickerFragment datePickerFragmentOut;
     private CheckModel checkModel;
 
     @Override
@@ -66,6 +70,15 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         buildContent();
         initContentArrow();
         initContentDate();
+        initValueDate();
+    }
+
+    private void initValueDate() {
+        datePickerFragmentIn = new DatePickerFragment();
+        datePickerFragmentIn.setTextView(dateInTextViewReserve, dayInTextViewReserve,calendarDateIn);
+
+        datePickerFragmentOut = new DatePickerFragment();
+        datePickerFragmentOut.setTextView(dateOutTextViewReserve, dayOutTextViewReserve,calendarDateOut);
     }
 
     private void buildContent() {
@@ -141,8 +154,8 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
             chargeDateReserve();
         }
         if (checkModel.getId() <= 0) {
-            setDateReserve(1, 6, dayInTextViewReserve, dateInTextViewReserve, timeInSpinnerViewReserve, typeTimeInTextViewReserve);
-            setDateReserve(2, 6, dayOutTextViewReserve, dateOutTextViewReserve, timeOutSpinnerViewReserve, typeTimeOutTextViewReserve);
+            calendarDateIn=setDateReserve(1, 6, dayInTextViewReserve, dateInTextViewReserve, timeInSpinnerViewReserve, typeTimeInTextViewReserve);
+            calendarDateOut=setDateReserve(2, 6, dayOutTextViewReserve, dateOutTextViewReserve, timeOutSpinnerViewReserve, typeTimeOutTextViewReserve);
         }
 
         Button continueReserve = findViewById(R.id.btnContinueReserve);
@@ -153,24 +166,34 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         LinearLayout linearLayout = findViewById(R.id.contentLayoutReserveSearch);
         linearLayout.setVisibility(View.GONE);
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("yy-MM-dd");
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat parseador = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat formateador = new SimpleDateFormat("MMM dd, yyyy",Locale.getDefault());
+        Date dateInParse = null;
+        Date dateOutParse =null;
         try {
-
-            Date dateInParse = parseador.parse(checkModel.getDateIn());
+            dateInParse = parseador.parse(checkModel.getDateIn());
             dateInTextViewReserve.setText(formateador.format(dateInParse));
 
-            Date dateOutParse = parseador.parse(checkModel.getDateEnd());
+            dateOutParse = parseador.parse(checkModel.getDateEnd());
             dateOutTextViewReserve.setText(formateador.format(dateOutParse));
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+
+        calendarDateIn=Calendar.getInstance();
+        calendarDateOut=Calendar.getInstance();
+        if (dateInParse != null&&dateOutParse!=null) {
+            calendarDateIn.setTimeInMillis(dateInParse.getTime());
+            calendarDateOut.setTimeInMillis(dateOutParse.getTime());
+        }else{
+            System.out.println("Error al convertir fecha de reservas");
         }
 
         timeInSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeIn().split(":")[0]));
         timeOutSpinnerViewReserve.setSelection(Integer.parseInt(checkModel.getTimeEnd().split(":")[0]));
     }
 
-    private void setDateReserve(int dayLast, int hour, TextView dayTextView, TextView dateTextView, Spinner spinnerTime, TextView typeTimeReserve) {
+    private Calendar setDateReserve(int dayLast, int hour, TextView dayTextView, TextView dateTextView, Spinner spinnerTime, TextView typeTimeReserve) {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, dayLast);//sumar dias
@@ -184,6 +207,8 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
         spinnerTime.setSelection(hour);
         typeTimeReserve.setText(hour > 12 ? "PM" : "AM");
+
+        return calendar;
     }
 
     @Override
@@ -212,7 +237,6 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                 goReserveResult();
                 break;
         }
-
     }
 
     /**
@@ -222,14 +246,15 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
         showProgress(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-
         params.put("android", "android");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
 
         params.put("nAdult", nAdult.getText().toString());
         params.put("nBoy", nBoy.getText().toString());
-        params.put("dateIn", String.valueOf(dateInTextViewReserve.getText().toString()));
+        params.put("dateIn", format.format(datePickerFragmentIn.getTime()));
         params.put("timeIn", String.valueOf(timeInSpinnerViewReserve.getSelectedItem().toString()));
-        params.put("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
+        params.put("dateOut", format.format(datePickerFragmentOut.getTime()));
         params.put("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
         serviceHelper = new ServiceHelper(this);
@@ -241,9 +266,12 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         ArrayList<ReserveSearchModel> reserveSearchModels = serviceHelper.getRoomAvailableModel(obj);
-                        goReserveResultActivity(reserveSearchModels);
+                        if (!reserveSearchModels.isEmpty())
+                            goReserveResultActivity(reserveSearchModels);
+                        else
+                            showMessaje("No se encontraron habitaciones disponibles");
                     } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
+                        showMessaje("Error con el servidor");
                         e.printStackTrace();
                     }
                 } else {
@@ -254,7 +282,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
+                showMessaje("Servidor no disponible");
                 showProgress(false);
             }
         });
@@ -266,15 +294,16 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
      * @param reserveSearchModels:lista de tipos de habitaciones disponibles
      */
     private void goReserveResultActivity(ArrayList<ReserveSearchModel> reserveSearchModels) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
         Intent intent = new Intent(this, ReserveResultActivity.class);
 
         intent.putExtra("checkModel", checkModel);
         intent.putExtra("isMember",isMember.isChecked());
         intent.putExtra("nAdult", Integer.parseInt(nAdult.getText().toString()));
         intent.putExtra("nBoy", Integer.parseInt(nBoy.getText().toString()));
-        intent.putExtra("dateIn", String.valueOf(dateInTextViewReserve.getText().toString()));
+        intent.putExtra("dateIn", format.format(datePickerFragmentIn.getTime()));
         intent.putExtra("timeIn", String.valueOf(timeInSpinnerViewReserve.getSelectedItem().toString()));
-        intent.putExtra("dateOut", String.valueOf(dateOutTextViewReserve.getText().toString()));
+        intent.putExtra("dateOut", format.format(datePickerFragmentOut.getTime()));
         intent.putExtra("timeOut", String.valueOf(timeOutSpinnerViewReserve.getSelectedItem().toString()));
 
         int size = reserveSearchModels.size();
@@ -287,14 +316,10 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
     }
 
     public void showDateInPickerDialog(View v) {
-        DatePickerFragment datePickerFragmentIn = new DatePickerFragment();
-        datePickerFragmentIn.setTextView(dateInTextViewReserve, dayInTextViewReserve);
         datePickerFragmentIn.show(getFragmentManager(), "datePicker");
     }
 
     public void showDateOutPickerDialog(View v) {
-        DatePickerFragment datePickerFragmentOut = new DatePickerFragment();
-        datePickerFragmentOut.setTextView(dateOutTextViewReserve, dayOutTextViewReserve);
         datePickerFragmentOut.show(getFragmentManager(), "datePicker");
     }
 

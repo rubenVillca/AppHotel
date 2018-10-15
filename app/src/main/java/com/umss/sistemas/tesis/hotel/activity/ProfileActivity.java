@@ -31,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -86,7 +87,7 @@ public class ProfileActivity extends ActivityParent {
      * @throws IOException:control de errores
      */
     private File createImageFile() throws IOException {
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss",Locale.getDefault()).format(new Date());
         String imageFilename = timeStamp + "_";
         File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 

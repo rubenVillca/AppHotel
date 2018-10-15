@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -183,10 +184,10 @@ public class OfferConsumeActivity extends ActivityParent {
                         consumeServiceModel.setTimeInConsum(timeStartSpinnerConsume.getSelectedItem().toString());
                         consumeServiceModel.setDateOutConsum(consumeServiceModel.getDateInConsum());
                         try {
-                            Date hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
+                            Date hora1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.getDefault()).parse(consumeServiceModel.getDateInConsum()+ " "+ consumeServiceModel.getTimeInConsum());
                             long lantes = hora1.getTime();
                             long diferencia = (lantes + Integer.parseInt(timeDurationSpinnerConsume.getSelectedItem().toString())*60);
-                            consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss").format(new Date(diferencia)));
+                            consumeServiceModel.setTimeOutConsum(new SimpleDateFormat("HH:mm:ss",Locale.getDefault()).format(new Date(diferencia)));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

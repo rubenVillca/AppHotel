@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class SettingActivity extends ActivityParent {
 
@@ -79,7 +80,7 @@ public class SettingActivity extends ActivityParent {
     private void startAlarm(boolean isNotification, boolean isRepeat) {
         if (isReserve) {
             hourAlarmTextView.setText(checkModel.getDateIn()+" "+checkModel.getTimeIn());
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
             Date date=new Date();
             try {
                 date=simpleDateFormat.parse(checkModel.getDateIn()+" "+checkModel.getTimeIn());

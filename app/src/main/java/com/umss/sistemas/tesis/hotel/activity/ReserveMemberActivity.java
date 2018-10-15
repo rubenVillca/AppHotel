@@ -23,7 +23,9 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
@@ -106,8 +108,8 @@ public class ReserveMemberActivity extends ActivityParent {
         showProgress(true);
         serviceHelper = new ServiceHelper(this);
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd");
+        SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy",Locale.getDefault());
+        SimpleDateFormat formateador = new SimpleDateFormat("yy-MM-dd",Locale.getDefault());
 
         Date dateInParse = new Date();
         try {
@@ -171,8 +173,9 @@ public class ReserveMemberActivity extends ActivityParent {
     }
 
     public void showDateBorn(View view) {
+        Calendar calendar=Calendar.getInstance();
         DatePickerFragment datePickerFragmentOut = new DatePickerFragment();
-        datePickerFragmentOut.setTextView(reserveMemberDateBorn,null);
+        datePickerFragmentOut.setTextView(reserveMemberDateBorn,null,calendar);
         datePickerFragmentOut.show(getFragmentManager(), "datePicker");
     }
 }

@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<ReserveSelectPriceAdapterRecycler.PriceServiceViewHolder> {
 
@@ -75,7 +76,7 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
         String resTimeHour=timeSelected%24>0?timeSelected%24+" Horas":"";
         holder.timeSelectedCardView.setText(String.valueOf(resTimeDayText + (resTimeHour.isEmpty()?"":" ,"+resTimeHour)));
         final double priceSelect = timeSelected * servicePriceConsumeModel.getPriceService() / timeUnit;
-        holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + servicePriceConsumeModel.getNameTypeMoney()));
+        //holder.priceEstimatedCardView.setText(String.valueOf(priceSelect + " " + servicePriceConsumeModel.getNameTypeMoney()));
 
         String valores[] = new String[unitRoomFree];
         for (int i = 0; i < unitRoomFree; i++) {
@@ -112,8 +113,8 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
                 intent.putExtra("timeOut", String.valueOf(timeOut));
 
                 try {
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy");
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formateador = new SimpleDateFormat("yy/MM/dd");
+                    SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy",Locale.getDefault());
+                    SimpleDateFormat formateador = new SimpleDateFormat("yy/MM/dd",Locale.getDefault());
 
                     Date dateInParse = parseador.parse(dateIn);
                     intent.putExtra("dateIn", formateador.format(dateInParse));
@@ -136,10 +137,12 @@ public class ReserveSelectPriceAdapterRecycler extends RecyclerView.Adapter<Rese
      */
     private int getTimeSelected() {
         int timeSelect = 0;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy HH:mm",Locale.getDefault());
+        String dateTotalIn=dateIn + " " + timeIn;
+        String dateTotalOut=dateOut + " " + timeOut;
         try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm");
-            Date dateInFormat = formatter.parse(dateIn + " " + timeIn);
-            Date dateOutFormat = formatter.parse(dateOut + " " + timeOut);
+            Date dateInFormat = formatter.parse(dateTotalIn);
+            Date dateOutFormat = formatter.parse(dateTotalOut);
 
             long timeS = dateOutFormat.getTime() - dateInFormat.getTime();
             timeSelect = (int) (timeS / (1000 * 60 * 60));

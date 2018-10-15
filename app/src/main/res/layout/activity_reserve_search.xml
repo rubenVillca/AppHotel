@@ -215,7 +215,6 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="0.5"
                             android:gravity="center"
-                            android:onClick="showTimeInPickerDialog"
                             android:orientation="vertical">
 
                             <Spinner
@@ -295,7 +294,6 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="0.5"
                             android:gravity="center"
-                            android:onClick="showTimeOutPickerDialog"
                             android:orientation="vertical">
 
                             <Spinner

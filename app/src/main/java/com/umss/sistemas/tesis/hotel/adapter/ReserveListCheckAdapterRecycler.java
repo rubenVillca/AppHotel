@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.umss.sistemas.tesis.hotel.R;
+import com.umss.sistemas.tesis.hotel.activity.ReserveResultActivity;
 import com.umss.sistemas.tesis.hotel.activity.ReserveSearchActivity;
 import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
@@ -48,12 +49,14 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         ServiceHelper serviceHelper =new ServiceHelper(activity);
         ArrayList<ConsumeServiceModel> consumeServiceModels=checkModel.getConsumeServiceModelArrayList();
 
+        if (!consumeServiceModels.isEmpty()) {
+            ArrayList<ServiceModel> serviceModelArrayList = serviceHelper.getServiceModel(consumeServiceModels.get(0).getIdKeyService());
+            ServiceModel serviceModel = serviceModelArrayList.get(0);
 
-        ArrayList<ServiceModel> serviceModelArrayList = serviceHelper.getServiceModel(consumeServiceModels.get(0).getIdKeyService());
-        ServiceModel serviceModel = serviceModelArrayList.get(0);
-
-        Picasso.with(activity).load(Conexion.urlServer + serviceModel.getImage()).into(holder.imageReserveList);
-
+            Picasso.with(activity).load(Conexion.urlServer + serviceModel.getImage()).into(holder.imageReserveList);
+        }else{
+            System.out.println("Error en la BD");
+        }
         holder.checkReserveInTextView.setText(checkModel.getDateIn() + " " + checkModel.getTimeIn());
         holder.checkReserveOutTextView.setText(checkModel.getDateEnd() + " " + checkModel.getTimeEnd());
         boolean isVerify=false;
@@ -77,9 +80,23 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         holder.btnPlusReserveCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, ReserveSearchActivity.class);
-                intent.putExtra("checkModel", checkModel);
-                activity.startActivity(intent);
+                if (checkModel.getId()>0) {
+                    Intent intent = new Intent(activity, ReserveResultActivity.class);
+                    intent.putExtra("checkModel", checkModel);
+                    intent.putExtra("isMember",false);
+                    intent.putExtra("nAdult", checkModel.getConsumeServiceModelArrayList().get(0).getMemberModelArrayList().size());
+                    intent.putExtra("nBoy", 0);
+                    intent.putExtra("dateIn", checkModel.getDateIn());
+                    intent.putExtra("timeIn", checkModel.getTimeIn());
+                    intent.putExtra("dateOut", checkModel.getDateEnd());
+                    intent.putExtra("timeOut", checkModel.getTimeEnd());
+
+                    activity.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(activity, ReserveSearchActivity.class);
+                    intent.putExtra("checkModel", checkModel);
+                    activity.startActivity(intent);
+                }
             }
         });
 

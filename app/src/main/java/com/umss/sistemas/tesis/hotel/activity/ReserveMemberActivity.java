@@ -1,6 +1,5 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;

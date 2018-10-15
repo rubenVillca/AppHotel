@@ -54,10 +54,7 @@ public class LocationParent extends ActivityParent implements DirectionFinderLis
         myLocationGPS = location;
         if (location != null) {
             LatLng locationGPS = new LatLng(myLocationGPS.getLatitude(), myLocationGPS.getLongitude());
-            myMarkerGPS = mMap.addMarker(new MarkerOptions()
-                    .position(locationGPS)
-                    .title("Mi Posicion")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            myMarkerGPS = mMap.addMarker(new MarkerOptions().position(locationGPS).title("Mi Posicion").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         }
     }
 

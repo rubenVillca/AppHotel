@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,14 +28,14 @@ import java.io.UnsupportedEncodingException;
 
 public class LocationActivity extends LocationParent implements OnMapReadyCallback{
     private AboutModel aboutModel;//destino
-
+    private LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         showToolBar("Mapa hotel", true);
@@ -54,7 +55,7 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
         mMap = googleMap;
 
         addMarker();
-        verifyActiveGPS();
+        verifyActiveGPS(googleMap);
         trazarRuta();
 
         mMap.animateCamera(cameraUpdate);
@@ -93,17 +94,14 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
     /**
      * comprobar que el gps este activo
      */
-    private void verifyActiveGPS() {
+    private void verifyActiveGPS(GoogleMap googleMap) {
         System.out.println("Value 01:"+ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION));
-        System.out.println("Value 02:"+PackageManager.PERMISSION_GRANTED);
         System.out.println("Value 03:"+ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION));
 
 
-        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)){
-
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+        if (isGPSEnabled()){
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
             if (locationManager != null) {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeUpdate, 0, locListener);
                 myLocationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -117,9 +115,17 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
             }
 
             mMap.setMyLocationEnabled(true);
+        }else{
+            showMessaje("GPS desactivado");
         }
 
         addMyLocationGPS();
+    }
+
+    private boolean isGPSEnabled() {
+        boolean res1=ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ;
+        boolean res2=ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return res1&&res2;
     }
 
     /**

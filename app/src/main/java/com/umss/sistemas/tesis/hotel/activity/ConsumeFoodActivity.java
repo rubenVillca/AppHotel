@@ -169,7 +169,7 @@ public class ConsumeFoodActivity extends ActivityParent {
 
         params.put("android", "android");
 
-        params.put("idFood", foodModel.getId());
+        params.put("idFood", foodModel.getIdSQL());
         params.put("idPerson", idPerson);
         params.put("idCheck", checkModel.getId());
         params.put("idTypeMoney",foodPriceModelMin.getIdKeyTypeMoneyFood());

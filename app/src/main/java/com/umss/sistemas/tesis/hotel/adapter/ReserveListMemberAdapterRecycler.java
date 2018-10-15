@@ -34,24 +34,46 @@ public class ReserveListMemberAdapterRecycler extends RecyclerView.Adapter<Reser
 
     @Override
     public void onBindViewHolder(MemberReserveViewHolder holder, int position) {
-        final MemberModel memberModel= consumeServiceModel.getMemberModelArrayList().get(position);
         holder.memberReserveTextView.setText(String.valueOf(" "+(position + 1)+": "));
-        holder.memberNameReserveTextView.setText(memberModel.getNamePerson() +" "+memberModel.getNameLastPerson());
+        if (consumeServiceModel.getMemberModelArrayList().size()>0) {
+            final MemberModel memberModel = consumeServiceModel.getMemberModelArrayList().get(position);
+            holder.memberNameReserveTextView.setText(memberModel.getNamePerson() + " " + memberModel.getNameLastPerson());
 
-        holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, ReserveMemberActivity.class);
-                intent.putExtra("idConsume", consumeServiceModel.getIdConsum());
-                intent.putExtra("member",memberModel);
-                activity.startActivity(intent);
-            }
-        });
+            holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ReserveMemberActivity.class);
+                    intent.putExtra("idConsume", consumeServiceModel.getIdConsum());
+                    intent.putExtra("member",memberModel);
+                    activity.startActivity(intent);
+                }
+            });
+        }else{
+            holder.memberNameReserveTextView.setText("");
+
+            holder.btnEditCardViewReserveMember.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MemberModel memberModel=new MemberModel();
+                    memberModel.setIdKeyConsum(consumeServiceModel.getIdConsum());
+
+                    Intent intent = new Intent(activity, ReserveMemberActivity.class);
+                    intent.putExtra("idConsume", consumeServiceModel.getIdConsum());
+                    intent.putExtra("member",memberModel);
+                    intent.putExtra("idCheck",consumeServiceModel.getIdKeyCheck());
+                    activity.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return consumeServiceModel.getMemberModelArrayList().size();
+        if (consumeServiceModel.getMemberModelArrayList().size()>0) {
+            return consumeServiceModel.getMemberModelArrayList().size();
+        }else{
+            return consumeServiceModel.getReserveModelArrayList().size();
+        }
     }
 
     class MemberReserveViewHolder extends RecyclerView.ViewHolder {

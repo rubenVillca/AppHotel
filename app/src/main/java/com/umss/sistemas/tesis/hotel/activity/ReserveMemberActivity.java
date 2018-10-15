@@ -74,6 +74,10 @@ public class ReserveMemberActivity extends ActivityParent {
     private void updateBundle() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             memberModel = (MemberModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable("member");
+        }else {
+            memberModel=new MemberModel();
+            int idConsume=getIntent().getExtras().getInt("idConsume");
+            memberModel.setIdKeyConsum(idConsume);
         }
     }
 
@@ -143,13 +147,13 @@ public class ReserveMemberActivity extends ActivityParent {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
-                    showMessaje("conectado");
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-
                         goReserveCheckActivity();
+                        showMessaje("Insertado");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        showMessaje("Error de conexion");
                     }
                 }
                 showProgress(false);

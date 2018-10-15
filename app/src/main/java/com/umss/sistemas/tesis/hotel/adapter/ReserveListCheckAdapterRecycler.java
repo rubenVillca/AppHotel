@@ -154,8 +154,8 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        ReserveListConsumeAdapterRecycler siteTourAdapter = new ReserveListConsumeAdapterRecycler(checkModel.getConsumeServiceModelArrayList(), R.layout.cardview_reserve_list_consume, activity);
-        holder.recyclerView.setAdapter(siteTourAdapter);
+        ReserveListConsumeAdapterRecycler listConsumeAdapterRecycler = new ReserveListConsumeAdapterRecycler(checkModel.getConsumeServiceModelArrayList(), R.layout.cardview_reserve_list_consume, activity);
+        holder.recyclerView.setAdapter(listConsumeAdapterRecycler);
 
         setFadeAnimation(holder.itemView);
     }

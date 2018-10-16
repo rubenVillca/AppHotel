@@ -48,7 +48,7 @@ public class SuggestionActivity extends ActivityParent implements View.OnClickLi
      * @param text:sugerencia
      */
     private void sendSuggestion(String text) {
-        showProgress(true);
+        showProgressUnit(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -83,12 +83,12 @@ public class SuggestionActivity extends ActivityParent implements View.OnClickLi
                         showMessaje("Error al insertar a la BD del webserver");
 
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                showProgress(false);
+                showProgressUnit(false);
                 showMessaje("No se ha podido establecer conecion con el servidor");
             }
         });

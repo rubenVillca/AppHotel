@@ -62,7 +62,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
 
     private void verifyCheck() {
         if (idCheck>0){
-            showProgress(true);
+            showProgressUnit(true);
             goReserveSave();
         }
     }
@@ -179,7 +179,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      * enviar dtos de la reserva al servidor y guardar la reserva
      */
     private void goReserveSave() {
-        showProgress(true);
+        showProgressUnit(true);
         serviceHelper = new ServiceHelper(this);
         int idPerson = serviceHelper.getLoginModel().getIdPerson();
 
@@ -230,13 +230,13 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                     showMessaje("Reserva realizada correctamente");
                 else
                     showMessaje("No se guardo la reserva");
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 showMessaje("No se pudo guardar los datos");
-                showProgress(false);
+                showProgressUnit(false);
             }
         });
     }
@@ -245,7 +245,7 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
      * Conectar con el webServer y sincronizar la tabla Check
      */
     private void goReserveVerify() {
-        showProgress(true);
+        showProgressUnit(true);
         serviceHelper = new ServiceHelper(this);
         int idPerson = serviceHelper.getLoginModel().getIdPerson();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -269,13 +269,13 @@ public class ReserveTargetActivity extends ActivityParent implements View.OnClic
                     System.out.println("Modo Offline");
                 }
                 goReserveVerifyActivity();
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goReserveVerifyActivity();
-                showProgress(false);
+                showProgressUnit(false);
             }
         });
     }

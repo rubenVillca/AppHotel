@@ -37,6 +37,45 @@ public class ActivityParent extends AppCompatActivity {
      *
      * @param show:estado del progressBar
      */
+    protected void showProgressUnit(final boolean show) {
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setPadding(0,0,0,0);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        if (show) {
+            container.setVisibility(View.GONE);
+            container.animate().setDuration(shortAnimTime).alpha(0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    container.setVisibility(View.GONE);
+                }
+            });
+
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            progressBar.setVisibility(View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+            container.setVisibility(View.VISIBLE);
+            container.animate().setDuration(shortAnimTime).alpha(1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    container.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }
+
     protected void showProgress(final boolean show) {
         progressBar = findViewById(R.id.progressBar);
 

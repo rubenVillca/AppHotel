@@ -103,7 +103,7 @@ public class ContactActivity extends ActivityParent {
                         idMessage = obj.getInt("isSave");
                     } catch (JSONException e) {
                         showMessage("Error de consulta");
-                        //showProgress(false);
+                        //showProgressUnit(false);
                     }
 
                     if (idMessage > 0) {
@@ -117,13 +117,13 @@ public class ContactActivity extends ActivityParent {
                     if (idMessage < 0) {
                         showMessage("Error al insertar a la BD del webserver");
                     }
-                    //showProgress(false);
+                    //showProgressUnit(false);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                //showProgress(false);
+                //showProgressUnit(false);
                 showMessage("No se ha podido establecer conecion con el servidor");
             }
         });

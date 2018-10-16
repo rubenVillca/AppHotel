@@ -149,7 +149,6 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    //*************************************GO_ACTIVITY**********************************************
     /**
      * cambiar de activity a serviceActivity
      */
@@ -162,7 +161,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a locationActivity
      */
     private void goLocationActivity() {
-        containerActivity.showProgress(true);
+        containerActivity.showProgressUnit(true);
         Intent intent = new Intent(getActivity(), LocationActivity.class);
         startActivity(intent);
     }
@@ -211,7 +210,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a ConsumeActivity
      */
     private void goConsumeActivity() {
-        containerActivity.showProgress(true);
+        containerActivity.showProgressUnit(true);
         int idPerson = serviceHelper.getLoginModel().getIdPerson();
 
         client = new AsyncHttpClient();
@@ -236,7 +235,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 }
                 Intent intent = new Intent(getActivity(), ConsumeActivity.class);
                 startActivity(intent);
-                containerActivity.showProgress(false);
+                containerActivity.showProgressUnit(false);
             }
 
             @Override
@@ -244,7 +243,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
                 System.out.println("Servidor no disponible");
                 Intent intent = new Intent(getActivity(), ConsumeActivity.class);
                 startActivity(intent);
-                containerActivity.showProgress(false);
+                containerActivity.showProgressUnit(false);
             }
         });
     }
@@ -254,8 +253,42 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a ReserveSearchActivity
      */
     private void goReserveVerifyActivity() {
-        Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        containerActivity.showProgressUnit(true);
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
+
+        client = new AsyncHttpClient();
+        params = new RequestParams();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        serviceHelper.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+
+                Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
+                startActivity(intent);
+
+                containerActivity.showProgressUnit(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
+                startActivity(intent);
+                containerActivity.showProgressUnit(false);
+            }
+        });
     }
 }

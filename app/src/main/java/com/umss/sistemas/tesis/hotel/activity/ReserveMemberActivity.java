@@ -108,7 +108,7 @@ public class ReserveMemberActivity extends ActivityParent {
      * @param view:boton de aceptar
      */
     public void goReserveCheck(View view) {
-        showProgress(true);
+        showProgressUnit(true);
         serviceHelper = new ServiceHelper(this);
 
         SimpleDateFormat parseador = new SimpleDateFormat("MMM dd, yyyy",Locale.getDefault());
@@ -156,13 +156,13 @@ public class ReserveMemberActivity extends ActivityParent {
                         showMessaje("Error de conexion");
                     }
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 showMessaje("no conectado");
-                showProgress(false);
+                showProgressUnit(false);
             }
         });
     }

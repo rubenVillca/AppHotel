@@ -90,7 +90,7 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
     }
 
     private void registerPost() {
-        showProgress(true);
+        showProgressUnit(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -121,12 +121,12 @@ public class CreateAccountActivity extends ActivityParent implements View.OnClic
                 } else {
                     showMessaje("Error en tiempo de respuesta de lado del servidor");
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                showProgress(false);
+                showProgressUnit(false);
                 System.out.println("Servidor no disponible intente nuevamente");
             }
         });

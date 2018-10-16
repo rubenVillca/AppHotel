@@ -49,7 +49,7 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
      * @param text:quejas
      */
     private void sendComplaints(String text) {
-        showProgress(true);
+        showProgressUnit(true);
         serviceHelper =new ServiceHelper(this);
         int idPerson= serviceHelper.getLoginModel().getIdPerson();
 
@@ -70,7 +70,7 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
                         idMessage=obj.getInt("isSave");
                     } catch (JSONException e) {
                         showMessaje("Error de consulta");
-                        showProgress(false);
+                        showProgressUnit(false);
                     }
 
                     if (idMessage>0) {
@@ -83,12 +83,12 @@ public class ComplaintsActivity extends ActivityParent implements View.OnClickLi
                 }else{
                     showMessaje("Servidor no disponible");
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                showProgress(false);
+                showProgressUnit(false);
                 showMessaje("No se ha podido establecer conecion con el servidor");
             }
         });

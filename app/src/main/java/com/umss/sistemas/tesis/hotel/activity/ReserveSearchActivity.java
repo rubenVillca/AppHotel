@@ -1,6 +1,5 @@
 package com.umss.sistemas.tesis.hotel.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -243,7 +242,7 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
      * obtener lista de tipos de habitaciones disponibles del servidor
      */
     private void goReserveResult() {
-        showProgress(true);
+        showProgressUnit(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("android", "android");
@@ -277,13 +276,13 @@ public class ReserveSearchActivity extends ActivityParent implements View.OnClic
                 } else {
                     System.out.println("Modo Offline");
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 showMessaje("Servidor no disponible");
-                showProgress(false);
+                showProgressUnit(false);
             }
         });
     }

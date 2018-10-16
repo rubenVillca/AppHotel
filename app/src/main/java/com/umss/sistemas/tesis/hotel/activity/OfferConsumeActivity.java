@@ -145,7 +145,7 @@ public class OfferConsumeActivity extends ActivityParent {
     public void sendConsumeOffer(View view) {
         serviceHelper =new ServiceHelper(this);
 
-        showProgress(true);
+        showProgressUnit(true);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -210,13 +210,13 @@ public class OfferConsumeActivity extends ActivityParent {
                 } else {
                     System.out.println("Modo Offline");
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("Servidor no disponible");
-                showProgress(false);
+                showProgressUnit(false);
             }
         });
     }

@@ -76,7 +76,7 @@ public class LoginActivity extends ActivityParent {
      * conectar con webServer e iniciar session
      */
     private void iniciarSession() {
-        showProgress(true);
+        showProgressUnit(true);
 
         final String emailText = ((EditText) findViewById(R.id.userName)).getText().toString();
         final String passText = ((EditText) findViewById(R.id.password)).getText().toString();
@@ -116,7 +116,7 @@ public class LoginActivity extends ActivityParent {
                             break;
                         default:
                             serviceHelper.syncUpLogin(idPerson, passText, 1);
-                            showProgress(false);
+                            showProgressUnit(false);
                             goHomeFragment(idPerson);
                             showMessaje("Ha iniciado Sesion");
                             break;
@@ -125,13 +125,13 @@ public class LoginActivity extends ActivityParent {
                     goLoginActivity();
                     showMessaje("Servidor no disponible");
                 }
-                showProgress(false);
+                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 goLoginActivity();
-                showProgress(false);
+                showProgressUnit(false);
                 showMessaje("Servidor no esta disponible");
             }
         });

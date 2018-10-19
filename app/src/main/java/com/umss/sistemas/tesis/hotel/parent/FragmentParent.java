@@ -253,42 +253,7 @@ public class FragmentParent extends Fragment implements View.OnClickListener {
      * cambiar de activity a ReserveSearchActivity
      */
     private void goReserveVerifyActivity() {
-        containerActivity.showProgressUnit(true);
-        int idPerson = serviceHelper.getLoginModel().getIdPerson();
-
-        client = new AsyncHttpClient();
-        params = new RequestParams();
-
-        params.put("android", "android");
-        params.put("idPerson", idPerson);
-        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        serviceHelper.syncUpCheck(obj);
-                    } catch (JSONException e) {
-                        System.out.println("Datos recibidos incorrectos");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Modo Offline");
-                }
-
-                Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
-                startActivity(intent);
-
-                containerActivity.showProgressUnit(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("Servidor no disponible");
-                Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
-                startActivity(intent);
-                containerActivity.showProgressUnit(false);
-            }
-        });
+        Intent intent = new Intent(getActivity(), ReserveVerifyActivity.class);
+        startActivity(intent);
     }
 }

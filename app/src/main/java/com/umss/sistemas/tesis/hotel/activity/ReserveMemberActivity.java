@@ -15,6 +15,7 @@ import com.umss.sistemas.tesis.hotel.conexion.Conexion;
 import com.umss.sistemas.tesis.hotel.helper.ServiceHelper;
 import com.umss.sistemas.tesis.hotel.model.MemberModel;
 import com.umss.sistemas.tesis.hotel.parent.ActivityParent;
+import com.umss.sistemas.tesis.hotel.services.ServiceCheck;
 import com.umss.sistemas.tesis.hotel.util.DatePickerFragment;
 
 import org.json.JSONException;
@@ -125,10 +126,17 @@ public class ReserveMemberActivity extends ActivityParent {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
+        int sexPerson=-2;
+        if (reserveMemberRadioHombre.isChecked())
+            sexPerson=1;
+        if (reserveMemberRadioMujer.isChecked())
+            sexPerson=0;
+
+
         params.put("android", "android");
         params.put("idKeyConsum", memberModel.getIdKeyConsum());
         params.put("idPerson", memberModel.getIdPerson());
-        params.put("sexPerson", (reserveMemberRadioHombre.isChecked()||reserveMemberRadioMujer.isChecked())?-1:reserveMemberRadioHombre.isChecked());
+        params.put("sexPerson", sexPerson);
         params.put("pointPerson",memberModel.getPointPerson());
         params.put("numberDocument", reserveMemberDocument.getText().toString());
         params.put("numberPhone", reserveMemberPhone.getText().toString());
@@ -142,26 +150,61 @@ public class ReserveMemberActivity extends ActivityParent {
         params.put("dateBornPerson", dateBorn);
         params.put("dateRegisterPerson", memberModel.getDateRegisterPerson());
         params.put("typeDocument", memberModel.getTypeDocument());
-
+        showProgress(true);
         client.post(Conexion.MEMBER_SAVE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
                     try {
                         JSONObject obj = new JSONObject(new String(responseBody));
-                        goReserveCheckActivity();
+                        syncUpCheck();
                         showMessaje("Insertado");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         showMessaje("Error de conexion");
                     }
                 }
-                showProgressUnit(false);
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 showMessaje("no conectado");
+                showProgressUnit(false);
+            }
+        });
+    }
+
+    private void syncUpCheck() {
+        int idPerson = serviceHelper.getLoginModel().getIdPerson();
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("android", "android");
+        params.put("idPerson", idPerson);
+
+        client.post(Conexion.CHECK, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    try {
+                        JSONObject obj = new JSONObject(new String(responseBody));
+                        serviceHelper.syncUpCheck(obj);
+                    } catch (JSONException e) {
+                        System.out.println("Datos recibidos incorrectos");
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Modo Offline");
+                }
+                goReserveCheckActivity();
+                showProgressUnit(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Servidor no disponible");
+                goReserveCheckActivity();
                 showProgressUnit(false);
             }
         });

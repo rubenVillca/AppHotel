@@ -1,6 +1,8 @@
 package com.umss.sistemas.tesis.hotel.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,42 +116,62 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         holder.btnCancelReserveCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                params.put("android", "android");
-                params.put("idCheck", checkModel.getId());
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+                alertBuilder.setMessage("¿Cancelar reserva?");
+                alertBuilder.setCancelable(true);
 
-                client.post(Conexion.RESERVE_CANCEL, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        if (statusCode == 200) {
-                            try {
-                                JSONObject obj = new JSONObject(new String(responseBody));
-                                int i=0;
-                                for (CheckModel check: checkModels){
-                                    if (check.getId()==checkModel.getId()){
-                                        checkModels.remove(i);
-                                        notifyItemRemoved(i);
-                                        break;
+                alertBuilder.setPositiveButton(
+                        "Si",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                RequestParams params = new RequestParams();
+                                params.put("android", "android");
+                                params.put("idCheck", checkModel.getId());
+
+                                client.post(Conexion.RESERVE_CANCEL, params, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                        if (statusCode == 200) {
+                                            try {
+                                                JSONObject obj = new JSONObject(new String(responseBody));
+                                                int i=0;
+                                                for (CheckModel check: checkModels){
+                                                    if (check.getId()==checkModel.getId()){
+                                                        checkModels.remove(i);
+                                                        notifyItemRemoved(i);
+                                                        break;
+                                                    }
+                                                    i++;
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Toast.makeText(activity.getApplicationContext(), "Reserva eliminada", Toast.LENGTH_LONG).show();
+                                        }else{
+                                            Toast.makeText(activity.getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                    i++;
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+
+                                    @Override
+                                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                                        Toast.makeText(activity.getApplicationContext(), "No se detecta conexion de red", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                dialog.cancel();
                             }
-                            Toast.makeText(activity.getApplicationContext(), "Reserva eliminada", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(activity.getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_LONG).show();
-                        }
-                    }
+                        });
 
-                    @Override
-                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                        Toast.makeText(activity.getApplicationContext(), "No se detecta conexion de red", Toast.LENGTH_LONG).show();
-                    }
-                });
+                alertBuilder.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
-
+                AlertDialog alertSave2 = alertBuilder.create();
+                alertSave2.show();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
@@ -179,8 +202,8 @@ public class ReserveListCheckAdapterRecycler extends RecyclerView.Adapter<Reserv
         TextView checkReserveDeposit;
         TextView checkReserveVerifyTarget;
         TextView checkReserveState;
-        ImageView btnPlusReserveCardView;
-        ImageView btnCancelReserveCardView;
+        LinearLayout btnPlusReserveCardView;
+        LinearLayout btnCancelReserveCardView;
         ImageView imageReserveList;
 
         private CheckReserveViewHolder(View itemView) {

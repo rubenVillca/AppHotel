@@ -6,8 +6,8 @@ public class PersonModel extends ModelParent {
     private int idPerson;
     private byte sexPerson;
     private int pointPerson;
-    private int numberDocument;
-    private int numberPhone;
+    private long numberDocument;
+    private long numberPhone;
     private String emailPerson;
     private String namePerson;
     private String nameLastPerson;
@@ -45,7 +45,7 @@ public class PersonModel extends ModelParent {
         this.typeDocument = typeDocument;
     }
 
-    public int getNumberDocument() {
+    public long getNumberDocument() {
         return numberDocument;
     }
 
@@ -53,7 +53,7 @@ public class PersonModel extends ModelParent {
         this.numberDocument = numberDocument;
     }
 
-    public int getNumberPhone() {
+    public long getNumberPhone() {
         return numberPhone;
     }
 

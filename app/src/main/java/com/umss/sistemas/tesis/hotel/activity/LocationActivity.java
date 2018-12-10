@@ -157,8 +157,7 @@ public class LocationActivity extends LocationParent implements OnMapReadyCallba
 
         @Override
         public void onProviderDisabled(String s) {
-            Toast.makeText(LocationActivity.this, s + " Deshabilitado", Toast.LENGTH_LONG).show();
-
+            //Toast.makeText(LocationActivity.this, s + " desactivado", Toast.LENGTH_LONG).show();
         }
     };
 }

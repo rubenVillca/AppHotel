@@ -63,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_create_account"
                     android:backgroundTint="@color/color_primary_dark"
+                    android:textColor="@android:color/white"
                     android:text="@string/action_send"
                     tools:targetApi="lollipop" />
             </LinearLayout>

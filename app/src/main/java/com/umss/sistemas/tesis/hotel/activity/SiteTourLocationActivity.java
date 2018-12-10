@@ -142,12 +142,12 @@ public class SiteTourLocationActivity extends LocationParent implements OnMapRea
 
         @Override
         public void onProviderEnabled(String s) {
-            Toast.makeText(SiteTourLocationActivity.this, s + " Habilitado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SiteTourLocationActivity.this, s + " Habilitado", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onProviderDisabled(String s) {
-            Toast.makeText(SiteTourLocationActivity.this, s + " Deshabilitado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SiteTourLocationActivity.this, s + " Deshabilitado", Toast.LENGTH_SHORT).show();
 
         }
     };

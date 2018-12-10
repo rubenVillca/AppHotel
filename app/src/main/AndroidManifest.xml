@@ -34,6 +34,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2941616176451966~6748130271"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

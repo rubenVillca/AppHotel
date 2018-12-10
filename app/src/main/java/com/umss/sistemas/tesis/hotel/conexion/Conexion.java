@@ -5,9 +5,10 @@ import java.io.UnsupportedEncodingException;
 public class Conexion {
     //private static String ip = "http://192.168.1.9/hotel/";
     //private static String ip = "http://192.168.1.2/hotel/";//hostinger.mx
-    private static String ip = "https://hoteltests.000webhostapp.com/";//webhostapp
+    //private static String ip = "https://hoteltests.000webhostapp.com/";//webhostapp
+    private static String ip = "http://192.168.0.176/hotel/";//local
     //private static String ip = "http://hoteltesis.esy.es/";
-    private static boolean isServer = true;
+    private static boolean isServer = false;
     public static String urlServer = ip;
 
     public static final String LOGIN = ip + "login";
